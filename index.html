@@ -11,14 +11,25 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0a0a0a; --panel:#111; --panel-2:#161616; --panel-3:#1c1c1c;
-  --border:#262626; --border-soft:#1f1f1f;
-  --text:#f5f5f5; --text-dim:#a3a3a3; --text-faint:#6b6b6b;
-  --accent:#7c5cff; --accent-soft:rgba(124,92,255,0.12);
-  --red:#ef4444; --red-soft:rgba(239,68,68,0.14);
-  --amber:#f59e0b; --amber-soft:rgba(245,158,11,0.14);
-  --green:#10b981; --green-soft:rgba(16,185,129,0.14);
-  --blue:#3b82f6; --blue-soft:rgba(59,130,246,0.14);
+  /* Light theme + purple accent — palette refresh 29 Apr 2026 */
+  --bg:#f7f6fb;          /* soft off-white with a faint purple wash */
+  --panel:#ffffff;        /* clean white cards */
+  --panel-2:#f1efff;      /* light purple-tinted hover */
+  --panel-3:#e9e5fb;      /* slightly deeper purple-tint surface */
+  --border:#e4e0f0;       /* subtle purple-grey border */
+  --border-soft:#f0eef7;  /* extra-soft divider */
+  --text:#1a1530;         /* deep purple-black, high contrast */
+  --text-dim:#5d5780;     /* medium readable muted */
+  --text-faint:#8b86a3;   /* low-emphasis */
+  --accent:#7c5cff;       /* primary purple — kept */
+  --accent-strong:#5a3dd6;/* deeper purple for hover/active */
+  --accent-soft:rgba(124,92,255,0.10);
+  --red:#dc2626;          --red-soft:rgba(220,38,38,0.10);
+  --amber:#d97706;        --amber-soft:rgba(217,119,6,0.10);
+  --green:#059669;        --green-soft:rgba(5,150,105,0.10);
+  --blue:#2563eb;         --blue-soft:rgba(37,99,235,0.10);
+  --shadow-card:0 1px 2px rgba(20,16,50,0.04), 0 4px 12px rgba(20,16,50,0.04);
+  --shadow-modal:0 20px 60px rgba(20,16,50,0.18);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,system-ui,sans-serif;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -47,8 +58,11 @@ textarea{font-family:inherit}
 .nav-dot.red{background:var(--red)} .nav-dot.amber{background:var(--amber)} .nav-dot.green{background:var(--green)} .nav-dot.blue{background:var(--blue)} .nav-dot.faint{background:var(--text-faint)}
 .count{background:var(--panel-3);color:var(--text-dim);font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;min-width:24px;text-align:center}
 .nav-item.active .count{background:var(--accent-soft);color:var(--accent)}
-.export-btn{margin-top:24px;width:100%;padding:10px;border-radius:8px;background:var(--panel-3);border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:500;transition:all 0.12s}
+.export-btn{margin-top:12px;width:100%;padding:10px;border-radius:8px;background:var(--panel-3);border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:500;transition:all 0.12s}
 .export-btn:hover{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.assign-btn{margin-top:24px;width:100%;padding:12px;border-radius:8px;background:var(--accent);border:none;color:#fff;font-size:14px;font-weight:600;transition:all 0.12s;box-shadow:0 2px 8px rgba(124,92,255,0.25);display:flex;align-items:center;justify-content:center;gap:8px}
+.assign-btn:hover{background:var(--accent-strong);box-shadow:0 4px 14px rgba(124,92,255,0.4)}
+.assign-btn .icon{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.25);display:inline-flex;align-items:center;justify-content:center;font-size:14px;line-height:1}
 
 .main{padding:28px 32px;max-width:980px}
 @media (max-width:880px){.main{padding:20px 16px}}
@@ -192,7 +206,8 @@ textarea{font-family:inherit}
       <a class="nav-item" href="g2-capterra-strategy.html" target="_blank" style="text-decoration:none"><span class="label">G2 + Capterra playbook</span></a>
     </div>
 
-    <button class="export-btn" id="exportBtn">📤 Export to Nova</button>
+    <button class="assign-btn" id="assignBtn"><span class="icon">+</span>Send Nova a task</button>
+    <button class="export-btn" id="exportBtn">📤 Export decisions</button>
   </aside>
 
   <main class="main">
@@ -570,6 +585,27 @@ function openExport() {
   document.getElementById('exportModal').classList.add('show');
 }
 document.getElementById('exportBtn').addEventListener('click', openExport);
+
+// Send Nova a task — opens email composer with [NOVA-TASK] prefix
+// Nova's 7am scheduled briefing task scans gm.teamneo for these subjects
+// and surfaces them as new actions in tomorrow's briefing.
+function openAssign() {
+  const now = new Date().toLocaleString('en-AU', { timeZone: 'Australia/Brisbane', dateStyle: 'short', timeStyle: 'short' });
+  const subject = encodeURIComponent('[NOVA-TASK] ');
+  const body = encodeURIComponent(
+    `Hi Nova,\n\n` +
+    `Please action this for me:\n\n` +
+    `WHAT: \n\n` +
+    `WHY / CONTEXT: \n\n` +
+    `WHEN BY: \n\n` +
+    `BUSINESS: (BAT.AI / TeamNEO / HIFU Sales / Brisbane HIFU / Other)\n\n` +
+    `PRIORITY: (P0 / P1 / P2)\n\n` +
+    `---\n` +
+    `Sent ${now} from Nova Dashboard`
+  );
+  window.location.href = `mailto:gm.teamneo@gmail.com?subject=${subject}&body=${body}`;
+}
+document.getElementById('assignBtn').addEventListener('click', openAssign);
 document.getElementById('exportClose').addEventListener('click', () => document.getElementById('exportModal').classList.remove('show'));
 document.getElementById('exportCopy').addEventListener('click', async () => {
   const ta = document.getElementById('exportTextarea');
