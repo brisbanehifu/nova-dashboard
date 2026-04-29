@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>APP HQ — BookATreatment.AI</title>
+<style>
+:root {
+  --bg: #0b0b14;
+  --panel: #141424;
+  --panel-2: #1c1c30;
+  --border: #2a2a45;
+  --text: #e8e8f0;
+  --muted: #8a8aa8;
+  --purple: #a855f7;
+  --teal: #14b8a6;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 24px;
+}
+header {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  padding: 24px 32px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+header h1 { font-size: 32px; letter-spacing: 1px; }
+header p { opacity: 0.85; margin-top: 4px; }
+.tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all .2s;
+}
+.tab:hover { color: var(--text); }
+.tab.active {
+  color: var(--text);
+  border-bottom-color: var(--purple);
+}
+.panel {
+  display: none;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+.panel.active { display: block; }
+.panel h2 {
+  font-size: 22px;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, var(--purple), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.panel h3 { font-size: 16px; margin: 20px 0 10px; color: var(--teal); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+th {
+  background: var(--panel-2);
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+tr:hover td { background: rgba(168, 85, 247, 0.05); }
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.badge.prod { background: rgba(16, 185, 129, 0.15); color: var(--green); }
+.badge.dev { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+.badge.live { background: rgba(16, 185, 129, 0.15); color: var(--green); }
+.badge.wip { background: rgba(168, 85, 247, 0.15); color: var(--purple); }
+.badge.queued { background: rgba(139, 139, 168, 0.2); color: var(--muted); }
+code {
+  background: var(--panel-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--teal);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+.card {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+.card h4 { color: var(--purple); margin-bottom: 8px; font-size: 14px; }
+.total-row td {
+  background: var(--panel-2);
+  font-weight: 700;
+  color: var(--teal);
+  font-size: 14px;
+}
+.warn {
+  background: rgba(245, 158, 11, 0.1);
+  border-left: 3px solid var(--amber);
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--amber);
+  margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>APP HQ</h1>
+  <p>BookATreatment.AI — Command Center</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" data-tab="access">Access & Logins</button>
+  <button class="tab" data-tab="artefacts">Key Artefacts</button>
+  <button class="tab" data-tab="status">Implementation Status</button>
+  <button class="tab" data-tab="uat">UAT Test Plans</button>
+  <button class="tab" data-tab="devops">DevOps / APIs</button>
+  <button class="tab" data-tab="stack">Tech Stack & Costs</button>
+  <button class="tab" data-tab="backlog">Backlog</button>
+  <button class="tab" data-tab="risks">Risks</button>
+</div>
+
+<!-- KEY ARTEFACTS — Single source of truth for every technical doc -->
+<div class="panel" id="artefacts">
+  <h2>Key Artefacts — Technical Documentation</h2>
+  <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">
+    All technical, security, and governance documents live in
+    <code>BookATreatment-AI/Technical Documents/</code>.
+    The <strong>INDEX.md</strong> is the single entry point — every new agent and engineer should read it first.
+    Consolidated 9 April 2026 after a documentation audit found drift across multiple folders.
+  </p>
+
+  <div class="warn" style="margin-bottom:16px;">
+    🔒 <strong>NO credentials in any markdown file.</strong> All secrets live in Railway, Stripe, ClickSend dashboards.
+    See <code>CONFIGURATION_GUIDE.md</code> §17.1 for the 9 Apr 2026 incident write-up.
+  </div>
+
+  <h3>🔴 Start Here — Live Truth</h3>
+  <table>
+    <thead><tr><th>Document</th><th>Purpose</th><th>Updated</th></tr></thead>
+    <tbody>
+      <tr><td><strong><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/INDEX.md">INDEX.md</a></strong></td><td>Entry point — always read first</td><td>9 Apr 2026</td></tr>
+      <tr><td><strong><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/IMPLEMENTATION_STATUS.md">IMPLEMENTATION_STATUS.md</a></strong></td><td>What is actually built right now (verified vs code)</td><td>22 Apr 2026 v1.5</td></tr>
+      <tr><td><strong><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/ARCHITECTURE.md">ARCHITECTURE.md</a></strong></td><td>System shape — what talks to what (+ §17 AI Agent Layer)</td><td>23 Apr 2026 v1.6</td></tr>
+      <tr><td><strong><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md</a></strong></td><td>Env vars, Railway services, deployment, i18n (12 languages), §19 AI Agents, §20 POS Feature Pack</td><td>23 Apr 2026 PM v6.10</td></tr>
+      <tr><td><strong><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/RUNBOOK.md">RUNBOOK.md</a></strong></td><td>"Alarm fired — what do I do?" on-call playbook</td><td>9 Apr 2026 (drafting)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🟦 Operations & Infrastructure</h3>
+  <table>
+    <thead><tr><th>Document</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/STARTUP_OPERATIONS_PLAYBOOK.md">STARTUP_OPERATIONS_PLAYBOOK.md</a></td><td>Daily / weekly / monthly operational cadences</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/BookATreatment-AI-Scaling-Playbook.docx">BookATreatment-AI-Scaling-Playbook.docx</a></td><td>Tier 1→4 scaling decision triggers</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/OVERNIGHT_HARDENING_HANDOVER.md">OVERNIGHT_HARDENING_HANDOVER.md</a></td><td>Hardening session handover notes</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/INFRA_AND_APP_GAPS.md">INFRA_AND_APP_GAPS.md</a></td><td>Known infrastructure / app surface gaps</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🟥 Security & Compliance</h3>
+  <table>
+    <thead><tr><th>Document</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/SECURITY_PLAYBOOK.md">SECURITY_PLAYBOOK.md</a></td><td>Security posture, controls inventory, threat model</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CYBER_SECURITY_INCIDENT_RESPONSE_PLAYBOOK.md">CYBER_SECURITY_INCIDENT_RESPONSE_PLAYBOOK.md</a></td><td>What to do when something is breached</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/DATA_BREACH_RESPONSE_PLAN.md">DATA_BREACH_RESPONSE_PLAN.md</a></td><td>Notification timelines (72hr GDPR / AU Privacy Act)</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/LEGAL_COMPLIANCE_CHECKLIST.md">LEGAL_COMPLIANCE_CHECKLIST.md</a></td><td>AHPRA, AU Privacy, GDPR, payment compliance</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/AI_WORKFORCE_GOVERNANCE_PLAYBOOK.md">AI_WORKFORCE_GOVERNANCE_PLAYBOOK.md</a></td><td>How AI agents are allowed to act on the codebase</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/SECURITY_IMPLEMENTATION_LOG.md">SECURITY_IMPLEMENTATION_LOG.md</a></td><td>Running log of security controls implemented (Phase 3, 5 Apr 2026)</td></tr>
+      <tr><td><strong><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/SECURITY_AUDIT_LOG.md">SECURITY_AUDIT_LOG.md</a></strong></td><td>🔒 MASTER AUDIT LOG — full vulnerability table, open items, monthly checklist (created 13 Apr 2026)</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/BITWARDEN_SETUP_GUIDE.md">BITWARDEN_SETUP_GUIDE.md</a></td><td>Complete credential inventory for Bitwarden vault (13 Apr 2026)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🟩 Financial Governance</h3>
+  <table>
+    <thead><tr><th>Document</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/FINANCIAL_GOVERNANCE_PLAYBOOK.md">FINANCIAL_GOVERNANCE_PLAYBOOK.md</a></td><td>Money flow, fee structure, zero-commission rule</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/PAYMENT_BULLETPROOF_SPEC.md">PAYMENT_BULLETPROOF_SPEC.md</a></td><td>Payment safety spec (15 competitor failures + controls)</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/NEO_AI_COST_GUIDE.md">NEO_AI_COST_GUIDE.md</a></td><td>Per-feature AI cost model</td></tr>
+      <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CLAUDE_CODE_PRICING_AUDIT_BRIEF.md">CLAUDE_CODE_PRICING_AUDIT_BRIEF.md</a></td><td>Audit brief for the Claude API costs</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🟪 Specs Library (separate folder, by design)</h3>
+  <table>
+    <thead><tr><th>Location</th><th>Contents</th></tr></thead>
+    <tbody>
+      <tr><td><code>BookATreatment-AI/Specs/</code></td><td><strong><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/P0_PRELAUNCH_SPEC.md">P0_PRELAUNCH_SPEC.md</a></strong> (CORS + UTC timezone + Supplier Intelligence — locked 12 Apr), Marketing Hub (Zeely v2), Stock Mgmt, UI Modernisation, Phase 3 Security, Lovable Settings/Support Hub. Plus <code>archive/</code> for superseded specs.</td></tr>
+      <tr><td><code>booking-api/docs/specs/</code></td><td>Supplier IQ, Smart Scheduler, Staff Leave, Password Reset (live with the code repo)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>📎 Other key files</h3>
+  <table>
+    <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/booking-api/CLAUDE.md">booking-api/CLAUDE.md</a></code></td><td>Codebase brief — read by every coding agent automatically</td></tr>
+      <tr><td><code>~/.claude/projects/.../memory/MEMORY.md</code></td><td>Per-user persistent memory — read by every Claude session in this workspace</td></tr>
+      <tr><td><code><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/booking-api/docs/PAYMENT_IMPLEMENTATION_STATUS.md">booking-api/docs/PAYMENT_IMPLEMENTATION_STATUS.md</a></code></td><td>Per-commit Payment Bulletproof tracker (lives with code, not in Tech Docs)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- IMPLEMENTATION STATUS — synthesised from IMPLEMENTATION_STATUS.md baseline 9 Apr 2026 -->
+<div class="panel" id="status">
+  <h2>Implementation Status — Live Truth</h2>
+  <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">
+    Last verified against actual code: 24 April 2026. Original baseline 9 Apr (5 parallel audit agents). 15-16 Apr: 12-language i18n shipped. 16-17 Apr: Consent/waiver library (33 templates). <strong>21-22 Apr:</strong> Phase 1 + Phase 2 multi-tenancy. <strong>22 Apr:</strong> Consent R1 Upload Flow — PR #60. <strong>23 Apr AM:</strong> Consent Part 2 — PRs #61 + #63 + #67. <strong>23 Apr PM:</strong> POS Feature Pack (#68/#69/#70/#81), 25/25 API UAT PASS. <strong>23 Apr EVENING:</strong> 🎉 <strong>Consent Forms R1 COMPLETE — Brisbane HIFU cleared for customer #1.</strong> All 7 chunks A-G shipped (+ PRs #71/#72/#80/#82). End-to-end smoke 8/8 green at 12:49 UTC. Two hotfixes during the smoke: PR #72 (<code>consent-forms.js</code> router was mounted without <code>requireAuth</code> since PR #60, every admin call silently 401'd), PRs #80+#82 (Puppeteer Chromium crashpad crash on Railway — Debian chromium ignores CLI disable flags; fix is <code>HOME=/tmp</code> env + <code>--disable-features=CrashpadHandler,Crashpad</code>). Anthropic cleanup: OpenClaw key deleted ($536 autonomous burn), auto-reload OFF, $600 April cap. <strong>24 Apr: 🎉 Client Record tranche 1 SHIPPED + DECIMAL-string crash sweep.</strong> Three PRs merged autonomously (Kim granted live authority for non-auth/non-payment work): <strong>PR #98</strong> (Spec #1 tranche 1 — <code>client_documents</code> table migration 012, dual-bucket split, <code>client-documents.js</code> router with 5 endpoints incl. HEIC→JPEG + 256×256 thumbs, waiver auto-store hook in <code>consent-pdf-email.js</code>, reusable <code>CopyButton</code> + <code>DocumentsTab</code> + upload modal, wired into <code>ClientDetailPage</code>), <strong>PR #100</strong> (supplier contact blank-screen fix — mysql2 returns DECIMAL as strings, <code>.toFixed()</code> crashed; <code>Number(value ?? 0)</code> coercion), <strong>PR #103</strong> (DECIMAL-string class-of-bug sweep across 5 high-risk list views + new <code>frontend/src/lib/money.ts</code> helpers, plus per-booking <code>CopyButton</code> on BookingsPage Notes completing Spec #1 §3). Smoke on BAT-DEMO 12:16 UTC: fresh consent → waiver auto-stored with <code>uploaded_by=system</code>, linked to <code>consent_signature_id</code>.
+    Source of truth: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/IMPLEMENTATION_STATUS.md">IMPLEMENTATION_STATUS.md</a>.
+    This tab is a summary — read the file for cited file:line evidence.
+  </p>
+
+  <h3>🟢 Built and Live</h3>
+  <table>
+    <thead><tr><th>Area</th><th>Status</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Auth — JWT + bcrypt + RBAC (5 roles)</td><td><span class="badge live">Built</span></td><td>137 routes auth-gated; PHASE_3 spec was wrong about "not built"</td></tr>
+      <tr><td>Payment Bulletproof Spec — all 10 P0s</td><td><span class="badge live">Verified shipped</span></td><td>Webhook sig verify, idempotency, dedupe table, session refresh, atomic cancel, daily reconciliation, payment state machine, data export, payment method delete, Stripe Connect direct charges, no-commission CI hook</td></tr>
+      <tr><td>Stripe Connect — Staff Payroll</td><td><span class="badge live">~90% built</span></td><td>491-line backend, frontend wired, payout button working. Missing: webhook handlers for transfer.failed (P1)</td></tr>
+      <tr><td>Marketing Hub — Tier 1 polish (batches 6-10)</td><td><span class="badge live">Deferred Q3 2026</span></td><td>Built and tested on DEV/DEMO. Backend feature-gated on PROD (12 Apr). Will launch as first major upgrade.</td></tr>
+      <tr><td>Bookings + multi-provider payments</td><td><span class="badge live">Live</span></td><td>Stripe + Square + Zeller abstraction live. Razorpay backend built &amp; tested — requires Indian local partner to activate (not available to AU/non-Indian entities directly)</td></tr>
+      <tr><td>Notifications (Resend email + ClickSend SMS)</td><td><span class="badge live">Live</span></td><td>With rate limiting</td></tr>
+      <tr><td>Staff Portal — PIN auth, timeclock, schedule, paystubs</td><td><span class="badge live">Live</span></td><td>PWA with push notifications</td></tr>
+      <tr><td>Sentry + GA4 + cookie consent</td><td><span class="badge live">Live</span></td><td>GDPR / AU Privacy compliant</td></tr>
+      <tr><td>Self-service signup (/signup, /register, /get-started, /trial)</td><td><span class="badge live">Shipped 11 Apr · Phase 2 rebuild 22 Apr</span></td><td>DB-backed auth (admin_users + bcrypt), 14-day trial auto-set. <strong>Phase 2 rewrite (22 Apr PRs #42-48):</strong> every signup now creates a brand-new <code>tenants</code> row + 6 scoped seed inserts in one MySQL transaction. JWT carries <code>tenantId</code> + <code>tenantSlug</code>. Response: <code>subdomain_url</code>, <code>slug</code>, <code>bookingUrl</code>. Slug auto-gen via <code>tenants.js</code> (slugify + transliterate Latin extras + 21 reserved subdomains + collision dedupe). Success screen shows URL + copy-to-clipboard button. <strong>Phase 3 wildcard DNS still required before tenant 2+ can log in on their subdomain.</strong></td></tr>
+      <tr><td>Multi-tenancy — schema + signup flow</td><td><span class="badge live">Phase 1 Shipped 21 Apr · Phase 2 Shipped 22 Apr · Phase 3 queued</span></td><td><strong>Phase 1:</strong> 412 queries scoped across 16 files; 50 tables have <code>tenant_id</code> FK to <code>tenants(id)</code>; 7 composite UNIQUE keys rewritten. <strong>Phase 2:</strong> <code>register()</code> rewritten for multi-tenant signup; 293/293 unit tests pass. <strong>Silent bug found + fixed:</strong> <code>tenant.js</code> resolver was never in the Dockerfile until PR #48 — <code>TENANCY_MODE=enforce</code> on PROD was effectively off for ~24h between Phase 1 merge and the fix; data isolation held via inline query scoping. <strong>PROD now on <code>TENANCY_MODE=shadow</code></strong> (via Railway CLI) during the Phase 2→3 cutover. <strong>Phase 3 (Cloudflare wildcard DNS):</strong> playbook ready at <code>Nova/BAT-AI/PHASE_3_DNS_CLOUDFLARE_PLAYBOOK.md</code>. Railway on Pro plan, no upgrade blocker. ~3h Kim-active + 24-48h wall-clock.</td></tr>
+      <tr><td>Onboarding Wizard v2 (10 steps)</td><td><span class="badge live">Shipped 11 Apr</span></td><td>Welcome → Basics → Locations → Services → Team → Hours → Products → Suppliers → Bookings → Go Live</td></tr>
+      <tr><td>Screenshot-to-data import (AI Vision)</td><td><span class="badge live">Shipped 11 Apr</span></td><td>Services, products, and staff extraction via Claude Vision API</td></tr>
+      <tr><td>Client credits system</td><td><span class="badge live">Shipped 11 Apr</span></td><td>Ledger, balance, issue/redeem, POS integration, 4 credit types</td></tr>
+      <tr><td>AppSumo promo code system</td><td><span class="badge live">Shipped 12 Apr</span></td><td>promo_codes table, redemption flow, signup ?code= activation</td></tr>
+      <tr><td>Partner referral tracking</td><td><span class="badge live">Shipped 12 Apr</span></td><td>?ref= param on signup, referred_by + signup_source on admin_users</td></tr>
+      <tr><td>Marketing Hub backend feature gate</td><td><span class="badge live">Shipped 12 Apr</span></td><td>requireFeatureEnabled middleware on all 5 marketing routes. P0 security fix.</td></tr>
+      <tr><td>Self-service Stripe Connect Standard (clinics)</td><td><span class="badge live">Shipped 12 Apr</span></td><td>Clinic connects own Stripe account in Settings. Separate from staff payroll Express.</td></tr>
+      <tr><td>Accounting Integration — Xero + QuickBooks Online</td><td><span class="badge live">Shipped 12 Apr</span></td><td>OAuth 2.0 connect/disconnect for both platforms. Daily journal sync (revenue + GST/VAT + payroll costs + COGS). Account mapping UI. CSV export (Xero/MYOB/QBO/generic). Jurisdiction-adaptive tax handling. 4 backend modules (<code>accounting-xero.js</code>, <code>accounting-quickbooks.js</code>, <code>accounting-sync.js</code>, <code>accounting-csv.js</code>). Frontend: <code>AccountingSettingsPage.tsx</code> at <code>/admin/settings/accounting</code>. 4 commits, 2 security review rounds, 3 UAT passes. Xero + QBO developer apps registered, marketplace submission packages prepared.</td></tr>
+      <tr><td>Outlook Email Scanner (Microsoft Graph API)</td><td><span class="badge live">Shipped 12 Apr</span></td><td>Native Microsoft Graph integration: <code>outlook-oauth.js</code> + <code>outlook-scanner.js</code>. OAuth 2.0 connect/disconnect. Scans Outlook inbox for supplier invoices alongside Gmail scanner. Claude Vision extraction.</td></tr>
+      <tr><td>Outlook Connect UI (InsightsPage)</td><td><span class="badge live">Shipped 12 Apr</span></td><td>Outlook connect button alongside Gmail on InsightsPage Suppliers tab. Connect either or both email providers.</td></tr>
+      <tr><td>Consent / Waiver Library — 33 templates</td><td><span class="badge" style="background:rgba(156,163,175,0.18); color:#d1d5db;">SUPERSEDED for R1</span></td><td><strong>R1 pivoted away from this library 22 April 2026</strong> — clinics now upload their own templates with AI field detection (see row below). Library material preserved for historical + legal defence continuity. Also note: the 17 April handover's "all 10 steps complete" claim was <strong>verified inaccurate</strong> on 22 April — migrations 009/010 and <code>RichTextEditor.tsx</code> were never actually in the repo. Backend: <code>waivers.js</code>. Frontend: <code>ConsentsPage.tsx</code> (portal). Legal risk brief: <code>_consent_legal_risk_brief.md</code> — TOS §11a + §13 indemnity language still applies to both library and upload flows. Library returns post-Phase-3 multi-tenant rebuild if there's real demand.</td></tr>
+      <tr><td>Consent Forms — R1 Upload-Your-Own + AI field detection</td><td><span class="badge live">✅ COMPLETE 23 Apr EVENING · 8/8 smoke green · Brisbane HIFU ready</span></td><td><strong>Status: R1 feature shipped end-to-end.</strong> All 7 chunks A-G merged to main across 8 PRs: <strong>#60</strong> (backend foundation — 6 new cols on <code>consent_forms</code> + 2 on <code>consent_signatures</code>; <code>consent-uploads.js</code> router with 5 endpoints incl. AI field detection via Haiku 4.5; dedicated <code>CONSENT_S3_BUCKET</code>), <strong>#61</strong> (PDF + email pipeline — <code>consent-pdf-email.js</code> with Puppeteer-core + system Chromium rendering HTML-faithful signed PDFs, S3 upload, Resend email with 30-day presigned link + PDF attached, <code>_pdf_pipeline</code> diagnostic), <strong>#63</strong> (Chunk D mobile client signing page at <code>/sign/:bookingId</code> — <code>frontend/src/pages/client/ConsentSigningPage.tsx</code> ~700 lines, <code>react-signature-canvas</code>, 3-state loading overlay per spec §4.1), <strong>#67</strong> (Chunk G public-signing emailed sign-link — <code>POST /sign-link</code> admin-authed + <code>GET/POST /public-sign/:token</code> no-auth token-gated with JWT <code>purpose='consent_sign'</code>, 14-day expiry, single-use DB check, no PII in payload; frontend route <code>/sign/t/:token</code>), <strong>#71</strong> (Chunks C + E — admin upload UI rewrite of <code>ConsentFormsPage.tsx</code> + new <code>FieldReviewPanel.tsx</code> + client consent history tab on <code>ClientDetailPage</code> + retroactive paper-consent upload modal with <code>POST /client-upload-retroactive</code> + <code>GET /signatures/:id/pdf-url</code>). <strong>Two hotfixes during end-to-end smoke:</strong> <strong>PR #72</strong> — critical auth fix; <code>consent-forms.js</code> had been mounted without <code>requireAuth</code> since PR #60, so every admin call silently 401'd regardless of JWT; fix adds conditional middleware exempting only <code>/public-sign/*</code>; also wrapped <code>consent-uploads.js</code> mount to stop silent cross-tenant writes. <strong>PRs #80 + #82</strong> — Puppeteer Chromium crashpad crash on Railway; Debian patches chromium to always spawn crashpad handler (CLI <code>--no-crashpad</code> flag ignored); PR #82 final fix adds <code>HOME=/tmp</code> env override + <code>--disable-features=CrashpadHandler,Crashpad</code> feature flag. <strong>End-to-end smoke on BAT-DEMO via curl (12:49 UTC):</strong> admin list/upload → AI field detection (4 fields correctly detected) → save template → attach HIFU Face Lift service → generate sign-link → public GET form (no auth) → public POST signature → <code>_pdf_pipeline.ok=true</code> + <code>email_sent=true</code> on signature <code>a4590a10-fc08-4a00-a44f-5c11a196c767.pdf</code>. Photo capture remains <strong>PARKED</strong> post go-live. Remaining R1 follow-ups (not go-live blockers): auto-email sign-link at booking creation, tenant-branded Resend sender (Brisbane HIFU Hostinger DNS first), public-sign rate limiter, retroactive upload image/HEIC support, <code>pdf-lib</code> dep cleanup. <strong>Anthropic cleanup 23 Apr:</strong> OpenClaw key deleted ($536 autonomous Claude Code burn; auto-reload fired 13+ times in 2 days), auto-reload now DISABLED, monthly spend cap = $600 for April overflow (drops to $50-100 permanent after May 1), <code>bookatreatment-prod-2</code> key confirmed on both BAT-DEMO + Brisbane HIFU PROD. Full spec: <code>Specs/CONSENT_FORM_UPLOAD_SPEC.md</code>. Full config ref: <code>CONFIGURATION_GUIDE.md</code> §18b.</td></tr>
+      <tr><td>Client Record — Documents tab + Copy buttons (Spec #1 tranche 1)</td><td><span class="badge live">✅ Shipped 24 Apr · PRs #98 + #100 + #103</span></td><td><strong>Unified per-client document store + reusable Copy button on Notes.</strong> <strong>PR #98</strong> — migration 012 creates <code>client_documents</code> table with <code>document_type</code> ENUM('upload','waiver','intake_form') + 6 categories (medical/photos/waiver/intake_form/referral/other) + per-row <code>s3_bucket</code> column (non-waivers → <code>AWS_S3_BUCKET</code>, waivers → <code>CONSENT_S3_BUCKET</code>, so presigning always hits the right bucket regardless of env drift). New <code>client-documents.js</code> router at <code>/api/clients/:clientId/documents</code> with 5 endpoints: <code>GET /</code> (category + search filters, pre-signs thumbnail URLs), <code>POST /</code> (multipart 25MB cap, PDF/JPG/PNG/HEIC/HEIF/DOCX/DOC; HEIC→JPEG via sharp + 256×256 thumb generation for images), <code>GET /:docId/download</code> (fresh 30-day presigned URL), <code>PATCH /:docId</code> (filename/category, waivers read-only), <code>DELETE /:docId</code> (soft delete, waivers blocked for legal audit trail). <strong>Waiver auto-store hook</strong> in <code>consent-pdf-email.js</code> — every signed consent PDF inserts a <code>client_documents</code> row with <code>document_type='waiver'</code>, idempotent via <code>consent_signature_id</code> guard, try/catch so a hook failure never rolls back the signature. Frontend: typed API client at <code>frontend/src/api/client-documents.ts</code>, reusable <code>CopyButton</code> (Clipboard API + execCommand fallback, keyboard-accessible), <code>DocumentsTab</code> (filter chips with coloured dots per category per design language, filename search, inline PDF/image preview modal, soft-delete with confirm, "Auto-stored" badge on waiver rows), <code>DocumentUploadModal</code> (mobile <code>capture="environment"</code> camera hint, required category grid, optional filename override). Wired into <code>ClientDetailPage</code> between Consent Forms and Purchases sections. <strong>PR #100</strong> — blank-screen fix on supplier contacts: mysql2 returns MySQL DECIMAL columns as JavaScript strings to preserve precision, <code>.toFixed()</code> on strings crashes with TypeError; 11-line <code>Number(value ?? 0)</code> coercion fix in <code>ContactRecordPage.tsx:583</code>. <strong>PR #103</strong> — class-of-bug sweep: new <code>frontend/src/lib/money.ts</code> with <code>money()</code> / <code>pct()</code> / <code>num()</code> helpers, plus fixes in 5 high-risk list views (ClientsPage booking totals, ClientDetailPage <code>totalSpent</code> reduce + credit balance + appointment history, BookingDetailPanel total/deposit/comparison, BookingsPage payment amount); also adds per-booking <code>&lt;CopyButton&gt;</code> on BookingsPage Notes completing Spec #1 §3 Copy rollout. <strong>End-to-end smoke on BAT-DEMO (12:16 UTC):</strong> signed a fresh consent → <code>_pdf_pipeline.ok=true</code> + <code>email_sent=true</code> → waiver auto-stored as <code>5d6705f7-65a5-414d-99ad-b64ef739c615</code> with <code>document_type='waiver'</code>, <code>uploaded_by='system'</code>, linked to <code>consent_signature_id=6c1772a8-42c2-4a24-b9cb-700c39b3d1ca</code>. Spec: <code>CLIENT_RECORD_ENHANCEMENTS_SPEC.md</code>. Config ref: <code>CONFIGURATION_GUIDE.md</code> v6.11.</td></tr>
+      <tr><td>i18n — 12 languages across admin + /book + /staff</td><td><span class="badge live">Shipped 15-16 Apr</span></td><td>English + es, fr, de, pt, zh, ko, ar (<strong>RTL</strong>), hi, bn, ru, id. Admin Ops Dashboard full parity (commit <code>9f71367</code>). <code>/book</code> — all 5 booking templates (Bold, Bright, Clinical, Elegant, Minimal) + direct-book mode wrapped in <code>t()</code>. <code>/staff</code> — StaffPortalLayout (bottom tab bar + header), Timeclock page inc. "Link your staff profile" gate, More page (commit <code>c263693</code>). 54 new keys across 3 namespaces (<code>bookLanding</code>, <code>staff</code>, <code>staffMore</code>). Arabic RTL layout auto-applied via <code>&lt;html dir="rtl"&gt;</code>. Language persistence via <code>localStorage.bat_language</code>. Propagation template: <code>scripts/add-book-staff-locales.js</code> (idempotent).</td></tr>
+      <tr><td>POS — Suspend Sale (pause cart, serve walk-in, resume)</td><td><span class="badge live">Shipped 23 Apr PM (PR #70)</span></td><td>One pending suspended sale per tenant+location, staff-agnostic resume. New <code>suspended_sales</code> table + 4 routes in <code>pos.js</code> + <code>SuspendedSaleBanner.tsx</code>. 409 returns <code>existing_id</code> for client-side recovery. <code>suspended_by</code> / <code>resumed_by</code> / <code>discarded_by</code> audit fields populating. <strong>API UAT 8/8 PASS</strong> on BAT-DEV. Spec: <code>SUSPEND_SALE_SPEC.md</code>. Merge <code>ab6499b</code>.</td></tr>
+      <tr><td>POS — Barcode Scanning + auto-match in stock-sync</td><td><span class="badge live">Shipped 23 Apr PM (PR #69)</span></td><td>New <code>barcode</code> + <code>barcode_type</code> cols on <code>products</code> (separate from internal SKU). UNIQUE INDEX <code>(tenant_id, barcode)</code> — multiple NULLs allowed per InnoDB. <code>GET /api/products/lookup?barcode=...</code> tenant-scoped, filters <code>is_active=1</code>. HID-mode keyboard scanner support via <code>useBarcodeScanner.ts</code> hook (digits + Enter < 200ms). Stock-sync match priority now <strong>barcode → SKU → name</strong>. 409 on duplicate returns <code>conflict_product_id</code> + <code>conflict_product_name</code>. Price-list import auto-populates barcodes when column present. <strong>API UAT 6/6 PASS</strong> on BAT-DEV. Spec: <code>BARCODE_SCANNING_SPEC.md</code>. Merge <code>cfe9497</code>. <strong>Hardware test pending</strong> (Kim's physical scanner).</td></tr>
+      <tr><td>POS — External EFTPOS tender (Path A — manual confirm)</td><td><span class="badge live">Shipped 23 Apr PM (PR #68) — toggle defaults OFF</span></td><td>🔴 <strong>Tier 3</strong> (payment-adjacent). Records sale + payment + accounting journal when staff runs the card on a physical bank EFTPOS terminal (Tyro / Westpac / CBA / ANZ / NAB etc.) — BAT does not process the card. <strong>Toggle defaults OFF on PROD</strong>; opt-in per-tenant via Settings → POS. New <code>payments.external_terminal_label</code> + <code>external_terminal_reference</code> cols + <code>'eftpos_external'</code> ENUM value. 3 new <code>account_settings</code> keys (<code>external_eftpos_enabled</code>, <code>_label</code>, <code>_terminals</code>). 3 new routes (sale + refund + reconciliation report). Idempotent on <code>(tenant_id, sale_id, provider, status)</code> — duplicate POST returns existing payment with <code>idempotent: true</code>. Refund flow safety copy: "Refund processed on terminal ✓" (past tense — staff must refund on terminal FIRST). Accounting journal posts to EFTPOS Clearing account (Xero + QBO mappings). <strong>API UAT 11/11 PASS</strong> on BAT-DEV (idempotency + tenant isolation + reconciliation math after refund all verified). Spec: <code>EXTERNAL_EFTPOS_SPEC.md</code>. Merge <code>5200043</code>.</td></tr>
+      <tr><td>Silent-expired-JWT fix — admin SPA auto-redirect on expired token</td><td><span class="badge live">Shipped 23 Apr PM (PR #81)</span></td><td>Real bug discovered during UAT: when admin JWT expired, the SPA silently rendered the admin shell instead of redirecting to <code>/admin/login</code>. Only API calls 401'd, leading staff to think the catalogue was empty. Two-layer fix: <strong>(1) Proactive</strong> — new <code>frontend/src/lib/jwt.ts</code> decodes <code>localStorage.auth_token</code> on app mount, checks <code>exp</code>, bounces to <code>/admin/login?reason=session_expired</code> BEFORE the admin shell renders. <strong>(2) Reactive</strong> — global 401 interceptor in <code>frontend/src/lib/api.ts</code> wraps both axios AND <code>window.fetch</code> (most pages use raw fetch — prior interceptor missed POS / marketing / calendar / staff portal). <code>AdminLoginPage.tsx</code> reads <code>?reason=session_expired</code> and shows friendly purple banner. Service worker cache eviction on stale auth-bearing responses. 23 smoke tests pass (6 JWT + 17 route guard). Merge <code>f881f9e</code>.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🟡 Partially Built</h3>
+  <table>
+    <thead><tr><th>Area</th><th>What's Built</th><th>What's Missing</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Supplier Intelligence</td>
+        <td><span class="badge live">Substantial</span>
+          <ul style="font-size:12px; color:var(--muted); margin:6px 0 0 16px; line-height:1.6;">
+            <li>DB: <code>supplier_price_lists</code> + <code>supplier_price_items</code> tables (<code>migrate.js:653-682</code>)</li>
+            <li>DB: Products table has <code>wholesale_cost</code>, <code>supplier_id</code>, <code>supplier_name</code>, <code>margin_pct</code> columns</li>
+            <li>DB: Contacts support <code>contact_type='supplier'</code> with <code>supplier_category</code>, <code>payment_terms</code>, <code>abn</code>, <code>account_manager</code> fields</li>
+            <li>DB: Resources table has <code>supplier_name</code>, <code>supplier_email</code>, <code>supplier_phone</code></li>
+            <li>API: <code>GET /api/contacts/:id/price-lists</code> — list supplier price lists (<code>index.js:2577</code>)</li>
+            <li>API: <code>POST /api/contacts/:id/price-lists</code> — upload price list file (<code>index.js:2597</code>)</li>
+            <li>API: <code>POST /api/suppliers/import</code> — CSV bulk import (<code>index.js:3912</code>)</li>
+            <li>API: <code>POST /api/products/import</code> + <code>/import-json</code> — with supplier field (<code>index.js:4638, 4700</code>)</li>
+            <li>Frontend: Suppliers tab in Insights page with invoice list UI, status badges, reconcile buttons</li>
+            <li>Demo: 3-5 demo supplier contacts + demo invoices seeded in DEMO_MODE</li>
+          </ul>
+        </td>
+        <td>
+          <ul style="font-size:12px; color:var(--amber); margin:0 0 0 16px; line-height:1.6;">
+            <li><s>Invoice data hardcoded</s> — <strong>SHIPPED 12 Apr:</strong> <code>supplier_invoices</code> table + 7 CRUD endpoints + InsightsPage wired to real data</li>
+            <li><s>"Reconcile" button React-only</s> — <strong>SHIPPED 12 Apr:</strong> Reconcile now hits <code>POST /api/supplier-invoices/:id/reconcile</code></li>
+            <li><s>"Email Watch" not connected</s> — <strong>SHIPPED 12 Apr:</strong> Gmail OAuth + Outlook OAuth (Microsoft Graph) + Claude Vision scanner + Google Drive file upload. Commits <code>6151ebd</code>, <code>40ca58a</code></li>
+            <li><s>No invoice file management</s> — <strong>SHIPPED 12 Apr:</strong> Invoice Files table with period filter, inline rename, bulk select/download, Drive proxy. Commit <code>40ca58a</code></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>Insights page — Revenue/Schedule/Clients tabs</td>
+        <td><span class="badge wip">Mixed</span> — Revenue and schedule tabs may pull some real data</td>
+        <td><code>DEMO_UTILISATION</code> hardcoded fallback in InsightsPage.tsx. Needs full wiring to real booking/revenue queries (P2)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>⚠ Demo Only — UI Lies (governance issue)</h3>
+  <table>
+    <thead><tr><th>Feature</th><th>What user sees</th><th>What's actually wired</th></tr></thead>
+    <tbody>
+      <tr><td><s>Email Invoice Watcher (Insights → Suppliers tab)</s></td><td><s>"Not Connected"</s> → fully functional</td><td><strong>FULLY RESOLVED 12 Apr:</strong> Part A (CRUD + real data) + Part B (Gmail OAuth + Outlook OAuth + Claude Vision scanner + Google Drive upload) + Invoice Files table all shipped. No demo data remains. Connect Gmail or Outlook → Scan Now → auto-extracts invoices → uploads files to Drive.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>❌ Not Built Yet</h3>
+  <table>
+    <thead><tr><th>Feature</th><th>Priority</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><s>Supplier Intelligence (full stack A + B)</s></td><td><span class="badge live">Shipped 12 Apr</span></td><td>Part A: CRUD + real data. Part B: Gmail OAuth + Outlook OAuth (Microsoft Graph) + Claude Vision scanner + Google Drive upload + Invoice Files table. All shipped.</td></tr>
+      <tr><td><s>CORS env var fix</s></td><td><span class="badge live">Shipped 12 Apr</span></td><td><code>ALLOWED_CORS_ORIGINS</code> env var replaces hardcoded domains. Localhost auto-added in dev.</td></tr>
+      <tr><td><s>Timezone UTC refactor</s></td><td><span class="badge live">Shipped 12 Apr</span></td><td>DB stores UTC, <code>timezone.js</code> utility, <code>CLINIC_TIMEZONE</code> env var, one-time AEST→UTC migration, frontend <code>timezone.ts</code>.</td></tr>
+      <tr><td>MYOB AccountRight Integration</td><td><span class="badge dev">Dev Approved</span></td><td>Developer ID #49891 approved 13 Apr 2026. Security compliance doc written (<code>MYOB_SECURITY_COMPLIANCE.md</code>). ~790 lines spec. App registration pending (need Client ID + Secret from MYOB portal). Native MYOB API for AU/NZ clinics. Complements Xero + QBO.</td></tr>
+      <tr><td>Marketing Hub Phase 2+ (AI image gen, AI video gen, social OAuth)</td><td>P2</td><td>Deferred to Q3 2026. Per Zeely spec.</td></tr>
+      <tr><td>Stripe Connect webhook handlers (transfer.failed etc.)</td><td>P1</td><td>Failed payouts currently surface only via polling</td></tr>
+      <tr><td>Owner TOTP 2FA</td><td>P2</td><td>Per PHASE_3 spec §3.5 — within 90 days</td></tr>
+      <tr><td>Audit log of admin actions</td><td>P1</td><td>Required for SOC2 readiness</td></tr>
+      <tr><td>Pre-commit secret-scan hook</td><td>P1</td><td>Prevents next CONFIGURATION_GUIDE-style incident</td></tr>
+      <tr><td>Rotate the GitHub PAT embedded in <code>git remote -v</code></td><td>P2</td><td>Local-only exposure right now (token only in Kim's dev repo remote), but any time <code>git remote -v</code> output is pasted into a ticket / screenshot / log it leaks the token. Fix: rotate at <a href="https://github.com/settings/tokens">github.com/settings/tokens</a>, then re-clone without the token embedded (use <code>gh auth login</code> or credential manager). Not urgent — flagged 22 Apr.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>✅ P0s — Resolved Before AppSumo</h3>
+  <table>
+    <thead><tr><th>#</th><th>P0</th><th>Status</th><th>Resolution</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><s>Hardcoded CORS whitelist (multi-tenant blocker)</s></td><td><span class="badge live">Shipped 12 Apr</span></td><td><code>ALLOWED_CORS_ORIGINS</code> env var, localhost auto-added in dev</td></tr>
+      <tr><td>2</td><td><s>Hardcoded timezone <code>'+10:00'</code> (multi-tenant blocker)</s></td><td><span class="badge live">Shipped 12 Apr</span></td><td>Full UTC refactor: <code>timezone.js</code>, <code>CLINIC_TIMEZONE</code> env var, AEST→UTC migration, frontend <code>timezone.ts</code></td></tr>
+      <tr><td>3</td><td><s>Supplier Insights "Email Watch Active" UI lies</s></td><td><span class="badge live">Shipped 12 Apr</span></td><td>Real <code>supplier_invoices</code> table + 7 CRUD endpoints. Reconcile hits backend. Email Watch honestly shows "Not Connected".</td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--green); font-size:12px; margin-top:8px;">
+    ✅ <strong>All 3 code P0s shipped 12 Apr.</strong> Also resolved: env vars documented (CONFIGURATION_GUIDE v4.5) · Marketing Hub backend gated · Zeely deploy issue moot (feature deferred to Q3)
+  </p>
+
+  <h3>🚀 Latest Session (27 April 2026 PM) — Batch 1 UAT shipped (22 items) · Calendly smart importer LIVE on real data · Batch 2/3 spec'd</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>✅ <strong>Batch 1 shipped — all 22 UAT items across 5 PRs.</strong> Staff app: hide NEO chat, default-to-Schedule, Timeclock→Shifts rename, tab reorder (PR #162). Mobile chrome: viewport-zoom locked (no more pinch-stuck), light mode unlocked on native, table overflow wrappers (PR #163). Admin list pages: body-row primary actions, overflow wrappers, Stock cost column (PR #164). Staff photo upload: presigned-GET URLs (was 403'ing silently because <code>bat-uploads</code> bucket isn't public-read; now signed at API response time + canonicalised on DB write) (PR #165). Add Hours casual-capture in Shifts (PR #166).</li>
+    <li>📦 <strong>PR #167 — Calendly smart importer LIVE + verified end-to-end.</strong> New <code>booking-api/import-calendly.js</code> (~280 lines, single MySQL transaction) + <code>frontend/src/pages/admin/CalendlyImportPage.tsx</code> (3-step wizard at <code>/admin/import/calendly</code>). Tested against Kim's real Brisbane HIFU export (<strong>2,095 bookings · 832 customers · 59 services · 3 years history</strong>). Confirmed working: numbers in the preview EXACTLY matched my parser predictions (832/59/2095). Features: RFC-4180 quote-aware CSV parser (Calendly service names contain commas), Excel-escape phone normalisation (<code>'+61 448 332 517</code> → <code>+61448332517</code>), DD/MM/YYYY AU date parser, modal duration auto-derivation from End−Start, $0 auto-detect for <code>FREE *</code> services, category auto-classification (face/body/package/consultation/maintenance), email + name + phone fuzzy dedup, slug uniqueness counter, default-staff override, per-row try/catch (one bad row doesn't kill import), atomic transaction with rollback. Backend endpoint pair: <code>POST /api/import/calendly/preview</code> + <code>POST /api/import/calendly/commit</code>.</li>
+    <li>🔗 <strong>PR #168 — wired Calendly into <code>/admin/settings/data-migration</code> page.</strong> Kim found that page first (sidebar entry) and the working importer was at a different URL. Now <code>Calendly</code> is the FIRST option in the platform picker, with a gradient CTA "Open Calendly Importer" routing to <code>/admin/import/calendly</code> instead of falling through to the page's mock-data review screen. Other 12 platforms still on the mock flow (B3 #32 to fix).</li>
+    <li>📚 <strong>Multi-vendor importer research COMPLETE.</strong> Documented schemas for Fresha, Mindbody, Vagaro, Square Appointments, Cliniko, Acuity Scheduling, Timely, GlossGenius, Phorest. Headline findings: (1) Almost no vendor publishes verbatim column names — schemas live behind authenticated dashboards; (2) <strong>GlossGenius has NO self-service CSV export</strong> — assisted-only; route through screenshot/AI-vision pipeline instead; (3) Mindbody's full export is paid (~$500); free-tier export is too lossy; (4) <strong>Recommended next 3 to build:</strong> 🥇 Fresha (biggest BAT competitor, free-tier export available, mobile-as-key matches BAT instinct) → 🥈 Cliniko (richest clinical schema — Medicare, referring doctor, treatment notes; AU-HQ matches BAT home turf) → 🥉 Square Appointments (publishable 13-col template; <code>Reference ID</code> gives clean re-key path; unlocks JOIN pattern for Mindbody/Vagaro later). Operational tip captured: before each vendor build, acquire one real export → save to <code>booking-api/test/fixtures/imports/&lt;vendor&gt;/</code> as gold reference for fuzzy header matching + parser tests.</li>
+    <li>📋 <strong>Batch state at session-end:</strong> <strong>B1 SHIPPED (22)</strong>, <strong>B2 QUEUED</strong> (Liquid Glass uplift + Calendly-style mobile UX + week strip + view toggles + font uplift + category-colour stripes + notifications surface + marketplace v3 — ~19 items, 4-5 weeks); <strong>B3 IN PROGRESS</strong> — #29 Calendly DONE; #29.5 (Services CSV import w/ price + auto-inactive unmapped), #29.6 (bulk inactive multi-select), #30 (client record Notes History button), #31 (Notes History screen — searchable on desktop), #32 (wire data-migration page properly for non-Calendly vendors), #33 (sidebar link for /admin/import/calendly), and the multi-vendor importers (Fresha → Cliniko → Square) all queued. Design direction LOCKED for B2: light theme = Calendly + Liquid Glass materials; dark theme = matte BAT + Liquid Glass materials. Category-colour stripe system spans Services / Bookings / Calendar / POS / Reports.</li>
+    <li>📦 <strong>This session is forking now</strong> — context boundary. Push notifications backend (separate chip from earlier), Fresha+Cliniko+Square importers (next chip), B2 design rebuild (later spec session) all spawn-able from here.</li>
+  </ul>
+
+  <h3>🚀 Continuation (28 April 2026) — Push notifications backend SHIPPED + Fresha/Cliniko/Square importers in flight (parallel agents)</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🔔 <strong>Push notifications backend + frontend wiring SHIPPED.</strong> Found that the push backend was already substantially built before this session (migration 018 + <code>push-dispatcher.js</code> + <code>push-routes.js</code> + all 5 trigger sites firing <code>sendPush()</code>: new booking at <code>index.js:1579</code>, José escalation at <code>jose-escalations.js:258</code>, low-stock crossing at <code>pos.js:471</code> (proper threshold-detection logic — only fires when a sale crosses BELOW threshold, not on every red-zone sale), staff no-show cron at <code>check-no-shows.js:87</code>, Stripe Connect failed-payout at <code>stripe-connect-webhooks.js:190</code>). Frontend module <code>frontend/src/native/push.ts</code> existed but was NEVER WIRED INTO APP BOOT. <strong>PR #169</strong> closes that gap — adds <code>&lt;PushBootstrap /&gt;</code> component inside <code>&lt;Routes&gt;</code> tree (so <code>useNavigate()</code> is available); on native, lazy-imports the Capacitor plugin (web bundle stays slim), calls <code>registerNavigator(navigate)</code> for deep-link routing on push tap, then <code>initPushNotifications()</code>. <strong>Workflow change via gh API</strong> (commit <code>50c3d7c</code> direct to main — workflow files need workflow scope which the local PAT lacks): adds <code>UIBackgroundModes: remote-notification</code> + <code>aps-environment: production</code> to Info.plist + creates <code>App.entitlements</code> if missing + small Ruby/<code>xcodeproj</code> step to wire <code>CODE_SIGN_ENTITLEMENTS = App/App.entitlements</code> into the Xcode project's build settings (Capacitor regens the iOS project from scratch on each cap-add — without this Ruby step, the entitlements file would sit in source but be ignored at sign time → token registration would fail silently).</li>
+    <li>📘 <strong>NEW SPEC:</strong> <code>Specs/PUSH_NOTIFICATIONS_KIM_SETUP.md</code> — Kim's one-time Apple Developer click-path (~15 min): (1) Generate APNs Auth Key (.p8) with PowerShell + WSL base64 instructions; (2) Set 6 Railway env vars (<code>APPLE_TEAM_ID</code> already set, NEW: <code>APNS_KEY_ID</code>, <code>APNS_AUTH_KEY_B64</code>, <code>APNS_BUNDLE_ID_ADMIN/STAFF</code>, <code>APNS_ENV</code> — sandbox for DEV/DEMO, production for PROD); (3) Trigger fresh iOS builds for admin + staff (must be sequential — known cert-race condition between concurrent fastlane runs); (4) Verify on phone with self-test endpoint. FCM/Android deferred (no Firebase project yet — code falls through cleanly). Customer-app push deferred (v3 paused per marketplace pivot). <code>CONFIGURATION_GUIDE.md</code> §22 documents the architecture + env vars + known limits + troubleshooting matrix.</li>
+    <li>🤖 <strong>Importers agent — Fresha + Cliniko + Square SHIPPED (PRs #170, #171, #172).</strong> Three back-to-back vendor importers landed via admin-merge using the proven Calendly pattern. <strong>PR #170 Fresha</strong> — multi-file (clients.csv + services.csv + optional appointments.csv), mobile is dedup key (matches Fresha's mobile-first model), free-text address stored verbatim into <code>contacts.notes</code> (AI extraction = v2), auto-detect AU/US/ISO date locale per file, BETA banner. Also extracted shared <code>booking-api/lib/csv-parser.js</code> (parseCSV, normalisers, fuzzy header matching, locale detect) so future vendors don't reimplement. New shared <code>frontend/src/components/admin/ImportStat.tsx</code> for reuse across importer pages. <strong>PR #171 Cliniko</strong> — multi-file (patients + optional appointments), email is dedup primary (mobile fallback), <em>unmapped clinical fields</em> (Medicare, GP, referring doctor, health-fund) concatenated into <code>contacts.notes</code> as Key:Value\n lines, multi-field phone (Mobile/Home/Work) handling, treatment notes pipeline = v2. Preview screen shows EXACTLY which clinical columns will be pass-through into notes for transparency. <strong>PR #172 Square Appointments</strong> — JOIN by Reference ID with email/phone fallback (preview surfaces JOIN-stats panel: hits-by-ref-id / fallbacks-by-email-phone / no-match), 13-col customer template with CA + US region-variant address splits handled, service catalogue auto-built from appointment-type names (Square doesn't export services as CSV), BETA banner because appointments-history schema is not public. All three: single MySQL transaction with <code>db.getConnection()</code> + <code>beginTransaction</code> + per-row try/catch on bookings; <code>Dockerfile</code> COPY list, <code>index.js</code> mount, <code>App.tsx</code> route, <code>DataMigrationPage.tsx</code> liveImporter all wired. Routes: <code>/admin/import/fresha</code>, <code>/admin/import/cliniko</code>, <code>/admin/import/square</code>. <code>CONFIGURATION_GUIDE.md</code> §21.3 table flipped — Fresha + Cliniko + Square now LIVE.</li>
+    <li>📋 <strong>What Kim does next:</strong> the 4-step Apple click-path in <code>Specs/PUSH_NOTIFICATIONS_KIM_SETUP.md</code> (~15 min). Once env vars are set + fresh builds land in TestFlight, push works end-to-end on her phone for all 5 trigger types. All three vendor importers are live and ready for use — when she's ready to migrate a Fresha/Cliniko/Square salon, the importer flows are at <code>/admin/import/&lt;vendor&gt;</code> or via Settings → Data Migration → vendor → "Open Importer". Operational rule: each vendor ships behind a BETA banner since public schemas hide ~30% of column variance — verify the preview before committing.</li>
+  </ul>
+
+  <h3>🚀 Earlier Session (27 April 2026 AM) — Customer v3 PAUSED · marketplace pivot LOCKED · Apple iOS 26 SDK deadline cleared · CI bundle-routing bug fixed</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🎯 <strong>STRATEGIC PIVOT — Customer app v3 PAUSED.</strong> Kim asked the right question: "Does my customer app actually work like Fresha?" Honest answer: no. As built, the v3 customer Capacitor app loaded <code>app.bookatreatment.ai/book</code> which resolves to one tenant (Brisbane HIFU) — wrong positioning for a public flagship App Store listing. Three paths discussed: (A) marketplace pivot (Fresha-style, two-sided), (B) per-clinic white-label apps (Apple Guideline 4.2.6 risk), (C) defer customer app entirely. <strong>Kim chose A.</strong> v3 paused, marketplace spec written.</li>
+    <li>📘 <strong>NEW SPEC:</strong> <code>Specs/MARKETPLACE_V3_SPEC.md</code> — 12-section blueprint for the marketplace pivot. Marketplace-level customer accounts (new <code>marketplace_customers</code> table) sit ABOVE the existing tenant layer; per-tenant <code>contacts</code> rows get a nullable <code>marketplace_customer_id</code> FK that auto-links on email match. Two JWTs in flight (admin/staff vs marketplace customer) cleanly separated. New <code>/api/marketplace/*</code> surface mounted alongside existing tenant-scoped APIs. Phased rollout: 3.0 Foundation (1wk) → 3.1 MVP Bookings Dashboard (3wks) → 3.2 Discovery (4wks) → 3.3 Reviews + polish + App Store launch (2-3wks). <strong>10-11 weeks total from greenlight.</strong> Open product questions (monetisation Option α vs β, default opt-in, geo coverage etc.) listed in §9 awaiting Kim's call. Recommended monetisation: <strong>Option β</strong> (marketplace inclusion as a SaaS tier perk, no per-booking fee) — keeps zero-commission rule per <code>PAYMENT_BULLETPROOF_SPEC.md</code> §1.13.</li>
+    <li>⏸ <strong>PR #159 — Customer flavor paused (merged):</strong> <code>frontend/capacitor.config.ts</code> file-level header documents the pause + points at marketplace spec. <code>serverUrlByFlavor.customer</code> comment marks "PAUSED — DO NOT BUILD". Scaffolding kept compilable for clean restart later. Bundle ID <code>ai.bookatreatment.app</code> + App Store Connect record (App ID 6763553051) stay reserved indefinitely (Apple holds bundle IDs while the record exists). Existing TestFlight build #30 expires in 90 days, no action needed. v1 Admin + v2 Staff unaffected.</li>
+    <li>🛠️ <strong>CI bundle-routing bug FIXED + Apple SDK deadline cleared</strong> earlier same morning before the strategic pivot conversation. <strong>Bug:</strong> <code>build-mobile.yml</code> had <code>ai.bookatreatment.admin</code> hardcoded in 4 places (3 iOS Fastfile sites + 1 Android <code>packageName</code>) — every flavor's build was uploading to the Admin App Store Connect record (App ID 6763552565). Builds #23 (Staff flavor) and #24 (Customer flavor) misrouted into the Admin record, which is why Kim's TestFlight Admin app was opening the customer booking page (latest build at the Admin record was actually #24's customer binary with <code>server.url=/book</code> baked in). <strong>Fix:</strong> commit <code>bb3bff2</code> direct to main via <code>gh api</code> Contents API (workflow files need the workflow scope which the local PAT lacks) — parameterized bundle ID by <code>BAT_APP_FLAVOR</code> in fastlane Ruby + inline <code>fromJSON</code> map for Android. <strong>iOS 26 SDK deadline:</strong> Apple's ITMS-90725 warning on builds #26/#27 said "starting 28 Apr 2026 all uploads must be Xcode 26 / iOS 26 SDK." Workflow runner upgraded <code>macos-15</code> → <code>macos-26</code> (Xcode 26.2 default) in commit <code>4b2918c</code>. Then <strong>3 fresh builds shipped to correct records:</strong> Admin #28 → 6763552565 ✓, Staff #29 → 6763552830 ✓ (finally the right Staff record!), Customer #30 → 6763553051 ✓. All 3 first-attempt success on Xcode 26 — solid pipeline foundation for future native work. <strong>Caveat:</strong> Customer #30 is the build that's now sitting in the (paused) Customer record; can be left to expire or marked Expired manually.</li>
+    <li>📋 <strong>Updated docs</strong>: <code>MOBILE_APPS_GUIDE.md</code> — v3 row flipped from 🟢 Live to ⏸ PAUSED with marketplace pointer; TL;DR rewritten. <code>MARKETPLACE_V3_SPEC.md</code> created. APP_HQ session block (this one). <code>INDEX.md</code> updated to surface the new spec.</li>
+    <li>📋 <strong>Queued for next session</strong>: (1) Kim answers §9.1 open product questions in MARKETPLACE_V3_SPEC.md (monetisation, default opt-in, geo coverage, reviews moderation, pricing display, identity reconciliation conflicts). (2) Once answered, scope a v3.0 Foundation PR (schema migrations + auth + linking logic, no UI yet, behind <code>FEATURE_MARKETPLACE_V3</code> flag). (3) Push notifications backend (still spec'd-not-built — chip already queued from yesterday). (4) Markdown docs Brisbane-HIFU strip pass.</li>
+  </ul>
+
+  <h3>🚀 Earlier Session (26 April 2026 PM) — Staff iOS app LIVE on TestFlight + Brisbane HIFU strip + GitHub rebrand decision LOCKED</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>📱 <strong>v2 BookATreatment Staff app SHIPPED to TestFlight in 13 minutes flat.</strong> Build #23 of <code>build-mobile.yml</code> uploaded successfully on <strong>26 Apr 2026 13:25 UTC</strong> with <code>flavor=staff, target=ios-testflight</code>. <code>upload_to_testflight: 44 sec ✓</code> · fastlane finished successfully on the FIRST attempt — all the cert / sigh / profile pain we fought through during the 22 admin builds paid off; Staff sailed through with zero re-runs. Bundle ID <code>ai.bookatreatment.staff</code>. App Store Connect record + Internal Tester (<code>brisbane.hifu.clinic@gmail.com</code>) configured by Kim mid-session in ~3 min.</li>
+    <li>🛠️ <strong>PR #150 — per-flavor server.url (merged):</strong> <code>frontend/capacitor.config.ts</code> got a <code>serverUrlByFlavor</code> map. Native shells now boot directly to their flavor's entry point — no JS-side runtime detection needed (the JS bundle is shared across all 3 apps because it's served live from <code>app.bookatreatment.ai</code>). Mapping: <strong>admin</strong> → <code>https://app.bookatreatment.ai</code> (unchanged; IS_NATIVE redirect handles <code>/admin/login</code> bounce); <strong>staff</strong> → <code>https://app.bookatreatment.ai/staff/login</code>; <strong>customer</strong> → <code>https://app.bookatreatment.ai/book</code>. Customer app's scaffolding is now ready — only needs an App Store Connect record + workflow run to ship.</li>
+    <li>🧹 <strong>PR #151 — strip hardcoded Brisbane HIFU references (merged):</strong> 32 files changed across the repo per Kim's directive "I do NOT want any hard coding of Brisbane HIFU anywhere." Final grep across <code>*.js / *.ts / *.tsx</code> (excluding <code>node_modules</code>, <code>.claude</code>, <code>.git</code>, <code>dist</code>): <strong>1 remaining hit</strong> — <code>migrate.js:38</code> seed row, which is real customer data (Brisbane HIFU IS the first paying tenant — that row stays). <strong>Production-leaking fixes:</strong> (a) <code>data/onboarding-questionnaire.js:84</code> placeholder <code>'e.g. https://brisbanehifu.com.au'</code> → <code>'e.g. https://yourbusiness.com.au'</code> — was leaking into every new tenant signup; (b) <code>notifications.js:241</code> GOOGLE_REVIEW_URL fallback was hardcoded to Brisbane HIFU's review page → empty string when env unset — was about to surface in any tenant's outbound SMS/email; (c) <code>workflows.js</code> test URLs → <code>example.com</code>; (d) <code>src/lib/webhooks.ts</code> User-Agent <code>BrisbaneHIFU-Webhook/1.0</code> → <code>BookATreatment-Webhook/1.0</code> + payload source field → <code>'bookatreatment'</code>; (e) <code>tenant.js</code> three hardcoded <code>'brisbane-hifu'</code> shadow-mode fallbacks hoisted to a single <code>LEGACY_FALLBACK_SLUG</code> constant readable from env — once Phase 3 ships these become 404s. <strong>Comment cleanup:</strong> ~17 sites of misleading "(Brisbane HIFU)" parentheticals → "(the first tenant)" across <code>auth.js</code> / <code>availability.js</code> / <code>bookings.js</code> / <code>contacts.js</code> / <code>event-types.js</code> / <code>index.js</code> / <code>jose-booking.js</code> / <code>migrate.js</code> / <code>multi-location-helpers.js</code> / <code>plan-tiers.js</code> / <code>pos.js</code> / <code>stripe-connect-webhooks.js</code> / <code>accounting-xero.js</code> / frontend AdminLayout + HomeScreen comments. <strong>Test fixtures:</strong> <code>tests/integration/api/auth.test.ts</code> + <code>tests/helpers/auth.ts</code> + <code>tests/unit/tenants/slugify.test.ts</code> + <code>qa/e2e/booking-flow.spec.js</code> all generalised to <code>example.com</code> / TEST_CLINIC_NAME env.</li>
+    <li>🚫 <strong>GitHub repo rebrand DECISION LOCKED — DO NOT FORK.</strong> Kim asked "should we fork?" The answer is <strong>no</strong> — forking creates a permanent split in project history, splits PRs / issues across two repos, breaks Railway / Cloudflare hooks, and leaves old URLs in audit logs orphaned. The right move is a <strong>coordinated GitHub user/org rebrand</strong> from <code>brisbanehifu/booking-api</code> → <code>teamneo/booking-api</code> (or similar) via <strong>repo Settings → Transfer ownership</strong>. GitHub auto-redirects from old URLs for ~1 year so existing links / Railway connectors / bookmarks keep working through the transition. <strong>Scheduled for: post-Customer-app-launch, on a quiet window with no active PRs.</strong> Captured here + in MEMORY.md + in <code>backlog_github_rebrand.md</code>.</li>
+    <li>📘 <strong>Docs updated</strong>: <code>MOBILE_APPS_GUIDE.md</code> bumps Staff status table row to 🟢 Live in TestFlight; <code>MEMORY.md</code> session-handover entry for 26 Apr PM; <code>backlog_github_rebrand.md</code> reaffirms the no-fork decision with timing condition (post-Customer-app-launch).</li>
+    <li>📋 <strong>Queued for next:</strong> (1) <strong>v3 Customer app TestFlight build</strong> — Capacitor config + workflow already support it; needs App Store Connect record creation for <code>ai.bookatreatment.app</code> + a workflow run with <code>flavor=customer</code>. ~30 min total. (2) Push notifications backend (still spec'd-not-built — see <code>PUSH_NOTIFICATION_ARCHITECTURE.md</code>). (3) Markdown docs cleanup pass for residual Brisbane HIFU references in <code>*.md</code> files (separate from the code strip). (4) GitHub repo rebrand (P3, after Customer app lands).</li>
+  </ul>
+
+  <h3>🚀 Earlier Session (24–26 April 2026 AM) — iOS Admin App v1 LIVE in TestFlight + UAT R1+R2 shipped + 3-app guide for Nova</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>📱 <strong>BookATreatment Admin (iOS) is in TestFlight.</strong> Build #22 of <code>build-mobile.yml</code> uploaded successfully on <strong>26 Apr 2026 12:06 UTC</strong>. The iOS shell wraps the live <code>app.bookatreatment.ai</code> SPA via Capacitor 7's <code>server.url</code>, so every Railway deploy is instantly visible on Kim's phone with zero TestFlight rebuild. <strong>No code refactor</strong> — same React 19 + Vite SPA. Bundle ID <code>ai.bookatreatment.admin</code>. Staff (<code>.staff</code>) + Customer (<code>.app</code>) bundle IDs reserved upfront on Apple Developer portal — no squatting risk.</li>
+    <li>🏗️ <strong>CI pipeline ironed out across 22 builds.</strong> Final shape: <code>macos-15</code> runner (Xcode 16 / iOS SDK 18 — Apple stopped accepting SDK 17 in early 2026), Fastlane <code>cert</code> + <code>sigh</code> + <code>gym</code> + <code>pilot</code>, ASC API key with <strong>Admin role</strong> (App Manager doesn't grant <code>-allowProvisioningUpdates</code>), auto-revoke step before <code>cert</code> to dodge Apple's 2-Distribution-cert-per-team cap, and team ID extracted from <code>.mobileprovision</code> at runtime via <code>security cms -D | plutil</code>. <code>Info.plist</code> injection sets <code>CFBundleVersion=github.run_number</code> (avoids duplicate-build TestFlight rejections), <code>ITSAppUsesNonExemptEncryption=false</code>, <code>NSFaceIDUsageDescription</code>. Approx. <strong>$5/month</strong> at current cadence; GitHub Actions spending limit hard-capped at $20.</li>
+    <li>🎯 <strong>UAT R1 + R2 shipped via the live web SPA</strong> (no TestFlight rebuild needed for any of it). Highlights — (a) <strong>Actions page</strong> rebuilt as table-style with right-aligned status pill (Open/In progress/Done; "Acknowledged" reserved for the legacy filter chip); old route <code>/admin/jose-escalations</code> redirects to <code>/admin/actions</code>. (b) <strong>PageHeader.tsx</strong> action slot flipped to <code>hidden md:flex</code> — kills duplicated header buttons on mobile across every admin page (canonical refactor for the whole app). (c) <strong>Mobile bottom tab bar</strong> in AdminLayout: replaced Contacts with Sparkles "Ask NEO" tab. (d) <strong>NEO chat bubble</strong> hidden on mobile (mobile uses the dedicated tab). (e) <strong>Forced dark theme</strong> on native via <code>IS_NATIVE</code> in ThemeContext. (f) <strong>Onboarding wizard</strong>: <code>'Clinic Name'</code> → <strong>'Business Name'</strong>, placeholder <code>'e.g. Brisbane HIFU Clinic'</code> → <strong>'Your Salon, Clinic or Spa Name'</strong> — was leaking the first paying customer's brand into every new tenant's signup. (g) <strong>ConsentForms empty-state CTAs</strong> stacked vertically with copy normalised. (h) <strong>Calendar mobile</strong> got Prev / Today / Next strip. (i) <strong>HomeScreen greeting</strong> uses full clinic name (was splitting "Brisbane HIFU" → "Brisbane"). All of (a)–(i) shipped via web — instantly live on the iOS app.</li>
+    <li>🌱 <strong>Demo seed for Actions page (PR #144 · merged):</strong> 3 demo <code>staff_escalations</code> rows on BAT-PROD <code>tenant_id=1</code> (medical/urgent/open · complaint/normal/acknowledged · complex_package/normal/resolved) so Kim can see the to-do list layout populated for screencast / handover. Run via <code>scripts/seed-demo-actions.js</code> — committed for repeatability, env-var driven so safe to re-run on any environment with the right Railway link.</li>
+    <li>📘 <strong>NEW DOC for Nova:</strong> <code>Technical Documents/MOBILE_APPS_GUIDE.md</code> — single-source guide covering all 3 mobile apps (Admin / Staff / Customer). What's deployed today, architecture (Capacitor 7 wrap of live SPA), build pipeline, update model (web SPA hot-deploy vs native quarterly), push notification plan (spec'd, not built), multi-tenant behaviour (one .ipa, JWT-scoped), and 8 deep-reference specs. Indexed in <code>Technical Documents/INDEX.md</code> under new 📱 Mobile Apps section. <strong>This is the first doc to hand Nova when she asks about apps</strong> — the 7 detailed specs in <code>BookATreatment-AI/Specs/</code> remain the deep reference (iOS_APP_V1_ADMIN_SPEC, APP_STORE_LISTINGS, CAPACITOR_SCAFFOLDING_PLAN, GITHUB_ACTIONS_MAC_BUILD_SPEC, APPLE_DEVELOPER_PORTAL_CLICK_PATH, PUSH_NOTIFICATION_ARCHITECTURE, ADMIN_APP_V1_UAT_PLAN).</li>
+    <li>📋 <strong>Open governance items for Nova to track:</strong> (1) Apple Developer publisher rename to "BookATreatment" or "TeamNEO" — Apple blocked 24 Apr pending extra verification; must resolve before App Store review submission (~early Jun if schedule holds). (2) External TestFlight testers — Brisbane HIFU staff first, once publisher rename clears. (3) App Store Guideline 3.1.3(a) reviewer notes — drafted in <code>APP_STORE_LISTINGS.md</code> but not pasted into App Store Connect. (4) Push notifications backend — spec ready (<code>PUSH_NOTIFICATION_ARCHITECTURE.md</code>) but <code>push_devices</code> table + dispatcher not yet shipped; ETA Week 4–5 of original plan, sliding due to UAT bandwidth.</li>
+    <li>📋 <strong>Next session candidates (ordered):</strong> (1) Push notifications backend (close the v1 spec gap). (2) Face ID native plugin wiring (<code>Info.plist</code> key already set). (3) Resume NEO v2 backlog (PR 5c Phase 2, PR 6 Insight Cards cron, PR 7 cost-logging). (4) Multi-Location PR-B (booking widget + admin calendar location switcher).</li>
+  </ul>
+
+  <h3>🚀 Earlier Session (24 April 2026 PM · later) — NEO v2 flipped to BAT-PROD + migration-014 outage CLOSED + P1 collation unification SHIPPED (4 PRs)</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🎉 <strong>NEO v2 now LIVE on Brisbane HIFU BAT-PROD</strong> with full 33-tool catalogue (14 read + 7 safe-write + 6 marketing drafts + 6 costly writes). <code>FEATURE_NEO_V2=true</code> flipped on BAT-PROD at ~07:35 UTC — 6 days ahead of the 30-Apr plan. Brisbane HIFU tenant is still empty (Kim importing data), so this is a clean operational baseline.</li>
+    <li>📘 <strong>Docs retro-sync DONE (v6.17)</strong>: CONFIGURATION_GUIDE v6.12 → v6.17 captured the 5-PR NEO costly-write tranche that had shipped between v6.8 and v6.12 but was never rolled into the version history — PRs #88 (NEO PR 3 safe-writes), #89 (NEO PR 4 marketing drafts), #93 (NEO PR 5a + step-up auth infra), #96 (UX polish — removed password re-prompt per UAT veto), #104 (NEO PR 5b — refund/payroll/pricing/export/delete). §19.6 rewritten to reflect 33 tools across 4 tiers. New §19.9 documents the dormant step-up auth infrastructure (retained in repo but unused by any live tool). Earlier NEO session block (23 Apr PM) extended with PR #91/#92/#93/#96/#104 bullets.</li>
+    <li>🔴 <strong>BAT-PROD 502 incident SURFACED by the NEO flip:</strong> Kim's <code>FEATURE_NEO_V2=true</code> env-var save triggered a Railway redeploy, which re-ran migrations. Migration 014 (multi-location, Nova's PR #105 earlier today) aborted with <code>"Referencing column 'location_id' and referenced column 'id' in foreign key constraint 'fk_etl_location' are incompatible"</code>. Root cause (via live <code>information_schema</code> query): legacy <code>locations.id = utf8mb4_unicode_ci</code> (pre-MySQL-8 default) vs new junction-table columns at MySQL-9 server default <code>utf8mb4_0900_ai_ci</code>. <strong>InnoDB refuses to form FKs across a collation mismatch.</strong> The 502 had been live since PR #105 deployed earlier — the "Railway infra" write-up in <code>E2E_UAT_MASTER_REPORT_24APR2026.md §0</code> this morning was actually this bug all day.</li>
+    <li>🩹 <strong>PR #112 — <code>hotfix/migration-014-collation</code> (squash <code>81df236</code>):</strong> unblocked PROD with 3 targeted per-column <code>CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci</code> clauses on <code>event_type_locations.location_id</code>, <code>staff_locations.location_id</code>, <code>availability.location_id</code> — matching the live legacy <code>locations.id</code>. PROD <code>/api/health</code> → 200 within 3 minutes of merge (07:39 UTC). NEO <code>/api/chat/neo/status</code> returned 33 tools. <strong>BUT</strong> this hardcoded <code>unicode_ci</code> → regressed fresh MySQL-9 deploys where <code>locations.id</code> is <code>0900_ai_ci</code>. Called out the regression + immediately followed with P1 cleanup.</li>
+    <li>🛠️ <strong>PR #113 — <code>hotfix/collation-unification-P1</code> (squash <code>cbd0c4c</code>):</strong> introduced <strong>migration 017</strong> — FK-discovery-driven unifier that queries <code>information_schema.key_column_usage</code> to find every FK pointing at <code>locations.id</code>, drops them, ALTERs the PK + all dependent <code>location_id</code> columns to <code>utf8mb4_0900_ai_ci</code>, then recreates the FKs with original ON DELETE CASCADE. Idempotent — checks current collation first. Also rewrote migration 014 to read reference-column collations via <code>information_schema</code> at runtime (not hardcoded) so fresh + legacy deploys both converge without branching.</li>
+    <li>🛠️ <strong>PR #114 — <code>hotfix/collation-unification-P2</code> (squash <code>f4f4f99</code>):</strong> caught a FLAPPER. Deploy logs showed migration 017 had actually unified <code>locations.id</code>, but the legacy output <code>"✅ resources + locations collation aligned"</code> was ALSO present — from a pre-existing block at <code>migrate.js</code> line 537-559 that was force-setting <code>locations.id</code> back to <code>utf8mb4_unicode_ci</code> on every deploy via <code>ALTER TABLE ... CONVERT TO</code>. It existed historically to paper over a <code>/api/resources</code> LEFT JOIN <code>locations</code> collation error. <strong>That block was flapping against 017 — each deploy would unify then re-skew.</strong> Deleted the block + added <code>resources</code> to 017's dependents list (logical reference, no enforced FK) + added step 4b <code>CONVERT TO</code> on <code>locations</code> + <code>resources</code> TABLE defaults.</li>
+    <li>🛠️ <strong>PR #115 — <code>hotfix/collation-unification-P3</code> (squash <code>2074414</code>):</strong> post-deploy verification via <code>SELECT r.id, l.name FROM resources r LEFT JOIN locations l ON l.id = r.location_id LIMIT 1</code> returned <code>"Illegal mix of collations (utf8mb4_0900_ai_ci, IMPLICIT) and (utf8mb4_general_ci, IMPLICIT)"</code>. <code>resources.location_id</code> was still at the oldest legacy <code>utf8mb4_general_ci</code>. Root cause of this residual skew: migration 017's idempotency guard only read <code>locations.id</code>. Because PR #113 had unified the PK, PR #114's added-to-dependents <code>resources</code> never got ALTERed — 017 early-skipped on the next deploy before Step 4 ran. <strong>Idempotency-guard bug class:</strong> "matched PK with skewed dependent" = silent regression. Broadened the guard to query EVERY column 017 would touch (PK + all <code>location_id</code> dependents) — any single skew now triggers the full align dance. Cleaned up the orphan <code>} else {</code> branch and a duplicate log line left over from the prior control-flow structure.</li>
+    <li>✅ <strong>Final verified state on BAT-PROD (08:00 UTC):</strong> all 7 location-related columns unified at <code>utf8mb4_0900_ai_ci</code> — <code>locations.id</code>, <code>event_type_locations.location_id</code>, <code>staff_locations.location_id</code>, <code>availability.location_id</code>, <code>resources.location_id</code>, <code>bookings.location_id</code>, <code>leads.location_id</code>. <code>resources ⇄ locations</code> JOIN returns rows without error. <code>/api/health</code> → 200 <code>migrations:ready</code>. <code>/api/chat/neo/status</code> → 33 tools. Next deploy logs <code>ℹ️ all location columns already utf8mb4_0900_ai_ci — skipping migration 017</code> — no flap.</li>
+    <li>📘 <strong>Docs updated (v6.18)</strong>: CONFIGURATION_GUIDE header bumped + v6.18 row added to version-history table + <strong>new §19.10</strong> with full incident timeline (UTC-stamped minute-by-minute) + root cause + 4-PR fix flow + 5 lessons captured for future sessions: (1) always pull Railway deploy logs on a 502 before blaming infra — the FATAL line was present all day; (2) idempotency guards on multi-step migrations must check EVERY target column, not just the canonical one; (3) feature-flag flips that trigger redeploys are implicit migration re-runs — always health-check post env-var save; (4) never re-introduce the legacy force-align block at migrate.js:537 (warning comment now in-situ); (5) future migrations referencing <code>locations.id</code> can omit explicit COLLATE — the server default is finally consistent.</li>
+    <li>💼 <strong>Brisbane HIFU customer impact: ZERO.</strong> Tenant was empty throughout (Kim hadn't started data import). The NEO flip + incident + P1 cleanup all happened on a clean slate. Kim can now import Brisbane HIFU data onto a collation-unified schema and watch NEO v2 run live against real bookings/clients/services.</li>
+    <li>📋 <strong>Queued for next session (ordered):</strong> (1) NEO PR 5c Phase 2 — <code>publish_post</code> + <code>publish_paid_ad</code> (flips drafts from Tier 3 to live; Marketing Hub is Phase 2 post-go-live); (2) NEO PR 6 — proactive Insight Cards cron + <code>neo_cards</code> table; (3) NEO PR 7 — cost-logging <code>neo_conversations</code> table; (4) <code>vite-build</code> CI gate (30-sec workflow edit by Kim — PAT can't touch <code>.github/workflows/</code>); (5) informal 7-day NEO v2 PROD watch window on Brisbane HIFU; (6) RBAC tool-filtering for Manager/Staff/Receptionist (currently Owner-only) — NEO PR 13.</li>
+  </ul>
+
+  <h3>🚀 Earlier Session (24 April 2026 PM · Nova) — Pricing v2 + Multi-Location foundation + Stripe Connect webhooks + RBAC hardening + Feature Visibility shipped autonomously</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>📐 <strong>5 PRs merged autonomously</strong> under Kim's live authority grant — <code>325 → 446 tests</code> (+121 net). Railway auto-deployed each in sequence. Brisbane HIFU is using PROD productively today (first paying customer using the platform for real patient data), so every PR was smoke-verified + surgical in scope.</li>
+    <li>💵 <strong>PR #102 — Pricing Tiers v2 + plan-limit enforcement (merged):</strong> rename Starter/Growth/Pro/Enterprise → <strong>Solo / Duo / Multi / Enterprise</strong>, all <strong>USD</strong> (was AUD). New caps approved by Kim: <code>5 / 10 / 20 / 50</code> staff, <code>1 / 2 / 5 / 10</code> locations, <code>250 / 500 / 1500 / 3000</code> SMS, <code>50 / 100 / 250 / 500</code> AI images. Prices <code>$35 / $49 / $79 / $149</code> (10+ locations = custom via gm.teamneo@gmail.com). New <code>plan-tiers.js</code> extracted from <code>index.js</code> (188-line block moved out). New <code>PLAN_ALIASES</code> maps legacy codes so existing tenants keep working for 12-month grandfather window. Closed the silent gap flagged in <code>RBAC_AND_PLAN_ENFORCEMENT_FINDINGS.md</code> §3 — <strong>a $29 Solo tenant could previously create unlimited staff</strong>. Now <code>POST /api/staff</code>, <code>/api/staff/import</code>, <code>/api/staff/import-json</code>, <code>/api/locations</code> all pre-flight limits and return <strong>402</strong> with <code>{code, max, current, attempted, plan_name, upgrade_to, upgrade_to_name, message}</code>. Frontend StaffPage catches 402 and renders a purple/pink in-modal upgrade banner with "Upgrade to Duo" CTA.</li>
+    <li>🏢 <strong>PR #105 — Multi-Location PR-A data model (merged):</strong> migration 014 ships the chain-customer foundation (Specs #4+5+6 of <code>MULTI_LOCATION_EPIC_SPEC.md</code>). New junction tables <code>event_type_locations</code> + <code>staff_locations</code>. <code>availability.location_id</code> column added (nullable for backward compat). New <code>multi-location-helpers.js</code> with <code>getActiveLocationCount()</code> / <code>isMultiLocationTenant()</code> / transactional set-replace functions. New endpoints for the junction wiring: <code>GET /api/locations/:id/services</code>, <code>GET /api/locations/:id/staff</code>, <code>GET|POST /api/staff/:id/locations</code>, <code>GET|POST /api/event-types/:id/locations</code>. <strong>Brisbane HIFU absolute backward compat</strong> — all backfill gated on <code>COUNT(active locations) = 1</code>, so PR-B / PR-C UX chrome auto-hides for single-location tenants. <strong>Silent bug caught + fixed:</strong> PR #102's new <code>plan-tiers.js</code> + <code>plan-limits.js</code> were never added to the Dockerfile COPY list — plan enforcement would have silently no-oped in Railway's Docker image. 1-line fix folded into PR-A. Used schema's actual UUID (VARCHAR(36)) FK types rather than spec's BIGINT.</li>
+    <li>💳 <strong>PR #109 — Stripe Connect Webhooks (merged):</strong> closes the only remaining gap in <code>IMPLEMENTATION_STATUS.md</code> §3. New endpoint <code>POST /api/stripe/connect</code> (sibling of existing <code>/api/stripe/webhook</code>, separate signing secret for safer rotation). Handlers for <code>account.updated</code>, <code>capability.updated</code>, <code>transfer.created</code>, <code>transfer.reversed</code>, <code>payout.failed</code>. New table <code>stripe_connect_events</code> (dedupe on <code>stripe_event_id</code> via UNIQUE + ER_DUP_ENTRY handling). New table <code>system_alerts</code> (severity enum info/warn/error, dismissable). Failed-payout pipeline: SMS (ClickSend) + email (Resend) + in-app <code>SystemAlertBanner</code> mounted on AdminLayout (5-min auto-refresh). Owner-only <code>POST /api/stripe-connect/retry-transfer/:id</code> with step-up auth. Kim configured Stripe Dashboard + Railway <code>STRIPE_CONNECT_WEBHOOK_SECRET</code> env var post-merge. <strong>Caveat:</strong> <code>transfer.failed</code> event doesn't exist in modern Stripe's catalogue — handler is dead code, will be removed in a cleanup PR. <code>payout.failed</code> (on the Connect account) is the actual bank-bounce signal.</li>
+    <li>🔒 <strong>PR #110 — RBAC Hardening: role unification + audit log (merged):</strong> both P1 items from <code>RBAC_AND_PLAN_ENFORCEMENT_FINDINGS.md</code> §2 + §5. <strong>Task A:</strong> JWT now carries both <code>role</code> (legacy 5-set) and <code>granular_role</code> (new 6-set from <code>staff-permissions.js</code>). <code>ROLE_TO_LEGACY</code> map applied in env-var <code>login()</code>, DB <code>login()</code>, and <code>register()</code>. The 137 existing <code>requireAuth([...])</code> call-sites stay untouched — no regression risk. <strong>Task B:</strong> new <code>audit_requests</code> table (distinct from existing <code>audit_log</code> which captures business-event before/after snapshots) + <code>auditMiddleware</code> in new <code>audit-log.js</code>. Fire-and-forget insert (never throws), logs every authenticated POST/PUT/PATCH/DELETE with <strong>sensitive-field redaction</strong> (<code>password</code>/<code>pin_code</code>/<code>token</code>/<code>secret</code>/<code>api_key</code> → <code>[REDACTED]</code> in <code>payload_hash</code>). Owner-only <code>GET /api/admin/audit-log</code> + <code>GET /api/admin/audit-log/export.csv</code>. New <code>/admin/settings/audit-log</code> page with filters (date range, user, path prefix) + pagination.</li>
+    <li>👁️ <strong>PR #111 — Feature Visibility Phases 1–3 (merged):</strong> hideable list approved by Kim 24 Apr 2026. Migration 016 (renumbered from spec's 015 after PR-05 collision) adds <code>tenant_feature_visibility</code> table — <strong>row-free default = everything ON</strong>. New <code>feature-modules.js</code> registry of 14 hideable modules (payroll, timesheets, stock, suppliers, outlook, loyalty, giftcards, memberships, consent, client_portal, retention_ai, multilang, marketing_hub, accounting) with dependency graph — hiding <code>stock</code> cascades to <code>suppliers</code> + <code>outlook</code>; turning <code>suppliers</code> ON auto-enables <code>stock</code>. Owner-only <code>GET|PATCH /api/feature-visibility</code>. New <code>useFeatureVisibility</code> hook (module-level cache + pub/sub — SWR API-shape for later swap). New <code>FeatureGate</code> wrapper component + <code>SettingsFeaturesPage</code> at <code>/admin/settings/features</code>. Nav + route guards applied to currently-declared hideable routes.</li>
+    <li>🧪 <strong>Parallelism lesson banked:</strong> three sister agents (PR-05 Stripe, PR-02 Visibility, PR-03 RBAC) were launched simultaneously and <strong>collided in the shared <code>booking-api/</code> git checkout</strong> — PR-05 and PR-02 ended up stashing, switching branches, and leaking files into each other's edits. PR-05 and PR-02 self-rescued by creating private worktrees at <code>../booking-api-stripe-webhooks</code> and <code>../booking-api-feature-visibility</code>. PR-03 recovered via stash + strip-leaked-files + rebase. All 3 ended clean. <strong>Rule for future parallel Agent launches:</strong> each agent must branch into its own git worktree upfront, never share the primary checkout.</li>
+    <li>🏥 <strong>Brisbane HIFU go-live operations:</strong> <code>PLAN_TIER=duo</code> set on BAT-PROD web service via <code>railway variables --set</code> (was <code>growth</code>, same caps via alias but canonical code now matches v2 naming). Kim using PROD productively today for real patient data import — first paying customer on the platform. URL: <code>https://app.bookatreatment.ai</code>. No re-signup needed (tenant_id=1 already). Stripe Connect webhook configured with 4 events (<code>account.updated</code>, <code>capability.updated</code>, <code>transfer.created</code>, <code>payout.failed</code>) on Connected accounts.</li>
+    <li>📘 <strong>Docs updated</strong>: <code>CONFIGURATION_GUIDE.md</code> v6.11 → <strong>v6.12</strong> (§10 Pricing Tiers fully rewritten to v2, §15 env vars bumped with <code>PLAN_TIER</code> v2 codes + new <code>STRIPE_CONNECT_WEBHOOK_SECRET</code>). This APP HQ session block. <code>PR_SEQUENCE_AND_EXECUTION_PLAN.md</code> (new) tracks what's landed and what's queued. Specs created today for downstream work: <code>PROMPT_CC_04B_MULTI_LOCATION_PR_B.md</code> (booking widget + admin calendar location switcher), <code>PROMPT_CC_04C_MULTI_LOCATION_PR_C.md</code> (per-staff per-location availability — Kim approved <code>staff_id</code> on existing <code>availability</code> table rather than a separate <code>staff_availability</code> table), <code>PROMPT_LOVABLE_01_PRICING_PAGE.md</code> (public <code>/pricing</code> rebuild with v2 numbers).</li>
+    <li>📋 <strong>Queued for next session</strong>: (1) Multi-Loc PR-B — UX layer, unblocked now; (2) Multi-Loc PR-C — per-location availability, after PR-B; (3) Lovable <code>/pricing</code> rebuild (different surface, anytime); (4) cleanup PR for dead <code>transfer.failed</code> handler (no behavioural impact, cosmetic only).</li>
+  </ul>
+
+  <h3>🚀 Earlier Session (24 April 2026) — José 10-PR complete + LIVE on Brisbane HIFU + post-launch hardening + Stripe-in-chat</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🎉 <strong>José 10-PR backlog shipped end-to-end in 24 hours.</strong> PRs 6 → 10 (frontend bubble, fullscreen CTA, 12-language, admin escalation inbox, metrics + analytics dashboard) all merged overnight. Then a post-launch audit surfaced 12 real gaps → bundled into TWO more PRs and shipped same-session.</li>
+    <li>🟢 <strong>FEATURE_JOSE_CHAT=true flipped on BAT-PROD.</strong> <code>app.bookatreatment.ai/book</code> is live to Brisbane HIFU customers. Smoke test verified: persona greeting, snapshot cache hitting (3.1s → 1.2s on warm call), Anthropic prompt cache hitting, language detection working. ONE flag to watch: BAT-PROD <code>event_types</code> table still has demo seed rows ("Example Treatment / Consultation / Add-On") — data-setup task on Kim's side, not a code bug.</li>
+    <li>🔒 <strong>PR #106 hardening</strong> (Tier 1 + Tier 2): <strong>(a)</strong> PII scrub — Luhn-validated card-regex redacts card numbers before anything reaches Claude (spec §11.9); <strong>(b)</strong> per-IP rate limit 60/min on <code>/api/chat/jose</code>; <strong>(c)</strong> per-session 30-message cap returns 429 before burning Anthropic credits; <strong>(d)</strong> session-Map janitor with 12h TTL sweeping every 15 min — fixes per-dyno memory creep; <strong>(e)</strong> per-tenant <code>FEATURE_JOSE_CHAT</code> via <code>account_settings.feature_jose_chat</code> — opt a clinic out without redeploy; <strong>(f)</strong> hi/bn/ru/id locale translations — all 12 spec languages now have native UI chrome; <strong>(g)</strong> 18 unit tests in <code>tests/unit/jose/</code>; <strong>(h)</strong> <code>scripts/sync-knowledge.js</code> with <code>--check</code> flag to mirror canonical knowledge into the repo.</li>
+    <li>💳 <strong>PR #107 Stripe-in-chat</strong> (spec §7.2) — completes the "Anonymous client books + pays without leaving chat" flow. New <code>jose-booking.js</code> + <code>create_booking</code> tool creates the booking row (source=ai, status=pending) + Stripe PaymentIntent with idempotency key; honours Stripe Connect. Frontend <code>JoseStripeElement.tsx</code> mounts <code>&lt;PaymentElement&gt;</code> inline with brand-coloured appearance. 3DS handled via Stripe's built-in redirect. Post-payment the existing webhook flips status to confirmed — zero new webhook work.</li>
+    <li>🔗 <strong>NEO ↔ admin inbox integration verified green.</strong> NEO's <code>reply_to_escalation</code> tool (<code>neo-v2.js:1667</code>) correctly UPDATEs <code>staff_escalations.status</code>, so when NEO replies via SMS, the <code>/admin/jose-escalations</code> page (PR 9) shows the ticket as <code>resolved</code> automatically. No double-handling, no ghost tickets.</li>
+    <li>📘 <strong>New doc:</strong> <code>BookATreatment-AI/Technical Documents/JOSE_UAT_CHECKLIST.md</code> — 10-section manual test plan covering anonymous booking → Stripe → OTP → cancel-with-policy → escalation+NEO round-trip → 12-language → metrics → hardening + rollback plan. Run on BAT-DEV first, re-run on PROD after DEV passes.</li>
+    <li>📏 <strong>Session output</strong>: 12 PRs merged (PRs 1–10 plus hardening bundle + Stripe-in-chat). Zero schema rollbacks. One migration conflict caught + fixed (PR 10 migration 012 → renumbered to 013 after client-documents landed in parallel). One mid-merge PR briefly deleted + re-opened without data loss.</li>
+    <li>📋 <strong>Still open for Kim</strong>: clean up "Example Treatment" demo rows in Brisbane HIFU PROD <code>event_types</code> so José recommends real services; set <code>account_settings.default_language</code> per tenant if non-English defaults are wanted; watch the metrics dashboard for a few days of real traffic before onboarding tenant #2.</li>
+  </ul>
+
+  <h3>🚀 Previous Session (23 April 2026 PM · late) — José backend 1–5 shipped + verified live on BAT-DEV + PR 6 frontend</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🚀 <strong>Six José PRs shipped in a single session.</strong> PRs 1–5 (backend) all merged to main and end-to-end smoke-tested on BAT-DEV. PR 6 (frontend chat bubble) open for review. All 9 spec tools from <code>JOSE_BOOKINGAPP_SPEC.md</code> §5 are wired — <code>get_services</code>, <code>get_availability</code>, <code>get_my_bookings</code>, <code>reschedule_booking</code>, <code>cancel_booking</code>, <code>change_service</code>, <code>get_tenant_policies</code>, <code>get_staff_info</code>, <code>escalate_to_staff</code> — plus <code>send_otp</code> + <code>verify_otp</code>.</li>
+    <li>🧱 <strong>PR 1 (#73 · <code>0cdeb0d</code>)</strong>: <code>POST /api/chat/jose</code> + tool-use loop capped at 5 iterations (<code>claude-haiku-4-5-20251001</code>, 1024 max_tokens) + 3 read tools Anonymous-only + SSE stream + module-scope Anthropic prompt caching on the 9-file product KB + <code>FEATURE_JOSE_CHAT</code> env gate (404 when off).</li>
+    <li>📸 <strong>PR 2 (#75 · <code>eeb0b37</code>)</strong>: per-tenant facts snapshot (<code>tenant-snapshot.js</code>) — brand + services + policies + 14-day hours calendar in a 5-min-TTL <code>Map</code> cache. Injected as a second cached system-prompt block so routine questions answer without a tool call. Redis deferred per spec §19.5.</li>
+    <li>🔐 <strong>PR 3 (#76 · <code>616608e</code>)</strong>: OTP auth (<code>jose-session.js</code> + <code>jose-otp.js</code>). State machine Anonymous → Pending OTP → Identified → Stale (30-min idle). Session held in module-scope Map keyed by <code>session_id</code>, cross-tenant-safe. Reuses existing <code>contacts.otp_code</code> table + ClickSend SMS / Resend email. Extended to accept phone identifier in addition to email.</li>
+    <li>🔧 <strong>PR 4 (#77 · <code>7cc5426</code>)</strong>: 4 identified-only action tools (<code>jose-actions.js</code>). Each re-verifies ownership via <code>bookings.email ↔ contacts.email</code>. Reschedule atomic-re-checks availability. Cancel computes refund/forfeit per policy but does NOT issue Stripe refund (stays with admin pipeline per spec §11.7). Every write busts the snapshot cache.</li>
+    <li>🚨 <strong>PR 5 (#78)</strong>: escalation + staff-info (<code>jose-escalations.js</code>) + <code>staff_escalations</code> table migration 011. Owner email resolved via <code>admin_users.role='owner'</code> → any admin → <code>CLINIC_EMAIL</code> fallback. Resend email with 🔴 URGENT badge + optional ClickSend SMS for urgent. <strong>Auto-escalate on 5-iteration tool-loop cap</strong> — backend fires <code>createEscalation</code> itself with <code>reason='loop_exhausted'</code>.</li>
+    <li>🎨 <strong>PR 6 (open)</strong>: frontend chat bubble on <code>/book</code>. 4 files under <code>frontend/src/components/jose/</code>. Floating bottom-right bubble, brand-coloured from <code>booking_page_settings.btn_color</code>, full-screen on mobile. Self-probes <code>/api/chat/jose</code> + hides when disabled. Renders <strong>slot chips</strong> (grouped by date, one-tap pick), <strong>bookings list</strong> cards, <strong>escalation card</strong> with ticket ID, <strong>cancel-outcome banner</strong> (refund vs forfeit), <strong>reschedule confirmation</strong>, <strong>OTP-sent hint</strong>, verified/code-sent header badges. <code>session_id</code> persisted to localStorage. Backend emits new <code>tool_result</code> SSE event with sanitised previews (no PII) so frontend doesn't regex-parse assistant text. Vite build green (4.07s).</li>
+    <li>✅ <strong>Live smoke test on BAT-DEV</strong> at <code>https://bookatreatment-demo-production.up.railway.app/api/chat/jose</code> — persona greeting working ("Hi, I'm José ✨"), snapshot answering routine questions without tool calls (<code>tools_called: []</code>), Anthropic prompt cache hitting on 2nd call (<code>cache_hit: true</code>), snapshot cache hitting (<code>snapshot_cached: true</code>), response latency 3.1s → 1.2s on warm call.</li>
+    <li>🔑 <strong>Operational note</strong>: BAT-DEV had a stale <code>ANTHROPIC_API_KEY</code> (different from PROD's). Copied PROD key to DEV via Railway CLI (no plaintext logging) — redeploy succeeded, endpoint went green.</li>
+    <li>📘 <strong>Docs tracked every PR</strong>: <code>IMPLEMENTATION_STATUS.md</code> v1.5 → v2.2 (§14 expanded with per-PR implementation notes verified against code). <code>CONFIGURATION_GUIDE.md</code> v6.1 → v6.7 (per-PR version-history entries). This APP HQ block.</li>
+    <li>📋 <strong>Remaining José backlog</strong>: PR 7 (full-screen entry point), PR 8 (12-language runtime detection), PR 9 (NEO Inbox integration surfacing escalations), PR 10 (<code>jose_conversations</code> metrics).</li>
+  </ul>
+
+  <h3>🚀 Earlier Session (23 April 2026 PM) — NEO v2 SHIPPED on DEMO + ESLint modernisation</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🟢 <strong>NEO v2 LIVE on <code>demo.bookatreatment.ai</code> with 33 tools across 4 permission tiers</strong> (retro-updated 24 Apr PM as part of v6.17 doc sync). Agentic tool-using ops partner in the admin app. <strong>14 read + 7 safe-write + 6 marketing/ops drafts + 6 costly writes = 33 tools</strong>. Owner-gated via <code>requireAuth(['owner'])</code>. Sonnet 4.6 with prompt caching on 22KB product-facts block. Tool-use loop capped at 8 iterations. Rate limit 60 msg/hour per user. UAT smoke green post-hotfix. <strong>PR 1 → PR 5b now COMPLETE.</strong></li>
+    <li>📦 <strong>PR #88 — NEO PR 3 Safe-Writes (merged):</strong> 7 mutating tools — <code>reschedule_booking</code>, <code>cancel_booking_admin</code>, <code>create_booking</code>, <code>block_calendar_time</code>, <code>add_client_note</code>, <code>mark_no_show</code>, <code>send_sms_to_client</code>. <strong>Two-phase confirmation pattern</strong>: <code>confirmed=false</code> returns <code>{requires_confirmation: true, summary, preview}</code> without mutating; <code>confirmed=true</code> executes. Frontend <code>&lt;AskNeoPanel /&gt;</code> detects pending-confirmation state + renders <code>[Confirm]</code> <code>[Cancel]</code> buttons under tool chips. No Stripe calls. <strong>This is where NEO stops being read-only and starts reducing clicks.</strong></li>
+    <li>📦 <strong>PR #89 — NEO PR 4 Marketing/Ops Drafts (merged):</strong> 6 tools — <code>draft_marketing_post</code>, <code>schedule_post</code>, <code>adjust_reorder_threshold</code>, <code>reply_to_escalation</code> (first cross-tool write: updates <code>staff_escalations</code> + ClickSend SMS + resolves José's ticket), <code>draft_sms</code> (read-only segment count + cost preview), <code>run_auto_pilot_rebook</code> stage-1 (target count + draft + estimated ROI).</li>
+    <li>🎨 <strong>PR #91 — Composer textarea resize (merged, UAT feedback):</strong> Kim's verbatim note — "the box for the user to type in is not big enough it must display a decent size for at least 4 lines of text". <code>AskNeoPanel.tsx</code> composer bumped from <code>rows={1}</code> / <code>maxHeight:120px</code> to <code>rows={4}</code> / <code>minHeight:96px</code> / <code>maxHeight:280px</code> / <code>resize-y</code>.</li>
+    <li>🎨 <strong>PR #92 — NEO persona v2 table discipline (merged, UAT feedback):</strong> Kim flagged "too many dashes" on single-entity previews rendering as two-column tables. Persona updated with sharp rule: "tables ONLY for comparing multiple DIFFERENT entities side-by-side. If your table has only 2 columns (label + value), it's the wrong format — use bullets or a short paragraph." Applied to <code>booking-api/knowledge/persona/neo_app.md</code> + synced to canonical <code>BookATreatment-AI/Website/knowledge/persona/neo_app.md</code> via <code>scripts/sync-knowledge.js</code>.</li>
+    <li>📦 <strong>PR #93 — NEO PR 5a (merged):</strong> first costly-write tool <code>send_sms_bulk</code> (Tier 5, ClickSend pipeline, tenant-scoped segment resolution, dry-run preview, audit-logged). Ships <strong>step-up auth infrastructure</strong>: new <code>booking-api/step-up-auth.js</code> (197 LOC) exporting <code>registerStepUpRoutes</code> / <code>requireStepUp</code> / <code>verifyStepUpToken</code> / <code>issueStepUpToken</code>; new endpoint <code>POST /api/auth/step-up</code> issues a 15-min sliding JWT with <code>step_up:true</code> claim after bcrypt-verified password re-entry (or <code>ADMIN_PASSWORD</code> env-var fallback). Reuses existing <code>JWT_SECRET</code> — no new secrets.</li>
+    <li>🎨 <strong>PR #96 — NEO UX polish (merged, UAT feedback):</strong> Kim's verbatim vetoes — "they should not need to add an admin password each time that will annoy users. remove this failsafe" · "language is too strong irreversible action. Change to friendly tone" · "tick box for yes (not I understand blah blah text)" · "can we remove the underscores from these messages they are too techy for the users". Shipped: (1) removed step-up password re-prompt from <code>send_sms_bulk</code> — single-click "Yes" tick is now the consent gate. (2) Dialog header "Irreversible action" → <strong>"Confirm your action"</strong>. (3) Dialog styling orange → <strong>teal brand</strong>. (4) "I understand the consequences" verbose text → single-word <strong>"Yes"</strong> checkbox. (5) Underscored tool names stripped from user-visible segment labels (e.g. <code>lapsed_90d</code> → "Lapsed 90+ days"). <strong>Step-up infrastructure stays in place but is now dormant</strong> — reserved for future Tier-4 (destructive, irreversible) tools. Documented in CONFIG_GUIDE §19.9.</li>
+    <li>📦 <strong>PR #104 — NEO PR 5b Costly Writes Tranche 2 (merged):</strong> 5 more costly-write tools with single-click "Yes" tick confirmation (matches PR #96 standard). <code>refund_payment</code> — Stripe refund via existing Connect pipeline, idempotent on <code>(pi_id, amount_cents)</code>. <code>run_pay_run</code> — triggers existing payroll module, requires finalised timesheet window. <code>update_service_pricing</code> — writes <code>event_types.price_cents</code> with before/after audit row. <code>export_client_data</code> — GDPR Article 15 full-JSON export, Resend-emailed with 24h signed URL. <code>delete_client</code> — <strong>soft-delete only</strong> (sets <code>contacts.deleted_at</code>, retains audit trail, does NOT cascade to bookings per legal-retention rules). All 5 audit-logged with full before/after snapshot.</li>
+    <li>📦 <strong>PR #74 — NEO v2 PR 1 Foundation (merged):</strong> <code>POST /api/chat/neo</code> + <code>GET /api/chat/neo/status</code>; 3 read tools (<code>get_dashboard_snapshot</code>, <code>get_schedule</code>, <code>get_insights</code>); vendored <code>booking-api/knowledge/</code> folder (persona + product facts); shared <code>knowledge-loader.js</code> module; <code>&lt;AskNeoPanel /&gt;</code> floating chat bubble on every admin page (dark-theme aware, renders only when backend reports <code>enabled:true</code>); <code>FEATURE_NEO_V2</code> env flag (default <code>false</code>).</li>
+    <li>📦 <strong>PR #85 — NEO v2 PR 2 Read Tools (merged):</strong> 11 more read tools. <code>get_clients</code> with VIP / lapsed / new segments + lapsed-days filter; <code>get_client_detail</code> with bookings + credits + notes; <code>get_staff</code> with optional KPI join; <code>get_services</code>; <code>get_inventory</code> with low-stock filter; <code>get_suppliers</code> with invoice stats; <code>get_finance_summary</code> merging bookings + POS sales + refunds (gross + net); <code>get_marketing_hub_state</code> (posts by status + connected platforms); <code>get_escalations_inbox</code> reading José's <code>staff_escalations</code> table; <code>get_tenant_settings</code>; cross-entity fuzzy <code>search</code>. <strong>Graceful-degrades</strong> on tables not yet fully migrated (<code>try/catch</code> with empty-state returns). <strong>No schema changes.</strong></li>
+    <li>🩹 <strong>PR #86 — Hotfix 2.1 (merged):</strong> 7 sites of <code>LIMIT ?</code> → <code>LIMIT ${lim}</code> interpolation. mysql2 <code>.execute()</code> uses MySQL's binary prepared-statement protocol which doesn't cleanly bind LIMIT across versions. <code>lim</code> is integer-validated by <code>capLimit()</code> upstream — no SQL-injection surface. Caught in DEMO UAT within minutes — "who are my VIPs" and "any lapsed 90+ days" both 500'd until patched. <strong>Going-forward rule:</strong> always hardcode or interpolate LIMIT in mysql2 queries.</li>
+    <li>🧹 <strong>PR #79 — Silent Railway-deploy unblocker (merged):</strong> POSPage.tsx had duplicate <code>toast</code> identifier (<code>useToast()</code> hook + SUSPEND_SALE state), broke <code>vite build</code>. Railway silently blocked every deploy since PR #73; PRs #74 / #75 / #76 / #77 all collapsed into a failed image. 6-line surgical rename to <code>suspendToast</code> unblocked 4 stacked PRs at once. <strong>Lesson for the team:</strong> run <code>vite build</code> locally before merging frontend PRs — a <code>frontend-build</code> CI gate is queued for Kim to push (PAT can't modify <code>.github/workflows/</code>).</li>
+    <li>✨ <strong>PR #83 — ESLint cleanup (merged):</strong> 210 → 0 lint findings. Config: <code>eqeqeq</code> with <code>null: 'ignore'</code>, <code>no-empty: { allowEmptyCatch: true }</code>, downgrade stylistic noise rules (require-await, no-return-await, no-explicit-any), per-surface env overrides (SW / widget / scripts / frontend). Real bug fixes: <strong>4× missing <code>const db = require('./database')</code></strong> in route handlers (would have 500'd at runtime on first hit). Unescape <code>\-</code> in a char class. Prefer-const splits on 9 <code>let imported = 0, errors = []</code> lines. Removed 10 redundant <code>/* eslint-disable */</code> comments. Prefixed unused vars with <code>_</code>.</li>
+    <li>⚡ <strong>PR #84 — ESLint 9 flat-config migration (merged):</strong> <code>.eslintrc.json</code> → <code>eslint.config.js</code>. Deps: <code>eslint 8.56 → 9.39.4</code>; <code>@typescript-eslint/parser + /eslint-plugin</code> v7 (separate packages) → unified <code>typescript-eslint</code> v8.57; added <code>@eslint/js</code> + <code>globals</code>. Matches frontend's existing ESLint 9 setup. Closes the 22 Apr dependabot reverts (#16 + #23 + #40) once and for all. <code>caughtErrors</code> default flipped in v9 — added <code>caughtErrorsIgnorePattern: '^(_|e$|err$)'</code> to preserve old contract. <strong>CI Lint now green for the first time in weeks</strong> after Kim's 30-second workflow edit (line 42 of <code>.github/workflows/ci.yml</code>, remove <code>--ext</code> flag).</li>
+    <li>📘 <strong>Docs updated</strong>: <code>IMPLEMENTATION_STATUS.md</code> v2.0 → v2.1 (new §15 NEO section, full PR 1 + 2 + 2.1 evidence). <code>CONFIGURATION_GUIDE.md</code> §19.6 rewritten (was "queued" — now documents what's shipped). This APP HQ session block.</li>
+    <li>🔐 <strong>RBAC finding mid-session</strong>: my pre-session memory claimed RBAC wasn't built — <strong>greped and found it IS</strong>. <code>auth.js:341</code> has <code>ALL_ROLES = ['owner','manager','staff','receptionist','admin']</code>, <code>requireAuth([roles])</code> pattern works, <code>tests/unit/middleware/rbac.test.ts</code> passes. What's actually missing (for future RBAC amend PR): role-assignment UI on staff invite, step-up auth, audit-log role column, confirmation that every existing route calls <code>requireAuth([roles])</code> vs the role-less variant.</li>
+    <li>📋 <strong>Queued for next (ordered, updated 24 Apr PM):</strong> (1) <strong>NEO PR 5c Phase 2</strong> — <code>publish_post</code> + <code>publish_paid_ad</code> (flips drafts from Tier 3 to live; Marketing Hub is Phase 2 post-go-live). (2) <strong>NEO PR 6</strong> — proactive Insight Cards cron + <code>neo_cards</code> table. (3) <strong>NEO PR 7</strong> — cost-logging <code>neo_conversations</code> table. (4) <code>vite-build</code> CI gate (30-sec workflow edit by Kim). (5) <strong>30 Apr</strong> — flip <code>FEATURE_NEO_V2=true</code> on BAT-PROD after 7-day DEMO clean-run window. (6) RBAC tool-filtering for Manager/Staff/Receptionist tiers (currently Owner-only) — PR 13.</li>
+  </ul>
+
+  <h3>📋 Earlier Session (23 April 2026) — AI Agent Architecture: KiMMi shipped, José spec'd, NEO queued</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🧠 <strong>Three-agent architecture locked + documented.</strong> KiMMi = website concierge (marketing site, Lovable). José = customer-facing booking agent (booking-api <code>/book</code>). NEO = admin operations partner (booking-api <code>/admin</code>). KiMMi is Q&amp;A-grounded; José and NEO are agentic tool-calling. Permission model (b) applies to both agents: autonomous for safe, confirm for costly, escalate for out-of-scope.</li>
+    <li>✅ <strong>KiMMi Phase 1 + 2 SHIPPED on Lovable.</strong> Chat bubble + 76-article KB + streaming SSE + 15 UI strings × 12 languages with cultural registers.</li>
+    <li>📋 <strong>José SPEC'D</strong> then partially built — PRs 1–5 shipped by parallel session (all 9 spec tools now live).</li>
+    <li>🔮 <strong>NEO spec written later same day</strong> — NEO_ADMIN_SPEC.md v1.0, then PRs 1 + 2 shipped (see session block above).</li>
+    <li>📚 <strong>Shared knowledge layer</strong> at <code>BookATreatment-AI/Website/knowledge/</code>. <code>product/*.md</code> + <code>persona/*.md</code> + <code>_meta/</code>. Vendored into <code>booking-api/knowledge/</code> for NEO + José.</li>
+    <li>💰 <strong>No new secrets</strong>. All three agents share <code>ANTHROPIC_API_KEY</code>. Feature flags: <code>FEATURE_JOSE_CHAT</code>, <code>FEATURE_NEO_V2</code>.</li>
+    <li>📊 <strong>Cost projection</strong>: ~$90/month all-in per tenant — KiMMi ~$10, José ~$50, NEO ~$30.</li>
+  </ul>
+
+  <h3>📋 Previous Session (22 April 2026 — late night) — UAT sprint: 9 PRs shipped, NEO Insights rebuilt, Marketing Hub gated</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🐛 <strong>Parsed Kim's UAT doc</strong> (<code>Bugs and Changes to UI.docx</code>, 13 items). Grouped into 5 PR batches: copy/CSS, bugs, restructure, perf, scheduler rebuild.</li>
+    <li>✅ <strong>PR #51 — Copy + CSS quick wins (merged):</strong> Auto-Pilot text <code>white/60 → white/90</code>; <code>NaNh gaps</code> bug fixed (null-coerced + label changed to "X hours open"); Suppliers Insights card labels + Connect Gmail/Outlook buttons equalised; "Supplier Import Review" renamed to "Receive Stock" (English label only); language selector badges switched from flag emojis to 2-letter ISO codes so Windows falls back to <code>EN</code>, not <code>GB</code>.</li>
+    <li>✅ <strong>PR #52 — Bug fixes (merged):</strong> #1 Booking Manager card wired to <code>/admin/assistant</code> (was dead redirect); #7 Staff Performance badge now reactive to period filter; #11 Calendar drag-drop persistence bug fixed in <code>bookings.js updateBooking()</code> — backend now aliases <code>start_time → time</code> when caller omits <code>time</code> (frontend always sent <code>start_time</code> which was silently dropped); #13 demo 409-on-Continue-to-Payment — overlap check skipped when <code>DEMO_MODE=true</code>, frontend now surfaces server error message instead of axios generic.</li>
+    <li>✅ <strong>PR #53 — NEO Insights restructure + Receive Stock table (merged):</strong> Promoted 7 insight cards (Revenue / Bookings / Schedule / Staff Performance / Staff KPIs / Client KPIs / Suppliers) to top-level on <code>/admin/neo</code>. Dropped the "Full Insights Dashboard" card. Receive Stock tables restyled to match Stock Management (dark purple headers, <code>text-sm font-extrabold uppercase tracking-wider</code>).</li>
+    <li>✅ <strong>PR #54 — Auto-Pilot hotfix (merged):</strong> page centred (<code>max-w-6xl mx-auto</code>), grey "Campaign discount:" + unselected pill font forced white.</li>
+    <li>✅ <strong>PR #55 — Page widths (merged):</strong> <code>max-w-6xl mx-auto</code> applied to Finance / Payroll / Contacts / Consent Forms / Staff KPIs pages. Also fixed the Staff KPI empty-cards bug — <code>loadKpis()</code> was treating <code>/api/bookings</code> paginated response as an array (silently iterated nothing), now unwraps <code>raw.data</code>. Demo KPI tiles now show real numbers.</li>
+    <li>✅ <strong>PR #56 — Marketing Hub cards hidden (merged):</strong> <code>AI Image Ads</code> + <code>Smart Campaigns</code> gated behind <code>VITE_SHOW_MARKETING_HUB === 'true'</code>. Unset / anything else = hidden. Applies to BAT-PROD + BAT-DEMO; set to <code>true</code> on BAT-DEV if you want them visible there.</li>
+    <li>✅ <strong>PR #57 — NEO polish + Ops Dashboard widening (merged):</strong> removed <code>aspect-square</code> on NEO cards (no blank space), bumped font to <code>text-lg</code>/<code>text-sm</code>, 3-col grid with Suppliers full-width on last row. Ops Dashboard <code>max-w-2xl → max-w-5xl</code> (matches Stock Management). Timesheets centred. Services width-capped.</li>
+    <li>✅ <strong>PR #58 — Marketing sidebar hidden (merged):</strong> the "Marketing" nav entry in <code>AdminLayout.tsx</code> is now also gated on <code>VITE_SHOW_MARKETING_HUB</code>. <code>/admin/marketing</code> route stays registered (QA + deep links still work), only the sidebar link drops.</li>
+    <li>✅ <strong>PR #59 — NEO reorder, Auto Pilot featured (open, ready to merge):</strong> Auto-Pilot promoted to a full-width featured card at the bottom of the summary grid, centred text, Rocket icon. Renamed to <strong>Auto Pilot Rebook Campaigns</strong> with description "AI-driven client retention — predicts churn and triggers personalised rebook campaigns". Suppliers moved up to top-right. Schedule renamed to <strong>Utilisation</strong>, moved down into the AI Features row with an Activity icon.</li>
+    <li>🔎 <strong>Marketing Hub cache investigation:</strong> Kim reported cards still visible after PR #56 merged. Downloaded live bundle from both <code>app.bookatreatment.ai</code> + <code>demo.bookatreatment.ai</code> and confirmed the strings "AI Image Ads" / "Smart Campaigns" are NOT in the deployed JavaScript — gate is working. Root cause was browser-side service-worker / cache. Nuked with DevTools → Application → Storage → Clear site data.</li>
+    <li>🌍 <strong>New env var:</strong> <code>VITE_SHOW_MARKETING_HUB</code> (build-time, VITE_ prefix). Documented in <code>CONFIGURATION_GUIDE</code> v5.9. Set <code>true</code> on BAT-DEV only.</li>
+    <li>💪 <strong>Standing state:</strong> Brisbane HIFU sidebar on PROD no longer shows Marketing. NEO Insights reads cleanly. Calendar drag-drop persists. Demo booking flow completes without 409s. KPI tiles populate. Ready for Phase 3 DNS migration.</li>
+  </ul>
+
+  <h3>📋 Previous Session (17 April 2026) — i18n UAT + /staff/login gap closed</h3>
+  <ul style="margin-left:20px; color:var(--teal); font-size:13px; line-height:1.8;">
+    <li>🔍 <strong>Chrome-MCP UAT sweep</strong> on <code>demo.bookatreatment.ai/book</code> across 3 representative locales passed cleanly — es (Latin), zh (non-Latin), ar (RTL). Verified hero CTA, scroll, all 4 trust-strip items, "Our Treatments" heading, "Choose a Service", treatment-count pluralisation, "Read more", "✦ Popular" badge, footer rights-reserved. <code>html[lang]</code> + <code>html[dir]=rtl</code> flip confirmed on Arabic.</li>
+    <li>🐛 <strong>Gap caught:</strong> <code>/staff/login</code> (StaffLoginPage) was the one public staff-portal page the 16-Apr sprint missed — language <em>did</em> pass through (<code>html[lang]</code> + dir flip both applied), but hardcoded English strings rendered regardless. 13 strings affected: title/admin-title, session-expired banner, forbidden banner, Email/PIN labels, Sign In button, error messages, PIN help, admin-portal link.</li>
+    <li>🔧 <strong>Fix shipped:</strong> commit <code>d8f7dac</code> wraps all 13 strings in <code>t()</code>, adds <code>staffLogin</code> namespace (13 keys) to <code>en.json</code> + 11 locales via new idempotent script <code>scripts/add-staff-login-locales.js</code>. Pre-commit <code>tsc --noEmit</code> passed clean.</li>
+    <li>📘 <strong>Propagation note:</strong> language-pass-through logic at framework layer is correct — the only failure mode was missing <code>t()</code> wrapping. Same pattern applies to any future public page. Template script now exists for both <code>bookLanding/staff/staffMore</code> (16 Apr) and <code>staffLogin</code> (17 Apr).</li>
+    <li>🔒 <strong>Admin-account gate on <code>/staff</code> (logged-in):</strong> blocked on admin creds — requires logged-in admin session to reach. Carried forward to next UAT cycle with Kim's admin login.</li>
+    <li>📋 <strong>TEST_PLAN.md</strong> updated with I18N-01 through I18N-10 rows — <code>/book</code> × 3 locales PASS, <code>/staff/login</code> × 3 locales pending re-sweep after Railway deploy settles, <code>/staff</code> admin-gate × 3 locales 🔒 blocked on creds.</li>
+  </ul>
+  <h3>📋 Previous Session (16 April 2026) — 12-Language i18n</h3>
+  <ul style="margin-left:20px; color:var(--muted); font-size:13px; line-height:1.8;">
+    <li>🌐 <strong>Full 12-language parity shipped</strong> across admin Ops Dashboard (commit <code>9f71367</code>), <code>/book</code> public booking page (all 5 templates + direct-book), and <code>/staff</code> portal (layout + Timeclock + More + account-gate) per commit <code>c263693</code>.</li>
+    <li>🌐 <strong>Languages:</strong> en, es, fr, de, pt, zh, ko, <strong>ar (RTL)</strong>, hi, bn, ru, id.</li>
+    <li>🌐 <strong>54 new keys</strong> across 3 namespaces: <code>bookLanding</code> (19), <code>staff</code> (22), <code>staffMore</code> (13).</li>
+    <li>🌐 <strong>Propagation script</strong> <code>scripts/add-book-staff-locales.js</code> — idempotent, culturally-aware translations (Spanish usted, French vous, German Sie, Korean 요/ㅂ니다, MSA Arabic).</li>
+    <li>🌐 <strong>RTL handling:</strong> Arabic auto-applies <code>&lt;html dir="rtl"&gt;</code>; layout mirrors correctly across admin, /book and /staff.</li>
+    <li>🌐 <strong>Pattern fix:</strong> Module-level English constants (e.g. <code>TRUST_ITEMS</code>) moved inside component bodies so <code>useTranslation()</code> is in scope — applied to 5 booking templates + StaffPortalLayout tabItems.</li>
+    <li>📘 <strong>CONFIGURATION_GUIDE bumped to v5.2</strong> — §14 i18n section rewritten (6 → 12 languages table, UAT pattern, propagation guidance).</li>
+  </ul>
+  <h3>📋 Previous Session (13 April 2026)</h3>
+  <ul style="margin-left:20px; color:var(--muted); font-size:13px; line-height:1.8;">
+    <li><strong>MYOB Developer ID #49891 approved:</strong> Security compliance document written (<code>MYOB_SECURITY_COMPLIANCE.md</code>). App registration pending — need Client ID + Secret from MYOB portal.</li>
+    <li><strong>DEMO GitHub auto-deploy confirmed:</strong> Connected to <code>brisbanehifu/booking-api</code> main branch. Latest deployment successful (commit: "Fix syntax error in migrate.js try/catch nesting"). Domain <code>demo.bookatreatment.ai</code> configured (DNS propagating).</li>
+  </ul>
+  <details style="margin-top:8px;">
+    <summary style="color:var(--muted); font-size:12px; cursor:pointer;">Previous: 12 April 2026 (Late Night)</summary>
+  <ul style="margin-left:20px; color:var(--muted); font-size:13px; line-height:1.8;">
+    <li><strong>Railway project renames:</strong> <code>bat-demo</code> → <code>BAT-PROD</code>. New <code>BAT Demo</code> project created. <code>Booking APP</code> marked defunct.</li>
+    <li><strong>DEMO is LIVE:</strong> <code>demo.bookatreatment.ai</code> running on <code>BAT Demo</code> project, <code>DEMO_MODE=true</code>, MySQL, GitHub auto-deploy from main branch.</li>
+    <li><strong>Outlook Email Scanner shipped:</strong> <code>outlook-oauth.js</code> + <code>outlook-scanner.js</code> — Microsoft Graph API native integration for invoice scanning alongside Gmail.</li>
+    <li><strong>Outlook Connect UI shipped:</strong> InsightsPage Suppliers tab now shows both Gmail and Outlook connect buttons.</li>
+    <li><strong>MYOB Developer ID #49891 approved (13 Apr):</strong> Security compliance doc written (<code>MYOB_SECURITY_COMPLIANCE.md</code>). App registration pending — need Client ID + Secret from MYOB portal.</li>
+    <li><strong>Migration hardening:</strong> try/catch around all seed sections, stale ENUM fixes.</li>
+    <li><strong>Demo seed data expanded:</strong> Suppliers, invoices, timesheets, payroll, packages, KPIs, marketing campaigns, ad campaigns, social posts.</li>
+  </ul>
+  </details>
+  <details style="margin-top:8px;">
+    <summary style="color:var(--muted); font-size:12px; cursor:pointer;">Previous: 12 April 2026 (Night — Supplier IQ Part B + Invoice Files)</summary>
+  <ul style="margin-left:20px; color:var(--muted); font-size:13px; line-height:1.8;">
+    <li><strong>Supplier Intelligence Part B shipped:</strong> Gmail OAuth + Claude Vision invoice scanner + Google Drive file upload (commit <code>6151ebd</code>)</li>
+    <li><strong>Invoice File Management shipped:</strong> Google Drive upload on scan, Invoice Files table with period filter, inline rename, bulk select/download, Drive proxy (commit <code>40ca58a</code>)</li>
+    <li><strong>Google Cloud OAuth configured:</strong> Gmail API + Google Drive API enabled, consent screen configured, test users added (bookatreatmentai + neoklien.consulting)</li>
+    <li><strong>Facebook Pixel set:</strong> <code>VITE_FB_PIXEL_ID=831130199327489</code> on Railway. Consent-gated. Blocked by Meta 2FA requirement — added to P1 backlog.</li>
+    <li><strong>Docs aligned:</strong> CONFIGURATION_GUIDE v4.6 (§7c Gmail OAuth + Drive), IMPLEMENTATION_STATUS v1.2 (§5 + §5b fully updated), APP_HQ Implementation Status tab updated</li>
+    <li><strong>Meta Business Partner listing:</strong> Added to P3/Q3 backlog — get BAT listed in Facebook "Connect Another Tool" dropdown</li>
+  </ul>
+  </details>
+  <details style="margin-top:8px;">
+    <summary style="color:var(--muted); font-size:12px; cursor:pointer;">Previous: 12 April 2026 (Evening — Accounting Integration)</summary>
+  <ul style="margin-left:20px; color:var(--muted); font-size:13px; line-height:1.8;">
+    <li><strong>Full Accounting Integration shipped:</strong> Xero + QuickBooks Online — research, spec, build, UAT, QA, deploy all in one session</li>
+    <li><strong>Research phase:</strong> Deep analysis of top 15 accounting packages globally, 20-country payroll/tax jurisdiction research, competitive analysis (BAT vs Fresha/Vagaro/Timely)</li>
+    <li><strong>Spec:</strong> <code>ACCOUNTING_INTEGRATION_SPEC.md</code> — Phases 1-3, schema, journal templates, jurisdiction config for 20 countries</li>
+    <li><strong>Marketplace submissions prepared:</strong> <code>XERO_APP_PARTNER_SUBMISSION.md</code> + <code>QUICKBOOKS_APP_STORE_SUBMISSION.md</code> — pre-filled form answers, descriptions, asset checklists</li>
+    <li><strong>Legal:</strong> Privacy Policy + Terms of Service drafted with Xero/QBO data handling sections. Lovable prompts created. Pages building on marketing site.</li>
+    <li><strong>Developer apps registered:</strong> Xero (developer.xero.com) + QuickBooks (developer.intuit.com). Credentials in Railway.</li>
+    <li><strong>4 commits shipped:</strong>
+      <ul style="margin-left:16px; font-size:12px;">
+        <li><code>a358106</code> — Phase 1: Xero OAuth + journal sync + CSV export + settings UI (2,063 lines)</li>
+        <li><code>b2c3c88</code> — Security fixes: 4 critical, 6 high, 6 medium from UAT code review</li>
+        <li><code>40157a8</code> — Phase 2: QuickBooks Online integration (712 lines)</li>
+        <li><code>f2e5832</code> — QA blocker fixes: provider-aware mappings, frontend routing, clinic_id safety</li>
+      </ul>
+    </li>
+    <li><strong>UAT:</strong> 3 agents (backend API, frontend pages, code quality). 5/5 frontend pass. All criticals/highs fixed before final deploy.</li>
+    <li><strong>Competitive moat:</strong> Revenue + COGS + Payroll journals with jurisdiction-adaptive tax. No competitor does all three.</li>
+    <li>CONFIGURATION_GUIDE updated to v4.7 (§8b Accounting Integrations, 8 new env vars)</li>
+  </ul>
+  </details>
+  <details style="margin-top:8px;" open>
+    <summary style="color:var(--teal); font-size:13px; cursor:pointer; font-weight:600;">Latest: 13 April 2026 — Security Hardening + UX Fixes + Google Play (🔒 Pre-launch complete)</summary>
+    <ul style="margin-left:20px; color:var(--muted); font-size:12px; line-height:1.8; margin-top:8px;">
+      <li>🔒 <strong>Full security audit completed</strong> — 12 npm vulnerabilities patched, <code>safeError()</code> helper deployed (165 err.message exposures fixed, commit <code>a53ceae</code>)</li>
+      <li>🔒 <strong>All API keys rotated:</strong> Railway (JWT_SECRET, ADMIN_PASSWORD), Stripe (secret + webhook), Anthropic, ClickSend, Resend, AWS IAM — all in Bitwarden</li>
+      <li>🔒 <strong>2FA confirmed active</strong> on Railway, GitHub (+ security key), Google (all accounts), Hostinger, ClickSend</li>
+      <li>🔒 <strong>GitHub Pro activated</strong> — full branch protection on main (force pushes blocked, 1 required review)</li>
+      <li>🔒 <strong>Pre-commit secret scanner</strong> installed in <code>.git/hooks/pre-commit</code> (commit <code>4427978</code>)</li>
+      <li>🔒 <strong>Dependabot enabled</strong> + <code>.github/dependabot.yml</code> — weekly scans Monday 9am AEST</li>
+      <li>🔒 <strong>CODEOWNERS</strong> added — auto-requests Kim review on auth.js, payments.js, stripe files</li>
+      <li>🔒 <strong>9 April security incident CLOSED</strong> — credentials-in-markdown fully remediated</li>
+      <li>🔒 <strong>BizCover insurance</strong> in place (Professional Indemnity + Cyber Liability)</li>
+      <li>🔒 <strong>Railway DB daily backups</strong> enabled on BAT-PROD MySQL</li>
+      <li>⚖️ <strong>Terms of Service</strong> drafted (<code>Legal/TERMS_OF_SERVICE.md</code>) + published on bookatreatment.ai/terms</li>
+      <li>⚖️ <strong>Refund Policy</strong> drafted + published on bookatreatment.ai/refund-policy</li>
+      <li>⚖️ <strong>ToS acceptance checkbox</strong> added to signup form — <code>terms_accepted_at</code> stored in DB (commit <code>2dfc64b</code>)</li>
+      <li>🎨 <strong>UX fixes (11 issues):</strong> Onboarding step jump fixed, personalised greeting, timezone dropdown, login email label, show/hide password, trial banner 24h dismiss, WelcomeModal once-only, locations step cleaned up</li>
+      <li>📱 <strong>Google Play Developer account created</strong> — &ldquo;BookATreatment.ai Software&rdquo; (Account ID: 8903619414047699611). Identity submitted, website ownership verified (bookatreatment.ai). Awaiting Google identity review (1-3 days).</li>
+      <li>🍎 <strong>Apple Developer account</strong> — submitted, awaiting final verification (expected today)</li>
+      <li><strong>Security docs updated:</strong> SECURITY_AUDIT_LOG.md created, SECURITY_PLAYBOOK v2.0, DATA_BREACH_RESPONSE_PLAN v1.1, CYBER_SECURITY_INCIDENT_RESPONSE v1.1, CONFIGURATION_GUIDE v5.0</li>
+      <li><strong>Commits:</strong> <code>a53ceae</code> (safeError), <code>4427978</code> (pre-commit hook), <code>9ccc4a0</code> (CODEOWNERS+Dependabot), <code>2dfc64b</code> (ToS checkbox), <code>7eae87f</code> (onboarding fix), <code>f86bd41</code> (UX improvements), <code>8c5780d</code> (login + trial banner)</li>
+    </ul>
+  </details>
+  <details style="margin-top:8px;">
+    <summary style="color:var(--muted); font-size:12px; cursor:pointer;">Previous: 12 April 2026 (PM session — P0 fixes)</summary>
+    <ul style="margin-left:20px; color:var(--muted); font-size:12px; line-height:1.8; margin-top:8px;">
+    <li>All 3 code P0s shipped in parallel: CORS env var, UTC timezone refactor, Supplier Intelligence Part A</li>
+    <li>CORS: <code>ALLOWED_CORS_ORIGINS</code> env var replaces hardcoded domains. Localhost auto-added in dev.</li>
+    <li>Timezone: DB now stores UTC. New <code>timezone.js</code> utility + <code>CLINIC_TIMEZONE</code> env var.</li>
+    <li>Supplier Intelligence Part A: <code>supplier_invoices</code> table + 7 CRUD endpoints. InsightsPage wired to real data.</li>
+    <li>CONFIGURATION_GUIDE updated to v4.5</li>
+    </ul>
+  </details>
+  <details style="margin-top:8px;">
+    <summary style="color:var(--muted); font-size:12px; cursor:pointer;">Previous: 12 April 2026 (AM session)</summary>
+    <ul style="margin-left:20px; color:var(--muted); font-size:12px; line-height:1.8; margin-top:8px;">
+    <li>Marketing Hub deferred to Q3 2026 — strategic decision. Backend feature-gated on PROD.</li>
+    <li>4 parallel code agents shipped: feature gate, promo codes, referral tracking, Stripe Connect Standard</li>
+    <li>4 governance docs updated: INFRA_AND_APP_GAPS, FEATURES_AND_BENEFITS, ARCHITECTURE v1.2, CONFIGURATION_GUIDE v4.4</li>
+    <li>AppSumo launch infrastructure complete: promo_codes table, plan_type on admin_users, ?code= + ?ref= signup params</li>
+    <li>Self-service Stripe Connect Standard — clinics connect own Stripe in Settings</li>
+    <li>Commit <code>f43a962</code> pushed to main — Railway auto-deploy triggered</li>
+    </ul>
+  </details>
+  <details style="margin-top:8px;">
+    <summary style="color:var(--muted); font-size:12px; cursor:pointer;">Previous: 9 April 2026 session</summary>
+    <ul style="margin-left:20px; color:var(--muted); font-size:12px; line-height:1.8; margin-top:8px;">
+      <li>5 parallel doc audits run (infrastructure, security, implementation status, supplier IQ, spec library)</li>
+      <li>4 false alarms identified — Stripe Connect, bcrypt, RBAC, parts of Marketing Hub were all marked "not built" in memory while live in code</li>
+      <li>Security incident: plain-text credentials found in CONFIGURATION_GUIDE.md and APP_HQ.html. Both files sanitised. All affected secrets rotated.</li>
+      <li>Technical Documents folder consolidated — 12 files moved, 1 duplicate deleted, 1 stale lockfile deleted, 1 obsolete spec archived</li>
+      <li>INDEX.md, IMPLEMENTATION_STATUS.md, CONFIGURATION_GUIDE.md v4.0 created/updated</li>
+    </ul>
+  </details>
+</div>
+
+<!-- ACCESS & LOGINS — Tab 1 -->
+<div class="panel active" id="access">
+  <h2>Access & Logins</h2>
+  <div class="warn">⚠️ Credentials are sensitive — don't share this file outside trusted devices.</div>
+
+  <div style="background:rgba(168,85,247,0.1); border-left:3px solid var(--purple); padding:12px 16px; border-radius:4px; margin-bottom:16px; font-size:13px;">
+    <strong style="color:var(--purple);">Marketing Hub Toggle (for demo videos)</strong><br>
+    Marketing Hub is <strong>OFF on PROD</strong> (deferred to Q3 2026). To enable it on DEMO for screencasts:<br>
+    <code style="margin-top:6px; display:inline-block;">Railway → BAT Demo project → Variables → FEATURE_MARKETING_HUB = true</code><br>
+    <span style="color:var(--muted);">This env var overrides the DB feature toggle. Leave it unset on PROD to keep Marketing Hub locked.</span>
+  </div>
+
+  <h3>Environments — What's Actually Running (verified 12 Apr 2026)</h3>
+
+  <div class="warn" style="margin-bottom:12px; border-left-color:var(--green); background:rgba(16,185,129,0.1); color:var(--green);">
+    <strong>TWO environments are live: PROD + DEMO.</strong> Railway projects have been renamed to match reality (12 Apr 2026 night session).
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Environment</th><th>URL</th><th>Status</th><th>Login</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr style="background:rgba(16,185,129,0.08);">
+        <td><strong style="color:var(--green);">PROD</strong></td>
+        <td><a href="https://app.bookatreatment.ai" target="_blank">app.bookatreatment.ai</a></td>
+        <td><span class="badge live">LIVE</span></td>
+        <td>Username: <code>admin</code><br>Password: in Railway env vars</td>
+        <td>Live production — Brisbane HIFU + paying customers. <strong>Real data — don't use for demos.</strong></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="4" style="padding:4px 12px;">
+          <span style="color:var(--muted); font-size:12px;">
+            <a href="https://app.bookatreatment.ai/admin" target="_blank">/admin</a> ·
+            <a href="https://app.bookatreatment.ai/book" target="_blank">/book</a> ·
+            <a href="https://app.bookatreatment.ai/staff" target="_blank">/staff</a> ·
+            <a href="https://app.bookatreatment.ai/get-started" target="_blank">/get-started</a> ·
+            <a href="https://app.bookatreatment.ai/api/health" target="_blank">/api/health</a>
+          </span>
+        </td>
+      </tr>
+      <tr style="background:rgba(16,185,129,0.08);">
+        <td><strong style="color:var(--green);">DEMO</strong></td>
+        <td><a href="https://demo.bookatreatment.ai" target="_blank">demo.bookatreatment.ai</a></td>
+        <td><span class="badge live">LIVE</span></td>
+        <td>Username: <code>admin</code><br>Password: <code>DemoAdmin2026!</code></td>
+        <td>For screencasts, AppSumo, investor demos. <code>DEMO_MODE=true</code>. Railway project: <strong>BAT Demo</strong>. Service: <code>booking-api</code>. MySQL + GitHub auto-deploy from main. Calendar seeded with 7-11 bookings/weekday for 2 weeks ahead (auto-refreshed on each deploy). <strong>Redeploy to refresh demo data.</strong></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="4" style="padding:4px 12px;">
+          <span style="color:var(--muted); font-size:12px;">
+            <a href="https://demo.bookatreatment.ai/admin" target="_blank">/admin</a> ·
+            <a href="https://demo.bookatreatment.ai/book" target="_blank">/book</a> ·
+            <a href="https://demo.bookatreatment.ai/staff" target="_blank">/staff</a> ·
+            <a href="https://demo.bookatreatment.ai/get-started" target="_blank">/get-started</a> ·
+            <a href="https://demo.bookatreatment.ai/api/health" target="_blank">/api/health</a>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--amber);">DEV</strong></td>
+        <td>No public domain</td>
+        <td><span class="badge dev">DEV</span></td>
+        <td>—</td>
+        <td>Dev/staging. Railway project: <strong>bat-prod-brisbanehifu</strong>. Service: <code>bookatreatment-DEV</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 style="margin-top:16px;">Railway Projects — Simple Map</h4>
+  <table>
+    <thead>
+      <tr><th>Railway Project</th><th>Service</th><th>Domain</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>BAT-PROD</code></td>
+        <td><code>web</code></td>
+        <td>app.bookatreatment.ai</td>
+        <td><span class="badge live">LIVE = PROD</span></td>
+      </tr>
+      <tr>
+        <td><code>BAT Demo</code></td>
+        <td><code>booking-api</code></td>
+        <td>demo.bookatreatment.ai</td>
+        <td><span class="badge live">LIVE = DEMO</span></td>
+      </tr>
+      <tr>
+        <td><code>bat-prod-brisbanehifu</code></td>
+        <td><code>bookatreatment-DEV</code></td>
+        <td>(no domain)</td>
+        <td><span class="badge dev">DEV</span></td>
+      </tr>
+      <tr style="opacity:0.5;">
+        <td><s><code>Booking APP</code></s></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="badge queued">DEFUNCT</span> — can be deleted</td>
+      </tr>
+      <tr style="opacity:0.5;">
+        <td><s><code>amusing-fulfillment</code></s></td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="badge queued">DEFUNCT</span> — can be deleted</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warn" style="margin-top:8px; border-left-color:var(--green); background:rgba(16,185,129,0.1); color:var(--green);">
+    <strong>Names are now clear (renamed 12 Apr 2026 night):</strong><br>
+    <code>BAT-PROD</code> = production server (was <code>bat-demo</code>) → <code>app.bookatreatment.ai</code><br>
+    <code>BAT Demo</code> = demo server (new project) → <code>demo.bookatreatment.ai</code> (<code>DEMO_MODE=true</code>)<br>
+    <code>bat-prod-brisbanehifu</code> = DEV server (no public domain)<br>
+    <code>Booking APP</code> + <code>amusing-fulfillment</code> = defunct, can be deleted.
+  </div>
+
+  <h3>🎬 Demo Environment — Quick Links (for YouTube videos)</h3>
+  <div class="warn" style="border-left-color:var(--purple); background:rgba(168,85,247,0.1); color:var(--purple); margin-bottom:12px;">
+    📹 Use <strong>demo.bookatreatment.ai</strong> for all YouTube videos and screencasts. Real data is on app.bookatreatment.ai — never record that.
+  </div>
+  <table>
+    <thead><tr><th>What</th><th>URL</th><th>Login</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Demo Admin Dashboard</strong></td><td><a href="https://demo.bookatreatment.ai/admin" target="_blank">demo.bookatreatment.ai/admin</a></td><td>admin / DemoAdmin2026!</td></tr>
+      <tr><td><strong>Demo Calendar</strong></td><td><a href="https://demo.bookatreatment.ai/admin/calendar" target="_blank">demo.bookatreatment.ai/admin/calendar</a></td><td>Same — click <strong>Today</strong> to reset view</td></tr>
+      <tr><td><strong>Demo Bookings</strong></td><td><a href="https://demo.bookatreatment.ai/admin/bookings" target="_blank">demo.bookatreatment.ai/admin/bookings</a></td><td>Defaults to current week</td></tr>
+      <tr><td><strong>Demo Booking Page</strong></td><td><a href="https://demo.bookatreatment.ai/book" target="_blank">demo.bookatreatment.ai/book</a></td><td>Public — no login</td></tr>
+      <tr><td><strong>Demo Staff Portal</strong></td><td><a href="https://demo.bookatreatment.ai/staff" target="_blank">demo.bookatreatment.ai/staff</a></td><td>Staff PIN login</td></tr>
+      <tr><td><strong>Demo Health Check</strong></td><td><a href="https://demo.bookatreatment.ai/api/health" target="_blank">demo.bookatreatment.ai/api/health</a></td><td>Public</td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--muted); font-size:12px; margin-top:8px;">⚠️ If calendar is empty — go to Railway → BAT Demo → booking-api → Deployments → <strong>Redeploy</strong>. Takes 3 mins, auto-seeds 2 weeks of bookings.</p>
+
+  <h3>App Routes (same on every environment)</h3>
+  <table>
+    <thead>
+      <tr><th>Route</th><th>Login</th><th>What It Does</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>/admin</code></td><td>Email or username + password</td><td>Admin dashboard — bookings, CRM, settings, reports</td></tr>
+      <tr><td><code>/book</code></td><td>None — public</td><td>Client booking page</td></tr>
+      <tr><td><code>/staff</code></td><td>Per-staff PIN</td><td>Staff portal — schedule, timeclock, clients (PWA)</td></tr>
+      <tr><td><code>/portal</code></td><td>OTP via SMS</td><td>Client self-service — appointments, profile</td></tr>
+      <tr><td><code>/get-started</code></td><td>None — creates new account</td><td>Self-service signup. Also: <code>/signup</code> <code>/register</code> <code>/trial</code>. Accepts <code>?plan=</code> <code>?code=</code> <code>?ref=</code></td></tr>
+      <tr><td><code>/admin/setup</code></td><td>JWT (post-login)</td><td>Onboarding wizard v2 — 9-step setup flow. Personalised greeting. Timezone dropdown. Fixed step-jump bug 13 Apr.</td></tr>
+      <tr><td><code>/terms</code></td><td>None — public</td><td>Terms of Service — live as of 13 Apr 2026</td></tr>
+      <tr><td><code>/refund-policy</code></td><td>None — public</td><td>Refund Policy — live as of 13 Apr 2026</td></tr>
+      <tr><td><code>/privacy</code></td><td>None — public</td><td>Privacy Policy</td></tr>
+      <tr><td><code>/api/health</code></td><td>None</td><td>Health check — returns <code>{"status":"ok"}</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Marketing Site Routes (bookatreatment.ai — Lovable)</h3>
+  <div class="warn" style="border-left-color:var(--amber); background:rgba(245,158,11,0.1); color:var(--amber);">
+    ⚠️ <strong>Calendly issue:</strong> The <code>/demo</code> page has a Calendly embed that (a) is a competitor tool, (b) causes a ~5000px white gap on all pages. Fix: replace with a simple contact form → hello@bookatreatment.ai. Lovable prompt ready — send to Lovable editor.
+  </div>
+  <table>
+    <thead>
+      <tr><th>Route</th><th>CTA Result (UAT 13 Apr)</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>/</code> Homepage</td><td>All CTAs → app.bookatreatment.ai/signup ✅ or /demo ✅</td><td><span class="badge live">Pass</span></td></tr>
+      <tr><td><code>/pricing</code></td><td>All 4 plan CTAs → /get-started?plan=correct ✅</td><td><span class="badge live">Pass</span></td></tr>
+      <tr><td><code>/features</code></td><td>All 5 &ldquo;Start Free Trial&rdquo; → signup ✅</td><td><span class="badge live">Pass</span></td></tr>
+      <tr><td><code>/migration</code></td><td>&ldquo;Start Your Free Migration&rdquo; → /demo (intentional — call first) ✅</td><td><span class="badge live">Pass</span></td></tr>
+      <tr><td><code>/terms</code></td><td>Live ✅</td><td><span class="badge live">Live</span></td></tr>
+      <tr><td><code>/refund-policy</code></td><td>Live ✅</td><td><span class="badge live">Live</span></td></tr>
+      <tr><td><code>/demo</code></td><td>🚨 Has Calendly embed — needs replacing with contact form</td><td><span class="badge wip">Fix needed</span></td></tr>
+    </tbody>
+  </table>
+
+  <h4>Lovable Prompt to Fix /demo + White Gap:</h4>
+  <div style="background:var(--panel-2); border:1px solid var(--border); border-radius:8px; padding:16px; font-size:12px; color:var(--muted); margin-top:8px; font-family:monospace; white-space:pre-wrap;">The /demo page currently has a Calendly embed. Please remove it entirely and replace with a simple contact form with these fields:
+- Name
+- Email
+- Business name
+- Phone
+- Message (pre-filled: &ldquo;I&rsquo;d like to book a demo of BookATreatment.ai&rdquo;)
+- Submit button → sends to hello@bookatreatment.ai
+
+Also fix: a massive white blank space (~5000px) appears on every page between content and footer. Find and remove the empty Calendly iframe container or section with fixed min-height causing this. Apply the fix globally across all pages.</div>
+
+  <h3>Logins</h3>
+  <table>
+    <thead>
+      <tr><th>Service</th><th>URL</th><th>Login</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Railway</strong> (hosting)</td><td><a href="https://railway.app" target="_blank">railway.app</a></td><td>kim@teamneo.tech (GitHub SSO)</td></tr>
+      <tr><td><strong>Stripe</strong> (payments)</td><td><a href="https://dashboard.stripe.com" target="_blank">dashboard.stripe.com</a></td><td>kim@teamneo.tech (2FA)</td></tr>
+      <tr><td><strong>GitHub</strong> (source code)</td><td><a href="https://github.com/brisbanehifu/booking-api" target="_blank">brisbanehifu/booking-api</a></td><td>Kim Klein (PAT: claude-code-laptop)</td></tr>
+      <tr><td><strong>Lovable</strong> (marketing site)</td><td><a href="https://lovable.dev/projects/b9dd8ed0-e0e7-402c-be9f-bba462a98ece" target="_blank">lovable.dev/projects/b9dd8ed0</a></td><td>kim@teamneo.tech (Google SSO)</td></tr>
+      <tr><td><strong>Marketing Site</strong></td><td><a href="https://bookatreatment.ai" target="_blank">bookatreatment.ai</a></td><td>Public</td></tr>
+      <tr><td><strong>Supabase</strong></td><td><a href="https://supabase.com/dashboard" target="_blank">supabase.com/dashboard</a></td><td>kim@teamneo.tech (GitHub SSO)</td></tr>
+      <tr><td><strong>Local Code</strong></td><td><code>C:\Users\kimkl\OneDrive\Documents\Claude\booking-api</code></td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- UAT -->
+<div class="panel" id="uat">
+  <h2>UAT Test Plans</h2>
+  <p style="color:var(--muted); font-size:13px; margin-bottom:12px;">Standard: 710-case comprehensive UAT across 4 parallel agents. Every pass must end with Chrome visual verification.</p>
+  <table>
+    <thead>
+      <tr><th>Test Suite</th><th>Cases</th><th>Owner Agent</th><th>Coverage</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Public Booking Flow</td><td>175</td><td>Agent 1</td><td>Booking wizard, templates, Stripe checkout, confirmations</td><td><span class="badge live">Passing</span></td></tr>
+      <tr><td>Admin Portal</td><td>220</td><td>Agent 2</td><td>20+ admin pages, CRUD, reports, settings, dark theme</td><td><span class="badge live">Passing</span></td></tr>
+      <tr><td>Staff Portal / Payroll</td><td>165</td><td>Agent 3</td><td>PIN auth, timeclock, schedule, clients, paystubs, timesheets</td><td><span class="badge live">Passing</span></td></tr>
+      <tr><td>API / Integrations</td><td>150</td><td>Agent 4</td><td>Stripe, webhooks, SMS, email, edge functions, DB migrations</td><td><span class="badge live">Passing</span></td></tr>
+    </tbody>
+  </table>
+  <h3>Mandatory Checks Each Release</h3>
+  <ul style="margin-left:20px; color:var(--muted); font-size:13px; line-height:1.8;">
+    <li>Deep UX testing across every button and endpoint</li>
+    <li>Update config guide after every release</li>
+    <li>Update test plan scenarios when features change</li>
+    <li>Chrome visual verification of every screen (desktop + mobile)</li>
+    <li>Static + API only is <strong>incomplete</strong> — visual pass is required</li>
+    <li><strong>Multi-language visual UAT</strong> — on any UI-touching release, sweep at least 3 representative locales (1 Latin e.g. <code>pt</code>/<code>es</code>, 1 non-Latin e.g. <code>zh</code>/<code>hi</code>, 1 RTL <code>ar</code>) on admin, <code>/book</code>, and <code>/staff</code>. Screenshot each. Verify: nav + headings + CTAs translate, no English bleed in hero/trust-strip/footer, Arabic layout mirrors.</li>
+  </ul>
+
+  <h3>i18n Coverage (as of 17 Apr 2026)</h3>
+  <table>
+    <thead><tr><th>Surface</th><th>Languages</th><th>RTL</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Admin Ops Dashboard (nav + pages)</td><td>12 (en + 11)</td><td>ar ✅</td><td><span class="badge live">Shipped 15 Apr — <code>9f71367</code></span></td></tr>
+      <tr><td><code>/book</code> — 5 templates (Bold, Bright, Clinical, Elegant, Minimal) + direct-book mode</td><td>12</td><td>ar ✅</td><td><span class="badge live">Shipped 16 Apr — <code>c263693</code> · UAT PASS 17 Apr (es/zh/ar)</span></td></tr>
+      <tr><td><code>/staff</code> — Layout (bottom tabs), Timeclock, More, account gate</td><td>12</td><td>ar ✅</td><td><span class="badge live">Shipped 16 Apr — <code>c263693</code></span></td></tr>
+      <tr><td><code>/staff/login</code> — Staff portal login (title, banners, form, footer)</td><td>12</td><td>ar ✅</td><td><span class="badge live">Shipped 17 Apr — <code>d8f7dac</code></span></td></tr>
+      <tr><td>Language switcher persistence (<code>localStorage.bat_language</code>) — inherits across admin, /book, /staff, /staff/login</td><td>All</td><td>—</td><td><span class="badge live">Live · verified 17 Apr</span></td></tr>
+      <tr><td>DB-seeded content (treatment names, categories, descriptions, tenant brand name, hero tagline)</td><td>Tenant-editable</td><td>—</td><td><span class="badge queued">Not a translation candidate</span></td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--muted); font-size:12px; margin-top:8px;">
+    Source locale files: <code>frontend/src/locales/{en,es,fr,de,pt,zh,ko,ar,hi,bn,ru,id}.json</code>.
+    Hook: <code>useTranslation()</code> — <code>t(key, replacements?)</code> with <code>{{placeholder}}</code> interpolation.
+    Propagation template: <code>scripts/add-book-staff-locales.js</code> (idempotent, preserves 2-space indent).
+  </p>
+</div>
+
+<!-- DEVOPS -->
+<div class="panel" id="devops">
+  <h2>DevOps — Live Railway Services</h2>
+  <p style="color:var(--muted); font-size:12px; margin-bottom:12px;">Pulled live from Railway GraphQL API. Workspace: Brisbane HIFU's Projects.</p>
+
+  <h3>Project: BAT-PROD <span class="badge prod">PROD</span></h3>
+  <p style="color:var(--muted); font-size:11px; margin-bottom:6px;">Renamed from <code>bat-demo</code> on 12 Apr 2026 night</p>
+  <table>
+    <thead><tr><th>Service</th><th>Type</th><th>Public URL</th><th>Railway URL</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>web</strong></td><td>App</td><td><a href="https://app.bookatreatment.ai" target="_blank">app.bookatreatment.ai</a></td><td><code>web-production-091a6.up.railway.app</code></td><td><span class="badge live">Live</span></td></tr>
+      <tr><td>MySQL</td><td>Database</td><td>—</td><td>Internal</td><td><span class="badge live">Live</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Project: BAT Demo <span class="badge dev">DEMO</span></h3>
+  <p style="color:var(--muted); font-size:11px; margin-bottom:6px;">DEMO_MODE=true. GitHub auto-deploy from main branch. Latest deploy: 13 Apr 2026 (bcryptjs migration, calendar fix, demo reseed). demo.bookatreatment.ai ✅ LIVE. Calendar auto-seeded 7-11 bookings/weekday for 2 weeks ahead on each deploy. <strong>Redeploy to refresh data for YouTube videos.</strong></p>
+  <table>
+    <thead><tr><th>Service</th><th>Type</th><th>Public URL</th><th>Railway URL</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>booking-api</strong></td><td>App</td><td><a href="https://demo.bookatreatment.ai" target="_blank">demo.bookatreatment.ai</a></td><td>—</td><td><span class="badge live">Live</span></td></tr>
+      <tr><td>MySQL</td><td>Database</td><td>—</td><td>Internal</td><td><span class="badge live">Live</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Project: bat-prod-brisbanehifu <span class="badge dev">DEV</span></h3>
+  <table>
+    <thead><tr><th>Service</th><th>Type</th><th>Public URL</th><th>Railway URL</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>bookatreatment-DEV</strong></td><td>App</td><td>—</td><td><code>bookatreatment-demo-production.up.railway.app</code></td><td><span class="badge dev">Dev</span></td></tr>
+      <tr><td>MySQL</td><td>Database</td><td>—</td><td>Internal</td><td><span class="badge live">Live</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="opacity:0.5;">Project: Booking APP <span class="badge queued">DEFUNCT</span></h3>
+  <p style="color:var(--muted); font-size:11px; margin-bottom:6px;">Can be deleted. Superseded by BAT Demo.</p>
+
+  <h3 style="opacity:0.5;">Project: amusing-fulfillment <span class="badge queued">DEFUNCT</span></h3>
+  <p style="color:var(--muted); font-size:11px; margin-bottom:6px;">Can be deleted. Auto-generated throwaway project.</p>
+
+  <div class="warn" style="margin-top:16px; border-left-color:var(--green); background:rgba(16,185,129,0.1); color:var(--green);">
+    ✅ <strong>Railway project rename completed 12 Apr 2026 night.</strong> Names now match reality:<br>
+    <code>BAT-PROD</code> = production, <code>BAT Demo</code> = demo, <code>bat-prod-brisbanehifu</code> = dev.<br>
+    <code>Booking APP</code> and <code>amusing-fulfillment</code> are defunct and can be deleted.
+  </div>
+</div>
+
+<!-- "Features Under Development" panel removed 9 Apr 2026 — replaced by "Implementation Status" tab above which is verified against actual code -->
+
+
+<!-- TECH STACK -->
+<div class="panel" id="stack">
+  <h2>Tech Stack & Monthly Costs</h2>
+  <table>
+    <thead>
+      <tr><th>Component</th><th>Purpose</th><th>Plan</th><th>Cost (AUD/mo)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Railway</td><td>Booking API + DB hosting</td><td>Hobby/Pro</td><td>$30</td></tr>
+      <tr><td>Supabase</td><td>Postgres DB, auth, storage</td><td>Pro</td><td>$38</td></tr>
+      <tr><td>Lovable</td><td>Marketing site editor/hosting</td><td>Pro</td><td>$30</td></tr>
+      <tr><td>Stripe</td><td>Payments + Connect</td><td>Per-txn 1.75%+$0.30</td><td>Variable</td></tr>
+      <tr><td>GitHub</td><td>Source control, CI</td><td>Free/Team</td><td>$0</td></tr>
+      <tr><td>Domain (bookatreatment.ai)</td><td>DNS / domain</td><td>Annual</td><td>$8</td></tr>
+      <tr><td>SMS (ClickSend)</td><td>Booking confirmations + reminders</td><td>PAYG</td><td>$25</td></tr>
+      <tr><td>Email (Resend/SES)</td><td>Transactional email</td><td>Starter</td><td>$15</td></tr>
+      <tr><td>Sentry</td><td>Error monitoring</td><td>Team</td><td>$40</td></tr>
+      <tr><td>GA4 / Analytics</td><td>Site analytics</td><td>Free</td><td>$0</td></tr>
+      <tr><td>S3 (Marketing assets)</td><td>Template/asset storage</td><td>PAYG</td><td>$5</td></tr>
+      <tr><td>Claude / Anthropic</td><td>AI dev assistance</td><td>Max</td><td>$300</td></tr>
+      <tr class="total-row"><td colspan="3">TOTAL FIXED MONTHLY</td><td>~$491 AUD</td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--muted); font-size:12px; margin-top:12px;">Costs are approximate in AUD. Stripe is transaction-based and scales with revenue. Verify against latest invoices.</p>
+</div>
+
+<!-- BACKLOG -->
+<div class="panel" id="backlog">
+  <h2>Backlog</h2>
+
+  <h3>Pre-AppSumo Launch (P0)</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Priority</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><s>P0 Code Fix: CORS hardcode in <code>index.js</code></s></td><td><span class="badge live">Shipped 12 Apr</span></td><td><code>ALLOWED_CORS_ORIGINS</code> env var</td></tr>
+      <tr><td><s>P0 Code Fix: Hardcoded timezone in <code>database.js</code></s></td><td><span class="badge live">Shipped 12 Apr</span></td><td>Full UTC refactor + <code>CLINIC_TIMEZONE</code></td></tr>
+      <tr><td><s>P0 Honesty Fix: Supplier IQ UI lies</s></td><td><span class="badge live">Shipped 12 Apr</span></td><td>Real invoice backend + honest "Not Connected" label</td></tr>
+      <tr><td><strong>AppSumo listing copy + pricing structure</strong></td><td><span class="badge live">P0</span></td><td>Kim: draft the full AppSumo deal listing</td></tr>
+      <tr><td><strong>Lovable pricing page CTA fix</strong> — all plans → "Start Free Trial" → <code>app.bookatreatment.ai/get-started?plan=X</code></td><td><span class="badge live">P0</span></td><td>Kim: update in Lovable editor</td></tr>
+    </tbody>
+  </table>
+
+  <h3>This Week (P1)</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Priority</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Railway MySQL daily backups</td><td><span class="badge queued">P1</span></td><td>Kim: enable in Railway dashboard</td></tr>
+      <tr><td>Google Search Console — verify + submit sitemap</td><td><span class="badge queued">P1</span></td><td>Kim: manual task</td></tr>
+      <tr><td>ACMA sender ID registration (<code>ReminderMsg</code>)</td><td><span class="badge queued">P1</span></td><td><strong>DEADLINE 1 Jul 2026.</strong> Kim: begin process, requires ABN</td></tr>
+      <tr><td>Glossy glass button style across ALL screens</td><td><span class="badge queued">P1</span></td><td>Queued styling task</td></tr>
+      <tr><td>"Switch from X" landing pages (Fresha, Vagaro, Booksy, GlossGenius, Mindbody)</td><td><span class="badge queued">P1</span></td><td>5 competitor comparison pages for SEO</td></tr>
+      <tr><td>G2 / Capterra / GetApp directory listings</td><td><span class="badge queued">P1</span></td><td>Free listings. Draft copy, Kim pastes.</td></tr>
+      <tr><td>Stripe Connect webhook handlers (transfer.failed etc.)</td><td><span class="badge queued">P1</span></td><td>Failed payouts only surface via polling currently</td></tr>
+      <tr><td>Pre-commit secret-scan hook in <code>booking-api/scripts/</code></td><td><span class="badge queued">P1</span></td><td>Prevents next credential-in-markdown finding</td></tr>
+      <tr><td><strong>MYOB AccountRight integration</strong> — Dev ID #49891 approved, app registration pending</td><td><span class="badge queued">P1</span></td><td>Developer ID approved 13 Apr 2026. Security compliance doc written. Need Client ID + Secret from MYOB portal. ~790 lines spec. Native MYOB API for AU/NZ clinics.</td></tr>
+      <tr><td>Screencast demo videos (Trupeer)</td><td><span class="badge queued">P1</span></td><td>In progress — for AppSumo listing + marketing site</td></tr>
+      <tr><td>LinkedIn / Facebook / Instagram pages setup</td><td><span class="badge queued">P1</span></td><td>Kim: per LAUNCH_RUNSHEET copy</td></tr>
+      <tr><td><s>Facebook Pixel</s> — env var set, code deployed</td><td><span class="badge live">Shipped 12 Apr</span></td><td>Pixel ID <code>831130199327489</code> set as <code>VITE_FB_PIXEL_ID</code>. Consent-gated. <strong>Needs verification.</strong></td></tr>
+      <tr><td>Meta Business Manager — enable 2FA + verify Pixel firing</td><td><span class="badge queued">P1</span></td><td><strong>BLOCKER:</strong> Meta requires 2FA on bookatreatmentai@gmail.com before any Pixel/Events Manager access. Steps: 1) Enable 2FA on Meta account 2) Open Events Manager → Test Events 3) Verify PageView fires on app.bookatreatment.ai after cookie accept 4) Install Meta Pixel Helper Chrome extension to confirm. Kim: needs dedicated time to fight through Meta's 2FA loop.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>This Month (P2)</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Priority</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Insights page: wire to real data (not demo)</td><td><span class="badge queued">P2</span></td><td>DEMO_INVOICES, DEMO_UTILISATION hardcoded</td></tr>
+      <tr><td><s>Supplier invoice tracking</s> — Full stack shipped (A + B + Outlook)</td><td><span class="badge live">Shipped 12 Apr</span></td><td>CRUD + Gmail OAuth + <strong>Outlook OAuth (Microsoft Graph)</strong> + Claude Vision scanner + Google Drive file storage + Invoice Files table with rename/download/bulk-select</td></tr>
+      <tr><td>Email drip automation (Make.com or in-app)</td><td><span class="badge queued">P2</span></td><td>Welcome/onboarding emails not automated</td></tr>
+      <tr><td><strong>Azure app registration</strong> — add <code>Mail.Read</code> scope + Outlook callback URI for Outlook scanner</td><td><span class="badge queued">P2</span></td><td>Outlook email scanner code is deployed but needs Azure AD app registration with correct permissions and redirect URI.</td></tr>
+      <tr><td>S3 env vars on PROD</td><td><span class="badge queued">P2</span></td><td>Bucket exists, code exists, vars not set</td></tr>
+      <tr><td>Owner TOTP 2FA</td><td><span class="badge queued">P2</span></td><td>Per PHASE_3 spec §3.5 — within 90 days</td></tr>
+      <tr><td>Audit log of admin actions (SOC2 readiness)</td><td><span class="badge queued">P2</span></td><td>No <code>audit_log</code> table exists yet</td></tr>
+      <tr><td>Migrate credentials to 1Password / Bitwarden vault</td><td><span class="badge queued">P2</span></td><td>From CONFIGURATION_GUIDE.md standing roadmap</td></tr>
+      <tr><td>OG tags — test in Facebook debugger + LinkedIn inspector</td><td><span class="badge queued">P2</span></td><td>Kim: verify</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Nice to Have (P3)</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Priority</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Rebrand GitHub org + repo</strong> — rename <code>brisbanehifu</code> → <code>bookatreatmentai</code>, repo <code>booking-api</code> → <code>bat-app</code></td><td><span class="badge queued">P3</span></td><td>Coordinated operation: GitHub rename → update Railway source → update all docs/CLAUDE.md. Warn Kim first.</td></tr>
+      <tr><td><s>Rename Railway projects to match reality</s></td><td><span class="badge live">Shipped 12 Apr</span></td><td>BAT-PROD / BAT Demo / bat-prod-brisbanehifu. Done.</td></tr>
+      <tr><td><s>Investigate <code>amusing-fulfillment</code> Railway project</s></td><td><span class="badge queued">DEFUNCT</span></td><td>Can be deleted. Throwaway project.</td></tr>
+      <tr><td>WAF (Cloudflare) — when scaling past 50 clinics</td><td><span class="badge queued">P3</span></td><td>Not needed yet</td></tr>
+      <tr><td><strong>Meta Business Partner — Facebook Page Action Button</strong></td><td><span class="badge queued">P3 / Q3</span></td><td>Get BAT listed in Facebook's "Connect Another Tool" dropdown (alongside Fresha, Vagaro etc). Requires: Meta App Review (pages_manage_metadata permission) + Partner Directory application. Timeline: 4-10 weeks. Meta Developer App already exists (META_APP_ID on Railway).</td></tr>
+      <tr><td>CI/CD pipeline with test gate</td><td><span class="badge queued">P3</span></td><td>Push to main = auto deploy, no test gate currently</td></tr>
+      <tr><td>Redis caching utilisation</td><td><span class="badge queued">P3</span></td><td>Redis service running, no app code uses it</td></tr>
+      <tr><td>Pull live cost data for Tech Stack tab</td><td><span class="badge queued">P3</span></td><td>Replace estimates with actual Railway/Supabase invoices</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="color:var(--green);">Resolved (was on backlog)</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Resolved</th></tr></thead>
+    <tbody>
+      <tr><td><s>Marketing Hub backend not feature-gated (P0 security)</s></td><td>12 Apr — requireFeatureEnabled middleware shipped (<code>f43a962</code>)</td></tr>
+      <tr><td><s>No promo code / AppSumo activation system</s></td><td>12 Apr — promo_codes table + redemption flow shipped</td></tr>
+      <tr><td><s>No referral/affiliate tracking</s></td><td>12 Apr — ?ref= param + referred_by column shipped</td></tr>
+      <tr><td><s>No self-service Stripe Connect for clinics</s></td><td>12 Apr — Stripe Connect Standard in Settings shipped</td></tr>
+      <tr><td><s>11 env vars not in CONFIGURATION_GUIDE</s></td><td>12 Apr — CONFIGURATION_GUIDE v4.4 updated with 12 new vars</td></tr>
+      <tr><td><s>Redeploy DEMO</s></td><td>12 Apr night — New <code>BAT Demo</code> Railway project created, <code>demo.bookatreatment.ai</code> live with <code>DEMO_MODE=true</code></td></tr>
+      <tr><td><s>Rename Railway projects to match reality</s></td><td>12 Apr night — <code>bat-demo</code> → <code>BAT-PROD</code>, new <code>BAT Demo</code> project created</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- RISKS — Pre-launch risk register for the consent/waiver library -->
+<div class="panel" id="risks">
+  <h2>Risks — Consent / Waiver Library (Pre-Launch)</h2>
+  <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">
+    Surfaced 16 Apr 2026 when the consent library architecture was re-locked. Mirror of
+    <code>MEMORY.md</code> <em>Consent library — pre-launch risks</em> and
+    <code>Technical Documents/CONFIGURATION_GUIDE.md</code> §18.
+    These are launch-blocking unless otherwise marked.
+  </p>
+
+  <h3 style="color:var(--red);">🚫 Launch-blocking</h3>
+  <table>
+    <thead><tr><th style="width:22%;">Risk</th><th>Why it matters</th><th>Action</th><th style="width:12%;">Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Marketing copy sweep must land in production</strong></td>
+        <td>Any surviving "compliance / defensible / regulator-approved / AHPRA/TGA/MHRA-approved / legally binding" language on bookatreatment.ai collapses the ACL s.18 misleading-conduct defence the pivot rests on.</td>
+        <td>Apply Subagent C's change-list to Lovable + any social/sales copy. Producing the list is not enough — it must land.</td>
+        <td><span class="badge queued">⏳ Pending</span></td>
+      </tr>
+      <tr>
+        <td><strong>PI insurer written confirmation</strong></td>
+        <td>Many PI policies carve out legal-services adjacencies. "Consent template distribution via SaaS" sits in that grey zone.</td>
+        <td>Written confirmation from BizCover that this activity is within cover. Email — not phone advice.</td>
+        <td><span class="badge queued">⏳ Pending</span></td>
+      </tr>
+      <tr>
+        <td><strong>TOS indemnity clause is the backbone</strong></td>
+        <td>Per-use modal alone is thin. Real defence = modal + TOS indemnity + liability cap + PI cover. Missing indemnity loses ~half the modal's teeth.</td>
+        <td>Commercial lawyer reviews <code>bookatreatment.ai/terms</code> for (a) clinic → BAT indemnity covering template-derived claims and (b) liability cap. Amend if missing.</td>
+        <td><span class="badge queued">⏳ Pending</span></td>
+      </tr>
+      <tr>
+        <td><strong>Clinical review on 5 highest-risk templates</strong></td>
+        <td>Negligent-omission claims on known catastrophic risks can survive disclaimers. Legal review alone is insufficient. Example: vascular occlusion → blindness for dermal filler.</td>
+        <td>Currently-practising clinician (dermatologist or cosmetic physician) signs off on: HIFU, all 8 injectables, CO2 laser, tattoo removal laser, chemical peels. Document reviewer ID + date on each <code>consent_forms</code> row.</td>
+        <td><span class="badge queued">⏳ Pending</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="color:var(--amber); margin-top:28px;">Defence stack — at a glance</h3>
+  <p style="color:var(--muted); font-size:13px;">
+    The positioning pivot's defence is a <em>stack</em>, not a single control. All four layers must be in place before the library goes live.
+  </p>
+  <table>
+    <thead><tr><th style="width:24%;">Layer</th><th>What it covers</th><th style="width:16%;">Owner</th></tr></thead>
+    <tbody>
+      <tr><td>1. Per-use acknowledgement modal</td><td>Records clinic acceptance of "this is not legal advice" each time a template is used. Audit trail in <code>template_use_acknowledgements</code>.</td><td>Product (shipped)</td></tr>
+      <tr><td>2. Marketing positioning alignment</td><td>No "compliance" / "defensible" claims anywhere public. Protects ACL s.18 defence.</td><td>Kim + Lovable</td></tr>
+      <tr><td>3. TOS indemnity + liability cap</td><td>Clinic indemnifies BAT for template-derived third-party claims.</td><td>Commercial lawyer</td></tr>
+      <tr><td>4. PI insurance cover confirmation</td><td>Written carve-in for consent-template distribution via SaaS.</td><td>Kim + BizCover</td></tr>
+      <tr><td>5. Clinical completeness review (high-risk 5)</td><td>Closes negligent-omission gap on catastrophic clinical risks.</td><td>Clinician advisor</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="color:var(--teal); margin-top:28px;">Source</h3>
+  <p style="color:var(--muted); font-size:13px;">
+    Drafted by Subagent B (legal risk brief) — saved as <code>_consent_legal_risk_brief.md</code> (4,009 words). All 10 build steps
+    completed 17 Apr 2026 (33 templates authored, 18+ hardcoded on anti-wrinkle, merged into ConsentFormsPage.tsx, TS clean).
+    The 4 risks above are all external to the product build — they require Kim, lawyers, insurers, and clinicians.
+    See <code>BookATreatment-AI/Specs/CONSENT_FORMS_LIBRARY_HANDOVER.md</code> and <code>CONSENT_SESSION_HANDOVER_2026-04-17.md</code> for full context.
+  </p>
+</div>
+
+<script>
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
