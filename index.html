@@ -260,6 +260,7 @@ textarea{font-family:inherit}
       <button class="nav-item" data-filter="waiting"><span class="label"><span class="nav-dot faint"></span>Waiting on others</span><span class="count" id="c-waiting">0</span></button>
       <button class="nav-item" data-filter="done"><span class="label"><span class="nav-dot green"></span>Done today</span><span class="count" id="c-done">0</span></button>
       <button class="nav-item" data-filter="snoozed"><span class="label">💤 Snoozed</span><span class="count" id="c-snoozed">0</span></button>
+      <button class="nav-item" data-filter="nova-decided" style="border-left-color:var(--accent)"><span class="label"><span class="nav-dot" style="background:var(--accent)"></span>Nova decided</span><span class="count" id="c-nova-decided">0</span></button>
     </div>
 
     <div class="nav-section">By tier</div>
@@ -390,7 +391,12 @@ const novaState = {
     { id:"content-os", business:"BAT.AI", avatarClass:"bat", initials:"NV", contact:"Content OS for 3 businesses", meta:"Inventory complete · design pending", tier:"P1", category:"in-flight", tag:"in-flight", tagText:"Next up", title:"Unified content pipeline (Brisbane + Redlands + BAT)", body:"Inventory done — found 24 finished MP4s, 7 logos, locked brand bible, 30-day calendar drafted. Brisbane HIFU has all 4 social channels mapped today.", novaNote:"Designing OS after Kim's eyes are on competitor red-team — that intel reshapes positioning, which reshapes content pillars.", actions:[{label:"Start design",act:"approve"},{label:"Hold",act:"snooze"}] },
     { id:"investment-pack", business:"BAT.AI", avatarClass:"bat", initials:"IP", contact:"Investment Pack refresh", meta:"Tier-2 audit job", tier:"P2", category:"in-flight", tag:"in-flight", tagText:"Queued", title:"Audit + redline pack against current state", body:"Customer count now 4 (was 0–1 in pack). TAM number conflict ($11.2B AU vs $3.5B Global). Cross-business story (Redlands + Hamptons buying both HMS + BAT) not in pack.", novaNote:"Will produce INVESTMENT_PACK_REDLINE.md. Won't touch source until Kim signs off on the redline.", actions:[{label:"Start now",act:"approve"},{label:"Hold",act:"snooze"}] },
     { id:"pwc-next", business:"TeamNEO", avatarClass:"teamneo", initials:"PT", contact:"PwC tender — next stage", meta:"Awaiting instructions", tier:"P1", category:"waiting", tag:"waiting", tagText:"Awaiting PwC", title:"Shortlisted across all 3 categories — what's next?", body:"Engineering, ICT, Project Management all shortlisted. Awaiting PwC's next-stage instructions.", novaNote:"Nova will surface the moment PwC's email lands in md@teamneo.tech or kim.klein@virtualdynamicz.com.", actions:[{label:"Mark seen",act:"acknowledge"},{label:"Snooze",act:"snooze"}] },
-    { id:"done-nova", business:"TeamNEO", avatarClass:"teamneo", initials:"✓", contact:"Nova role created today", meta:"2026-04-20", tier:"P0", category:"done", tag:"done", tagText:"Done", title:"Nova scaffolded — all 5 interview rounds locked", body:"Identity, decision rights, 3-tier overnight autonomy, 11 inboxes mapped, 4 BAT.AI customers + 1 pipeline lead, Redlands rollout integrated, Jeremy as backup escalation.", novaNote:"Full picture in Nova/CLAUDE.md and Nova/MEMORY.md.", actions:[{label:"Open Nova folder",act:"acknowledge"}] }
+    { id:"done-nova", business:"TeamNEO", avatarClass:"teamneo", initials:"✓", contact:"Nova role created today", meta:"2026-04-20", tier:"P0", category:"done", tag:"done", tagText:"Done", title:"Nova scaffolded — all 5 interview rounds locked", body:"Identity, decision rights, 3-tier overnight autonomy, 11 inboxes mapped, 4 BAT.AI customers + 1 pipeline lead, Redlands rollout integrated, Jeremy as backup escalation.", novaNote:"Full picture in Nova/CLAUDE.md and Nova/MEMORY.md.", actions:[{label:"Open Nova folder",act:"acknowledge"}] },
+
+    /* ━━━ Nova Decided audit log (Mode A — Kim sees what Nova did autonomously) ━━━ */
+    { id:"nova-decided-where-nova-lives", business:"BAT.AI", avatarClass:"bat", initials:"📌", contact:"Nova decided — Where Nova Lives index doc", meta:"2 May 2026 · auto-shipped", tier:"P2", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"Pinned WHERE_NOVA_LIVES.md to OneDrive root", body:"Single index doc at workspace root so any future Claude session / agent / Kim finds the right context in one place. Maps every doc location, all 7 calendars, MCP connector status, standing rules. No more 'where is X?' loops.", novaNote:"Auto-shipped under Tier-1 'docs + internal tooling' authority. No external surface change. Reversible by deleting the file.", actions:[{label:"✅ Agree",act:"approve"},{label:"Edit / refine",act:"add-note"}] },
+    { id:"nova-decided-mode-a-locked", business:"BAT.AI", avatarClass:"bat", initials:"🎚️", contact:"Nova decided — Mode A locked in MEMORY", meta:"2 May 2026", tier:"P1", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"Operating model: Mode A + Nova-decided audit log", body:"Locked Kim's choice to Nova MEMORY: Mode A high-touch, with this audit tab as the safety net. All Nova autonomous actions log here for Kim's review. Trust graduates to Mode B as patterns get explicit approval.", novaNote:"Memory entry added at top of MEMORY.md so every future session reads it first.", actions:[{label:"✅ Agree",act:"approve"},{label:"Adjust the rule",act:"add-note"}] },
+    { id:"nova-decided-phone-numbers", business:"all", avatarClass:"bat", initials:"📱", contact:"Nova decided — phone routing rule", meta:"2 May 2026", tier:"P1", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"All Nova-initiated SMS routes to +61 404 843 405 (personal)", body:"Locked rule: briefing previews + urgent escalations + P0 alerts go to Kim's personal/NEO iPhone. Brisbane HIFU iPhone (+61 416 248 639) reserved for clinic ops only. Prevents accidental clinic-comms pollution.", novaNote:"Also locked both numbers to MEMORY.md so every future session respects the routing.", actions:[{label:"✅ Agree",act:"approve"},{label:"Change routing",act:"add-note"}] }
   ]
 };
 
@@ -418,12 +424,14 @@ let activeTier = null;
 
 const titles = {
   "needs-action":"Needs your attention","drafts-ready":"Drafts ready for your review","in-flight":"Nova is working on these",
-  "waiting":"Waiting on others","done":"Done today","snoozed":"Snoozed"
+  "waiting":"Waiting on others","done":"Done today","snoozed":"Snoozed",
+  "nova-decided":"Nova decided for you"
 };
 const subs = {
   "needs-action":"Decisions Nova can't make for you","drafts-ready":"Approve, edit, or hold — nothing sends without your nod",
   "in-flight":"Tier-2 work — Nova does the heavy lifting, queues for review","waiting":"Nova monitoring; will surface when something moves",
-  "done":"Cleared today — closed loop","snoozed":"You'll see these again when the timer expires"
+  "done":"Cleared today — closed loop","snoozed":"You'll see these again when the timer expires",
+  "nova-decided":"Audit log of decisions Nova made on your behalf — review any time, override or guide further"
 };
 
 function isSnoozed(id) {
