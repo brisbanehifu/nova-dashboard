@@ -1,0 +1,2620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookATreatment.ai — Master Investment Pack</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+  :root {
+    --bg-primary: #0C0A1A;
+    --bg-card: #141024;
+    --bg-card-hover: #1a1432;
+    --bg-surface: #1e1836;
+    --accent-teal: #00E8B4;
+    --accent-purple: #9B3DFF;
+    --accent-pink: #F040C8;
+    --accent-coral: #FF6B6B;
+    --accent-blue: #4A9FFF;
+    --accent-gold: #FFB800;
+    --text-primary: #FFFFFF;
+    --text-secondary: #e0dce8;
+    --text-muted: #b0aac0;
+    --border: #2a2440;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Top Navigation ── */
+  .top-bar {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent-teal);
+  }
+  .logo span { color: var(--text-primary); }
+  .top-meta {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .confidential-badge {
+    background: rgba(255, 107, 107, 0.15);
+    color: var(--accent-coral);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+  }
+
+  /* ── Tab Navigation ── */
+  .tab-nav {
+    background: var(--bg-card);
+    border-bottom: 2px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab-nav::-webkit-scrollbar { height: 0; }
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 14px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text-secondary); }
+  .tab-btn.active {
+    color: var(--accent-teal);
+    border-bottom-color: var(--accent-teal);
+  }
+
+  /* ── Content Area ── */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── Section Headers ── */
+  .section-header {
+    margin-bottom: 32px;
+  }
+  .section-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+    color: var(--bg-primary);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .section-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .section-header h2 span { color: var(--accent-teal); }
+  .section-header p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    max-width: 700px;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .card p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── Stat Grid ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    text-align: center;
+    position: relative;
+    cursor: default;
+  }
+  .stat-card[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-surface);
+    border: 1px solid var(--accent-teal);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(0, 232, 180, 0.15);
+  }
+  .stat-card[data-tooltip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--accent-teal);
+    z-index: 100;
+    pointer-events: none;
+  }
+  .stat-card .stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .stat-card .stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .teal { color: var(--accent-teal); }
+  .purple { color: var(--accent-purple); }
+  .pink { color: var(--accent-pink); }
+  .coral { color: var(--accent-coral); }
+  .blue { color: var(--accent-blue); }
+  .gold { color: var(--accent-gold); }
+  .green { color: var(--green); }
+
+  /* ── Tables ── */
+  .table-wrap {
+    overflow-x: auto;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    background: var(--bg-surface);
+    color: var(--accent-teal);
+    font-weight: 700;
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  td {
+    padding: 13px 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  tr:hover td { background: rgba(0, 232, 180, 0.03); }
+  .highlight-row td {
+    background: rgba(0, 232, 180, 0.08);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* ── Grid Layouts ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+
+  /* ── Feature Pills ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .feature-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 3px solid var(--accent-teal);
+  }
+  .feature-item h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .feature-item p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── Timeline ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 32px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-teal), var(--accent-purple), var(--accent-pink));
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-teal);
+    background: var(--bg-primary);
+  }
+  .timeline-item.done::before { background: var(--accent-teal); }
+  .timeline-item .tl-date {
+    font-size: 11px;
+    color: var(--accent-teal);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .timeline-item .tl-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 2px 0 4px;
+  }
+  .timeline-item .tl-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── Callout Box ── */
+  .callout {
+    background: linear-gradient(135deg, rgba(0,232,180,0.08), rgba(155,61,255,0.08));
+    border: 1px solid rgba(0,232,180,0.2);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .callout h4 {
+    color: var(--accent-teal);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .callout p {
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  /* ── Pricing Tier Cards ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .pricing-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+  }
+  .pricing-card.hero {
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 30px rgba(0,232,180,0.1);
+  }
+  .pricing-card.hero::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-teal);
+    color: var(--bg-primary);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 12px;
+    border-radius: 10px;
+  }
+  .pricing-card .tier-name {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .pricing-card .tier-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .pricing-card .tier-period {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .pricing-card .tier-detail {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* ── Competitor Mini Cards ── */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .comp-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .comp-card .comp-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .comp-card .comp-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .comp-card .comp-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .comp-card .comp-stat {
+    font-size: 12px;
+  }
+  .comp-card .comp-stat strong {
+    color: var(--accent-teal);
+    display: block;
+    font-size: 15px;
+  }
+
+  /* ── Agent Cards ── */
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .agent-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .agent-card .agent-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .agent-card .agent-role {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ── Progress Bar ── */
+  .progress-bar {
+    background: var(--border);
+    border-radius: 6px;
+    height: 8px;
+    overflow: hidden;
+    margin: 8px 0;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--accent-teal), var(--accent-purple));
+  }
+
+  /* ── Print ── */
+  @media print {
+    .top-bar, .tab-nav { position: static; }
+    .tab-content { display: block !important; page-break-before: always; }
+    body { background: #fff; color: #000; }
+    .card, .stat-card, .pricing-card, .comp-card, .feature-item, .agent-card { border-color: #ddd; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .container { padding: 24px 16px; }
+    .tab-btn { font-size: 12px; padding: 12px 14px; }
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 40px 32px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════ TOP BAR ═══════ -->
+<div class="top-bar">
+  <div class="logo">Book<span>ATreatment</span><span style="color:var(--accent-teal)">.ai</span></div>
+  <div class="top-meta">
+    <span>Master Investment Pack v6 — April 2026</span>
+    <span>Neo-Klien Pty Ltd</span>
+    <span class="confidential-badge">Confidential</span>
+  </div>
+</div>
+
+<!-- ═══════ TAB NAVIGATION ═══════ -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('onepager')">Quick Overview</button>
+  <button class="tab-btn" onclick="switchTab('exec')">Executive Summary</button>
+  <button class="tab-btn" onclick="switchTab('product')">Product & Features</button>
+  <button class="tab-btn" onclick="switchTab('financials')">Financials</button>
+  <button class="tab-btn" onclick="switchTab('gtm')">Go-To-Market</button>
+  <button class="tab-btn" onclick="switchTab('competitors')">Competitors</button>
+  <button class="tab-btn" onclick="switchTab('operations')">Operations & Team</button>
+  <button class="tab-btn" onclick="switchTab('governance')">Governance</button>
+  <button class="tab-btn" onclick="switchTab('investment')">Investment</button>
+  <button class="tab-btn" onclick="switchTab('features')">Features & Benefits</button>
+  <button class="tab-btn" onclick="switchTab('infrastructure')">Technical</button>
+  <button class="tab-btn" onclick="switchTab('social')">Social Media</button>
+  <button class="tab-btn" onclick="switchTab('youtube')">YouTube</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 1: EXECUTIVE SUMMARY                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 0: QUICK OVERVIEW (Investment One-Pager)           -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-onepager" class="tab-content active">
+
+  <div class="section-header">
+    <div class="section-badge">Investment One-Pager</div>
+    <h2>BookATreatment.ai — <span>At a Glance</span></h2>
+    <p>The essential investment snapshot. One page, everything you need to know.</p>
+  </div>
+
+  <!-- Key Stats -->
+  <div class="stat-grid">
+    <div class="stat-card" style="border-top:3px solid var(--accent-teal);">
+      <div class="stat-number" style="color:var(--accent-teal);">$11.2B</div>
+      <div class="stat-label">Market Size (AU)</div>
+    </div>
+    <div class="stat-card" style="border-top:3px solid var(--accent-purple);">
+      <div class="stat-number" style="color:var(--accent-purple);">35,000+</div>
+      <div class="stat-label">Addressable Clinics</div>
+    </div>
+    <div class="stat-card" style="border-top:3px solid var(--accent-coral);">
+      <div class="stat-number" style="color:var(--accent-coral);">97%</div>
+      <div class="stat-label">Gross Margin</div>
+    </div>
+    <div class="stat-card" style="border-top:3px solid var(--accent-pink);">
+      <div class="stat-number" style="color:var(--accent-pink);">27</div>
+      <div class="stat-label">Break-Even Customers</div>
+    </div>
+  </div>
+
+  <!-- Problem & Solution -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0;">
+    <div class="card">
+      <h3 style="color:var(--accent-coral);margin-bottom:12px;">The Problem</h3>
+      <p style="color:var(--text-secondary);font-size:14px;">Australia's 35,000+ beauty and aesthetics clinics rely on outdated booking tools or expensive platforms (Fresha, Timely, Mindbody) that charge commissions, lock data, and lack AI-powered features. Independent clinic owners need modern software at fair prices.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent-teal);margin-bottom:12px;">The Solution</h3>
+      <p style="color:var(--text-secondary);font-size:14px;"><strong style="color:var(--text-primary);">BookATreatment.ai</strong> is an AI-powered SaaS booking and clinic management platform purpose-built for beauty, aesthetics, and wellness businesses. Online booking, SMS reminders, Stripe payments, multi-site management, analytics, and white-label — all from $29/mo.</p>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Pricing</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Tier</th><th>Price</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td>Starter</td><td>$29/mo</td><td>Solo operators</td></tr>
+        <tr><td>Growth</td><td>$79/mo</td><td>Growing clinics</td></tr>
+        <tr><td>Pro</td><td>$149/mo</td><td>Multi-location clinics</td></tr>
+        <tr><td>Enterprise</td><td>$199/mo</td><td>10+ locations</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">No commissions. No contracts. Your data is yours.</p>
+
+  <!-- Traction & Projections side by side -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0;">
+    <div>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin-bottom:16px;">Traction</h3>
+      <div class="card" style="padding:20px;">
+        <ul style="list-style:none;padding:0;margin:0;font-size:14px;color:var(--text-secondary);">
+          <li style="padding:6px 0;border-bottom:1px solid var(--border);">Platform <strong style="color:var(--accent-teal);">live</strong> (March 2026)</li>
+          <li style="padding:6px 0;border-bottom:1px solid var(--border);">First tenant operational: Brisbane HIFU</li>
+          <li style="padding:6px 0;border-bottom:1px solid var(--border);">Marketing site live: bookatreatment.ai</li>
+          <li style="padding:6px 0;border-bottom:1px solid var(--border);">Stripe, ClickSend SMS, AI chat integrated</li>
+          <li style="padding:6px 0;border-bottom:1px solid var(--border);">Demo environment ready for sales</li>
+          <li style="padding:6px 0;">8 milestones completed in Q1 2026</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin-bottom:16px;">Year 1 Projections (Base)</h3>
+      <div class="stat-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="stat-card" style="border-top:3px solid var(--accent-teal);">
+          <div class="stat-number" style="color:var(--accent-teal);font-size:28px;">199</div>
+          <div class="stat-label">End Customers</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid var(--accent-purple);">
+          <div class="stat-number" style="color:var(--accent-purple);font-size:28px;">$56K</div>
+          <div class="stat-label">Year 1 Revenue</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid var(--accent-coral);">
+          <div class="stat-number" style="color:var(--accent-coral);font-size:28px;">$13.3K</div>
+          <div class="stat-label">Exit MRR (M12)</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid var(--accent-pink);">
+          <div class="stat-number" style="color:var(--accent-pink);font-size:28px;">$41K</div>
+          <div class="stat-label">Closing Cash</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Annualised run rate at end of Year 1: ~$160K AUD | Year 1 EBITDA: ~$36K | From $5K seed</p>
+    </div>
+  </div>
+
+  <!-- Competitive Advantage -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Competitive Advantage</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+    <div class="card" style="padding:16px;border-top:3px solid var(--accent-teal);">
+      <h4 style="color:var(--accent-teal);font-size:14px;margin-bottom:8px;">AI-First</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">AI scheduling, chat, content generation built into every feature</p>
+    </div>
+    <div class="card" style="padding:16px;border-top:3px solid var(--accent-purple);">
+      <h4 style="color:var(--accent-purple);font-size:14px;margin-bottom:8px;">Niche Focus</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">Built specifically for the aesthetics/beauty vertical</p>
+    </div>
+    <div class="card" style="padding:16px;border-top:3px solid var(--accent-pink);">
+      <h4 style="color:var(--accent-pink);font-size:14px;margin-bottom:8px;">Multi-Site Native</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">Clinic groups served from day one</p>
+    </div>
+    <div class="card" style="padding:16px;border-top:3px solid var(--accent-coral);">
+      <h4 style="color:var(--accent-coral);font-size:14px;margin-bottom:8px;">No Commissions</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">Flat monthly fee unlike Fresha's commission model</p>
+    </div>
+    <div class="card" style="padding:16px;border-top:3px solid var(--accent-gold);">
+      <h4 style="color:var(--accent-gold);font-size:14px;margin-bottom:8px;">Data Portability</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">Free CSV export, no lock-in, your data is yours</p>
+    </div>
+    <div class="card" style="padding:16px;border-top:3px solid var(--green);">
+      <h4 style="color:var(--green);font-size:14px;margin-bottom:8px;">Capital Efficient</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">AI team, break-even at just 27 customers</p>
+    </div>
+  </div>
+
+  <!-- Use of Funds -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Use of Funds ($150K Seed)</h3>
+  <div style="display:flex;height:32px;border-radius:8px;overflow:hidden;margin:12px 0;font-size:12px;color:white;font-weight:700;">
+    <div style="width:40%;background:var(--accent-teal);display:flex;align-items:center;justify-content:center;">Product 40%</div>
+    <div style="width:30%;background:var(--accent-purple);display:flex;align-items:center;justify-content:center;">Marketing 30%</div>
+    <div style="width:20%;background:var(--accent-coral);display:flex;align-items:center;justify-content:center;">Ops 20%</div>
+    <div style="width:10%;background:var(--accent-pink);display:flex;align-items:center;justify-content:center;">WC 10%</div>
+  </div>
+  <div class="card" style="padding:16px;margin-top:16px;">
+    <p style="font-size:14px;color:var(--text-secondary);"><strong style="color:var(--accent-teal);">With funding (18mo):</strong> 500+ customers, $33K+ MRR, $400K+ ARR</p>
+    <p style="font-size:14px;color:var(--text-secondary);margin-top:8px;"><strong style="color:var(--accent-purple);">Without:</strong> Fully viable bootstrap — profitable Month 5, 200 customers Y1</p>
+  </div>
+
+  <!-- Contact -->
+  <div style="text-align:center;padding:40px 0 20px;">
+    <p style="font-size:18px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--text-primary);">Kim Klein | Founder & CEO</p>
+    <p style="font-size:14px;color:var(--text-muted);margin-top:8px;">neoklien.consulting@gmail.com | bookatreatment.ai</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:16px;font-style:italic;">Confidential — Forward-looking statements; actual results may vary</p>
+  </div>
+
+</div>
+
+<div id="tab-exec" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Executive Summary</div>
+    <h2>AI-Powered Clinic & Salon <span>Booking Platform</span></h2>
+    <p>One founder. Eleven AI agents. Zero employees. Built in Australia, expanding globally.</p>
+  </div>
+
+  <!-- Key Stats -->
+  <div class="stat-grid">
+    <div class="stat-card" data-tooltip="TAM = Total Addressable Market — the total global revenue opportunity">
+      <div class="stat-value teal">$3.5B</div>
+      <div class="stat-label">Global TAM</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value purple">35,000+</div>
+      <div class="stat-label">AU Clinics Addressable</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">0%</div>
+      <div class="stat-label">Commission Charged</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value coral">$29–$199</div>
+      <div class="stat-label">Monthly Pricing</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value green">66–78%</div>
+      <div class="stat-label">Profit Margins</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value gold">11</div>
+      <div class="stat-label">AI Agents</div>
+    </div>
+  </div>
+
+  <!-- Vision & Mission -->
+  <div class="two-col">
+    <div class="card">
+      <h3 style="color:var(--accent-teal)">Vision</h3>
+      <p>A world where every clinic, spa, and salon owner has the freedom to focus on their clients — not their admin. Where powerful AI works behind the scenes as a true business partner, and access to enterprise-level technology isn't reserved for those with enterprise-level budgets.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent-purple)">Mission</h3>
+      <p>To give beauty, wellness, and aesthetic business owners back the hours they lose every week to scheduling, staff management, marketing, and operations — by replacing complexity with AI that works 24/7, charges zero commission, and puts every feature in the hands of every business from day one.</p>
+    </div>
+  </div>
+
+  <!-- The Problem / The Solution -->
+  <div class="two-col">
+    <div class="card" style="border-left: 3px solid var(--accent-coral);">
+      <h3 style="color:var(--accent-coral)">The Problem</h3>
+      <p>Australia's 35,000+ beauty and aesthetics clinics rely on outdated booking tools or expensive platforms that charge commissions, lock data, and lack AI-powered features. Globally, the beauty software market exceeds $3.5B TAM. Existing players have raised over $1.5B in venture funding and employ 7,000+ staff — yet most solutions remain overpriced, complex, and locked to proprietary payment processing with 2–3.5% commissions.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--accent-teal);">
+      <h3 style="color:var(--accent-teal)">The Solution</h3>
+      <p>BookATreatment.ai is an AI-powered, white-label SaaS booking and clinic management platform purpose-built for beauty, aesthetics, and wellness. It delivers online booking, staff scheduling, automated SMS/email, Stripe/Square/Razorpay payments, multi-site management, a full AI Marketing Hub, and 11 specialised AI agents — all included from $29/mo with zero commission.</p>
+    </div>
+  </div>
+
+  <!-- Founder -->
+  <div class="card">
+    <h3 style="color:var(--accent-pink)">Founder — KiMMi</h3>
+    <p>I built BookATreatment.AI because I was living the problem. Running a clinic meant drowning in admin — juggling staff rosters, managing room bookings, chasing no-shows, manually posting to social media, building marketing campaigns from scratch, and spending hours every week on tasks that had nothing to do with my clients. The platforms that were supposed to help just took a commission on every booking and locked the best features behind expensive tiers.</p>
+    <p style="margin-top:12px;">That's why I created NEO — a multi-agent AI system that gives business owners back the hours they lose every week. Every feature unlocked from day one. Zero commission. Your revenue stays yours.</p>
+  </div>
+
+  <!-- Key Differentiators -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Core Competitive Advantages</h3>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h4>Every Feature at Every Price</h4>
+      <p>All 100+ features included from $29/mo. Plans scale only by locations, staff, and credits — never by features.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>AI-First Architecture</h4>
+      <p>11 specialised AI agents: NEO assistant, Sage booking bot, Campaign Studio, AI image generation, and more.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>Integrated Marketing Hub</h4>
+      <p>The only platform combining clinic-aware AI + content + image generation + social publishing + ad management + bookings.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Zero Commission</h4>
+      <p>Clinics connect their own Stripe/Square/Razorpay. Unlike Fresha (2.2%) and GlossGenius (2.6%), we take nothing.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-gold);">
+      <h4>White-Label SaaS</h4>
+      <p>Each clinic gets their own branded deployment with custom domain, colours, and branding. True data isolation.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-blue);">
+      <h4>Global from Day One</h4>
+      <p>Multi-language (6 languages), multi-currency, multi-payment processor. Serving 50+ countries from launch.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 2: PRODUCT & FEATURES                             -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-product" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Product & Features</div>
+    <h2>100+ Features. <span>Every Plan.</span></h2>
+    <p>A complete clinic management platform with AI woven into every feature — not bolted on as an afterthought.</p>
+  </div>
+
+  <!-- Platform Facts -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value teal">100+</div>
+      <div class="stat-label">Platform Features</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value purple">11</div>
+      <div class="stat-label">AI Agents</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">6</div>
+      <div class="stat-label">Languages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value coral">4</div>
+      <div class="stat-label">Payment Processors</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value gold">99.9%</div>
+      <div class="stat-label">Uptime SLA</div>
+    </div>
+  </div>
+
+  <!-- Feature Categories -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Feature Breakdown</h3>
+
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h4>Online Booking System</h4>
+      <p>24/7 public booking page, real-time availability, secure rescheduling links, multi-location, booking page customisation</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>Client Management (CRM)</h4>
+      <p>Contact database, treatment records, consent management, photo uploads, CSV import, OTP client portal</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>Calendar & Scheduling</h4>
+      <p>Visual drag-and-drop calendar, staff availability, room/resource management, override hours, buffer times</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Automated Workflows</h4>
+      <p>SMS reminders, email confirmations, post-treatment aftercare, Google review requests, no-show follow-up</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-gold);">
+      <h4>Payments & POS</h4>
+      <p>Stripe, Square, Razorpay, embedded checkout, POS for walk-ins, package/bundle sales, product management</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-blue);">
+      <h4>AI Marketing Hub</h4>
+      <p>AI campaign generator, Campaign Studio, AI image generation, visual content calendar, social publishing, ad management</p>
+    </div>
+    <div class="feature-item">
+      <h4>Analytics & Revenue</h4>
+      <p>Booking KPI dashboard, revenue tracking, staff KPI tracking, booking pattern analysis, sales tracking</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>Staff Management</h4>
+      <p>Staff profiles, schedule management, performance tracking, service assignments, colour-coded calendars</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>Admin & White-Label</h4>
+      <p>Multi-theme admin, clinic branding, setup wizard, subscription management, help centre, custom domains</p>
+    </div>
+  </div>
+
+  <!-- AI Agents -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">The AI Workforce — 11 Specialised Agents</h3>
+
+  <div class="agent-grid">
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-teal);">NEO</div>
+      <div class="agent-role">Personal AI Assistant (every admin page)</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-purple);">ARIA</div>
+      <div class="agent-role">Development & Architecture</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-pink);">SAGE</div>
+      <div class="agent-role">Booking Chat Assistant</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-coral);">HUNTER</div>
+      <div class="agent-role">Lead Generation & Sales</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-gold);">PIXEL</div>
+      <div class="agent-role">Design & Content Creation</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-blue);">LENS</div>
+      <div class="agent-role">Analytics & Insights</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--green);">LEDGER</div>
+      <div class="agent-role">Financial Operations</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-teal);">COMPLY</div>
+      <div class="agent-role">Legal & Compliance</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-purple);">FORGE</div>
+      <div class="agent-role">Product Engineering</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-pink);">SENTINEL</div>
+      <div class="agent-role">Security & Monitoring</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-coral);">WELCOME</div>
+      <div class="agent-role">Onboarding & Support</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-name" style="color:var(--accent-gold);">SCOUT</div>
+      <div class="agent-role">QA & Health Checks</div>
+    </div>
+  </div>
+
+  <!-- Tech Stack -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Technology Stack</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Component</th><th>Technology</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Backend</td><td>Node.js / Express.js</td><td>—</td></tr>
+        <tr><td>Frontend</td><td>React 19 (TypeScript), Tailwind CSS 4, Vite</td><td>—</td></tr>
+        <tr><td>Database</td><td>MySQL (isolated per customer on Railway)</td><td>~$5/customer/mo</td></tr>
+        <tr><td>Hosting</td><td>Railway (Docker, auto-deploy, 99.9% uptime)</td><td>~$5/customer/mo</td></tr>
+        <tr><td>Storage</td><td>Cloudflare R2</td><td>~$0.15/10GB tier</td></tr>
+        <tr><td>SMS</td><td>ClickSend API</td><td>~$0.08/SMS (AU)</td></tr>
+        <tr><td>Payments</td><td>Stripe, Square, Razorpay</td><td>2.9% + $0.30 (our sub only)</td></tr>
+        <tr><td>Email</td><td>Resend (free tier: 3,000/mo)</td><td>$0.00</td></tr>
+        <tr><td>AI Engine</td><td>Anthropic Claude Haiku 4.5</td><td>~$1.27/customer/mo</td></tr>
+        <tr><td>AI Images</td><td>Ideogram / DALL-E API</td><td>$0.02–0.08/image</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 3: FINANCIALS                                     -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-financials" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Financial Model</div>
+    <h2>Revenue, Margins & <span>Projections</span></h2>
+    <p>Capital-efficient SaaS with 66–78% per-tier margins and breakeven at just 27 customers.</p>
+  </div>
+
+  <!-- Financial Headlines -->
+  <div class="stat-grid">
+    <div class="stat-card" data-tooltip="ARR = Annual Recurring Revenue — total yearly subscription income">
+      <div class="stat-value teal">$522K</div>
+      <div class="stat-label">ARR at 500 Customers</div>
+    </div>
+    <div class="stat-card" data-tooltip="MRR = Monthly Recurring Revenue — predictable monthly subscription income">
+      <div class="stat-value purple">$43.5K</div>
+      <div class="stat-label">MRR at 500 Customers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">66–78%</div>
+      <div class="stat-label">Per-Tier Profit Margin</div>
+    </div>
+    <div class="stat-card" data-tooltip="ARPU = Average Revenue Per User — mean monthly spend per customer">
+      <div class="stat-value coral">~$79</div>
+      <div class="stat-label">Blended ARPU</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value green">27</div>
+      <div class="stat-label">Customers to Breakeven</div>
+    </div>
+    <div class="stat-card" data-tooltip="LTV:CAC = Lifetime Value to Customer Acquisition Cost ratio — measures ROI on acquiring each customer">
+      <div class="stat-value gold">>10:1</div>
+      <div class="stat-label">Target LTV:CAC</div>
+    </div>
+  </div>
+
+  <!-- Pricing Tiers -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Pricing Model — 4 Tiers + Free Trial</h3>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="tier-name">Starter</div>
+      <div class="tier-price teal">$29</div>
+      <div class="tier-period">/month AUD</div>
+      <div class="tier-detail">
+        1 location · 1 staff<br>
+        150 SMS · 25 AI images<br>
+        All 100+ features included<br>
+        <strong style="color:var(--green)">66% margin</strong>
+      </div>
+    </div>
+    <div class="pricing-card hero">
+      <div class="tier-name">Growth</div>
+      <div class="tier-price teal">$79</div>
+      <div class="tier-period">/month AUD</div>
+      <div class="tier-detail">
+        2 locations · 5 staff<br>
+        500 SMS · 100 AI images<br>
+        All 100+ features included<br>
+        <strong style="color:var(--green)">78% margin</strong>
+      </div>
+    </div>
+    <div class="pricing-card">
+      <div class="tier-name">Pro</div>
+      <div class="tier-price teal">$149</div>
+      <div class="tier-period">/month AUD</div>
+      <div class="tier-detail">
+        3–5 locations · Unlimited staff<br>
+        1,000 SMS · 300 AI images<br>
+        All 100+ features included<br>
+        <strong style="color:var(--green)">71% margin</strong>
+      </div>
+    </div>
+    <div class="pricing-card">
+      <div class="tier-name">Enterprise</div>
+      <div class="tier-price teal">$199</div>
+      <div class="tier-period">/month AUD</div>
+      <div class="tier-detail">
+        6–10 locations · Unlimited staff<br>
+        2,000 SMS · 500 AI images<br>
+        All 100+ features included<br>
+        <strong style="color:var(--green)">62% margin</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Add-On Revenue Streams</h4>
+    <p><strong>SMS Top-Up:</strong> $29.95 per 500 SMS (any tier) · <strong>AI Image Top-Up:</strong> $19.95 per 100 images (60–80% margin) · <strong>Credit Top-Up:</strong> $19.95 per 500 AI credits (covers image gen, video gen, avatar videos)</p>
+  </div>
+
+  <!-- Ad Revenue Model — NEW (April 2026) -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Ad Campaign Revenue Model (Zeely-Style) 💰</h3>
+  <div class="callout" style="border-left-color:var(--accent-teal);">
+    <h4>How It Works</h4>
+    <p>BAT.ai acts as an ad management intermediary. Users create Meta (Facebook + Instagram) ad campaigns through our Marketing Hub. We charge the user the Meta ad spend + an 8% service fee. Meta Marketing API is free — our fee is pure margin minus Stripe processing.</p>
+    <p style="margin-top:8px;"><strong>Example:</strong> User sets $100 ad budget for 4 days → Meta ad spend $100 + BAT.ai service fee $8 = <strong>$108 charged to user</strong>. BAT.ai retains $8. Net margin after Stripe: ~$7.50 (94% margin on fee).</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Component</th><th>Amount</th><th>Who Receives</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Meta Ad Spend</td><td>$100.00</td><td>Meta (pass-through)</td><td>Goes directly to Facebook/Instagram ads</td></tr>
+        <tr><td>BAT.ai Service Fee (8%)</td><td>$8.00</td><td>BAT.ai</td><td>Our revenue — transparent line item on checkout</td></tr>
+        <tr><td>Stripe Processing (~2.9%+30c)</td><td>~$3.43</td><td>Stripe</td><td>On full $108 amount</td></tr>
+        <tr class="highlight-row"><td><strong>Total Charged to User</strong></td><td><strong>$108.00</strong></td><td>—</td><td>—</td></tr>
+        <tr class="highlight-row"><td><strong>BAT.ai Net Revenue</strong></td><td style="color:var(--green);font-weight:700"><strong>~$4.57</strong></td><td>BAT.ai</td><td>After Stripe on full amount; higher if using Stripe Connect destination charges</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Ad Revenue Projections 3-Year -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Ad Revenue Projections — 3-Year Forecast</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr></thead>
+      <tbody>
+        <tr><td>Active businesses on platform</td><td>199</td><td>800</td><td>2,500</td></tr>
+        <tr><td>% running paid ads</td><td>15%</td><td>25%</td><td>35%</td></tr>
+        <tr><td>Businesses running ads</td><td>30</td><td>200</td><td>875</td></tr>
+        <tr><td>Avg monthly ad spend/business</td><td>$200</td><td>$300</td><td>$400</td></tr>
+        <tr><td>Monthly ad volume through BAT.ai</td><td>$6,000</td><td>$60,000</td><td>$350,000</td></tr>
+        <tr><td>BAT.ai service fee (8%)</td><td>$480/mo</td><td>$4,800/mo</td><td>$28,000/mo</td></tr>
+        <tr class="highlight-row"><td><strong>Annual Ad Fee Revenue</strong></td><td style="color:var(--green);font-weight:700"><strong>$5,760</strong></td><td style="color:var(--green);font-weight:700"><strong>$57,600</strong></td><td style="color:var(--green);font-weight:700"><strong>$336,000</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout" style="border-left-color:var(--accent-purple);">
+    <h4>Why This Model Scales</h4>
+    <p><strong>Zero incremental cost:</strong> Meta Marketing API is free. No per-campaign cost to BAT.ai beyond Stripe processing.</p>
+    <p><strong>Recurring by nature:</strong> Once a clinic sees ROI from ads, they increase spend monthly. Average ad spend grows 2–3x in the first 6 months.</p>
+    <p><strong>Compounds with platform growth:</strong> Every new subscriber is a potential advertiser. At 2,500 businesses with 35% ad adoption, this stream alone generates $336K/year — potentially larger than subscription revenue for smaller tier mixes.</p>
+    <p><strong>Competitive advantage:</strong> Unlike Zeely (6% fee, generic), BAT.ai charges 8% justified by beauty-industry-specific AI, direct booking integration ("Book Now" CTAs drive real appointments), and CRM auto-capture of ad-generated leads.</p>
+  </div>
+
+  <!-- Combined Revenue Summary -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Combined Revenue Summary (Subscriptions + Ads + Add-Ons)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Revenue Stream</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr></thead>
+      <tbody>
+        <tr><td>Subscription MRR (annualised)</td><td>$56,280</td><td>$420,000</td><td>$1,305,000</td></tr>
+        <tr><td>Ad Campaign Fees (8%)</td><td>$5,760</td><td>$57,600</td><td>$336,000</td></tr>
+        <tr><td>SMS Top-Ups</td><td>$1,800</td><td>$14,400</td><td>$45,000</td></tr>
+        <tr><td>AI Credit Top-Ups</td><td>$1,200</td><td>$9,600</td><td>$30,000</td></tr>
+        <tr class="highlight-row"><td><strong>Total Revenue</strong></td><td style="color:var(--green);font-weight:700"><strong>$65,040</strong></td><td style="color:var(--green);font-weight:700"><strong>$501,600</strong></td><td style="color:var(--green);font-weight:700"><strong>$1,716,000</strong></td></tr>
+        <tr class="highlight-row"><td><strong>Ad Revenue as % of Total</strong></td><td>8.9%</td><td>11.5%</td><td style="color:var(--accent-teal);font-weight:700">19.6%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Per-Tier Cost Breakdown -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Per-Tier Margin Analysis</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tier</th><th>Price</th><th>Railway</th><th>SMS</th><th>AI Images</th><th>Claude API</th><th>Stripe Fee</th><th>Overhead</th><th>Total Cost</th><th>Profit</th><th>Margin</th></tr></thead>
+      <tbody>
+        <tr><td>Starter</td><td>$29</td><td>$5.00</td><td>$1.20</td><td>$1.00</td><td>$0.50</td><td>$1.14</td><td>$0.96</td><td>$9.80</td><td style="color:var(--green);font-weight:700">$19.20</td><td style="color:var(--green);font-weight:700">66%</td></tr>
+        <tr class="highlight-row"><td>Growth</td><td>$79</td><td>$5.00</td><td>$4.00</td><td>$4.00</td><td>$0.50</td><td>$2.59</td><td>$1.50</td><td>$17.59</td><td style="color:var(--green);font-weight:700">$61.41</td><td style="color:var(--green);font-weight:700">78%</td></tr>
+        <tr><td>Pro</td><td>$149</td><td>$15.00</td><td>$8.00</td><td>$12.00</td><td>$0.50</td><td>$4.62</td><td>$2.50</td><td>$42.62</td><td style="color:var(--green);font-weight:700">$106.38</td><td style="color:var(--green);font-weight:700">71%</td></tr>
+        <tr><td>Enterprise</td><td>$199</td><td>$30.00</td><td>$16.00</td><td>$20.00</td><td>$0.50</td><td>$6.07</td><td>$3.50</td><td>$76.07</td><td style="color:var(--green);font-weight:700">$122.93</td><td style="color:var(--green);font-weight:700">62%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tier Mix -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Tier Mix Assumptions (at 500 Customers)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tier</th><th>Mix %</th><th>Customers</th><th>MRR Contribution</th></tr></thead>
+      <tbody>
+        <tr class="highlight-row"><td>Growth ($79)</td><td>60%</td><td>300</td><td>$23,700</td></tr>
+        <tr><td>Starter ($29)</td><td>20%</td><td>100</td><td>$2,900</td></tr>
+        <tr><td>Pro ($149)</td><td>12%</td><td>60</td><td>$8,940</td></tr>
+        <tr><td>Enterprise ($199)</td><td>8%</td><td>40</td><td>$7,960</td></tr>
+        <tr class="highlight-row"><td><strong>Total</strong></td><td>100%</td><td>500</td><td><strong>$43,500/mo ($522K ARR)</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Year 1 Revenue Projections -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Year 1 Revenue Projections (Base Scenario)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Month</th><th>New</th><th>Churned</th><th>Net Customers</th><th>MRR</th><th>Cumulative Revenue</th><th>Phase</th></tr></thead>
+      <tbody>
+        <tr><td>Apr 2026</td><td>2</td><td>0</td><td>2</td><td>$134</td><td>$134</td><td>Early Adopter</td></tr>
+        <tr><td>May 2026</td><td>3</td><td>0</td><td>5</td><td>$335</td><td>$469</td><td>Early Adopter</td></tr>
+        <tr><td>Jun 2026</td><td>5</td><td>1</td><td>9</td><td>$603</td><td>$1,072</td><td>Early Adopter</td></tr>
+        <tr><td>Jul 2026</td><td>8</td><td>1</td><td>16</td><td>$1,072</td><td>$2,144</td><td>Growth</td></tr>
+        <tr class="highlight-row"><td>Aug 2026</td><td>12</td><td>1</td><td>27</td><td>$1,809</td><td>$3,953</td><td>BREAKEVEN</td></tr>
+        <tr><td>Sep 2026</td><td>15</td><td>2</td><td>40</td><td>$2,680</td><td>$6,633</td><td>Growth</td></tr>
+        <tr><td>Oct 2026</td><td>20</td><td>2</td><td>58</td><td>$3,886</td><td>$10,519</td><td>Scale</td></tr>
+        <tr><td>Nov 2026</td><td>25</td><td>3</td><td>80</td><td>$5,360</td><td>$15,879</td><td>Scale</td></tr>
+        <tr><td>Dec 2026</td><td>30</td><td>3</td><td>107</td><td>$7,169</td><td>$23,048</td><td>Scale</td></tr>
+        <tr><td>Jan 2027</td><td>30</td><td>4</td><td>133</td><td>$8,911</td><td>$31,959</td><td>Scale</td></tr>
+        <tr><td>Feb 2027</td><td>35</td><td>4</td><td>164</td><td>$10,988</td><td>$42,947</td><td>Scale</td></tr>
+        <tr class="highlight-row"><td>Mar 2027</td><td>40</td><td>5</td><td>199</td><td>$13,333</td><td>$56,280</td><td>Scale</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Year 1 P&L Summary -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Year 1 Profit & Loss Summary</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value teal">$56,280</div>
+      <div class="stat-label">Total Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value purple">$53,525</div>
+      <div class="stat-label">Gross Profit (95.1%)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">$19,737</div>
+      <div class="stat-label">Total OpEx</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value green">$33,788</div>
+      <div class="stat-label">Year 1 EBITDA</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value gold">$40,902</div>
+      <div class="stat-label">Closing Cash (from $5K seed)</div>
+    </div>
+  </div>
+
+  <!-- Cashflow -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Year 1 Cashflow Projection</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Month</th><th>Opening Cash</th><th>Revenue</th><th>OpEx</th><th>Net</th><th>Closing Cash</th></tr></thead>
+      <tbody>
+        <tr><td>Apr 2026</td><td>$5,000</td><td>$134</td><td>$969</td><td style="color:var(--red)">($835)</td><td>$4,165</td></tr>
+        <tr><td>May 2026</td><td>$4,165</td><td>$335</td><td>$1,075</td><td style="color:var(--red)">($740)</td><td>$3,425</td></tr>
+        <tr><td>Jun 2026</td><td>$3,425</td><td>$603</td><td>$1,183</td><td style="color:var(--red)">($580)</td><td>$2,845</td></tr>
+        <tr><td>Jul 2026</td><td>$2,845</td><td>$1,072</td><td>$1,297</td><td style="color:var(--red)">($225)</td><td>$2,620</td></tr>
+        <tr class="highlight-row"><td>Aug 2026</td><td>$2,620</td><td>$1,809</td><td>$1,419</td><td style="color:var(--green)">+$390</td><td>$3,010</td></tr>
+        <tr><td>Sep 2026</td><td>$3,010</td><td>$2,680</td><td>$1,545</td><td style="color:var(--green)">+$1,135</td><td>$4,145</td></tr>
+        <tr><td>Oct 2026</td><td>$4,145</td><td>$3,886</td><td>$1,692</td><td style="color:var(--green)">+$2,194</td><td>$6,339</td></tr>
+        <tr><td>Nov 2026</td><td>$6,339</td><td>$5,360</td><td>$1,836</td><td style="color:var(--green)">+$3,524</td><td>$9,863</td></tr>
+        <tr><td>Dec 2026</td><td>$9,863</td><td>$7,169</td><td>$2,090</td><td style="color:var(--green)">+$5,079</td><td>$14,942</td></tr>
+        <tr><td>Jan 2027</td><td>$14,942</td><td>$8,911</td><td>$2,142</td><td style="color:var(--green)">+$6,769</td><td>$21,711</td></tr>
+        <tr><td>Feb 2027</td><td>$21,711</td><td>$10,988</td><td>$2,530</td><td style="color:var(--green)">+$8,458</td><td>$30,169</td></tr>
+        <tr class="highlight-row"><td>Mar 2027</td><td>$30,169</td><td>$13,333</td><td>$2,600</td><td style="color:var(--green)">+$10,733</td><td style="color:var(--accent-teal);font-weight:700">$40,902</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h4>Key Financial Insights</h4>
+    <p>Cash never drops below $2,620 (Month 4). Cashflow positive from Month 5. No external funding required for base scenario. AI API costs stay under 1.6% of revenue at all scales. Stripe fees are on our subscription collection only — clinic transaction fees are borne by the clinic's own Stripe account.</p>
+  </div>
+
+  <!-- Scaling Infrastructure Cost Analysis -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Scaling Infrastructure Cost Analysis</h3>
+  <p style="color:var(--text-secondary);font-size:14px;margin-bottom:20px;">Infrastructure costs mapped to growth phases, showing concurrent user capacity and cost as a percentage of revenue. Infrastructure remains under 2% of revenue at scale — a key SaaS efficiency metric.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Growth Phase</th>
+        <th>Subscribers</th>
+        <th>Concurrent Users</th>
+        <th>MRR (est.)</th>
+        <th>Infra Cost/mo</th>
+        <th>Infra % of Revenue</th>
+        <th>Upgrade Triggers</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--accent-teal)">Launch</strong></td>
+          <td>1–50</td>
+          <td>75–100</td>
+          <td>$134–$3,350</td>
+          <td style="color:var(--green)">~$20–25</td>
+          <td>0.7–15%</td>
+          <td>Current state — no changes needed</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent-purple)">Growth</strong></td>
+          <td>50–200</td>
+          <td>150–500</td>
+          <td>$3,350–$13,400</td>
+          <td>~$65–100</td>
+          <td>0.7–1.9%</td>
+          <td>Redis session cache, Railway Pro upgrade</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent-pink)">Scale</strong></td>
+          <td>200–500</td>
+          <td>500–1,000</td>
+          <td>$13,400–$33,500</td>
+          <td>~$150–260</td>
+          <td>0.5–1.9%</td>
+          <td>Horizontal scaling, Cloudflare CDN</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong style="color:var(--accent-gold)">Enterprise</strong></td>
+          <td>500–1,000</td>
+          <td>1,000–2,500+</td>
+          <td>$33,500–$67,000</td>
+          <td>~$465–580</td>
+          <td>0.7–1.7%</td>
+          <td>RDS Multi-AZ, Redis Cluster, WAF</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cost Breakdown by Component -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Infrastructure Cost Breakdown by Component</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Component</th>
+        <th>Launch (1–50)</th>
+        <th>Growth (50–200)</th>
+        <th>Scale (200–500)</th>
+        <th>Enterprise (500–1K)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Railway Hosting</td><td>~$20</td><td>~$50–80</td><td>~$100–200</td><td>~$200–300</td></tr>
+        <tr><td>AWS S3 Storage</td><td>~$0–2</td><td>~$2–5</td><td>~$5–15</td><td>~$15–30</td></tr>
+        <tr><td>Redis Cache</td><td>Included</td><td>~$10</td><td>~$20</td><td>~$50</td></tr>
+        <tr><td>CDN (Cloudflare)</td><td>—</td><td>Free tier</td><td>~$25</td><td>~$200</td></tr>
+        <tr><td>AI API (Anthropic)</td><td>~$3–64</td><td>~$64–254</td><td>~$254–635</td><td>~$635–1,270</td></tr>
+        <tr><td>SMS (ClickSend)</td><td>~$4–100</td><td>~$100–400</td><td>~$400–1,000</td><td>~$1,000–2,000</td></tr>
+        <tr class="highlight-row">
+          <td><strong>Total All-In</strong></td>
+          <td><strong style="color:var(--green)">~$27–191</strong></td>
+          <td><strong>~$226–749</strong></td>
+          <td><strong>~$804–1,895</strong></td>
+          <td><strong>~$2,050–3,850</strong></td>
+        </tr>
+        <tr>
+          <td><em>Gross Margin After All COGS</em></td>
+          <td style="color:var(--green)"><em>80–94%</em></td>
+          <td style="color:var(--green)"><em>94–95%</em></td>
+          <td style="color:var(--green)"><em>94–95%</em></td>
+          <td style="color:var(--green)"><em>94–96%</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h4>Key Takeaway for Investors</h4>
+    <p>Infrastructure cost as a percentage of revenue <strong>drops as we scale</strong> — from ~15% at launch (low subscriber count) to under 2% at 200+ subscribers. This is a hallmark of healthy SaaS unit economics. All variable costs (AI API, SMS) scale linearly with customers, while fixed infrastructure costs create operating leverage. At 500 customers, we operate at 94%+ gross margins with infrastructure costing under $600/month.</p>
+  </div>
+
+  <!-- AI Cost Model -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">AI Cost Model (Claude Haiku 4.5)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>AI Feature</th><th>Cost/Turn</th><th>Est. Turns/Mo</th><th>Cost/Customer/Mo</th></tr></thead>
+      <tbody>
+        <tr><td>NEO Personal Assistant</td><td>$0.0015</td><td>600</td><td>$0.90</td></tr>
+        <tr><td>Sage Booking Chat</td><td>$0.0016</td><td>200</td><td>$0.32</td></tr>
+        <tr><td>Campaign Studio (generate)</td><td>$0.003</td><td>10</td><td>$0.03</td></tr>
+        <tr><td>Campaign Studio (rewrite)</td><td>$0.0015</td><td>10</td><td>$0.02</td></tr>
+        <tr class="highlight-row"><td><strong>Total per customer</strong></td><td></td><td></td><td><strong>~$1.27/mo</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 4: GO-TO-MARKET                                   -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-gtm" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Go-To-Market Strategy</div>
+    <h2>10 Acquisition Channels. <span>$2K/Month Budget.</span></h2>
+    <p>Lean, AI-driven marketing powered by the same platform we sell.</p>
+  </div>
+
+  <!-- GTM Stats -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value teal">10</div>
+      <div class="stat-label">Acquisition Channels</div>
+    </div>
+    <div class="stat-card" data-tooltip="GTM = Go-To-Market — the strategy and budget for launching and selling">
+      <div class="stat-value purple">$2K/mo</div>
+      <div class="stat-label">GTM Budget</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">25%</div>
+      <div class="stat-label">Trial Conversion Target</div>
+    </div>
+    <div class="stat-card" data-tooltip="CAC = Customer Acquisition Cost — average spend to acquire one paying customer">
+      <div class="stat-value coral">&lt;$150</div>
+      <div class="stat-label">Target CAC</div>
+    </div>
+  </div>
+
+  <!-- Channels -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Customer Acquisition Channels</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Channel</th><th>Type</th><th>Description</th><th>Timeline</th></tr></thead>
+      <tbody>
+        <tr><td>Direct Outreach</td><td>Organic</td><td>Personal DM and email to clinic owners via Instagram and LinkedIn</td><td>Ongoing</td></tr>
+        <tr><td>Google Ads</td><td>Paid</td><td>Search targeting "booking software for clinics" and related terms</td><td>Month 2+</td></tr>
+        <tr><td>Instagram / TikTok</td><td>Organic</td><td>Product demos, clinic transformation stories, reels</td><td>Ongoing</td></tr>
+        <tr><td>Facebook Ads</td><td>Paid</td><td>Retargeting and lookalike audiences for clinic owners</td><td>Month 3+</td></tr>
+        <tr><td>"Switch from Fresha" Campaign</td><td>Organic + Paid</td><td>Targeted page and campaign addressing Fresha pain points</td><td>Active</td></tr>
+        <tr><td>Referral Program</td><td>Organic</td><td>Existing customers refer new clinics for billing credits</td><td>Month 4+</td></tr>
+        <tr><td>YouTube</td><td>Organic</td><td>Tutorial videos and case studies using HeyGen AI avatar + NEO bot</td><td>Month 2+</td></tr>
+        <tr><td>LinkedIn</td><td>Organic</td><td>B2B reach to clinic group owners and franchise decision-makers</td><td>Ongoing</td></tr>
+        <tr><td>Ad Management Revenue</td><td>Product</td><td>8% service fee on Meta ad spend run through platform (Zeely-style model)</td><td>Q3 2026</td></tr>
+        <tr><td>Affiliate / Partnerships</td><td>Partner</td><td>HIFU machine distributors, beauty suppliers, training academies</td><td>Q4 2026</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Content Strategy -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Social Media Strategy</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Platform</th><th>Purpose</th><th>Format</th><th>Frequency</th></tr></thead>
+      <tbody>
+        <tr><td>Instagram</td><td>Brand awareness, clinic owner community</td><td>Reels, carousels, Stories</td><td>Daily</td></tr>
+        <tr><td>TikTok</td><td>Viral reach, product demos</td><td>Short-form video, trends</td><td>3–5x/week</td></tr>
+        <tr><td>Facebook</td><td>Paid ads, clinic owner groups</td><td>Video, posts, ads</td><td>3x/week</td></tr>
+        <tr><td>LinkedIn</td><td>B2B reach, franchise/group operators</td><td>Articles, posts</td><td>2–3x/week</td></tr>
+        <tr><td>YouTube</td><td>Long-form tutorials, case studies</td><td>Videos, Shorts</td><td>Weekly</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Content Pillars -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Content Pillars</h3>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h4>Product Demos</h4>
+      <p>Screen recordings and walkthroughs of booking flow, admin dashboard, SMS automation, AI features</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>Clinic Transformation Stories</h4>
+      <p>Before/after narratives of clinics upgrading from manual bookings or legacy software</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>Tips for Clinic Owners</h4>
+      <p>Reduce no-shows, grow bookings, improve retention — soft-selling the platform</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Building in Public</h4>
+      <p>Founder journey content — builds trust, authenticity, and community</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-gold);">
+      <h4>VS Comparison Videos</h4>
+      <p>BookATreatment vs Fresha, vs Vagaro, vs Timely — the comparison space on YouTube is nearly empty</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-blue);">
+      <h4>Social Proof</h4>
+      <p>Client testimonials, reviews, case studies as customer base grows</p>
+    </div>
+  </div>
+
+  <!-- Video Production Pipeline -->
+  <div class="callout">
+    <h4>Video Production Pipeline</h4>
+    <p><strong>Trupeer</strong> (screen recording) → <strong>HeyGen</strong> (avatar clips) → <strong>Kling</strong> (NEO bot renders) → <strong>Canva</strong> (thumbnails + A/B variants) → <strong>CapCut/DaVinci</strong> (editing) → <strong>YouTube Studio</strong> (upload + SEO). Each long-form video gets chopped into 8+ social pieces: 3 Reels, 2 TikToks, 1 LinkedIn, 1 carousel, 1 blog post.</p>
+  </div>
+
+  <!-- Marketing Hub Advantage -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Marketing Hub — The Competitive Moat</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Capability</th><th>BookATreatment.ai</th><th>Canva</th><th>Buffer</th><th>Hootsuite</th></tr></thead>
+      <tbody>
+        <tr><td>AI copy generation</td><td style="color:var(--green)">Included</td><td>Basic</td><td>AI Assistant ($)</td><td>OwlyWriter</td></tr>
+        <tr><td>AI image generation</td><td style="color:var(--green)">Included</td><td>Magic Media ($)</td><td>No</td><td>No</td></tr>
+        <tr><td>Social publishing</td><td style="color:var(--green)">Included</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Content calendar</td><td style="color:var(--green)">Visual, integrated</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Paid ad management</td><td style="color:var(--green)">Meta + Google</td><td>No</td><td>No</td><td>$599+/mo</td></tr>
+        <tr><td>Booking integration</td><td style="color:var(--green)">Native</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>Clinic-aware AI</td><td style="color:var(--green)">Trained on services</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>Price for clinics</td><td style="color:var(--green)">Included $29–199</td><td>$15–30/mo extra</td><td>$6–120/mo extra</td><td>$99–739/mo extra</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 5: COMPETITORS                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-competitors" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Competitor Intelligence</div>
+    <h2>12 Competitors. <span>$3.2B+ Funded.</span></h2>
+    <p>The incumbents are well-funded, heavily staffed, and charge commissions. Their YouTube presence is minimal. The market is ripe for disruption.</p>
+  </div>
+
+  <!-- Competitor Headlines -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value coral">$3.2B+</div>
+      <div class="stat-label">Combined Funding</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value purple">18,000+</div>
+      <div class="stat-label">Combined Staff</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">9 of 12</div>
+      <div class="stat-label">Charge Commission</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value gold">27–991</div>
+      <div class="stat-label">Avg YouTube Views</div>
+    </div>
+  </div>
+
+  <!-- Competitor Comparison Table -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">At-a-Glance Comparison</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Competitor</th><th>HQ</th><th>Funding</th><th>Team</th><th>Pricing</th><th>Commission</th><th>AI Features</th><th>YouTube</th></tr></thead>
+      <tbody>
+        <tr><td>Mindbody</td><td>San Luis Obispo, CA</td><td>$1.9B (PE)</td><td>3,500+</td><td>$139–699/mo</td><td style="color:var(--red)">Yes</td><td>Basic</td><td>14K subs</td></tr>
+        <tr><td>Fresha</td><td>London, UK</td><td>$256M</td><td>800+</td><td>Free + fees</td><td style="color:var(--red)">2.19%+</td><td>None</td><td>5.7K subs</td></tr>
+        <tr><td>Vagaro</td><td>Pleasanton, CA</td><td>$85M</td><td>500+</td><td>$30–90+/mo</td><td style="color:var(--red)">2.2%</td><td>None</td><td>7.7K subs</td></tr>
+        <tr><td>GlossGenius</td><td>New York, NY</td><td>$28M</td><td>200+</td><td>$24–48/mo</td><td style="color:var(--red)">2.6%</td><td>Basic</td><td>2K subs</td></tr>
+        <tr><td>Zenoti</td><td>Hyderabad, India</td><td>$252M</td><td>2,500+</td><td>Custom</td><td style="color:var(--red)">Yes</td><td>SmartBot</td><td>3K subs</td></tr>
+        <tr><td>Booksy</td><td>Warsaw, Poland</td><td>$192M</td><td>600+</td><td>$30–50/mo</td><td style="color:var(--red)">2.49%</td><td>None</td><td>1.5K subs</td></tr>
+        <tr><td>Phorest</td><td>Dublin, Ireland</td><td>$50M</td><td>400+</td><td>Custom</td><td style="color:var(--red)">Varies</td><td>None</td><td>3.5K subs</td></tr>
+        <tr><td>Square Appointments</td><td>San Francisco, CA</td><td>$590M (Block)</td><td>Part of Block</td><td>Free–$69/mo</td><td style="color:var(--red)">2.6%</td><td>None</td><td>N/A</td></tr>
+        <tr><td>Timely</td><td>Auckland, NZ</td><td>Bootstrapped</td><td>80+</td><td>$30–45/mo</td><td style="color:var(--green)">No</td><td>None</td><td>1.6K subs</td></tr>
+        <tr><td>Calendly</td><td>Atlanta, GA</td><td>$350M</td><td>700+</td><td>Free–$16+/mo</td><td style="color:var(--green)">No</td><td>Basic</td><td>5K subs</td></tr>
+        <tr><td>SimplyBook.me</td><td>Limassol, Cyprus</td><td>Bootstrapped</td><td>~50</td><td>Free–$83/mo</td><td style="color:var(--green)">No</td><td>None</td><td>1.5K subs</td></tr>
+        <tr><td>Cliniko</td><td>Melbourne, AU</td><td>Bootstrapped</td><td>70+</td><td>$45–149/mo</td><td style="color:var(--green)">No</td><td>None</td><td>2K subs</td></tr>
+        <tr class="highlight-row"><td><strong>BookATreatment.ai</strong></td><td>Brisbane, AU</td><td>$5K self-funded</td><td>1 + 11 AI agents</td><td>$29–199/mo</td><td style="color:var(--green);font-weight:700">0%</td><td style="color:var(--accent-teal);font-weight:700">Full AI Suite</td><td>Launching</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Key Competitive Insights -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Key Competitive Insights</h3>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h4>Commission Trap</h4>
+      <p>9 of 12 competitors charge 2.2–3.5% on every booking. On $10K/mo clinic revenue, that's $220–350/mo in hidden fees on top of subscription costs.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>YouTube Is Wide Open</h4>
+      <p>Most competitors average 27–991 views per video. The "VS comparison" space is nearly empty. Custom thumbnails are rare. Massive organic opportunity.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>No Combined Booking + Marketing</h4>
+      <p>Zero competitors combine booking + AI marketing + image generation + social publishing in one platform. Clinics pay $150–400/mo across 3–5 separate tools.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Feature Padding Exposed</h4>
+      <p>GlossGenius claims "100+ features" but counts "desktop access" 7x across categories and compliance standards as features. Real feature count: ~65–70.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-gold);">
+      <h4>Overpriced Enterprise Tiers</h4>
+      <p>Mindbody charges $139–699/mo, Zenoti requires custom enterprise pricing. Our Enterprise at $199/mo with unlimited staff undercuts everyone.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-blue);">
+      <h4>AI Advantage Is Ours</h4>
+      <p>Only Zenoti (SmartBot) and GlossGenius (basic) have any AI. None have an embedded AI assistant on every admin page, AI campaign generation, or AI image creation.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 6: OPERATIONS & TEAM                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-operations" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Operations & Team</div>
+    <h2>One Human. <span>Eleven AI Agents.</span></h2>
+    <p>A lean, AI-augmented operating model that runs at a fraction of traditional SaaS staffing costs while maintaining high development velocity.</p>
+  </div>
+
+  <!-- Team Structure -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value teal">1</div>
+      <div class="stat-label">Human (Founder & CEO)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value purple">11</div>
+      <div class="stat-label">AI Agents</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">0</div>
+      <div class="stat-label">Employees</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value green">28</div>
+      <div class="stat-label">Automated Health Checks/Day</div>
+    </div>
+  </div>
+
+  <!-- Daily Rhythm -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Daily Operating Rhythm</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Time (AEST)</th><th>Activity</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td>8:00am</td><td>Morning content check + social queue</td><td>AI Agent</td></tr>
+        <tr><td>9:00am</td><td>Standup summary (done/doing/blocked)</td><td>AI Agent</td></tr>
+        <tr><td>9:00–9:30am</td><td>Kim reviews overnight work, approves/rejects</td><td>Kim</td></tr>
+        <tr><td>9:30–11:00am</td><td>Customer outreach + sales conversations</td><td>Kim</td></tr>
+        <tr><td>11:00am–1:00pm</td><td>Feature development / bug fixes</td><td>AI + Kim review</td></tr>
+        <tr><td>Hourly</td><td>Automated health check (28 tests)</td><td>Scout (AI)</td></tr>
+        <tr><td>2:00–4:00pm</td><td>Content creation + marketing tasks</td><td>AI + Kim review</td></tr>
+        <tr><td>4:00–5:00pm</td><td>Admin: emails, invoicing, planning</td><td>Kim</td></tr>
+        <tr><td>Evening</td><td>Overnight autonomous dev session (optional)</td><td>AI (pre-approved scope)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Decision Framework -->
+  <div class="two-col">
+    <div class="card" style="border-left:3px solid var(--accent-teal);">
+      <h3 style="color:var(--accent-teal)">Kim Decides (Always)</h3>
+      <p>Pricing changes · New customer onboarding · Any spending over $0 · External communications · Legal & compliance · Strategic direction · Feature prioritisation · Hiring</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--accent-purple);">
+      <h3 style="color:var(--accent-purple)">Agents Decide (Within Guardrails)</h3>
+      <p>Technical implementation approach · Code structure & architecture · Test strategy · Content drafts (subject to review) · Bug triage severity · Demo environment changes</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>The "Would Kim Be Surprised?" Test</h4>
+    <p>Before any agent takes an action, they apply this test: "If Kim saw this in the morning review, would she be surprised?" If yes → escalate. If no → proceed.</p>
+  </div>
+
+  <!-- Scaling Triggers -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Scaling Triggers — When to Add Humans</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Trigger</th><th>Role to Hire</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr><td>20+ paying customers</td><td>Part-time customer success</td><td>Contractor</td></tr>
+        <tr><td>$3K+ MRR</td><td>Part-time sales (outbound)</td><td>Contractor</td></tr>
+        <tr><td>$5K+ MRR</td><td>Bookkeeper</td><td>Contractor (monthly)</td></tr>
+        <tr><td>$10K+ MRR</td><td>Full-time customer success</td><td>Employee</td></tr>
+        <tr><td>$20K+ MRR</td><td>Full-time developer</td><td>Employee</td></tr>
+        <tr><td>$50K+ MRR</td><td>Operations manager</td><td>Employee</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Onboarding -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Customer Onboarding Process</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tier</th><th>Onboarding Method</th><th>Time to Value</th></tr></thead>
+      <tbody>
+        <tr><td>Free Trial</td><td>Self-serve (guided setup wizard)</td><td>&lt; 30 minutes</td></tr>
+        <tr><td>Starter / Growth</td><td>Self-serve + email onboarding sequence</td><td>&lt; 1 hour</td></tr>
+        <tr><td>Pro</td><td>White-glove onboarding call + configuration</td><td>1–2 business days</td></tr>
+        <tr><td>Enterprise</td><td>Dedicated onboarding manager, custom setup</td><td>1–2 weeks</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 7: GOVERNANCE                                     -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-governance" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Governance & Compliance</div>
+    <h2>Financial, Legal & <span>Security Controls</span></h2>
+    <p>Enterprise-grade governance for a lean, AI-augmented operation. Every dollar, every decision, every data point under control.</p>
+  </div>
+
+  <!-- Governance Stats -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value teal">Level 1</div>
+      <div class="stat-label">KiMMi: Full Financial Authority</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value purple">PCI-DSS</div>
+      <div class="stat-label">Payment Compliance (via Stripe)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">NDB</div>
+      <div class="stat-label">Data Breach Response Plan</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value green">7 Years</div>
+      <div class="stat-label">Record Retention (ATO)</div>
+    </div>
+  </div>
+
+  <!-- Financial Authority -->
+  <div class="card" style="border-left:3px solid var(--accent-teal);">
+    <h3 style="color:var(--accent-teal)">Financial Authority — Sole Authority Principle</h3>
+    <p>Kim Klein is the sole financial authority for Neo-Klien Pty Ltd. No financial transaction may be initiated, approved, modified, or reversed without explicit authorisation. This applies to all payment processing, vendor payments, refunds, pricing changes, ad spend, new SaaS subscriptions, and contractor payments. AI agents operate within bounded, documented delegations only.</p>
+  </div>
+
+  <!-- Financial Controls -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Financial Controls</h3>
+  <div class="two-col">
+    <div class="card">
+      <h3>Inbound Revenue Controls</h3>
+      <p style="font-size:13px;line-height:1.8;">
+        Trial signups: Pre-approved (automated)<br>
+        Subscription charges: Stripe-automated<br>
+        SMS top-up purchases: Customer self-serve<br>
+        POS sales: Staff-initiated, system-logged<br>
+        Custom enterprise invoices: <strong>Kim approval required</strong>
+      </p>
+    </div>
+    <div class="card">
+      <h3>Outbound Cost Controls</h3>
+      <p style="font-size:13px;line-height:1.8;">
+        $0–$50 one-off: Pre-approved if within budget<br>
+        $50–$200 one-off: Kim approval via chat<br>
+        $200+ one-off: Kim approval + documented justification<br>
+        Any new recurring cost: Kim approval always<br>
+        Ad spend: Kim approval per campaign<br>
+        Anthropic API: Alert if &gt;$2.50/customer/mo
+      </p>
+    </div>
+  </div>
+
+  <!-- Security Architecture -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Security Architecture</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Boundary</th><th>Protection</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Client ↔ App</td><td>HTTPS/TLS (Railway SSL auto-managed)</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>App ↔ Database</td><td>Railway internal network (no public access)</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>App ↔ Stripe</td><td>HTTPS + API key + webhook signature verification</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>SQL injection</td><td>Parameterised queries (? placeholders) on all operations</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>Authentication</td><td>bcrypt hashing, JWT tokens (24h expiry), OTP for client portal</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>Security headers</td><td>Helmet.js on all responses</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>Rate limiting</td><td>Built-in rate limiting (DDoS prevention)</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>File uploads</td><td>MIME type filtering (images only), 5MB limit</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>Environment secrets</td><td>All API keys in Railway env vars, never in code</td><td style="color:var(--green)">Active</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Legal Compliance -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Legal & Compliance Checklist</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Item</th><th>Status</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>ABN — Neo-Klien Pty Ltd</td><td style="color:var(--yellow)">Verify</td><td>Blocker</td></tr>
+        <tr><td>Privacy Policy (APPs framework)</td><td style="color:var(--green)">Done</td><td>—</td></tr>
+        <tr><td>Digital consent forms (versioned, signed)</td><td style="color:var(--green)">Done</td><td>—</td></tr>
+        <tr><td>PCI-DSS compliance (via Stripe)</td><td style="color:var(--green)">Done</td><td>—</td></tr>
+        <tr><td>Data Breach Response Plan (NDB)</td><td style="color:var(--green)">Done</td><td>—</td></tr>
+        <tr><td>Terms of Service</td><td style="color:var(--yellow)">In Progress</td><td>Blocker</td></tr>
+        <tr><td>Refund policy</td><td style="color:var(--yellow)">In Progress</td><td>Blocker</td></tr>
+        <tr><td>Professional Indemnity insurance</td><td style="color:var(--red)">Not Done</td><td>Recommended</td></tr>
+        <tr><td>Cyber Liability insurance</td><td style="color:var(--red)">Not Done</td><td>Recommended</td></tr>
+        <tr><td>Trademark — "BookATreatment"</td><td style="color:var(--red)">Not Done</td><td>Year 1</td></tr>
+        <tr><td>GST registration (when &gt;$75K)</td><td style="color:var(--text-muted)">Not Yet Required</td><td>Month 8–10</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Risk Register -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Risk Register</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>Competitor entry / expansion</td><td style="color:var(--yellow)">Medium</td><td style="color:var(--red)">High</td><td>Speed to market; niche focus; Marketing Hub moat</td></tr>
+        <tr><td>Meta GEM commoditises ad creation</td><td style="color:var(--yellow)">Medium</td><td style="color:var(--yellow)">Medium</td><td>Our moat is clinic-aware context — GEM is generic</td></tr>
+        <tr><td>Customer churn (early adopters)</td><td style="color:var(--yellow)">Medium</td><td style="color:var(--red)">High</td><td>Invest in onboarding UX; sticky integrations</td></tr>
+        <tr><td>Key person risk (sole founder)</td><td style="color:var(--yellow)">Medium</td><td style="color:var(--red)">High</td><td>All systems documented; AI agents maintain autonomously</td></tr>
+        <tr><td>Market adoption slower than projected</td><td style="color:var(--yellow)">Medium</td><td style="color:var(--yellow)">Medium</td><td>Breakeven at only 27 customers; pivot to direct sales</td></tr>
+        <tr><td>Platform dependency (Railway outage)</td><td style="color:var(--green)">Low</td><td style="color:var(--red)">High</td><td>99.9% uptime SLA; no vendor lock-in</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 8: INVESTMENT                                     -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-investment" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Investment Opportunity</div>
+    <h2>Viable Bootstrapped. <span>Explosive with Funding.</span></h2>
+    <p>The business reaches profitability at 27 customers with zero external capital. Funding accelerates to 500+ customers and $522K ARR.</p>
+  </div>
+
+  <!-- Two Paths -->
+  <div class="two-col">
+    <div class="card" style="border-left:3px solid var(--accent-teal);">
+      <h3 style="color:var(--accent-teal)">Bootstrap Path (No Funding)</h3>
+      <p style="font-size:14px;line-height:1.8;">
+        Breakeven: Month 5 (~27 customers)<br>
+        Year 1 Revenue: ~$56,280<br>
+        Year 1 Closing Cash: ~$40,902<br>
+        Year 1 Customers: ~199<br>
+        Year 2 Revenue: $300K–$500K estimated<br>
+        <strong>Fully viable. Self-funded growth to 200 customers.</strong>
+      </p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--accent-purple);">
+      <h3 style="color:var(--accent-purple)">Funded Path ($150K Seed)</h3>
+      <p style="font-size:14px;line-height:1.8;">
+        Target: 500+ customers in 18 months<br>
+        MRR: $33,500+<br>
+        ARR: $400,000+<br>
+        CAC (blended): &lt;$120<br>
+        Gross Margin: 90%+<br>
+        <strong>Accelerated acquisition + mobile app + white-label module.</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- Use of Funds -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Proposed Use of Funds — $150K Seed Round</h3>
+  <div class="stat-grid">
+    <div class="stat-card" style="border-top:3px solid var(--accent-teal);">
+      <div class="stat-value teal">40%</div>
+      <div class="stat-label">Product ($60K)</div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Mobile app, AI engine, white-label, API</p>
+    </div>
+    <div class="stat-card" style="border-top:3px solid var(--accent-purple);">
+      <div class="stat-value purple">30%</div>
+      <div class="stat-label">Sales & Marketing ($45K)</div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Google/Meta ads, content, HeyGen video</p>
+    </div>
+    <div class="stat-card" style="border-top:3px solid var(--accent-pink);">
+      <div class="stat-value pink">20%</div>
+      <div class="stat-label">Operations ($30K)</div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Infrastructure, compliance, CS tools</p>
+    </div>
+    <div class="stat-card" style="border-top:3px solid var(--accent-gold);">
+      <div class="stat-value gold">10%</div>
+      <div class="stat-label">Working Capital ($15K)</div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Team expansion, contingency</p>
+    </div>
+  </div>
+
+  <!-- Milestones Timeline -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Key Milestones & Progress</h3>
+  <div class="timeline">
+    <div class="timeline-item done">
+      <div class="tl-date">January 2026</div>
+      <div class="tl-title">MVP Built</div>
+      <div class="tl-desc">Full booking platform, admin dashboard, payment processing</div>
+    </div>
+    <div class="timeline-item done">
+      <div class="tl-date">March 2026</div>
+      <div class="tl-title">Platform Live — First Clinic Operational</div>
+      <div class="tl-desc">Brisbane HIFU Clinic live. Stripe, ClickSend SMS, AI chat, NEO assistant, Campaign Studio all integrated. Security hardened.</div>
+    </div>
+    <div class="timeline-item done">
+      <div class="tl-date">March 2026</div>
+      <div class="tl-title">Brand & Marketing Foundations</div>
+      <div class="tl-desc">Marketing site live at bookatreatment.ai. Teal/coral/purple brand system. Demo data seeded. Help centre live.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">Q2 2026</div>
+      <div class="tl-title">10 Paying Customers + Stripe Live Mode</div>
+      <div class="tl-desc">Google Ads campaign launch. HeyGen video content. Stock management & POS spec complete.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">Q3 2026</div>
+      <div class="tl-title">50 Customers + Mobile App + Marketing Hub v2</div>
+      <div class="tl-desc">AI image generation, social publishing, content calendar. Referral program launch. $2.7K+ MRR.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">Q4 2026</div>
+      <div class="tl-title">100+ Customers + White-Label Offering</div>
+      <div class="tl-desc">Enterprise & franchise white-label. Affiliate program. $7K+ MRR.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">Q1 2027</div>
+      <div class="tl-title">200 Customers — Year 1 Close</div>
+      <div class="tl-desc">$13K+ MRR. $160K annualised run rate. $40K+ cash position. Year 2 growth plan activated.</div>
+    </div>
+  </div>
+
+  <!-- Unit Economics -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin:32px 0 16px;">Unit Economics</h3>
+  <div class="stat-grid">
+    <div class="stat-card" data-tooltip="ARPU = Average Revenue Per User — mean monthly spend per customer">
+      <div class="stat-value teal">~$79</div>
+      <div class="stat-label">Blended ARPU</div>
+    </div>
+    <div class="stat-card" data-tooltip="CAC = Customer Acquisition Cost — average spend to acquire one paying customer">
+      <div class="stat-value purple">&lt;$150</div>
+      <div class="stat-label">Target CAC</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">~5 months</div>
+      <div class="stat-label">Payback Period</div>
+    </div>
+    <div class="stat-card" data-tooltip="LTV = Lifetime Value — total revenue expected from one customer over 24 months">
+      <div class="stat-value green">~$1,900</div>
+      <div class="stat-label">24-Month LTV</div>
+    </div>
+    <div class="stat-card" data-tooltip="LTV:CAC = Lifetime Value to Customer Acquisition Cost — measures return on each dollar spent acquiring customers">
+      <div class="stat-value gold">>10:1</div>
+      <div class="stat-label">LTV:CAC Target</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value coral">25%</div>
+      <div class="stat-label">Trial Conversion</div>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="card" style="text-align:center; background: linear-gradient(135deg, rgba(0,232,180,0.05), rgba(155,61,255,0.05));">
+    <h3 style="color:var(--accent-teal);font-size:22px;margin-bottom:16px;">Ready to Talk?</h3>
+    <p style="font-size:16px;color:var(--text-primary);margin-bottom:8px;"><strong>Kim Klein</strong> — Founder & CEO</p>
+    <p>Neo-Klien Pty Ltd</p>
+    <p style="margin-top:12px;">
+      <span style="color:var(--accent-teal);">mskimklein@gmail.com</span> &nbsp;·&nbsp;
+      <span style="color:var(--accent-purple);">bookatreatment.ai</span> &nbsp;·&nbsp;
+      <span style="color:var(--accent-pink);">app.bookatreatment.ai</span>
+    </p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 9: FEATURES & BENEFITS                            -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-features" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Features & Benefits</div>
+    <h2>Every Feature. <span>Every Pain Point. Solved.</span></h2>
+    <p>The authoritative feature reference for BookATreatment.ai — mapped to the real problems clinic owners face every day.</p>
+  </div>
+
+  <!-- Pain Points -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;color:var(--accent-coral);">The 6 Pain Points We Kill</h3>
+  <div class="feature-grid">
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Time Burn on Admin</h4>
+      <p>Clinic owners lose 5+ hours/week on scheduling, reminders, follow-ups, and manual bookings. Our automated workflows, AI assistant, and self-serve booking page give that time back.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>The Commission Trap</h4>
+      <p>Fresha charges 2.19%+ on every booking. GlossGenius takes 2.6%. On $100K revenue, that's $2,200–$2,600/year — gone. BookATreatment.ai: 0% commission. Your Stripe. Your money.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>No-Shows Destroying Revenue</h4>
+      <p>Industry no-show rate: 20–30%. Our automated SMS/email reminders, deposit collection, and no-show follow-up workflows reduce no-shows by up to 40%.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Marketing Is a Full-Time Job</h4>
+      <p>Clinic owners cobble together 3–5 tools (Canva, Buffer, Hootsuite, Mailchimp, Meta Business Suite) costing $150–400/mo. Our Marketing Hub replaces them all — included from $29/mo.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Staff & Room Scheduling Chaos</h4>
+      <p>Double-bookings, room conflicts, equipment clashes. Our visual calendar with staff availability, room management, and buffer times eliminates scheduling conflicts entirely.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Features Locked Behind Expensive Tiers</h4>
+      <p>Competitors lock AI, analytics, marketing, and automation behind $99–699/mo tiers. Every BookATreatment.ai plan includes ALL 100+ features. Plans scale only by locations, staff, and credits.</p>
+    </div>
+  </div>
+
+  <!-- Full Feature List by Category -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:40px 0 16px;">Complete Feature Reference (100+)</h3>
+
+  <!-- Booking -->
+  <div class="card" style="border-left:3px solid var(--accent-teal);margin-bottom:16px;">
+    <h3 style="color:var(--accent-teal);">Online Booking System</h3>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table>
+        <thead><tr><th>Feature</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>24/7 public booking page</td><td>Accept bookings while you sleep — no phone tag, no missed enquiries</td></tr>
+          <tr><td>Real-time availability calendar</td><td>Eliminate double-bookings and scheduling conflicts entirely</td></tr>
+          <tr><td>Automated SMS + email confirmations</td><td>Clients get instant peace of mind; zero time on confirmation calls</td></tr>
+          <tr><td>Secure rescheduling links</td><td>Clients self-serve — fewer no-shows when rescheduling is easy</td></tr>
+          <tr><td>Multi-location support</td><td>One login, one dashboard, complete visibility across every location</td></tr>
+          <tr><td>Booking page customisation</td><td>Your brand, your rules — looks like yours, not ours</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CRM -->
+  <div class="card" style="border-left:3px solid var(--accent-purple);margin-bottom:16px;">
+    <h3 style="color:var(--accent-purple);">Client Management (CRM)</h3>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table>
+        <thead><tr><th>Feature</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>Contact database</td><td>Every client interaction in one place — no scattered spreadsheets</td></tr>
+          <tr><td>Client detail view + history</td><td>Know your clients before they walk through the door</td></tr>
+          <tr><td>Treatment records</td><td>Complete treatment history informs future care</td></tr>
+          <tr><td>Consent management (digital)</td><td>Paperless consent capture — always accessible, never lost</td></tr>
+          <tr><td>Before/after photo uploads</td><td>Document results visually, build a portfolio of outcomes</td></tr>
+          <tr><td>CSV import</td><td>Migrate from your old system in minutes, not weeks</td></tr>
+          <tr><td>Client portal (OTP login)</td><td>Frictionless self-service — no passwords to remember</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Calendar -->
+  <div class="card" style="border-left:3px solid var(--accent-pink);margin-bottom:16px;">
+    <h3 style="color:var(--accent-pink);">Calendar & Scheduling</h3>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table>
+        <thead><tr><th>Feature</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>Visual drag-and-drop calendar</td><td>See your entire schedule at a glance — spot gaps and opportunities instantly</td></tr>
+          <tr><td>Staff availability management</td><td>Never book a client with staff who aren't available</td></tr>
+          <tr><td>Room & resource management</td><td>Prevent room conflicts, ensure right equipment for every treatment</td></tr>
+          <tr><td>Override hours (holidays/special)</td><td>Handle exceptions without disrupting your regular schedule</td></tr>
+          <tr><td>Buffer time between appointments</td><td>Protect your team from back-to-back burnout</td></tr>
+          <tr><td>Manual booking (admin walk-ins)</td><td>Capture every booking regardless of how it comes in</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Workflows -->
+  <div class="card" style="border-left:3px solid var(--accent-gold);margin-bottom:16px;">
+    <h3 style="color:var(--accent-gold);">Automated Workflows</h3>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table>
+        <thead><tr><th>Feature</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>SMS reminders (configurable timing)</td><td>Reduce no-shows by up to 40% with reminders clients actually read</td></tr>
+          <tr><td>Branded email confirmations</td><td>Professional communication at every touchpoint without staff effort</td></tr>
+          <tr><td>Post-treatment aftercare automation</td><td>Improve outcomes and satisfaction with consistent aftercare</td></tr>
+          <tr><td>Google review requests (automated)</td><td>Build your online reputation on autopilot — more 5-star reviews</td></tr>
+          <tr><td>No-show follow-up</td><td>Recover lost revenue by re-engaging no-shows before they drift away</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Payments -->
+  <div class="card" style="border-left:3px solid var(--green);margin-bottom:16px;">
+    <h3 style="color:var(--green);">Payments & Point of Sale</h3>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table>
+        <thead><tr><th>Feature</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>Stripe integration (embedded checkout)</td><td>Secure online payments — card data never touches your server</td></tr>
+          <tr><td>Square support</td><td>Keep your existing Square hardware, add online booking on top</td></tr>
+          <tr><td>Razorpay support (India market)</td><td>Expand into new markets with locally preferred payment methods</td></tr>
+          <tr><td>Point of Sale (POS)</td><td>One system for online and walk-in payments — no separate till</td></tr>
+          <tr><td>Package & bundle sales</td><td>Increase average transaction value and lock in repeat visits</td></tr>
+          <tr><td>Product management + retail</td><td>Sell skincare, aftercare products through the same system</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- AI Features -->
+  <div class="card" style="border-left:3px solid var(--accent-teal);margin-bottom:16px;">
+    <h3 style="color:var(--accent-teal);">AI Features (Included Every Tier)</h3>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table>
+        <thead><tr><th>Feature</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>NEO Personal Assistant (every admin page)</td><td>Every staff member gets a personal AI coach at no extra cost</td></tr>
+          <tr><td>Sage Booking Chat (public pages)</td><td>Virtual receptionist that never sleeps — converts enquiries 24/7</td></tr>
+          <tr><td>AI Campaign Generator (12–52 week calendars)</td><td>Plan months of marketing in minutes, not days</td></tr>
+          <tr><td>Campaign Studio (describe-and-generate)</td><td>Launch marketing campaigns in seconds from a text brief</td></tr>
+          <tr><td>AI Image Generation (Ideogram/DALL-E)</td><td>Branded social visuals in seconds — no Canva, no design skills</td></tr>
+          <tr><td>Visual content calendar + social publishing</td><td>Post to every channel from one screen</td></tr>
+          <tr><td>Paid ad management (Meta + Google)</td><td>Run targeted ads without learning complex ad platforms</td></tr>
+          <tr><td>AI Agents Dashboard</td><td>Full transparency and control over all AI activity</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Analytics -->
+  <div class="card" style="border-left:3px solid var(--accent-blue);margin-bottom:16px;">
+    <h3 style="color:var(--accent-blue);">Analytics, Staff & Admin</h3>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table>
+        <thead><tr><th>Feature</th><th>Benefit</th></tr></thead>
+        <tbody>
+          <tr><td>Booking KPI dashboard</td><td>Know how your clinic is performing at any moment</td></tr>
+          <tr><td>Revenue tracking (by service, staff, location)</td><td>Understand where your money comes from and spot trends early</td></tr>
+          <tr><td>Staff KPI tracking + performance</td><td>Identify top performers, support those who need help</td></tr>
+          <tr><td>Booking pattern analysis</td><td>Data-driven decisions about staffing, pricing, and promotions</td></tr>
+          <tr><td>Multi-theme admin panel + clinic branding</td><td>Complete white-label experience — clients see your brand, not ours</td></tr>
+          <tr><td>Setup wizard</td><td>Go from sign-up to accepting bookings in under 30 minutes</td></tr>
+          <tr><td>6 languages (EN, FR, ES, ZH, KO, AR)</td><td>Serve diverse communities without barriers</td></tr>
+          <tr><td>Custom domains + SSL</td><td>Professional presence with your own URL</td></tr>
+          <tr><td>Lead capture</td><td>Never lose a potential client — every enquiry tracked</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Validated Benefit Statements -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:40px 0 16px;">Validated Marketing Statements</h3>
+  <div class="two-col">
+    <div class="card">
+      <h3 style="color:var(--accent-teal);font-size:16px;">Operational Efficiency</h3>
+      <p style="line-height:2;">
+        "Reduce no-shows by up to 40% with automated SMS reminders"<br>
+        "Save 5+ hours per week on admin with AI-powered scheduling"<br>
+        "Accept bookings 24/7 — even while you sleep"<br>
+        "Go from sign-up to accepting bookings in under 30 minutes"
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent-purple);font-size:16px;">AI-Powered</h3>
+      <p style="line-height:2;">
+        "Every staff member gets a personal AI assistant at no extra cost"<br>
+        "Launch marketing campaigns in seconds, not hours"<br>
+        "A virtual receptionist that never sleeps and knows your services"<br>
+        "Plan months of marketing content in minutes with AI"
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent-pink);font-size:16px;">Marketing Power</h3>
+      <p style="line-height:2;">
+        "Replace Canva, Buffer, and your marketing agency with one built-in Hub"<br>
+        "Generate branded social images with AI — no design skills required"<br>
+        "Your competitors pay $150–400/mo for separate tools. Yours is included"
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent-coral);font-size:16px;">Value Proposition</h3>
+      <p style="line-height:2;">
+        "One platform replaces your booking software, CRM, marketing tools, and POS"<br>
+        "AI features included at every pricing tier — not a premium add-on"<br>
+        "No lock-in contracts — month-to-month billing"<br>
+        "Purpose-built for beauty and aesthetics — not a generic tool"
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 10: TECHNICAL INFRASTRUCTURE                      -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-infrastructure" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Technical Infrastructure</div>
+    <h2>Architecture, Config & <span>Deployment</span></h2>
+    <p>One Railway project per clinic. Isolated databases. Auto-deploy from GitHub. 99.9% uptime.</p>
+  </div>
+
+  <!-- Architecture Overview -->
+  <div class="callout">
+    <h4>Architecture at a Glance</h4>
+    <p style="font-family:monospace;font-size:14px;line-height:2;color:var(--text-primary);">
+      [Client Browser] ──HTTPS──▶ [Railway Load Balancer] ──▶ [Node.js + Express API] ──▶ [React 19 SPA]<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [MySQL on Railway] (isolated per clinic)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [Redis] (caching + notification queue)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [Stripe / Square / Razorpay API]<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [ClickSend SMS API]<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [AWS S3] (file storage)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── [Anthropic Claude API] (AI features)
+    </p>
+  </div>
+
+  <!-- Services Per Clinic -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Services Required Per Clinic</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Service</th><th>Type</th><th>Notes</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>API</td><td>Web service (GitHub: brisbanehifu/booking-api)</td><td>Main app — node index.js, auto-deploy</td><td style="color:var(--green)">Live</td></tr>
+        <tr><td>MySQL</td><td>Railway-managed MySQL 8</td><td>Auto-injects MYSQL* env vars, isolated per clinic</td><td style="color:var(--green)">Live</td></tr>
+        <tr><td>Redis</td><td>Railway-managed Redis</td><td>Caching + notification queue</td><td style="color:var(--green)">Live</td></tr>
+        <tr><td>AWS S3</td><td>Shared across all clinics</td><td>Bucket: bat-uploads, Region: ap-southeast-2 (Sydney)</td><td style="color:var(--green)">Live</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Environment Variables -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Environment Variables — Quick Reference</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Category</th><th>Variables</th><th>Rotation</th></tr></thead>
+      <tbody>
+        <tr><td>Core App</td><td>JWT_SECRET, ADMIN_USERNAME, ADMIN_PASSWORD, NODE_ENV, APP_URL, CLINIC_NAME, CLINIC_PHONE, CLINIC_ADDRESS, CLINIC_BRAND_COLOR</td><td>90–180 days</td></tr>
+        <tr><td>Database</td><td>MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE</td><td>Auto-injected by Railway</td></tr>
+        <tr><td>Redis</td><td>REDIS_URL, REDIS_PRIVATE_URL</td><td>Auto-injected by Railway</td></tr>
+        <tr><td>Email (Resend)</td><td>RESEND_API_KEY, RESEND_FROM_EMAIL</td><td>90 days</td></tr>
+        <tr><td>SMS (ClickSend)</td><td>CLICKSEND_USERNAME, CLICKSEND_API_KEY, CLICKSEND_FROM</td><td>90 days</td></tr>
+        <tr><td>Payments (Stripe)</td><td>STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, VITE_STRIPE_PUBLISHABLE_KEY</td><td>90 days</td></tr>
+        <tr><td>Payments (Square)</td><td>SQUARE_ACCESS_TOKEN, SQUARE_LOCATION_ID</td><td>As needed</td></tr>
+        <tr><td>Payments (Razorpay)</td><td>RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET</td><td>As needed</td></tr>
+        <tr><td>File Storage (AWS)</td><td>AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_S3_BUCKET</td><td>90 days</td></tr>
+        <tr><td>Integrations</td><td>MAKE_WEBHOOK_URL, OPENAI_API_KEY, PAYMENT_PROVIDER</td><td>As needed</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Multi-Clinic Model -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Multi-Clinic Deployment Model</h3>
+  <div class="callout">
+    <h4>One Railway Project = One Clinic</h4>
+    <p>Each clinic gets its own Railway project connected to the same GitHub repo. Each has isolated MySQL, Redis, and environment variables. Deploying a new clinic takes under 10 minutes: create project → connect repo → add MySQL + Redis → set env vars → deploy. Auto-migrates on first boot.</p>
+  </div>
+
+  <!-- Infrastructure Tiers -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Infrastructure Cost Tiers</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tier</th><th>Clinics</th><th>Railway</th><th>AWS S3</th><th>Redis</th><th>Other</th><th>Total/mo (AUD)</th></tr></thead>
+      <tbody>
+        <tr><td>Tier 1</td><td>1–50</td><td>~$20</td><td>~$0–2</td><td>Included</td><td>—</td><td style="color:var(--green)">~$20–25</td></tr>
+        <tr><td>Tier 2</td><td>50–200</td><td>~$50–80</td><td>~$2–5</td><td>~$10</td><td>Cloudflare free</td><td>~$65–100</td></tr>
+        <tr><td>Tier 3</td><td>200–500</td><td>~$100–200</td><td>~$5–15</td><td>~$20</td><td>Cloudflare $25</td><td>~$150–260</td></tr>
+        <tr><td>Tier 4</td><td>500–1000</td><td>~$200–300</td><td>~$15–30</td><td>~$50</td><td>Cloudflare $200</td><td>~$465–580</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Key Documents -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Key Technical Documents</h3>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h4>Configuration Guide</h4>
+      <p>Full env var reference, secret rotation procedures, multi-clinic setup, build-time vs runtime vars. <em>InfrastructureAndDeployment/CONFIGURATION_GUIDE.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>Scaling Playbook</h4>
+      <p>Railway scaling strategy, horizontal scaling triggers, CDN setup, database optimisation. <em>InfrastructureAndDeployment/BookATreatment-AI-Scaling-Playbook.docx</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>Security Playbook</h4>
+      <p>End-to-end security architecture, current posture audit, penetration test results, incident response. <em>Investment Pack/SECURITY_PLAYBOOK.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Overnight Hardening Handover</h4>
+      <p>Security hardening session results, bcrypt migration, rate limiting, CORS whitelist, Helmet.js. <em>InfrastructureAndDeployment/OVERNIGHT_HARDENING_HANDOVER.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-gold);">
+      <h4>Cyber Incident Response</h4>
+      <p>Data breach response plan, NDB scheme compliance, notification procedures, recovery steps. <em>Investment Pack/CYBER_SECURITY_INCIDENT_RESPONSE_PLAYBOOK.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-blue);">
+      <h4>NEO AI Cost Guide</h4>
+      <p>Token-level breakdown, per-customer costs, rate limiting, scaling projections, model upgrade triggers. <em>Investment Pack/NEO_AI_COST_GUIDE.md</em></p>
+    </div>
+  </div>
+
+  <!-- URLs & Access -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Live URLs</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Service</th><th>URL</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Marketing Website</td><td>https://bookatreatment.ai</td><td style="color:var(--green)">Live (Lovable)</td></tr>
+        <tr><td>Booking App</td><td>https://app.bookatreatment.ai</td><td style="color:var(--green)">Live (Railway)</td></tr>
+        <tr><td>Admin Panel</td><td>https://app.bookatreatment.ai/admin</td><td style="color:var(--green)">Live</td></tr>
+        <tr><td>Public Booking Page</td><td>https://app.bookatreatment.ai/book</td><td style="color:var(--green)">Live</td></tr>
+        <tr><td>Health Check</td><td>https://app.bookatreatment.ai/api/health</td><td style="color:var(--green)">Live</td></tr>
+        <tr><td>Lovable Editor</td><td>https://lovable.dev/projects/b9dd8ed0-e0e7-402c-be9f-bba462a98ece</td><td style="color:var(--green)">Active</td></tr>
+        <tr><td>YouTube Studio</td><td>https://studio.youtube.com/channel/UCzDWH7dYKWdlqsA9OWtMWdQ</td><td style="color:var(--green)">Active</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 11: SOCIAL MEDIA PLAN                             -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-social" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">Social Media Strategy</div>
+    <h2>5 Platforms. <span>Daily Content. Zero Agency.</span></h2>
+    <p>AI-powered content creation using the same Marketing Hub we sell to clinics.</p>
+  </div>
+
+  <!-- Account Status -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Brand Accounts</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Platform</th><th>Handle</th><th>Status</th><th>Login</th></tr></thead>
+      <tbody>
+        <tr><td>YouTube</td><td>@bookatreatmentai</td><td style="color:var(--green)">Active — needs banner + description</td><td>bookatreatmentai@gmail.com</td></tr>
+        <tr><td>Instagram</td><td>@bookatreatment.ai</td><td style="color:var(--yellow)">Not yet created</td><td>bookatreatmentai@gmail.com</td></tr>
+        <tr><td>Facebook</td><td>@bookatreatmentai</td><td style="color:var(--yellow)">Not yet created</td><td>bookatreatmentai@gmail.com</td></tr>
+        <tr><td>LinkedIn</td><td>BookATreatment.AI</td><td style="color:var(--yellow)">Not yet created</td><td>bookatreatmentai@gmail.com</td></tr>
+        <tr><td>TikTok</td><td>@bookatreatmentai</td><td style="color:var(--yellow)">Not yet created</td><td>bookatreatmentai@gmail.com</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Platform Strategy -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Platform Strategy</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Platform</th><th>Purpose</th><th>Content Format</th><th>Frequency</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>Instagram</td><td>Brand awareness, clinic owner community</td><td>Reels, carousels, Stories</td><td>Daily</td><td style="color:var(--accent-teal);font-weight:700">1</td></tr>
+        <tr><td>YouTube</td><td>Long-form tutorials, case studies, comparisons</td><td>Videos (5-10 min), Shorts</td><td>Weekly</td><td style="color:var(--accent-teal);font-weight:700">2</td></tr>
+        <tr><td>LinkedIn</td><td>B2B reach, franchise/group operators</td><td>Articles, founder posts</td><td>2–3x/week</td><td style="color:var(--accent-purple);font-weight:700">3</td></tr>
+        <tr><td>TikTok</td><td>Viral reach, product demos</td><td>Short-form video, trends</td><td>3–5x/week</td><td style="color:var(--accent-purple);font-weight:700">4</td></tr>
+        <tr><td>Facebook</td><td>Paid ads, clinic owner groups</td><td>Video, posts, ads</td><td>3x/week</td><td style="color:var(--accent-pink);font-weight:700">5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Content Pillars -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Content Pillars</h3>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h4>Product Demos</h4>
+      <p>Screen recordings of booking flow, admin dashboard, SMS automation, AI features. Show the product in action.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>Clinic Transformation Stories</h4>
+      <p>Before/after narratives of clinics upgrading from manual bookings or legacy software. Social proof as it builds.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>Tips for Clinic Owners</h4>
+      <p>Reduce no-shows, grow bookings, improve retention. Educational content that soft-sells the platform.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Building in Public</h4>
+      <p>Founder journey content. One human + 11 AI agents building a SaaS. Builds trust, authenticity, and community.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-gold);">
+      <h4>VS Comparisons</h4>
+      <p>BookATreatment vs Fresha, vs Vagaro, vs Timely. The comparison space on YouTube is nearly empty.</p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-blue);">
+      <h4>AI Industry Spotlights</h4>
+      <p>NEO bot showcasing different industries — beauty, wellness, aesthetics, medi-spa. Kling-rendered content.</p>
+    </div>
+  </div>
+
+  <!-- Content Chopping Strategy -->
+  <div class="callout">
+    <h4>Content Chopping — 1 Video = 8+ Pieces</h4>
+    <p>Every long-form video gets chopped into: 1 YouTube Short (60s best moment), 1 Instagram Reel (vertical reframe), 1 TikTok (with trending audio), 1 LinkedIn post (screenshot + caption), 1 Facebook post (30s clip + text overlay), 1 blog post (transcription for SEO), 1 email snippet, 1 carousel. <strong>10 YouTube videos = 80+ pieces across all platforms.</strong></p>
+  </div>
+
+  <!-- Hashtag Strategy -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Hashtag Strategy</h3>
+  <div class="two-col">
+    <div class="card">
+      <h3 style="color:var(--accent-teal);font-size:16px;">Brand Hashtags</h3>
+      <p>#BookATreatment #BookATreatmentAI #NEObot #ZeroCommission #AIBooking #ClinicGrowth</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent-purple);font-size:16px;">Industry Hashtags</h3>
+      <p>#SalonSoftware #ClinicBooking #BeautyBusiness #AestheticClinic #SpaManagement #HIFUClinic #BeautyTech #SalonOwner</p>
+    </div>
+  </div>
+
+  <!-- Production Tools -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Production Tools</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tool</th><th>Purpose</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Canva (brand kit kAHFI5-zBgc)</td><td>Thumbnails, carousels, social graphics, ads</td><td>Free/Pro</td></tr>
+        <tr><td>HeyGen</td><td>AI avatar video clips (KiMMi avatar created)</td><td>API connected</td></tr>
+        <tr><td>Trupeer</td><td>Screen recording with voiceover (Pro plan)</td><td>$49 USD/mo</td></tr>
+        <tr><td>Kling AI</td><td>NEO bot renders, industry showcase videos (Pro plan)</td><td>Pro plan</td></tr>
+        <tr><td>CapCut / DaVinci Resolve</td><td>Video editing, lower thirds, chapter markers</td><td>Free</td></tr>
+        <tr><td>Zeely AI</td><td>Social media ad creation</td><td>Subscription</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Key Documents -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Related Documents</h3>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h4>Social Media Launch Plan</h4>
+      <p>Full account setup checklists, platform bios, pre-launch sequence, week 1-2 schedule. <em>MarketingAndContent/SOCIAL_MEDIA_LAUNCH_PLAN.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>30-Day Content Calendar</h4>
+      <p>Daily posting schedule for first 30 days across all platforms. <em>MarketingAndContent/SOCIAL_MEDIA_CONTENT_CALENDAR.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>Social Media Setup Kit</h4>
+      <p>Bios, profile specs, cover photo dimensions, automated DM templates. <em>MarketingAndContent/SOCIAL_MEDIA_SETUP_KIT.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>Brand Accounts & Access</h4>
+      <p>All platform logins, URLs, API connections, tool access. <em>MarketingAndContent/BRAND_ACCOUNTS.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-gold);">
+      <h4>Kling Content Kit</h4>
+      <p>NEO bot approved poses, industry showcase videos, Canva integration guide. <em>MarketingAndContent/KLING_COMPLETE_CONTENT_KIT.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-blue);">
+      <h4>Social Reels Plan</h4>
+      <p>Instagram/TikTok Reels strategy, trending formats, posting schedule. <em>MarketingAndContent/SOCIAL_REELS_PLAN.md</em></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TAB 12: YOUTUBE STRATEGY                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-youtube" class="tab-content">
+
+  <div class="section-header">
+    <div class="section-badge">YouTube Strategy</div>
+    <h2>Own the Niche. <span>9 Videos in 3 Weeks.</span></h2>
+    <p>The beauty booking YouTube space is wide open. $3.2B in competitors, and their best organic video gets 991 views. We're taking it.</p>
+  </div>
+
+  <!-- YouTube Stats -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value coral">991</div>
+      <div class="stat-label">Best Competitor Organic Views</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value teal">0</div>
+      <div class="stat-label">"VS" Comparison Videos Exist</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value purple">0 of 12</div>
+      <div class="stat-label">Competitors Use Custom Thumbnails</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value pink">74%</div>
+      <div class="stat-label">CTR Boost from Faces</div>
+    </div>
+  </div>
+
+  <!-- Channel Info -->
+  <div class="callout">
+    <h4>Channel: @bookatreatmentai</h4>
+    <p><strong>YouTube Studio:</strong> https://studio.youtube.com/channel/UCzDWH7dYKWdlqsA9OWtMWdQ<br>
+    <strong>Status:</strong> Channel created. Needs banner, description, playlists, default upload settings.<br>
+    <strong>CTR Target:</strong> 4–6% for new channel. World-class: 8–12%.</p>
+  </div>
+
+  <!-- Thumbnail Strategy -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Thumbnail Design System (GlossGenius-Inspired)</h3>
+  <div class="two-col">
+    <div class="card">
+      <h3 style="color:var(--accent-teal);font-size:16px;">The Formula</h3>
+      <p style="line-height:2;">
+        Background: <strong>#1A0A2E</strong> deep dark purple<br>
+        Layout: Text left 60% | Kim's face right 40%<br>
+        Headline: Sentence case, bold, max 6 words<br>
+        One keyword in teal (#00E8B4) or pink (#F040C8) pill<br>
+        Tiny BookATreatment.ai logo top centre<br>
+        No icons, no arrows, no badges — clean<br>
+        Export: 1280x720px PNG<br>
+        <strong>Test at 25% zoom — if you can't read it, redo it</strong>
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent-purple);font-size:16px;">Key Research Findings</h3>
+      <p style="line-height:2;">
+        Faces boost CTR by <strong>74%</strong><br>
+        Facial expression changes improve CTR by <strong>42%</strong><br>
+        YouTube supports A/B testing (up to 3 variants)<br>
+        Thumbnails must be readable at 160x90px (mobile)<br>
+        <strong>Kim's face for opinions, NEO for social/ads</strong><br>
+        No competitor uses custom thumbnails<br>
+        The "VS comparison" space is completely empty
+      </p>
+    </div>
+  </div>
+
+  <!-- 10 Thumbnail Briefs -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">10 Thumbnail Designs</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Video</th><th>Headline</th><th>Highlight Word</th><th>Kim Expression</th></tr></thead>
+      <tbody>
+        <tr><td>01</td><td>5-Min Setup Tutorial</td><td>Set up your booking page in <strong>5 minutes</strong></td><td style="color:var(--accent-teal)">5 minutes (teal)</td><td>Confident/friendly</td></tr>
+        <tr><td>02</td><td>vs Fresha</td><td>Why I switched away from <strong>Fresha</strong></td><td style="color:var(--accent-pink)">Fresha (pink)</td><td>Slightly challenging</td></tr>
+        <tr><td>03</td><td>Reduce No-Shows</td><td>How I cut no-shows by <strong>60%</strong></td><td style="color:var(--accent-teal)">60% (teal)</td><td>Warm/relieved</td></tr>
+        <tr><td>04</td><td>Staff + Rooms</td><td>Managing <strong>staff + rooms</strong> without the chaos</td><td style="color:var(--accent-teal)">staff + rooms (teal)</td><td>In control/calm</td></tr>
+        <tr><td>05</td><td>Import from Fresha</td><td>I moved my whole clinic from <strong>Fresha</strong> in 10 minutes</td><td style="color:var(--accent-pink)">Fresha (pink)</td><td>Surprised/pleased</td></tr>
+        <tr><td>06</td><td>AI Marketing</td><td>How I plan <strong>24 weeks</strong> of content in one afternoon</td><td style="color:var(--accent-teal)">24 weeks (teal)</td><td>Relaxed/pleased</td></tr>
+        <tr><td>07</td><td>Stripe Deposits</td><td>Taking <strong>deposits</strong> online changed everything</td><td style="color:var(--accent-teal)">deposits (teal)</td><td>Decisive/confident</td></tr>
+        <tr><td>08</td><td>vs Cliniko</td><td><strong>Cliniko</strong> vs BookATreatment.ai — honest comparison</td><td style="color:var(--accent-pink)">Cliniko (pink)</td><td>Thoughtful/weighing</td></tr>
+        <tr><td>09</td><td>White Label</td><td>Your booking page should look like <strong>you</strong></td><td style="color:var(--accent-teal)">you (teal)</td><td>Warm/passionate</td></tr>
+        <tr><td>10</td><td>$79/mo Growth Plan</td><td>Everything you need for <strong>$79 a month</strong></td><td style="color:var(--accent-teal)">$79 a month (teal)</td><td>Open/welcoming</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Batch Production Plan -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">5-Day Batch Production Plan (3 Videos)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Day</th><th>Activity</th><th>Time</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--accent-teal);font-weight:700">Day 1 (Mon)</td><td>Record all 3 screen recordings in Trupeer + 6 HeyGen avatar clips</td><td>~3.5 hours</td><td>3 raw recordings + 6 avatar clips</td></tr>
+        <tr><td style="color:var(--accent-purple);font-weight:700">Day 2 (Tue)</td><td>Build all 3 thumbnails + A/B variants in Canva (Kling NEO renders)</td><td>~3 hours</td><td>6 thumbnail PNGs (3 pairs)</td></tr>
+        <tr><td style="color:var(--accent-pink);font-weight:700">Day 3 (Wed)</td><td>Edit all 3 videos (HeyGen intro → Trupeer → HeyGen outro)</td><td>~4 hours</td><td>3 final 1080p MP4s</td></tr>
+        <tr><td style="color:var(--accent-coral);font-weight:700">Day 4 (Thu)</td><td>Upload all 3 as unlisted, SEO optimise, cross-link end screens</td><td>~2 hours</td><td>3 videos ready to publish</td></tr>
+        <tr><td style="color:var(--accent-gold);font-weight:700">Day 5 (Fri)</td><td>Chop into 12 social pieces, schedule Mon/Wed/Fri release</td><td>~2 hours</td><td>12 social clips + 3 scheduled releases</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- First 3 Videos -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">First Batch — 3 Videos</h3>
+  <div class="three-col">
+    <div class="card" style="border-top:3px solid var(--accent-teal);">
+      <h3 style="font-size:16px;">VID 01: 5-Min Setup Tutorial</h3>
+      <p>Walk through full setup from zero to live booking page. Easiest to record, sets visual template. Target: 4–6 min.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-purple);">
+      <h3 style="font-size:16px;">VID 02: $79/mo Pricing + Commission</h3>
+      <p>Side-by-side pricing comparison vs Fresha + GlossGenius. Show commission savings calculator. Highest conversion potential. Target: 5–7 min.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-pink);">
+      <h3 style="font-size:16px;">VID 03: BookATreatment vs Fresha</h3>
+      <p>Feature-by-feature comparison. Zero competition in YouTube search. Steals Fresha's search traffic. Target: 7–10 min.</p>
+    </div>
+  </div>
+
+  <!-- Release Schedule -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Release Cadence</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Day</th><th>Release</th><th>Platforms</th></tr></thead>
+      <tbody>
+        <tr><td>Monday 9am AEST</td><td>VID 01 goes PUBLIC + Short + Reel</td><td>YouTube, Instagram, TikTok</td></tr>
+        <tr><td>Wednesday 9am AEST</td><td>VID 02 goes PUBLIC + Short + Reel</td><td>YouTube, Instagram, TikTok</td></tr>
+        <tr><td>Thursday</td><td>VID 01 LinkedIn post</td><td>LinkedIn</td></tr>
+        <tr><td>Friday 9am AEST</td><td>VID 03 goes PUBLIC + Short + Reel</td><td>YouTube, Instagram, TikTok</td></tr>
+        <tr><td>Following Mon</td><td>VID 02 LinkedIn post</td><td>LinkedIn</td></tr>
+        <tr><td>Following Wed</td><td>VID 03 LinkedIn post</td><td>LinkedIn</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4-Week Plan -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">4-Week Domination Plan</h3>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="tl-date">Week 1</div>
+      <div class="tl-title">Batch 1: Setup + Pricing + vs Fresha</div>
+      <div class="tl-desc">Record, edit, queue 3 videos. Chop into 12 social pieces. Release Mon/Wed/Fri.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">Week 2</div>
+      <div class="tl-title">Review + Batch 2: Staff/Rooms + Import + AI Marketing</div>
+      <div class="tl-desc">Check CTR, swap losing A/B thumbnails. Script and record next 3 videos.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">Week 3</div>
+      <div class="tl-title">Batch 3: vs Cliniko + Deposits + White Label</div>
+      <div class="tl-desc">All 9 videos live. Full A/B test review. Double down on highest-CTR format.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">Week 4</div>
+      <div class="tl-title">Review + Optimise + Plan Next 10</div>
+      <div class="tl-desc">Expand to Booksy, Square, GlossGenius, Timely, SimplyBook comparisons. Scale what works.</div>
+    </div>
+  </div>
+
+  <!-- Competitor YouTube Landscape -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Competitor YouTube Landscape</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Competitor</th><th>YouTube Subs</th><th>Videos</th><th>Organic Views</th><th>Thumbnail Quality</th><th>Threat</th></tr></thead>
+      <tbody>
+        <tr><td>HoneyBook</td><td>11.4K</td><td>371</td><td>50–200</td><td style="color:var(--green)">Best in class (custom)</td><td style="color:var(--yellow)">Medium</td></tr>
+        <tr><td>Vagaro University</td><td>7.69K</td><td>330</td><td>1–6K</td><td style="color:var(--red)">Auto-generated</td><td style="color:var(--green)">Low</td></tr>
+        <tr><td>Mindbody</td><td>6.47K</td><td>259</td><td>5–991</td><td style="color:var(--red)">Grey/unloaded</td><td style="color:var(--yellow)">Medium</td></tr>
+        <tr><td>Fresha</td><td>5.74K</td><td>182</td><td>27–93</td><td style="color:var(--red)">Grey/unloaded</td><td style="color:var(--green)">Low</td></tr>
+        <tr><td>GlossGenius</td><td>5.07K</td><td>106</td><td>55–347</td><td style="color:var(--red)">Grey/unloaded</td><td style="color:var(--green)">Low</td></tr>
+        <tr><td>Calendly</td><td>50K+</td><td>Moderate</td><td>High (generic)</td><td style="color:var(--yellow)">Generic</td><td style="color:var(--yellow)">Medium (brand)</td></tr>
+        <tr><td>Square</td><td>1M+ (parent)</td><td>High (generic)</td><td>High (generic)</td><td style="color:var(--yellow)">Generic</td><td style="color:var(--yellow)">Medium (brand)</td></tr>
+        <tr><td>Booksy / Phorest / Timely / Zenoti / SimplyBook</td><td>Low</td><td>Low</td><td>Low</td><td style="color:var(--red)">None/Auto</td><td style="color:var(--green)">Low</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h4>The Bottom Line</h4>
+    <p>Your competitors took 7 years to publish 330 videos with auto-generated thumbnails getting 3 views each. You'll match their quality in week 1. The "VS comparison" space is completely empty. Not one competitor has a face-forward, custom-thumbnail YouTube strategy targeting clinic owners. <strong>This is the single biggest content gap in the entire beauty/wellness SaaS market.</strong></p>
+  </div>
+
+  <!-- Key Documents -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin:32px 0 16px;">Related Documents</h3>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <h4>YouTube Thumbnail Strategy</h4>
+      <p>Full design system, 10 thumbnail briefs, Canva build guide, photo shoot checklist, A/B test plan. <em>MarketingAndContent/YOUTUBE_THUMBNAIL_STRATEGY.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-purple);">
+      <h4>YouTube Execution Plan v2</h4>
+      <p>Feature count analysis, GlossGenius style review, production pipeline, batch plan, content chopping strategy. <em>MarketingAndContent/YOUTUBE_EXECUTION_PLAN_v2.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-pink);">
+      <h4>Competitor YouTube Research</h4>
+      <p>Deep dive on all 12 competitors' YouTube presence, channel audits, thumbnail analysis. <em>MarketingAndContent/COMPETITOR_YOUTUBE_RESEARCH.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-coral);">
+      <h4>YouTube Channel Setup</h4>
+      <p>Channel configuration, playlists, default settings, keyword strategy. <em>MarketingAndContent/YOUTUBE_CHANNEL_SETUP.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-gold);">
+      <h4>Screencast Scripts</h4>
+      <p>4 complete video scripts ready for recording. <em>MarketingAndContent/SCREENCAST_SCRIPTS.md</em></p>
+    </div>
+    <div class="feature-item" style="border-left-color:var(--accent-blue);">
+      <h4>Demo Video Storyboard</h4>
+      <p>Full storyboard for the main platform demo video. <em>MarketingAndContent/DEMO_VIDEO_STORYBOARD.md</em></p>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /container -->
+
+<!-- ═══════ FOOTER ═══════ -->
+<div class="footer">
+  <p>BookATreatment.ai — Master Investment Pack v6 | Neo-Klien Pty Ltd | April 2026</p>
+  <p style="margin-top:4px;">Confidential — For Investor & Partner Review Only</p>
+</div>
+
+<!-- ═══════ TAB SWITCHING ═══════ -->
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
