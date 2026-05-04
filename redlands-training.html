@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redlands HIFU — 3-Session Training Plan (Grace + Reid)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c0a09; --ink-soft:#4a4a4a; --ink-faint:#7a7a7a;
+    --line:#DBDFE3; --line-soft:#EDF0F3;
+    --bg:#F6F7F9; --panel:#fff;
+    --primary:#0B2B5B; --teal:#0E7A6F; --pink:#D4467A;
+    --green:#16a34a; --amber:#d97706; --red:#dc2626;
+    --r:12px;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    margin:0;padding:24px 28px 60px;background:var(--bg);color:var(--ink);
+    font-size:15px;line-height:1.55;
+  }
+  .page{max-width:1200px;margin:0 auto;background:#fff;border-radius:12px;
+    box-shadow:0 2px 16px rgba(0,0,0,0.06);padding:36px 40px 40px}
+  header{margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--line)}
+  .eyebrow{text-transform:uppercase;font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--ink-faint);margin-bottom:8px}
+  h1{font-size:30px;margin:0 0 8px;font-weight:800;letter-spacing:-0.5px}
+  .sub{color:var(--ink-soft);font-size:16px;margin:0}
+  .meta-row{display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--ink-soft);margin-top:14px}
+  .meta-row span strong{color:var(--ink);font-weight:600}
+
+  h2{font-size:21px;font-weight:800;margin:32px 0 12px;letter-spacing:-0.2px;display:flex;align-items:center;gap:12px}
+  h2 .num{background:var(--ink);color:#fff;width:28px;height:28px;border-radius:50%;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+
+  .callouts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 22px}
+  .callout{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;background:#fff;border-left:4px solid var(--teal)}
+  .callout.amber{border-left-color:var(--amber)} .callout.pink{border-left-color:var(--pink)}
+  .callout .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:var(--ink-faint);margin-bottom:6px}
+  .callout .number{font-size:18px;font-weight:800;color:var(--ink);line-height:1.2}
+  .callout .desc{font-size:13px;color:var(--ink-soft);margin-top:4px}
+
+  .green-box{background:linear-gradient(135deg,#F0FDF4 0%,#DCFCE7 100%);border:1px solid #86EFAC;border-left:4px solid var(--green);border-radius:var(--r);padding:14px 18px;margin:12px 0;font-size:14px}
+  .green-box strong{color:#14532D}
+  .amber-box{background:linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 100%);border:1px solid #FCD34D;border-left:4px solid var(--amber);border-radius:var(--r);padding:14px 18px;margin:12px 0;font-size:14px}
+
+  .session{border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;margin:14px 0;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.03)}
+  .session h3{margin:0 0 6px;font-size:18px;font-weight:800;color:var(--primary)}
+  .session .when{font-size:12.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:700;margin-bottom:10px}
+  .session ul{margin:8px 0 4px;padding-left:20px}
+  .session ul li{margin:4px 0;font-size:14px;color:var(--ink-soft)}
+  .session ul li strong{color:var(--ink)}
+  .session .tag{display:inline-block;font-size:11px;background:var(--teal);color:#fff;padding:2px 8px;border-radius:999px;font-weight:700;letter-spacing:0.4px;margin-right:6px;text-transform:uppercase}
+  .session .tag.pink{background:var(--pink)}
+  .session .tag.primary{background:var(--primary)}
+
+  .draft-box{background:#FAFBFC;border:2px dashed var(--line);border-radius:var(--r);padding:18px 22px;margin:14px 0;font-family:Georgia,"Times New Roman",serif;font-size:14.5px;line-height:1.65;color:#1a1a1a;white-space:pre-wrap}
+  .draft-box .from-line{font-family:"Plus Jakarta Sans",sans-serif;font-size:12.5px;color:var(--ink-faint);border-bottom:1px solid var(--line-soft);padding-bottom:10px;margin-bottom:14px;white-space:normal}
+  .draft-box .from-line strong{color:var(--ink)}
+  .copy-btn{position:relative;float:right;background:var(--primary);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+  .copy-btn:hover{background:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:10px 0;font-size:13.5px}
+  th,td{padding:9px 14px;text-align:left;border-bottom:1px solid var(--line-soft);line-height:1.45;vertical-align:top}
+  th{background:var(--line-soft);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:0.5px;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  td.lbl{font-weight:600;width:32%}
+
+  .footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--ink-faint)}
+  .print-btn{position:fixed;top:20px;right:20px;background:var(--primary);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(11,43,91,0.25);z-index:99;font-family:inherit}
+  .print-btn:hover{background:var(--ink)}
+
+  ul.tight{padding-left:22px;margin:8px 0}
+  ul.tight li{margin:5px 0}
+
+  @media (max-width:720px){
+    .callouts{grid-template-columns:1fr}
+    body{padding:14px 12px}
+    .page{padding:22px 18px}
+  }
+  @media print{
+    body{background:#fff;padding:0}
+    .page{box-shadow:none;padding:24px 32px;max-width:100%}
+    .print-btn,.copy-btn{display:none !important}
+    h2{page-break-after:avoid}
+    .session{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Action Card · HIFU Machine Sales · Redlands HIFU</div>
+    <h1>Redlands HIFU — 3-session training plan for Grace + Reid</h1>
+    <p class="sub">Apps walk-through · Admin walk-through · Website walk-through. Each 30 min, online. Grounded in the signed Client Services Agreement (Clinic Starter Kit, signed 16 Feb 2026).</p>
+    <div class="meta-row">
+      <span><strong>Client:</strong> QCAD Pty Ltd t/a Redlands Hifu</span>
+      <span><strong>Owners:</strong> Reid Gillman (Director), Grace Areas Silveira</span>
+      <span><strong>Term:</strong> 6 months from 15 Feb 2026</span>
+      <span><strong>Today:</strong> 4 May 2026</span>
+    </div>
+  </header>
+
+  <div class="callouts">
+    <div class="callout">
+      <div class="label">Agreement</div>
+      <div class="number">Signed 16 Feb 2026</div>
+      <div class="desc">$43,995 inc GST · 50/50 deposit-on-delivery · Loan machine in place · 3-yr postcode exclusivity</div>
+    </div>
+    <div class="callout pink">
+      <div class="label">Already delivered (3-day masterclass)</div>
+      <div class="number">Practical face/body</div>
+      <div class="desc">Brisbane in-person training (sect 11.2) — these 3 sessions cover what comes AFTER that</div>
+    </div>
+    <div class="callout amber">
+      <div class="label">Coaching budget remaining</div>
+      <div class="number">~20 hrs in Term</div>
+      <div class="desc">Sect 11.3 — these 3×30min sessions = 1.5 hrs · plenty of headroom for follow-up</div>
+    </div>
+  </div>
+
+  <div class="green-box">
+    <strong>Source of truth:</strong> The deliverables below are pulled directly from the signed agreement at
+    <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/HIFU-Client-Reports/Redlands%20HIFU/HMS%20Client%20Agreement%20(Clinic%20Starter%20Kit)%20-%20ACCEPTANCE.pdf">HMS Client Agreement (Clinic Starter Kit) - ACCEPTANCE.pdf</a>
+    (sections 11.4 Systems &amp; Website, 11.5 Payments, Schedule 1 D-G, Schedule 3 onboarding checklist).
+  </div>
+
+  <h2><span class="num">1</span>What's in scope per the contract</h2>
+  <table>
+    <tr><td class="lbl">Booking app + CRM</td><td>Customised for clinic ops · client journey workflows (SMS/email) · 6-month subscription included (then $100/mo) — <strong>this is BookATreatment.AI</strong></td></tr>
+    <tr><td class="lbl">Website</td><td>Built on Hostinger · About / Price List / Reviews / FAQs / Contact · online booking + SMS booking link · domain + hosting + 1× business email</td></tr>
+    <tr><td class="lbl">Payments / POS</td><td>Zeller EFTPOS machine · Afterpay + Zip + major credit cards via Zeller · Stripe (recommended) or PayPal for online</td></tr>
+    <tr><td class="lbl">Marketing</td><td>Google Ads (6 mo · $6k budget capped) · Google Business Profile · Meta Business (FB + IG organic) · YouTube channel · Google reviews</td></tr>
+    <tr><td class="lbl">Coaching</td><td>20 hrs business coaching during Term — workflows, consult scripts, before/after care, staff confidence (sect 11.3)</td></tr>
+    <tr><td class="lbl">Meetings</td><td>2-hr onboarding workshop (sect 8.1) + monthly 1-hr review (sect 8.2). The 3 sessions below are training overlays inside the coaching hours.</td></tr>
+  </table>
+
+  <h2><span class="num">2</span>The 3 × 30-min training sessions</h2>
+
+  <div class="session">
+    <h3><span class="tag">Session 1</span>Apps walk-through — what Grace + Reid use day-to-day</h3>
+    <div class="when">30 min · Online (Google Meet / Zoom) · Kim leads · Grace + Reid attend</div>
+    <ul>
+      <li><strong>BookATreatment.AI admin app</strong> — login, dashboard tour, today's bookings, the action buttons that matter (call/SMS/email a client, mark complete, no-show)</li>
+      <li><strong>BAT Staff app</strong> — how a practitioner sees their day, treatment notes, signed consent / waiver flow before treatment starts</li>
+      <li><strong>ClickSend SMS</strong> — message credits, where the SMS counter lives, how to top up before they run out</li>
+      <li><strong>Stripe dashboard</strong> — read-only orientation: where to see today's payments, refunds vs voids (Kim performs all refunds — Reid &amp; Grace do not)</li>
+      <li><strong>Zeller EFTPOS</strong> — how to take an in-person card payment + reconcile end-of-day to the BAT booking</li>
+    </ul>
+  </div>
+
+  <div class="session">
+    <h3><span class="tag pink">Session 2</span>Admin walk-through — back-office processes</h3>
+    <div class="when">30 min · Online · Kim leads · Grace + Reid attend (recommend Grace primary, she's hands-on)</div>
+    <ul>
+      <li><strong>Staff &amp; locations</strong> — adding / deactivating practitioners, working hours, time off</li>
+      <li><strong>Services &amp; pricing</strong> — editing treatments, packages, gift vouchers, deposits</li>
+      <li><strong>Bookings &amp; cancellations</strong> — making + moving + cancelling a booking · cancellation policy enforcement · no-show fees</li>
+      <li><strong>Reports they'll actually use</strong> — daily takings, new clients this month, lapsed clients (We Miss You workflow), service performance</li>
+      <li><strong>Payment reconciliation</strong> — Zeller end-of-day vs BAT bookings vs Stripe online · what to escalate to Janice (bookkeeper) at month-end</li>
+      <li><strong>Workflows / automations live in their account</strong> — confirmation, 24-hr reminder, post-treatment aftercare, Google review ask, rebooking nudge — what fires when, how to pause</li>
+    </ul>
+  </div>
+
+  <div class="session">
+    <h3><span class="tag primary">Session 3</span>Website walk-through — Hostinger + booking integration + socials</h3>
+    <div class="when">30 min · Online · Kim leads · Grace + Reid attend</div>
+    <ul>
+      <li><strong>Hostinger Website Builder login</strong> — where to edit page text, swap a hero image, add a price-list line, publish the change</li>
+      <li><strong>Where the BAT booking link is dropped</strong> — homepage CTA, every service page, mobile sticky-bar · how to test the link end-to-end</li>
+      <li><strong>Google Business Profile</strong> — adding a post, replying to a review, swapping a photo, editing opening hours (most-used 4 things)</li>
+      <li><strong>Meta Business (FB + IG)</strong> — Instagram post + caption template usage, scheduling vs publishing, Stories vs feed</li>
+      <li><strong>Google Ads dashboard (read-only)</strong> — where to see spend pacing + leads · monthly $1k cap reminder · who to call (Kim) before changing anything</li>
+      <li><strong>Domain + email</strong> — Hostinger admin login, where domain renewal lives, where the business email password reset lives</li>
+    </ul>
+  </div>
+
+  <h2><span class="num">3</span>Suggested time slots (AEST · pick one per session)</h2>
+  <p style="margin:6px 0 12px;color:var(--ink-soft)">Avoiding Brisbane HIFU clinic days (Wed + Sat — Luci treats). Three options each — let Grace + Reid pick:</p>
+  <table>
+    <tr><th>Session</th><th>Option A</th><th>Option B</th><th>Option C</th></tr>
+    <tr>
+      <td><strong>1 — Apps</strong></td>
+      <td>Mon 5 May · 2:30pm</td>
+      <td>Tue 6 May · 10:00am</td>
+      <td>Thu 8 May · 1:00pm</td>
+    </tr>
+    <tr>
+      <td><strong>2 — Admin</strong></td>
+      <td>Fri 9 May · 10:00am</td>
+      <td>Mon 12 May · 2:30pm</td>
+      <td>Tue 13 May · 11:00am</td>
+    </tr>
+    <tr>
+      <td><strong>3 — Website</strong></td>
+      <td>Thu 15 May · 1:00pm</td>
+      <td>Fri 16 May · 10:30am</td>
+      <td>Mon 19 May · 2:00pm</td>
+    </tr>
+  </table>
+  <p style="font-size:12.5px;color:var(--ink-faint);margin-top:6px"><em>Suggested — Kim to confirm against her actual calendar before the email goes out. All slots Mon/Tue/Thu/Fri to keep Wed + Sat clear.</em></p>
+
+  <h2><span class="num">4</span>Email draft to Grace + Reid</h2>
+  <p style="margin:6px 0 8px;color:var(--ink-soft);font-size:13.5px">Draft only — queued for Kim's review before sending (per Nova decision rights). Send from <strong>kim@clinicstarterkit.com</strong> or <strong>jk@clinicstarterkit.com</strong> (the contact email on the agreement).</p>
+  <div class="draft-box">
+    <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('emailBody').innerText).then(()=>this.innerText='Copied').catch(()=>this.innerText='Failed')">Copy body</button>
+    <div class="from-line">
+      <strong>To:</strong> qcadptyltd@proton.me · <em>(plus Grace's preferred email if different — confirm)</em><br>
+      <strong>Cc:</strong> jeremydavidsmall@gmail.com<br>
+      <strong>From:</strong> kim@clinicstarterkit.com<br>
+      <strong>Subject:</strong> Redlands HIFU — let's lock in your 3 short training sessions
+    </div>
+<div id="emailBody">Hi Grace and Reid,
+
+Now that the machine is on its way and the foundations are coming together, I want to lock in three short training sessions so you both feel completely confident running the day-to-day from week one.
+
+Three sessions, 30 minutes each, online — bite-sized so you can fit them around the clinic build-out:
+
+1. Apps walk-through — the booking app, staff app, SMS credits, Stripe dashboard and Zeller EFTPOS. The five things you'll touch every day.
+
+2. Admin walk-through — staff and services setup, bookings and cancellations, the reports that matter, and how the SMS/email automations work behind the scenes.
+
+3. Website walk-through — editing your Hostinger site, where the booking link lives on every page, Google Business Profile, your Instagram and Facebook templates, and a quick orientation of the Google Ads dashboard.
+
+Here are the slots I have open over the next two weeks (all AEST/Brisbane time). Pick what works best for each session and I'll send the calendar invites:
+
+Session 1 — Apps
+  Mon 5 May, 2:30pm  /  Tue 6 May, 10:00am  /  Thu 8 May, 1:00pm
+
+Session 2 — Admin
+  Fri 9 May, 10:00am  /  Mon 12 May, 2:30pm  /  Tue 13 May, 11:00am
+
+Session 3 — Website
+  Thu 15 May, 1:00pm  /  Fri 16 May, 10:30am  /  Mon 19 May, 2:00pm
+
+If none of those land cleanly, just send me a couple of times that suit and I'll work around them.
+
+A small ask before Session 1 — could you both make sure you can log in to the booking app in advance? It saves us 5 minutes on the call. I'll send the login details once we have a date locked in.
+
+Looking forward to it — these are the genuinely fun sessions where the clinic starts to feel like yours.
+
+Kind regards,
+Kim Klein
+HIFU Machine Sales
+0416 248 639</div>
+  </div>
+
+  <h2><span class="num">5</span>Open questions for Kim (before the email goes out)</h2>
+  <div class="amber-box">
+    <ol style="margin:6px 0 4px;padding-left:22px">
+      <li><strong>Grace's direct email</strong> — the agreement only lists qcadptyltd@proton.me (Reid's). Do we have Grace's separate address so she gets her own calendar invite, or are they sharing the proton inbox?</li>
+      <li><strong>Has the BAT.AI tenant for Redlands been provisioned yet?</strong> If not, Session 1 (Apps) needs to wait until they have a real login. Worth a quick gh / Railway check before sending.</li>
+      <li><strong>Hostinger website state</strong> — is the build live enough for Grace + Reid to log in and see edits, or is Session 3 still aspirational? If website isn't ready by Session 3 dates, swap order: do Apps + Admin first, push Website to weeks 3-4.</li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    Generated 4 May 2026 · Sources: signed Client Agreement (acceptance PDF) · Nova MEMORY · CLAUDE.md · Brisbane HIFU calendar protection rule
+  </div>
+
+</div>
+</body>
+</html>
