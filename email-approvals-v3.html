@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Email Approval v3 — brand-locked colours + correct icon</title>
+<style>
+  /* PAGE styles use Plus Jakarta Sans per brand. EMAIL boxes inside use system stack per Kim's override. */
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+  :root {
+    --ink:#0c0a09; --ink-soft:#4a4a4a; --ink-faint:#7a7a7a;
+    --line:#DBDFE3; --line-soft:#EDF0F3;
+    --bg:#F6F7F9; --green:#16a34a; --amber:#d97706; --red:#dc2626;
+    /* BRAND-LOCKED palette per BRAND_ALIGNMENT_REFERENCE.md */
+    --brand-teal:#00E8B4; --brand-coral:#FF7A6E; --brand-purple:#9B3DFF; --brand-pink:#F040C8;
+    --brand-dark:#1A0A2E;
+    --clinic-purple:#7c3aed;
+  }
+  *{box-sizing:border-box}
+  body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;margin:0;padding:24px;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;}
+  .container{max-width:1200px;margin:0 auto;}
+  header.page-hdr{background:#fff;border-radius:12px;padding:28px 32px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+  h1{font-size:28px;font-weight:800;margin:0 0 6px;letter-spacing:-0.3px;}
+  .sub{color:var(--ink-soft);margin:0 0 16px;font-size:15px;}
+  .v-flag{display:inline-block;background:#FEE2E2;color:#991B1B;font-size:11px;font-weight:800;letter-spacing:0.5px;padding:3px 10px;border-radius:999px;text-transform:uppercase;margin-left:8px;vertical-align:middle;}
+  .summary-bar{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;}
+  .summary-pill{background:var(--line-soft);padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;}
+  .summary-pill.green{background:#DCFCE7;color:#14532D;}
+  .summary-pill.amber{background:#FEF3C7;color:#92400E;}
+  .summary-pill.blue{background:#DBEAFE;color:#1e3a8a;}
+  .changelog{background:#F0FDF4;border:1px solid #86EFAC;border-left:4px solid var(--green);padding:14px 18px;border-radius:8px;margin:16px 0 0;font-size:13.5px;}
+  .changelog strong{color:#14532D;}
+  .changelog ul{margin:6px 0 0;padding-left:22px;}
+  .changelog li{margin:3px 0;}
+
+  .email-card{background:#fff;border-radius:14px;margin:20px 0;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);transition:border-color 0.2s;border:2px solid transparent;}
+  .email-card.approved{border-color:var(--green);}
+  .email-card.changes{border-color:var(--amber);}
+  .email-meta{padding:18px 24px;background:#FAFBFC;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;}
+  .email-meta .left{flex:1;min-width:280px;}
+  .email-meta h2{font-size:18px;font-weight:800;margin:0 0 4px;}
+  .email-meta .info{color:var(--ink-soft);font-size:13.5px;margin:4px 0 0;}
+  .email-meta .info strong{color:var(--ink);}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:0.5px;}
+  .badge.p0{background:#FEE2E2;color:#991B1B;}
+  .badge.p1{background:#FEF3C7;color:#92400E;}
+  .badge.p2{background:#DBEAFE;color:#1e3a8a;}
+  .badge.bat{background:#EDE9FE;color:#5a3dd6;}
+  .badge.clinic{background:#CFFAFE;color:#155E75;}
+  .badge.event{background:#FCE7F3;color:#9D174D;}
+  .badge.shipped{background:#DCFCE7;color:#14532D;}
+  .badge.brand{background:#FEF3C7;color:#92400E;}
+
+  .actions{display:flex;gap:8px;align-items:center;}
+  .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all 0.15s;font-family:inherit;}
+  .btn-approve{background:var(--green);color:#fff;}
+  .btn-approve:hover{background:#15803D;}
+  .btn-changes{background:#fff;color:var(--amber);border-color:var(--amber);}
+  .btn-changes:hover{background:#FEF3C7;}
+  .btn-reset{background:transparent;color:var(--ink-faint);font-size:12px;padding:6px 10px;text-decoration:underline;border:none;}
+  .status-pill{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;}
+  .status-pill.approved{background:#DCFCE7;color:#14532D;}
+  .status-pill.changes{background:#FEF3C7;color:#92400E;}
+  .status-pill.shipped{background:#DCFCE7;color:#14532D;}
+
+  .preview-wrap{padding:20px;background:#f4f4f7;}
+
+  /* ─────────────────────────────────────────────── */
+  /* EMAIL BOX — system font stack (Kim's override). Brand-locked colours. */
+  /* ─────────────────────────────────────────────── */
+  .email-box{
+    max-width:560px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    /* SYSTEM FONT STACK — per kim_email_font_system_override.md */
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    color:#1a1a1a;line-height:1.55;
+  }
+  .email-box .hdr{padding:24px 28px;color:#fff;}
+  /* BAT header: brand DARK BG so the colourful icon pops without a white container (per brand "logo always transparent" rule) */
+  .email-box .hdr.bat{background:var(--brand-dark);position:relative;overflow:hidden;}
+  /* Subtle brand-gradient glow band along the bottom for visual energy */
+  .email-box .hdr.bat::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#00E8B4 0%,#FF7A6E 33%,#9B3DFF 66%,#F040C8 100%);}
+  .email-box .hdr.clinic{background:var(--clinic-purple);}
+  .email-box .hdr-row{display:flex;justify-content:space-between;align-items:center;gap:16px;}
+  .email-box .hdr-text{flex:1;min-width:0;}
+  .email-box .hdr .eyebrow{font-size:12px;opacity:0.85;letter-spacing:1px;text-transform:uppercase;font-weight:700;}
+  .email-box .hdr h3{margin:6px 0 0;font-size:23px;font-weight:800;letter-spacing:-0.3px;line-height:1.2;}
+  /* Icon: TRANSPARENT BG, no container — per brand "never on a solid white rectangle" rule */
+  .email-box .hdr-icon{width:54px;height:54px;flex-shrink:0;}
+  .email-box .hdr-icon img{display:block;width:100%;height:100%;object-fit:contain;}
+
+  .email-box .body{padding:24px 28px;}
+  .email-box p{font-size:16px;margin:0 0 14px;}
+  .email-box .lead{font-size:17px;}
+  .email-box .cta{text-align:center;margin:24px 0;}
+  /* CTA: brand purple → hot pink gradient (matches the right side of the icon) */
+  .email-box .cta a,.email-box .cta-btn{display:inline-block;padding:13px 30px;background:linear-gradient(135deg,#9B3DFF 0%,#F040C8 100%);color:#fff;text-decoration:none;font-weight:700;font-size:15px;border-radius:10px;box-shadow:0 4px 12px rgba(155,61,255,0.25);}
+  .email-box .cta-btn.clinic{background:var(--clinic-purple);}
+  .email-box .cta-btn.teal{background:linear-gradient(135deg,#00E8B4 0%,#9B3DFF 100%);}
+
+  .email-box .small{font-size:14px;color:#5d5780;}
+  .email-box .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0;}
+  /* Stat tile: brand teal soft tint */
+  .email-box .stat{background:rgba(0,232,180,0.10);padding:12px;border-radius:8px;text-align:center;border:1px solid rgba(0,232,180,0.25);}
+  .email-box .stat .num{font-size:22px;font-weight:800;color:#0B7A66;}
+  .email-box .stat .lbl{font-size:11px;color:#5d5780;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+  .email-box hr{border:none;border-top:1px solid #ECEAF3;margin:20px 0;}
+  .email-box ul{font-size:14px;color:#5d5780;margin:0 0 14px;padding-left:20px;}
+  .email-box ul li{margin:5px 0;}
+  /* News blocks — alternate brand-coloured left borders for variety */
+  .email-box .news-block{background:#FAFAFC;padding:14px 16px;margin:14px 0;border-radius:0 8px 8px 0;}
+  .email-box .news-block.teal{border-left:3px solid #00E8B4;}
+  .email-box .news-block.coral{border-left:3px solid #FF7A6E;}
+  .email-box .news-block.purple{border-left:3px solid #9B3DFF;}
+  .email-box .news-block h4{margin:0 0 6px;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;}
+  .email-box .news-block.teal h4{color:#0B7A66;}
+  .email-box .news-block.coral h4{color:#B23E36;}
+  .email-box .news-block.purple h4{color:#5a3dd6;}
+  .email-box .news-block p{font-size:14px;margin:0;color:#1a1a1a;}
+
+  .email-box .footer{background:#FAFBFC;padding:18px 28px;text-align:center;font-size:12px;color:#8b86a3;}
+  /* Footer icon: transparent, no container — same rule */
+  .email-box .footer-icon{display:block;margin:0 auto 10px;width:32px;height:32px;}
+
+  .copy-meta{padding:16px 24px;background:#FAFBFC;border-top:1px solid var(--line-soft);font-size:13px;color:var(--ink-soft);}
+  .copy-meta strong{color:var(--ink);}
+  .copy-meta code{background:#fff;padding:2px 6px;border-radius:4px;font-size:12px;border:1px solid var(--line-soft);}
+  .notes{padding:16px 24px;border-top:1px solid var(--line-soft);}
+  .notes textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:10px;font-family:inherit;font-size:13.5px;resize:vertical;min-height:60px;}
+  .footer-bar{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--ink-faint);}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="page-hdr">
+  <h1>📧 Email approval — round 3 <span class="v-flag">v3 — BRAND-LOCKED</span></h1>
+  <p class="sub">Brand reference followed strictly this time. Re-read each — your previous selections are preserved across versions.</p>
+  <div class="changelog">
+    <strong>v3 brand fixes (per <a href="https://github.com/brisbanehifu/booking-api" style="color:#14532D;">BRAND_ALIGNMENT_REFERENCE.md</a>):</strong>
+    <ul>
+      <li><strong>Correct favicon swapped in</strong> — the actual transparent calendar+lotus icon, not the old purple-leaf placeholder.</li>
+      <li><strong>Header background = brand Dark BG <code>#1A0A2E</code></strong> — lets the colourful icon pop without needing a white container (per brand rule: "logo always transparent — never on a solid white rectangle"). A 3px gradient strip in brand colours runs along the bottom of every header for energy.</li>
+      <li><strong>Brand purple corrected to <code>#9B3DFF</code></strong> (was <code>#7c5cff</code> — not on palette). CTA buttons now use brand gradient <code>#9B3DFF → #F040C8</code> (purple → hot pink, matching the right side of the icon).</li>
+      <li><strong>Stat tiles use brand teal soft tint</strong> instead of purple.</li>
+      <li><strong>Page font</strong> = Plus Jakarta Sans (per brand). <strong>Email-internal font</strong> = system stack (per Kim's explicit override — banked as a memory rule).</li>
+    </ul>
+  </div>
+  <div class="summary-bar">
+    <div class="summary-pill green" id="pill-approved">✓ 0 approved</div>
+    <div class="summary-pill amber" id="pill-changes">✎ 0 needs changes</div>
+    <div class="summary-pill blue" id="pill-pending">⏳ 0 pending</div>
+    <div class="summary-pill" id="pill-shipped">🚀 1 shipped (Staff welcome)</div>
+  </div>
+</header>
+
+<!-- ───── 2. TENANT SIGNUP WELCOME (P0) ───── -->
+<div class="email-card" data-email="tenant-welcome">
+  <div class="email-meta">
+    <div class="left">
+      <h2>2. Tenant Signup Welcome (BAT-branded)</h2>
+      <div class="info"><strong>Fires:</strong> when a new clinic signs up · <strong>From:</strong> BookATreatment.AI</div>
+      <div class="badges"><span class="badge p0">P0</span><span class="badge bat">BAT-branded</span><span class="badge brand">v3 brand-locked</span></div>
+    </div>
+    <div class="actions"></div>
+  </div>
+  <div class="preview-wrap">
+    <div class="email-box">
+      <div class="hdr bat">
+        <div class="hdr-row">
+          <div class="hdr-text">
+            <div class="eyebrow">BookATreatment.AI</div>
+            <h3>You're in 🎉 Let's get your first booking live</h3>
+          </div>
+          <div class="hdr-icon"><img src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI" width="54" height="54"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="lead">Hi {first_name},</p>
+        <p>Welcome to BookATreatment.AI! Your clinic <strong>{clinic_name}</strong> is set up and ready to start taking real bookings. We're stoked to have you.</p>
+        <p>Here's the quickest path to your first live booking — four steps, about 20 minutes total:</p>
+        <ul style="font-size:15px;color:#1a1a1a;line-height:1.7;">
+          <li><strong>1.</strong> Add your services + prices</li>
+          <li><strong>2.</strong> Set your availability + add staff</li>
+          <li><strong>3.</strong> <strong style="color:#9B3DFF;">Import your clients + booking history</strong> (CSV from Calendly, Fresha, Cliniko or Square)</li>
+          <li><strong>4.</strong> Share your booking link on Instagram or your website</li>
+        </ul>
+        <div class="cta"><a href="#" class="cta-btn">Open your dashboard →</a></div>
+        <hr>
+        <p class="small"><strong>Help when you need it:</strong></p>
+        <ul>
+          <li>Reply to this email — a real human reads every one</li>
+          <li>Browse the in-app help library (look for the ? in the corner)</li>
+          <li>Book a free 30-min onboarding call: <a href="#" style="color:#9B3DFF;">book a slot</a></li>
+        </ul>
+        <p class="small">No spammy follow-ups. We send one short newsletter on the 1st of each month — that's it.</p>
+      </div>
+      <div class="footer">
+        <img class="footer-icon" src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI">
+        BookATreatment.AI · You're receiving this because you signed up at app.bookatreatment.ai · <a href="#" style="color:#8b86a3;">Update preferences</a>
+      </div>
+    </div>
+  </div>
+  <div class="copy-meta"><strong>Subject:</strong> You're in 🎉 Let's get your first booking live · <strong>Trigger:</strong> <code>auth.js register()</code></div>
+  <div class="notes"><textarea placeholder="Notes if you want changes (optional)..." onchange="saveNotes('tenant-welcome',this.value)"></textarea></div>
+</div>
+
+<!-- ───── 3. TRIAL ENDING (P1) ───── -->
+<div class="email-card" data-email="trial-ending">
+  <div class="email-meta">
+    <div class="left">
+      <h2>3. Trial Ending — 3 days warning</h2>
+      <div class="info"><strong>Fires:</strong> 3 days before trial expiry</div>
+      <div class="badges"><span class="badge p1">P1</span><span class="badge bat">BAT-branded</span><span class="badge brand">v3 brand-locked</span></div>
+    </div>
+    <div class="actions"></div>
+  </div>
+  <div class="preview-wrap">
+    <div class="email-box">
+      <div class="hdr bat">
+        <div class="hdr-row">
+          <div class="hdr-text">
+            <div class="eyebrow">BookATreatment.AI · Heads-up</div>
+            <h3>Your trial wraps up in 3 days</h3>
+          </div>
+          <div class="hdr-icon"><img src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI" width="54" height="54"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="lead">Hi {first_name},</p>
+        <p>Just a friendly heads-up — your free trial wraps up on <strong>{trial_end_date}</strong> (3 days from now). No pressure at all, but here's what you've built so far:</p>
+        <div class="stat-grid">
+          <div class="stat"><div class="num">{X}</div><div class="lbl">Bookings</div></div>
+          <div class="stat"><div class="num">{Y}</div><div class="lbl">Services</div></div>
+          <div class="stat"><div class="num">{Z}</div><div class="lbl">Staff</div></div>
+        </div>
+        <p>When you're ready, pick the plan that fits your clinic — your data, settings, bookings all stay exactly as they are:</p>
+        <div class="cta"><a href="#" class="cta-btn">Choose your plan →</a></div>
+        <hr>
+        <p class="small"><strong>What happens if you don't choose:</strong> on {trial_end_date} your bookings page goes offline. We'll keep everything safe for 60 days in case you change your mind — <strong>plenty of time, no rush.</strong></p>
+        <p class="small">Reply to this email anytime if you've got questions. A real human reads every one.</p>
+      </div>
+      <div class="footer">
+        <img class="footer-icon" src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI">
+        BookATreatment.AI · One reminder, three days out. We don't do daily nags. · <a href="#" style="color:#8b86a3;">Update preferences</a>
+      </div>
+    </div>
+  </div>
+  <div class="copy-meta"><strong>Subject:</strong> Your BookATreatment trial wraps up in 3 days</div>
+  <div class="notes"><textarea placeholder="Notes if you want changes (optional)..." onchange="saveNotes('trial-ending',this.value)"></textarea></div>
+</div>
+
+<!-- ───── 4. TRIAL ENDED (P1) — Kim's gold standard ───── -->
+<div class="email-card" data-email="trial-ended">
+  <div class="email-meta">
+    <div class="left">
+      <h2>4. Trial Ended <span style="font-size:13px;color:#16a34a;font-weight:700;margin-left:6px;">⭐ Kim's gold standard</span></h2>
+      <div class="info"><strong>Fires:</strong> on trial expiry day, no payment</div>
+      <div class="badges"><span class="badge p1">P1</span><span class="badge bat">BAT-branded</span><span class="badge brand">v3 brand-locked</span></div>
+    </div>
+    <div class="actions"></div>
+  </div>
+  <div class="preview-wrap">
+    <div class="email-box">
+      <div class="hdr bat">
+        <div class="hdr-row">
+          <div class="hdr-text">
+            <div class="eyebrow">BookATreatment.AI</div>
+            <h3>Your trial ended — your data is safe</h3>
+          </div>
+          <div class="hdr-icon"><img src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI" width="54" height="54"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="lead">Hi {first_name},</p>
+        <p>Your free trial of BookATreatment.AI ended yesterday. Your booking page is now paused but <strong>all your data is safe</strong> — services, staff, clients, bookings, history. Nothing has been deleted.</p>
+        <p>Pick a plan whenever you're ready and everything switches back on, exactly as you left it:</p>
+        <div class="cta"><a href="#" class="cta-btn">Pick a plan →</a></div>
+        <hr>
+        <p class="small"><strong>Why your bookings page is paused, not deleted:</strong> we keep your data live for 60 days after trial-end. After that, we'll send one final email and then archive. <strong>Plenty of time to change your mind.</strong></p>
+        <p class="small">If BookATreatment isn't right for you, no hard feelings — reply and let us know what we got wrong, we genuinely want to know.</p>
+      </div>
+      <div class="footer">
+        <img class="footer-icon" src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI">
+        BookATreatment.AI · One email, no follow-ups. We won't chase. · <a href="#" style="color:#8b86a3;">Update preferences</a>
+      </div>
+    </div>
+  </div>
+  <div class="copy-meta"><strong>Subject:</strong> Your trial ended — here's how to keep your data live</div>
+  <div class="notes"><textarea placeholder="Notes if you want changes (optional)..." onchange="saveNotes('trial-ended',this.value)"></textarea></div>
+</div>
+
+<!-- ───── 5. DAY-30 CHECK-IN (P1) ───── -->
+<div class="email-card" data-email="day-30">
+  <div class="email-meta">
+    <div class="left">
+      <h2>5. Day-30 Check-in</h2>
+      <div class="info"><strong>From:</strong> Founder · BookATreatment.AI · <strong>Sig:</strong> Kimmi</div>
+      <div class="badges"><span class="badge p1">P1</span><span class="badge bat">BAT-branded</span><span class="badge brand">v3 brand-locked</span></div>
+    </div>
+    <div class="actions"></div>
+  </div>
+  <div class="preview-wrap">
+    <div class="email-box">
+      <div class="hdr bat">
+        <div class="hdr-row">
+          <div class="hdr-text">
+            <div class="eyebrow">From Founder · BookATreatment.AI</div>
+            <h3>30 days in — how's it going?</h3>
+          </div>
+          <div class="hdr-icon"><img src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI" width="54" height="54"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="lead">Hi {first_name},</p>
+        <p>You signed up for BookATreatment.AI a month ago today. Just wanted to check in personally.</p>
+        <p>One question: <strong>is the app actually saving you time, or is it getting in your way?</strong></p>
+        <p>Hit reply — I read every response. If you're stuck on something specific, let's jump on a 15-min call:</p>
+        <div class="cta"><a href="#" class="cta-btn">Book a 15-min call →</a></div>
+        <hr>
+        <p class="small">No agenda, no sales pitch. I want to know what's working and what's not so I can fix it for you and the next clinic.</p>
+        <p class="small">— Kimmi<br>Founder, BookATreatment.AI</p>
+      </div>
+      <div class="footer">
+        <img class="footer-icon" src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI">
+        You'll get one of these on day 30 — just this once. · <a href="#" style="color:#8b86a3;">Update preferences</a>
+      </div>
+    </div>
+  </div>
+  <div class="copy-meta"><strong>Subject:</strong> 30 days in — how's it going? · <strong>From name:</strong> Kimmi at BookATreatment.AI · <strong>Reply-to:</strong> kimmi@bookatreatment.ai</div>
+  <div class="notes"><textarea placeholder="Notes if you want changes (optional)..." onchange="saveNotes('day-30',this.value)"></textarea></div>
+</div>
+
+<!-- ───── 6. MONTHLY NEWSLETTER (P2) ───── -->
+<div class="email-card" data-email="newsletter">
+  <div class="email-meta">
+    <div class="left">
+      <h2>6. Monthly Newsletter</h2>
+      <div class="info"><strong>Fires:</strong> 1st of each month, 9 AM Brisbane · 3 blocks · ~150 words</div>
+      <div class="badges"><span class="badge p2">P2</span><span class="badge bat">BAT-branded</span><span class="badge brand">v3 brand-locked</span></div>
+    </div>
+    <div class="actions"></div>
+  </div>
+  <div class="preview-wrap">
+    <div class="email-box">
+      <div class="hdr bat">
+        <div class="hdr-row">
+          <div class="hdr-text">
+            <div class="eyebrow">BookATreatment.AI · May 2026</div>
+            <h3>Short-link booking URLs + 3 customer wins</h3>
+          </div>
+          <div class="hdr-icon"><img src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI" width="54" height="54"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="lead">Hi {first_name},</p>
+        <div class="news-block teal">
+          <h4>🚀 New this month</h4>
+          <p>Booking URLs are now short and SMS-friendly: <code>bat.ai/book/yourclinic/service</code>. Old links keep working. Per-clinic favicon support went live too — your logo shows in the customer's browser tab.</p>
+        </div>
+        <div class="news-block coral">
+          <h4>💚 Customer win</h4>
+          <p>Brisbane HIFU Clinic migrated 200 bookings off Calendly in 30 minutes flat using the new CSV importer. Owner Kim says: <em>"I was holding my breath but it just worked. First time a tools-migration didn't ruin my week."</em></p>
+        </div>
+        <div class="news-block purple">
+          <h4>🛠 Ops tip of the month</h4>
+          <p>Casual staff slow to set up their accounts? You can now resend the welcome email any time from <strong>Staff → Edit → Send Invite</strong>. Magic link stays active for 30 days.</p>
+        </div>
+        <p class="small" style="text-align:center;margin-top:20px;">That's it for this month. Reply if anything resonates.</p>
+      </div>
+      <div class="footer">
+        <img class="footer-icon" src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI">
+        One email per month, that's the deal. · <a href="#" style="color:#8b86a3;">Unsubscribe</a> · <a href="#" style="color:#8b86a3;">Update preferences</a>
+      </div>
+    </div>
+  </div>
+  <div class="copy-meta"><strong>Subject:</strong> {Month} at BookATreatment: {feature} + {N} customer wins · <strong>v3:</strong> brand-coloured news blocks (teal/coral/purple borders)</div>
+  <div class="notes"><textarea placeholder="Notes if you want changes (optional)..." onchange="saveNotes('newsletter',this.value)"></textarea></div>
+</div>
+
+<!-- ───── 7. FAILED PAYMENT ───── -->
+<div class="email-card" data-email="failed-payment">
+  <div class="email-meta">
+    <div class="left">
+      <h2>7. Failed Payment (event-driven)</h2>
+      <div class="info"><strong>Fires:</strong> Stripe payment_failed webhook</div>
+      <div class="badges"><span class="badge p2">P2</span><span class="badge bat">BAT-branded</span><span class="badge event">Event-driven</span><span class="badge brand">v3 brand-locked</span></div>
+    </div>
+    <div class="actions"></div>
+  </div>
+  <div class="preview-wrap">
+    <div class="email-box">
+      <div class="hdr bat">
+        <div class="hdr-row">
+          <div class="hdr-text">
+            <div class="eyebrow">BookATreatment.AI · Billing</div>
+            <h3>Your payment didn't go through</h3>
+          </div>
+          <div class="hdr-icon"><img src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI" width="54" height="54"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="lead">Hi {first_name},</p>
+        <p>Quick heads-up — your card on file got declined when we tried to charge your <strong>{plan_name}</strong> subscription this morning. Happens to all of us — usually an expired card or a bank fraud-check. Easy fix:</p>
+        <div class="cta"><a href="#" class="cta-btn">Update payment method →</a></div>
+        <hr>
+        <p class="small"><strong>What happens next:</strong> we'll quietly retry the payment over the next 7 days — no spammy follow-ups. Your booking page stays live during that window. If we can't get a successful payment by <strong>{retry_end_date}</strong>, we'll pause the booking page (your data stays safe per our standard 60-day grace).</p>
+        <p class="small">Stuck or have questions? Just reply — a real human reads every one and we'll help.</p>
+      </div>
+      <div class="footer">
+        <img class="footer-icon" src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI">
+        BookATreatment.AI billing · This is an essential account email and can't be unsubscribed. · Receipt #{invoice_id}
+      </div>
+    </div>
+  </div>
+  <div class="copy-meta"><strong>Subject:</strong> Your BookATreatment payment didn't go through</div>
+  <div class="notes"><textarea placeholder="Notes if you want changes (optional)..." onchange="saveNotes('failed-payment',this.value)"></textarea></div>
+</div>
+
+<!-- ───── 8. PLAN-LIMIT HIT ───── -->
+<div class="email-card" data-email="plan-limit">
+  <div class="email-meta">
+    <div class="left">
+      <h2>8. Plan-Limit Hit (event-driven)</h2>
+      <div class="info"><strong>Fires:</strong> POST /api/staff (or other) → 402 plan_limit</div>
+      <div class="badges"><span class="badge p2">P2</span><span class="badge bat">BAT-branded</span><span class="badge event">Event-driven</span><span class="badge brand">v3 brand-locked</span></div>
+    </div>
+    <div class="actions"></div>
+  </div>
+  <div class="preview-wrap">
+    <div class="email-box">
+      <div class="hdr bat">
+        <div class="hdr-row">
+          <div class="hdr-text">
+            <div class="eyebrow">BookATreatment.AI</div>
+            <h3>You're growing — let's make room 🌱</h3>
+          </div>
+          <div class="hdr-icon"><img src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI" width="54" height="54"></div>
+        </div>
+      </div>
+      <div class="body">
+        <p class="lead">Hi {first_name},</p>
+        <p>Just tried to add another <strong>{resource_type}</strong> ({resource_name}) and hit the limit on your <strong>{current_plan}</strong> plan.</p>
+        <p>Two options:</p>
+        <ul style="font-size:15px;color:#1a1a1a;line-height:1.8;">
+          <li><strong>Upgrade to {next_plan}</strong> — gets you {next_plan_caps}, plus {key_feature}.</li>
+          <li><strong>Free up space</strong> — archive an unused {resource_type} from your settings.</li>
+        </ul>
+        <div class="cta"><a href="#" class="cta-btn">Upgrade plan →</a> &nbsp; <a href="#" style="color:#9B3DFF;text-decoration:underline;">or manage existing</a></div>
+        <hr>
+        <p class="small">Genuine question: not sure which plan fits? Reply with how many staff/services/locations you actually need and we'll point you at the right tier (or build a custom one).</p>
+      </div>
+      <div class="footer">
+        <img class="footer-icon" src="https://brisbanehifu.github.io/nova-dashboard/bat-icon.png" alt="BAT.AI">
+        BookATreatment.AI · Triggered when you hit your plan limit. · <a href="#" style="color:#8b86a3;">Update preferences</a>
+      </div>
+    </div>
+  </div>
+  <div class="copy-meta"><strong>Subject:</strong> You're growing — let's make room 🌱</div>
+  <div class="notes"><textarea placeholder="Notes if you want changes (optional)..." onchange="saveNotes('plan-limit',this.value)"></textarea></div>
+</div>
+
+<!-- ───── COPY SUMMARY ───── -->
+<div class="email-card">
+  <div class="email-meta">
+    <div class="left">
+      <h2>📋 Approval summary v3 (for Nova)</h2>
+      <div class="info">When done, click "Copy summary" → paste back to me in chat.</div>
+    </div>
+    <div class="actions"><button class="btn btn-approve" onclick="copySummary()">📋 Copy summary</button></div>
+  </div>
+  <div style="padding:18px 24px;">
+    <pre id="summary-block" style="background:#FAFBFC;border:1px solid var(--line);padding:16px;border-radius:8px;font-size:13px;white-space:pre-wrap;font-family:'SF Mono',Menlo,monospace;color:var(--ink);">No emails approved yet. Click ✓ Approve on the cards above.</pre>
+  </div>
+</div>
+
+<div class="footer-bar">v3 built 4 May 2026 by Nova · brand-locked colours per BRAND_ALIGNMENT_REFERENCE.md · localStorage shared with v1+v2 (your selections preserved)</div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'bat-email-approvals-v1';
+const EMAILS = [
+  { id:'tenant-welcome', name:'Tenant Signup Welcome', priority:'P0' },
+  { id:'trial-ending',   name:'Trial Ending (3 days warning)', priority:'P1' },
+  { id:'trial-ended',    name:'Trial Ended', priority:'P1' },
+  { id:'day-30',         name:'Day-30 Check-in', priority:'P1' },
+  { id:'newsletter',     name:'Monthly Newsletter', priority:'P2' },
+  { id:'failed-payment', name:'Failed Payment', priority:'P2 event' },
+  { id:'plan-limit',     name:'Plan-Limit Hit', priority:'P2 event' },
+];
+function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
+function save(state) { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function setStatus(id, status) { const s = load(); if (!s[id]) s[id]={}; s[id].status=status; s[id].timestamp=new Date().toISOString(); save(s); render(); }
+function saveNotes(id, notes) { const s = load(); if (!s[id]) s[id]={}; s[id].notes=notes; save(s); render(); }
+function reset(id) { const s = load(); delete s[id]; save(s); render(); }
+function render() {
+  const state = load();
+  let approved=0, changes=0, pending=0;
+  EMAILS.forEach(({id}) => {
+    const card = document.querySelector(`[data-email="${id}"]`);
+    if (!card) return;
+    card.classList.remove('approved','changes');
+    const actions = card.querySelector('.actions');
+    if (!actions) return;
+    const s = state[id]?.status;
+    if (s === 'approved') { approved++; card.classList.add('approved'); actions.innerHTML = `<span class="status-pill approved">✓ APPROVED</span><button class="btn btn-reset" onclick="reset('${id}')">undo</button>`; }
+    else if (s === 'changes') { changes++; card.classList.add('changes'); actions.innerHTML = `<span class="status-pill changes">✎ NEEDS CHANGES</span><button class="btn btn-reset" onclick="reset('${id}')">undo</button>`; }
+    else { pending++; actions.innerHTML = `<button class="btn btn-changes" onclick="setStatus('${id}','changes')">✎ Request changes</button><button class="btn btn-approve" onclick="setStatus('${id}','approved')">✓ Approve</button>`; }
+    const ta = card.querySelector('.notes textarea');
+    if (ta && state[id]?.notes && !ta.value) ta.value = state[id].notes;
+  });
+  document.getElementById('pill-approved').textContent = `✓ ${approved} approved`;
+  document.getElementById('pill-changes').textContent = `✎ ${changes} needs changes`;
+  document.getElementById('pill-pending').textContent = `⏳ ${pending} pending`;
+  const lines = [`Email approval summary (v3) — ${new Date().toLocaleString()}`, ''];
+  EMAILS.forEach(({id, name, priority}) => {
+    const s = state[id];
+    const label = s?.status === 'approved' ? '✓ APPROVED' : s?.status === 'changes' ? '✎ NEEDS CHANGES' : '⏳ pending';
+    lines.push(`[${priority}] ${name}: ${label}`);
+    if (s?.notes) lines.push(`    Notes: ${s.notes}`);
+  });
+  lines.push('', `Approved: ${approved}/${EMAILS.length}  ·  Needs changes: ${changes}  ·  Pending: ${pending}`);
+  document.getElementById('summary-block').textContent = lines.join('\n');
+}
+function copySummary() {
+  navigator.clipboard.writeText(document.getElementById('summary-block').textContent).then(() => {
+    alert('Copied — paste into chat and Nova will ship the approved ones.');
+  });
+}
+render();
+</script>
+</body>
+</html>
