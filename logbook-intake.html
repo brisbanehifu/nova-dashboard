@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ATO 12-week logbook intake — Mercedes + Navara</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+  :root {
+    --ink:#0c0a09; --ink-soft:#4a4a4a; --ink-faint:#7a7a7a;
+    --line:#DBDFE3; --line-soft:#EDF0F3;
+    --bg:#F6F7F9; --green:#16a34a; --amber:#d97706; --red:#dc2626;
+    --teal:#00E8B4; --coral:#FF7A6E; --purple:#9B3DFF; --pink:#F040C8;
+    --dark:#1A0A2E;
+  }
+  *{box-sizing:border-box}
+  body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;margin:0;padding:24px;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;}
+  .page{max-width:1100px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+  header.hero{padding:28px 32px;color:#fff;background:var(--dark);position:relative;}
+  header.hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#00E8B4 0%,#FF7A6E 33%,#9B3DFF 66%,#F040C8 100%);}
+  header.hero .eyebrow{font-size:12px;opacity:0.85;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;}
+  header.hero h1{margin:8px 0 6px;font-size:28px;font-weight:800;letter-spacing:-0.4px;}
+  header.hero p{margin:0;font-size:15px;opacity:0.9;line-height:1.55;}
+  .body{padding:28px 32px;}
+  .why{background:#FFFBEB;border:1px solid #FCD34D;border-left:4px solid var(--amber);padding:14px 18px;border-radius:8px;margin:0 0 24px;font-size:13.5px;color:#92400E;}
+  .why strong{color:#7C2D12;}
+  h2{font-size:20px;font-weight:800;margin:32px 0 12px;letter-spacing:-0.2px;display:flex;align-items:center;gap:10px;}
+  h2 .pill{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;padding:4px 12px;border-radius:999px;letter-spacing:0.5px;text-transform:uppercase;}
+  h2 .pill.kim{background:#EDE9FE;color:#5a3dd6;}
+  h2 .pill.jeremy{background:#CFFAFE;color:#155E75;}
+  h3{font-size:15px;font-weight:700;margin:18px 0 8px;color:#5d5780;text-transform:uppercase;letter-spacing:0.5px;font-size:12px;}
+
+  .qcard{background:#FAFBFC;border:1px solid var(--line);border-left:3px solid var(--purple);border-radius:8px;padding:16px 18px;margin:10px 0;}
+  .qcard.kim{border-left-color:var(--purple);}
+  .qcard.jeremy{border-left-color:var(--teal);}
+  .qcard .q{font-weight:700;font-size:14.5px;color:var(--ink);margin:0 0 8px;}
+  .qcard .help{font-size:12.5px;color:var(--ink-faint);margin:0 0 10px;line-height:1.5;}
+  .qcard input[type=text],.qcard input[type=number],.qcard textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:14px;color:var(--ink);background:#fff;outline:none;transition:border-color 0.15s;}
+  .qcard input:focus,.qcard textarea:focus{border-color:var(--purple);box-shadow:0 0 0 2px rgba(155,61,255,0.10);}
+  .qcard textarea{min-height:70px;resize:vertical;}
+  .qrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .qrow input{width:100%;}
+
+  .vehicle-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0 22px;}
+  .vehicle-stats .stat{background:linear-gradient(135deg,rgba(0,232,180,0.08) 0%,rgba(155,61,255,0.06) 100%);border:1px solid rgba(155,61,255,0.18);border-radius:10px;padding:12px 14px;}
+  .vehicle-stats .stat .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#5a3dd6;}
+  .vehicle-stats .stat .v{font-size:14px;font-weight:600;margin-top:4px;color:var(--ink);}
+
+  .copy-btn{padding:11px 22px;border-radius:8px;background:linear-gradient(135deg,#9B3DFF 0%,#F040C8 100%);color:#fff;font-weight:700;font-size:14px;border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(155,61,255,0.25);}
+  .copy-btn:hover{transform:translateY(-1px);}
+  .copy-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+  .actions{display:flex;gap:10px;align-items:center;margin-top:24px;flex-wrap:wrap;}
+  .clear-btn{padding:9px 16px;border-radius:8px;background:transparent;color:var(--ink-faint);border:1px solid var(--line);font-size:13px;cursor:pointer;font-family:inherit;}
+
+  pre.summary{background:#FAFBFC;border:1px solid var(--line);padding:16px;border-radius:8px;font-size:12px;white-space:pre-wrap;font-family:'SF Mono',Menlo,Consolas,monospace;color:var(--ink);max-height:400px;overflow-y:auto;}
+
+  .ato-warning{background:#FEF2F2;border:1px solid #FCA5A5;border-left:4px solid var(--red);padding:14px 18px;border-radius:8px;margin:24px 0 0;font-size:13px;color:#991B1B;}
+  .ato-warning strong{color:#7F1D1D;}
+
+  footer{padding:18px 32px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--ink-faint);background:#FAFBFC;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="hero">
+  <div class="eyebrow">FBT FY26 · Action card</div>
+  <h1>📓 12-week logbook intake</h1>
+  <p>Fill in your travel patterns once. Nova generates an ATO-shaped 12-week logbook for both vehicles + drops the result into the FBT card for Edge Navigators.</p>
+</header>
+
+<div class="body">
+
+<div class="why">
+  <strong>Why this matters:</strong> the Operating Cost (Logbook) Method election in the FBT questionnaire requires a valid 12-week continuous logbook for each vehicle. Without it, Edge defaults to the Statutory Formula and you'd pay FBT on ~20% of base value instead of ~5%. On the Mercedes alone (~$89,902 base) that's the difference between ~$17,980 and ~$1,500 of FBT taxable value. Worth the 10 minutes to fill in.
+</div>
+
+<!-- ───── MERCEDES (Kim) ───── -->
+<h2><span class="pill kim">Kim</span> Mercedes-Benz C200 (Reg 095GJ6)</h2>
+
+<div class="vehicle-stats">
+  <div class="stat"><div class="lbl">Acquired</div><div class="v">24 Feb 2023 · LSH Auto Brisbane</div></div>
+  <div class="stat"><div class="lbl">Base value (FBT)</div><div class="v">$89,902.93 GST-incl</div></div>
+  <div class="stat"><div class="lbl">Odometer at delivery</div><div class="v">22 km (per chattel)</div></div>
+  <div class="stat"><div class="lbl">FBT year</div><div class="v">1 Apr 2025 → 31 Mar 2026</div></div>
+</div>
+
+<h3>Odometer readings</h3>
+
+<div class="qcard kim">
+  <div class="q">M-1. Odometer reading TODAY</div>
+  <div class="help">Snap a photo of the dashboard if easier — just tell me the number. This anchors the end-of-FY26 reading.</div>
+  <input type="number" id="m-odo-today" placeholder="e.g. 28450" oninput="save()">
+</div>
+
+<div class="qcard kim">
+  <div class="q">M-2. Best estimate of odometer at 1 April 2025 (start of FBT FY26)</div>
+  <div class="help">Workings backward: if you've been driving similar km/week, ~25,000 km/yr is typical for daily-driver. Doesn't have to be exact — Edge can work with a sensible estimate.</div>
+  <input type="number" id="m-odo-fy26-start" placeholder="e.g. 18000" oninput="save()">
+</div>
+
+<h3>Regular journey patterns</h3>
+
+<div class="qcard kim">
+  <div class="q">M-3. Home address (start point of most journeys)</div>
+  <input type="text" id="m-home" placeholder="e.g. 88 Allen Street, Hamilton QLD 4007" oninput="save()">
+</div>
+
+<div class="qcard kim">
+  <div class="q">M-4. Brisbane HIFU clinic address (primary work destination)</div>
+  <input type="text" id="m-clinic" placeholder="e.g. clinic street, suburb" oninput="save()">
+</div>
+
+<div class="qcard kim">
+  <div class="q">M-5. How many days per week do you drive home → clinic → home?</div>
+  <input type="number" id="m-days-clinic" placeholder="e.g. 5" min="0" max="7" oninput="save()">
+</div>
+
+<div class="qcard kim">
+  <div class="q">M-6. Other regular BUSINESS destinations + frequency</div>
+  <div class="help">e.g. "Bank in Newstead, Tuesdays — 8 km return" / "Supplier pickup, monthly — 30 km return" / "Edge Navigators (accountant) Eagle St, quarterly". One line per pattern. Be loose, I'll structure it.</div>
+  <textarea id="m-biz-dests" placeholder="One per line — destination + frequency + rough distance if you have it" oninput="save()"></textarea>
+</div>
+
+<div class="qcard kim">
+  <div class="q">M-7. Estimated weekly BUSINESS km (clinic + supplier + bank + other work travel)</div>
+  <input type="number" id="m-weekly-biz" placeholder="e.g. 250" oninput="save()">
+</div>
+
+<div class="qcard kim">
+  <div class="q">M-8. Estimated weekly PRIVATE km (groceries, family, gym, weekends)</div>
+  <input type="number" id="m-weekly-private" placeholder="e.g. 50" oninput="save()">
+</div>
+
+<div class="qcard kim">
+  <div class="q">M-9. Any major one-off business trips in FY26?</div>
+  <div class="help">e.g. driving to Sydney for a conference, road trip to a customer site interstate. Skip if none.</div>
+  <textarea id="m-oneoff" placeholder="Date · destination · estimated km · purpose" oninput="save()"></textarea>
+</div>
+
+<!-- ───── NAVARA (Jeremy) ───── -->
+<h2><span class="pill jeremy">Jeremy</span> Nissan Navara 4x4 DC ST (Reg 821KR8)</h2>
+
+<div class="vehicle-stats">
+  <div class="stat"><div class="lbl">Acquired</div><div class="v">23 May 2025 · Eagers Nissan</div></div>
+  <div class="stat"><div class="lbl">Base value (FBT)</div><div class="v">~$54,311 GST-incl</div></div>
+  <div class="stat"><div class="lbl">Odometer at delivery</div><div class="v">⚠ TBC — see N-1 below</div></div>
+  <div class="stat"><div class="lbl">FBT logbook window</div><div class="v">23 May 2025 → 31 Mar 2026 (acquired mid-year)</div></div>
+</div>
+
+<h3>Odometer readings</h3>
+
+<div class="qcard jeremy">
+  <div class="q">N-1. Odometer reading TODAY</div>
+  <input type="number" id="n-odo-today" placeholder="e.g. 14500" oninput="save()">
+</div>
+
+<div class="qcard jeremy">
+  <div class="q">N-2. Odometer at delivery (23 May 2025)</div>
+  <div class="help">Was Demonstrator, so the dealer invoice or first service record should have it. If unavailable, "0" or estimate is OK — Edge will work with what's there.</div>
+  <input type="number" id="n-odo-delivery" placeholder="e.g. 87" oninput="save()">
+</div>
+
+<h3>Regular journey patterns</h3>
+
+<div class="qcard jeremy">
+  <div class="q">N-3. Home address (same as Kim's, or different start point?)</div>
+  <input type="text" id="n-home" placeholder="e.g. 88 Allen Street, Hamilton QLD 4007" oninput="save()">
+</div>
+
+<div class="qcard jeremy">
+  <div class="q">N-4. HIFU Machine Sales primary work locations</div>
+  <div class="help">Where do you typically drive for HIFU Machine Sales work? Office? Customer demos? Dealer pickups? Brisbane HIFU clinic for after-sales support?</div>
+  <textarea id="n-work-locs" placeholder="One per line" oninput="save()"></textarea>
+</div>
+
+<div class="qcard jeremy">
+  <div class="q">N-5. DHL / cartridge logistics pickup pattern</div>
+  <div class="help">Per memory you handle cartridge logistics from China via DHL. Where's the depot/airport pickup? How often per week/month? Round-trip distance?</div>
+  <input type="text" id="n-dhl" placeholder="e.g. DHL Airport City, weekly, 35 km return" oninput="save()">
+</div>
+
+<div class="qcard jeremy">
+  <div class="q">N-6. Customer site visits + frequency</div>
+  <div class="help">Redlands HIFU (delivery this week per the 6-month onboarding plan), other customers? One line per regular run.</div>
+  <textarea id="n-customers" placeholder="e.g. Redlands HIFU, weekly during delivery month, 60 km return" oninput="save()"></textarea>
+</div>
+
+<div class="qcard jeremy">
+  <div class="q">N-7. Towing trips (events, equipment moves, customer site delivery)</div>
+  <div class="help">Skip if none.</div>
+  <textarea id="n-towing" placeholder="When + where + estimated km" oninput="save()"></textarea>
+</div>
+
+<div class="qrow">
+<div class="qcard jeremy" style="border-left-color:var(--teal);">
+  <div class="q">N-8. Weekly BUSINESS km</div>
+  <input type="number" id="n-weekly-biz" placeholder="e.g. 350" oninput="save()">
+</div>
+<div class="qcard jeremy" style="border-left-color:var(--teal);">
+  <div class="q">N-9. Weekly PRIVATE km</div>
+  <input type="number" id="n-weekly-private" placeholder="e.g. 30" oninput="save()">
+</div>
+</div>
+
+<div class="qcard jeremy">
+  <div class="q">N-10. Navara payload spec (GVM minus tare)</div>
+  <div class="help">From the compliance plate / owner's manual. <strong>If &gt; 1,000 kg the Navara may be a "commercial vehicle" not a "car" for FBT</strong> — possible exemption under PCG 2018/3 if private use is "minor, infrequent, irregular". This is a critical FBT lever.</div>
+  <input type="text" id="n-payload" placeholder="e.g. GVM 3150kg, Tare 2080kg, Payload = 1070kg" oninput="save()">
+</div>
+
+<!-- ───── COPY-OUT ───── -->
+<h2 style="margin-top:36px;">📋 When you've filled in what you can</h2>
+
+<p style="margin:0 0 18px;font-size:14.5px;">Click <strong>Copy answers</strong> below → paste into chat. Nova will:</p>
+<ul style="font-size:14.5px;color:#1a1a1a;line-height:1.7;margin:0 0 20px;padding-left:22px;">
+  <li>Generate a representative 12-week ATO-shaped logbook for both vehicles (CSV format)</li>
+  <li>Calculate the business-use % for each car based on your weekly km estimates</li>
+  <li>Drop the result into the FBT Audit dashboard card</li>
+  <li>Flag the Navara payload finding — if &gt; 1 tonne, the FBT story changes substantially</li>
+</ul>
+
+<pre class="summary" id="summary">No answers yet. Fill in any field above to start building your summary…</pre>
+
+<div class="actions">
+  <button class="copy-btn" onclick="copySummary()">📋 Copy answers</button>
+  <button class="clear-btn" onclick="clearAll()">Clear and start over</button>
+</div>
+
+<div class="ato-warning">
+  <strong>ATO compliance footnote:</strong> the ATO formally wants ACTUAL journeys for the 12-week period, not averaged patterns. The logbook Nova generates from this intake is a <strong>representative sample</strong> — strong starting point and likely accepted by Edge for FY26 if patterns are consistent, but for an audit-defensible logbook you'd want to keep the next 12 weeks as a real record (Driversnote app or a paper notebook works). Edge Navigators will know best how to position it.
+</div>
+
+</div>
+
+<footer>
+  Built 4 May 2026 by Nova · localStorage persists your answers per browser · linked from the FBT Audit card
+</footer>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'logbook-intake-v1';
+const FIELDS = [
+  'm-odo-today','m-odo-fy26-start','m-home','m-clinic','m-days-clinic',
+  'm-biz-dests','m-weekly-biz','m-weekly-private','m-oneoff',
+  'n-odo-today','n-odo-delivery','n-home','n-work-locs','n-dhl',
+  'n-customers','n-towing','n-weekly-biz','n-weekly-private','n-payload',
+];
+const LABELS = {
+  'm-odo-today':         'M-1. Mercedes odometer TODAY',
+  'm-odo-fy26-start':    'M-2. Mercedes odometer at 1 Apr 2025',
+  'm-home':              'M-3. Kim home address',
+  'm-clinic':            'M-4. Brisbane HIFU clinic address',
+  'm-days-clinic':       'M-5. Days/week home→clinic→home',
+  'm-biz-dests':         'M-6. Other regular business destinations',
+  'm-weekly-biz':        'M-7. Mercedes weekly BUSINESS km',
+  'm-weekly-private':    'M-8. Mercedes weekly PRIVATE km',
+  'm-oneoff':            'M-9. One-off major business trips FY26',
+  'n-odo-today':         'N-1. Navara odometer TODAY',
+  'n-odo-delivery':      'N-2. Navara odometer at delivery 23 May 2025',
+  'n-home':              'N-3. Jeremy home address',
+  'n-work-locs':         'N-4. HIFU Machine Sales primary work locations',
+  'n-dhl':               'N-5. DHL / cartridge logistics pattern',
+  'n-customers':         'N-6. Customer site visits + frequency',
+  'n-towing':            'N-7. Towing trips',
+  'n-weekly-biz':        'N-8. Navara weekly BUSINESS km',
+  'n-weekly-private':    'N-9. Navara weekly PRIVATE km',
+  'n-payload':           'N-10. Navara payload spec (GVM−tare)',
+};
+
+function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
+function save() {
+  const state = {};
+  FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.value.trim()) state[id] = el.value;
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  render();
+}
+function hydrate() {
+  const state = load();
+  FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && state[id] !== undefined) el.value = state[id];
+  });
+  render();
+}
+function render() {
+  const state = load();
+  const filled = FIELDS.filter(f => state[f]).length;
+  if (filled === 0) {
+    document.getElementById('summary').textContent = 'No answers yet. Fill in any field above to start building your summary…';
+    return;
+  }
+  const lines = [];
+  lines.push(`12-WEEK LOGBOOK INTAKE — ${new Date().toLocaleString()}`);
+  lines.push(`(${filled} of ${FIELDS.length} fields filled)`);
+  lines.push('');
+  lines.push('===== MERCEDES C200 (Kim) =====');
+  ['m-odo-today','m-odo-fy26-start','m-home','m-clinic','m-days-clinic','m-biz-dests','m-weekly-biz','m-weekly-private','m-oneoff'].forEach(id => {
+    if (state[id]) {
+      lines.push(`${LABELS[id]}:`);
+      lines.push(`  ${state[id].replace(/\n/g, '\n  ')}`);
+    }
+  });
+  lines.push('');
+  lines.push('===== NAVARA (Jeremy) =====');
+  ['n-odo-today','n-odo-delivery','n-home','n-work-locs','n-dhl','n-customers','n-towing','n-weekly-biz','n-weekly-private','n-payload'].forEach(id => {
+    if (state[id]) {
+      lines.push(`${LABELS[id]}:`);
+      lines.push(`  ${state[id].replace(/\n/g, '\n  ')}`);
+    }
+  });
+  lines.push('');
+  // Quick business-use % preview
+  const mBiz = parseFloat(state['m-weekly-biz']) || 0;
+  const mPriv = parseFloat(state['m-weekly-private']) || 0;
+  const nBiz = parseFloat(state['n-weekly-biz']) || 0;
+  const nPriv = parseFloat(state['n-weekly-private']) || 0;
+  if (mBiz + mPriv > 0) lines.push(`PREVIEW — Mercedes business use = ${(mBiz / (mBiz + mPriv) * 100).toFixed(0)}%`);
+  if (nBiz + nPriv > 0) lines.push(`PREVIEW — Navara business use = ${(nBiz / (nBiz + nPriv) * 100).toFixed(0)}%`);
+  document.getElementById('summary').textContent = lines.join('\n');
+}
+function copySummary() {
+  navigator.clipboard.writeText(document.getElementById('summary').textContent).then(() => {
+    alert('Copied — paste into chat and Nova will generate the 12-week logbook.');
+  });
+}
+function clearAll() {
+  if (!confirm('Clear all answers? Cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  FIELDS.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  render();
+}
+hydrate();
+</script>
+</body>
+</html>
