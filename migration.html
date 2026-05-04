@@ -1,0 +1,855 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brisbane HIFU — Calendly → BAT Migration v2</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0f172a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;padding:20px;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-size:clamp(22px,4vw,30px);background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 6px}
+.sub{color:#94a3b8;font-size:14px}
+.intro{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:14px 18px;margin:16px 0;font-size:13px;color:#cbd5e1}
+.intro strong{color:#f8fafc}
+.progress{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:14px 18px;margin:16px 0;display:flex;justify-content:space-between;align-items:center}
+.progress .count{font-size:24px;font-weight:700;color:#a855f7}
+.progress .bar{flex:1;margin:0 14px;height:6px;background:#334155;border-radius:3px;overflow:hidden}
+.progress .bar-fill{height:100%;background:linear-gradient(90deg,#a855f7,#ec4899);width:0%;transition:width 0.3s}
+ol{list-style:none;padding:0;margin:16px 0}
+ol li{background:#1e293b;border:1px solid #334155;border-radius:12px;margin-bottom:10px;padding:12px 16px;transition:opacity 0.2s}
+ol li:has(input:checked){opacity:0.5}
+ol li:has(input:checked) label strong{text-decoration:line-through}
+ol li input{position:absolute;left:-9999px}
+ol li label{display:block;cursor:pointer;position:relative;padding-left:32px}
+ol li label::before{content:'';position:absolute;left:0;top:2px;width:20px;height:20px;border:2px solid #475569;border-radius:6px;background:#0f172a}
+ol li:has(input:checked) label::before{background:linear-gradient(135deg,#a855f7,#ec4899);border-color:transparent}
+ol li:has(input:checked) label::after{content:'✓';position:absolute;left:4px;top:0;color:white;font-weight:700;font-size:14px}
+.row-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.row-head .num{background:#334155;color:#94a3b8;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
+.row-head strong{flex:1;color:#f8fafc;font-size:15px}
+.row-head .price{color:#a855f7;font-weight:600;font-size:13px}
+.row-urls{display:flex;flex-direction:column;gap:6px;font-size:12px}
+.row-urls .lbl{display:inline-block;width:110px;color:#94a3b8}
+.row-urls code{background:#0f172a;padding:3px 6px;border-radius:4px;color:#cbd5e1;font-size:11px;word-break:break-all}
+.row-urls .old code{color:#f87171;text-decoration:line-through;text-decoration-color:rgba(248,113,113,0.4)}
+.row-urls .new{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.row-urls .new code{color:#86efac;flex:1;min-width:200px}
+.copy{background:linear-gradient(135deg,#a855f7,#ec4899);color:white;border:none;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer}
+.copy:hover{opacity:0.85}
+.row-meta{margin-top:6px;font-size:11px;color:#94a3b8;font-style:italic}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#10b981;color:white;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;opacity:0;transition:opacity 0.2s}
+.toast.show{opacity:1}
+@media (max-width:600px){.row-urls .lbl{width:auto;display:block;margin-bottom:2px}}
+</style></head><body><div class="wrap">
+<h1>Brisbane HIFU — Calendly → BAT Migration v2</h1>
+<p class="sub">Strategy A: per-service deep links · 52 URLs to swap on hifu-deals page</p>
+
+<div class="intro">
+  <strong>How to use:</strong> For each row, hit <strong>Copy</strong> on the green BAT URL, then paste into the matching <strong>Book</strong> button in Hostinger Website Builder for /hifu-deals. Tick the box when done. Progress saves automatically — close the browser, your ticks are remembered.
+</div>
+
+<div class="progress">
+  <div>Progress</div>
+  <div class="bar"><div class="bar-fill" id="bar"></div></div>
+  <div class="count"><span id="done">0</span> / 52</div>
+</div>
+
+<ol>
+    <li>
+      <input type="checkbox" id="r0" />
+      <label for="r0">
+        <div class="row-head">
+          <span class="num">1</span>
+          <strong>2 for 1 Face &amp; Neck Deal</strong>
+          <span class="price">$550</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/2-for-1-face-and-neck-deal</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/2-for-1-face-neck</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/2-for-1-face-neck')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>2 for 1 Face &amp; Neck Lift Deal</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r1" />
+      <label for="r1">
+        <div class="row-head">
+          <span class="num">2</span>
+          <strong>20+ Face &amp; Neck — 1 Pack</strong>
+          <span class="price">$350</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/hifu-20-quicklift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/20-face-neck-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/20-face-neck-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>20+ Face &amp; Neck Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r2" />
+      <label for="r2">
+        <div class="row-head">
+          <span class="num">3</span>
+          <strong>20+ Face &amp; Neck — 3 Pack</strong>
+          <span class="price">$300</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/20-face-neck-lift-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/20-face-neck-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/20-face-neck-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>20+ Face &amp; Neck Lift 3-pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r3" />
+      <label for="r3">
+        <div class="row-head">
+          <span class="num">4</span>
+          <strong>35+ Face &amp; Neck — 1 Pack</strong>
+          <span class="price">$500</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/35-hifu-quick-lift-face-neck</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/35-face-neck-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/35-face-neck-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>35+ Face &amp; Neck Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r4" />
+      <label for="r4">
+        <div class="row-head">
+          <span class="num">5</span>
+          <strong>35+ Face &amp; Neck — 3 Pack</strong>
+          <span class="price">$450</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/35-face-neck-lift-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/35-face-neck-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/35-face-neck-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>35+ Face &amp; Neck Lift - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r5" />
+      <label for="r5">
+        <div class="row-head">
+          <span class="num">6</span>
+          <strong>Arms &amp; Hands — 1 Pack</strong>
+          <span class="price">$375</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/arm-hands-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/arms-hands-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/arms-hands-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Arms &amp; Hands Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r6" />
+      <label for="r6">
+        <div class="row-head">
+          <span class="num">7</span>
+          <strong>Arms &amp; Hands — 3 Pack</strong>
+          <span class="price">$350</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/3-pack-arm-hand-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/arms-hands-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/arms-hands-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Arms &amp; Hands Lift - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r7" />
+      <label for="r7">
+        <div class="row-head">
+          <span class="num">8</span>
+          <strong>Face &amp; Neck — 2 People</strong>
+          <span class="price">$820</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/couples-face-neck</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-2-people</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-2-people')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>2 Person - Face &amp; neck</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r8" />
+      <label for="r8">
+        <div class="row-head">
+          <span class="num">9</span>
+          <strong>Face Lift — 2 People</strong>
+          <span class="price">$700</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-face-lift-2-people</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-lift-package-for-2-people</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-lift-package-for-2-people')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face &amp; Neck Lift Package for 2 People</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r9" />
+      <label for="r9">
+        <div class="row-head">
+          <span class="num">10</span>
+          <strong>Face Neck Arms — 1 Pack</strong>
+          <span class="price">$700</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/face-neck-arms</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-arms-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-arms-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, Neck, Arms &amp; Hands - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r10" />
+      <label for="r10">
+        <div class="row-head">
+          <span class="num">11</span>
+          <strong>Face Neck Arms Hands — 3 Pack</strong>
+          <span class="price">$650</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/3-pack-face-neck-arms-hands</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-arms-hands-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-arms-hands-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, neck, arms, hands - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r11" />
+      <label for="r11">
+        <div class="row-head">
+          <span class="num">12</span>
+          <strong>Face Neck Arms Stomach Thighs — 1 Pack</strong>
+          <span class="price">$1600</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/face-neck-arms-stomach-thighs-1-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-arms-stomach-thighs-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-arms-stomach-thighs-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, Neck, Stomach, Waist, Thighs - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r12" />
+      <label for="r12">
+        <div class="row-head">
+          <span class="num">13</span>
+          <strong>Face Neck Arms Stomach Thighs Knees — 3 Pack</strong>
+          <span class="price">$1500</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/face-neck-arms-stomach-thighs-knees-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-arms-stomach-thighs-knees-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-arms-stomach-thighs-knees-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, neck, arms, stomach, waist, thighs, knees - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r13" />
+      <label for="r13">
+        <div class="row-head">
+          <span class="num">14</span>
+          <strong>Face Neck Booty — 1 Pack</strong>
+          <span class="price">$700</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-face-neck-booty</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-booty-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-booty-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>1 Pack - Face, Neck &amp; Chest Lift</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r14" />
+      <label for="r14">
+        <div class="row-head">
+          <span class="num">15</span>
+          <strong>Face Neck Booty — 3 Pack</strong>
+          <span class="price">$650</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/face-neck-booty-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-booty-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-booty-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, neck, booty - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r15" />
+      <label for="r15">
+        <div class="row-head">
+          <span class="num">16</span>
+          <strong>Face Neck Chest — 1 Pack</strong>
+          <span class="price">$650</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-face-neck-chest</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-chest-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-chest-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, Neck &amp; Chest Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r16" />
+      <label for="r16">
+        <div class="row-head">
+          <span class="num">17</span>
+          <strong>Face Neck Chest — 3 Pack</strong>
+          <span class="price">$550</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-recuring-face-neck-chest-</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-chest-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-chest-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, Neck &amp; Chest Lift - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r17" />
+      <label for="r17">
+        <div class="row-head">
+          <span class="num">18</span>
+          <strong>Face Neck Stomach — 1 Pack</strong>
+          <span class="price">$700</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-face-neck-stomach</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-stomach-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-stomach-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, Neck, Stomach, Waist - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r18" />
+      <label for="r18">
+        <div class="row-head">
+          <span class="num">19</span>
+          <strong>Face Neck Stomach Thighs — 1 Pack</strong>
+          <span class="price">$1300</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-face-neck-stomach-thighs</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-stomach-thighs-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-stomach-thighs-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>1 Pack - Face &amp; Neck</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r19" />
+      <label for="r19">
+        <div class="row-head">
+          <span class="num">20</span>
+          <strong>Face Neck Stomach Waist — 3 Pack</strong>
+          <span class="price">$650</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/face-neck-stomach-waist-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-stomach-waist-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-stomach-waist-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, neck, stomach, waist - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r20" />
+      <label for="r20">
+        <div class="row-head">
+          <span class="num">21</span>
+          <strong>Face Neck Stomach Waist Thighs — 3 Pack</strong>
+          <span class="price">$1250</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/face-neck-stomach-waist-thighs-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-stomach-waist-thighs-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-stomach-waist-thighs-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, neck, stomach, waist, thighs, knees - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r21" />
+      <label for="r21">
+        <div class="row-head">
+          <span class="num">22</span>
+          <strong>Face Neck Thighs — 1 Pack</strong>
+          <span class="price">$800</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-face-neck-thighs</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-thighs-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-thighs-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, Neck, Thighs, Knees - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r22" />
+      <label for="r22">
+        <div class="row-head">
+          <span class="num">23</span>
+          <strong>Face Neck Thighs Arms — 1 Pack</strong>
+          <span class="price">$1200</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-face-neck-thighs-arms</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-thighs-arms-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-thighs-arms-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, Neck, Thighs, Knees &amp; Arms - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r23" />
+      <label for="r23">
+        <div class="row-head">
+          <span class="num">24</span>
+          <strong>Face Neck Thighs Knees — 3 Pack</strong>
+          <span class="price">$750</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/face-neck-thighs-knees-1-pack-clone</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-thighs-knees-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-thighs-knees-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, neck, thighs, knees - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r24" />
+      <label for="r24">
+        <div class="row-head">
+          <span class="num">25</span>
+          <strong>Face Neck Thighs Knees Arms — 3 Pack</strong>
+          <span class="price">$1150</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/face-neck-thighs-knees-arms-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/face-neck-thighs-knees-arms-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/face-neck-thighs-knees-arms-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Face, neck, thighs, knees, arms - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r25" />
+      <label for="r25">
+        <div class="row-head">
+          <span class="num">26</span>
+          <strong>Half Face Lift</strong>
+          <span class="price">$300</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/half-face</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/half-face</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/half-face')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Half Face Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r26" />
+      <label for="r26">
+        <div class="row-head">
+          <span class="num">27</span>
+          <strong>Men's Face &amp; Neck — 1 Pack</strong>
+          <span class="price">$500</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-men-face-neck-clone</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/mens-face-neck-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/mens-face-neck-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Men's Face &amp; Neck - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r27" />
+      <label for="r27">
+        <div class="row-head">
+          <span class="num">28</span>
+          <strong>Men's Face &amp; Neck — 3 Pack</strong>
+          <span class="price">$450</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/men-s-face-neck-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/mens-face-neck-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/mens-face-neck-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Men's Face and Neck - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r28" />
+      <label for="r28">
+        <div class="row-head">
+          <span class="num">29</span>
+          <strong>Stomach Waist — 1 Pack</strong>
+          <span class="price">$400</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/stomach-1pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>1 Pack - Face</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r29" />
+      <label for="r29">
+        <div class="row-head">
+          <span class="num">30</span>
+          <strong>Stomach Waist — 3 Pack</strong>
+          <span class="price">$375</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/stomach-waist-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-arms-thighs-knees-lift-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-arms-thighs-knees-lift-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, Waist, Arms, Thighs &amp; Knees Lift - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r30" />
+      <label for="r30">
+        <div class="row-head">
+          <span class="num">31</span>
+          <strong>Stomach Waist Arms — 1 Pack</strong>
+          <span class="price">$550</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-stomach-arms</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-arms-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-arms-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach &amp; Waist Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r31" />
+      <label for="r31">
+        <div class="row-head">
+          <span class="num">32</span>
+          <strong>Stomach Waist Arms — 3 Pack</strong>
+          <span class="price">$500</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/3-pack-stomach-arms</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-arms-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-arms-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, waist, arms, hands - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r32" />
+      <label for="r32">
+        <div class="row-head">
+          <span class="num">33</span>
+          <strong>Stomach Waist Booty — 1 Pack</strong>
+          <span class="price">$500</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/stomach-waist-booty</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-booty-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-booty-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>1 Pack - Chin Lift</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r33" />
+      <label for="r33">
+        <div class="row-head">
+          <span class="num">34</span>
+          <strong>Stomach Waist Booty — 3 Pack</strong>
+          <span class="price">$450</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/tum-tuck-bum-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, Waist, Arms, Booty, Thighs, Knees - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r34" />
+      <label for="r34">
+        <div class="row-head">
+          <span class="num">35</span>
+          <strong>Stomach Waist Booty Thighs Knees — 1 Pack</strong>
+          <span class="price">$800</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-stomach-waist-booty-thighs</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-booty-thighs-knees-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-booty-thighs-knees-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, Waist &amp; Booty Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r35" />
+      <label for="r35">
+        <div class="row-head">
+          <span class="num">36</span>
+          <strong>Stomach Waist Booty Thighs Knees — 3 Pack</strong>
+          <span class="price">$750</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/3-pack-stomach-waist-booty-thigh-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-booty-thighs-knees-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-booty-thighs-knees-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, waist, booty, thighs, knees - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r36" />
+      <label for="r36">
+        <div class="row-head">
+          <span class="num">37</span>
+          <strong>Stomach Waist Thighs Knees — 1 Pack</strong>
+          <span class="price">$700</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-stomach-thigh-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, Waist &amp; Thighs Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r37" />
+      <label for="r37">
+        <div class="row-head">
+          <span class="num">38</span>
+          <strong>Stomach Waist Thighs Knees — 3 Pack</strong>
+          <span class="price">$650</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/stomach-waist-thighs-lift-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, waist &amp; thighs, knees - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r38" />
+      <label for="r38">
+        <div class="row-head">
+          <span class="num">39</span>
+          <strong>Stomach Waist Thighs Knees Arms — 1 Pack</strong>
+          <span class="price">$950</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-stomach-waist-arms-thight-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-arms-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-arms-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, Waist, Arms - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r39" />
+      <label for="r39">
+        <div class="row-head">
+          <span class="num">40</span>
+          <strong>Stomach Waist Thighs Knees Arms — 3 Pack</strong>
+          <span class="price">$900</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/3-pack-stomach-waist-arms-thigh-knee-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-arms-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-arms-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, waist, thighs, knees, arms - 3 pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r40" />
+      <label for="r40">
+        <div class="row-head">
+          <span class="num">41</span>
+          <strong>Stomach Waist Thighs Knees Arms Booty — 1 Pack</strong>
+          <span class="price">$1200</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/stomach-waist-arms-booty-thighs-knees-1</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-arms-booty-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-arms-booty-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, Waist, Booty, Thighs, Knees Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r41" />
+      <label for="r41">
+        <div class="row-head">
+          <span class="num">42</span>
+          <strong>Stomach Waist Thighs Knees Arms Booty — 3 Pack</strong>
+          <span class="price">$1150</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/stomach-waist-booty-thighs-knees-arms-3p</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-arms-booty-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/stomach-waist-thighs-knees-arms-booty-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Stomach, waist, thighs, knees, arms, booty - 3 pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r42" />
+      <label for="r42">
+        <div class="row-head">
+          <span class="num">43</span>
+          <strong>Thigh (front/back) Knee — 1 Pack</strong>
+          <span class="price">$350</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-thigh-front-or-back-knee-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/thigh-front-back-knee-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/thigh-front-back-knee-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Thighs (front OR back) &amp; Knees Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r43" />
+      <label for="r43">
+        <div class="row-head">
+          <span class="num">44</span>
+          <strong>Thigh (front/back) Knee — 3 Pack</strong>
+          <span class="price">$300</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/3-pack-thigh-front-or-back-knee-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/thigh-front-back-knee-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/thigh-front-back-knee-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Thighs (front OR back) &amp; knees - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r44" />
+      <label for="r44">
+        <div class="row-head">
+          <span class="num">45</span>
+          <strong>Thighs &amp; Arms — 1 Pack</strong>
+          <span class="price">$800</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-thighs-and-arms</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/thighs-arms-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/thighs-arms-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>1 Pack - Eye &amp; Brow Lift</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r45" />
+      <label for="r45">
+        <div class="row-head">
+          <span class="num">46</span>
+          <strong>Thighs &amp; Knees — 1 Pack</strong>
+          <span class="price">$600</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/1-pack-thigh-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/thighs-knees-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/thighs-knees-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Thighs &amp; Knees Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r46" />
+      <label for="r46">
+        <div class="row-head">
+          <span class="num">47</span>
+          <strong>Thighs &amp; Knees — 3 Pack</strong>
+          <span class="price">$575</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/3pack-thigh-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/thighs-knees-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/thighs-knees-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Thighs &amp; Knees Lift - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r47" />
+      <label for="r47">
+        <div class="row-head">
+          <span class="num">48</span>
+          <strong>Thighs Knees Arms — 3 Pack</strong>
+          <span class="price">$750</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/thighs-knees-arms-3-pack</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/thighs-knees-arms-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/thighs-knees-arms-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Thighs, knees &amp; arms - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r48" />
+      <label for="r48">
+        <div class="row-head">
+          <span class="num">49</span>
+          <strong>Thighs Knees Booty — 1 Pack</strong>
+          <span class="price">$700</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/thigh-booty</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/thighs-knees-booty-1p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/thighs-knees-booty-1p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Thighs, Knees &amp; Booty Lift - 1 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r49" />
+      <label for="r49">
+        <div class="row-head">
+          <span class="num">50</span>
+          <strong>Thighs Knees Booty — 3 Pack</strong>
+          <span class="price">$650</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/3-pack-thigh-knee-booty-lift</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/thighs-knees-booty-3p</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/thighs-knees-booty-3p')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Thigh, knees, booty - 3 Pack</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r50" />
+      <label for="r50">
+        <div class="row-head">
+          <span class="num">51</span>
+          <strong>Ultimate HIFU Makeover</strong>
+          <span class="price">$1700</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/hifu-ultimate-makeover</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/ultimate-makeover</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/ultimate-makeover')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>Ultimate Face &amp; Body Makeover</em></div>
+      </label>
+    </li>
+    <li>
+      <input type="checkbox" id="r51" />
+      <label for="r51">
+        <div class="row-head">
+          <span class="num">52</span>
+          <strong>VIP Plan — Face Neck Chest Body</strong>
+          <span class="price">$700</span>
+        </div>
+        <div class="row-urls">
+          <div class="old"><span class="lbl">Old (Calendly)</span><code>https://calendly.com/brisbane-hifu-clinic/vip-plan-face-neck-chest-body</code></div>
+          <div class="new"><span class="lbl">New (BAT)</span><code>https://app.bookatreatment.ai/book/bh/vip-plan-face-neck-chest-body</code><button class="copy" onclick="copyText('https://app.bookatreatment.ai/book/bh/vip-plan-face-neck-chest-body')">Copy</button></div>
+        </div>
+        <div class="row-meta">→ Maps to BAT service: <em>VIP Plan - Face, Neck, Chest &amp; Body Lift - 4-Pack</em></div>
+      </label>
+    </li></ol>
+</div>
+<div class="toast" id="toast">Copied!</div>
+<script>
+const STORAGE = 'bh-migration-v3-final';
+const checks = document.querySelectorAll('input[type=checkbox]');
+const bar = document.getElementById('bar'); const done = document.getElementById('done');
+const saved = JSON.parse(localStorage.getItem(STORAGE) || '[]');
+checks.forEach((c, i) => { if (saved.includes(i)) c.checked = true; c.addEventListener('change', save); });
+function save() {
+  const arr = []; checks.forEach((c, i) => { if (c.checked) arr.push(i); });
+  localStorage.setItem(STORAGE, JSON.stringify(arr));
+  done.textContent = arr.length;
+  bar.style.width = (arr.length / checks.length * 100) + '%';
+}
+save();
+function copyText(txt) {
+  navigator.clipboard.writeText(txt).then(() => {
+    const t = document.getElementById('toast'); t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1500);
+  });
+}
+</script></body></html>
