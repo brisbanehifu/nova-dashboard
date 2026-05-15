@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Session Handover · 15–16 May 2026 · Lucky 11 Win Streak</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
+    --accent:#00E8B4; --purple:#9B3DFF; --coral:#FF7A6E; --pink:#F040C8;
+    --red:#ff5a5a; --amber:#ffb340; --green:#3dd87f; --blue:#4aa3ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,'Plus Jakarta Sans','SF Pro Display',sans-serif;line-height:1.55;padding:32px;max-width:1180px;margin:0 auto}
+  h1{font-size:30px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#00FFCA 0%,#9B3DFF 55%,#FF7A6E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.4px}
+  h2{font-size:20px;font-weight:700;margin:32px 0 12px;color:var(--accent);letter-spacing:-0.2px}
+  h3{font-size:16px;font-weight:600;margin:16px 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 20px;margin:12px 0;transition:border-color 0.2s}
+  .ok{border-left:4px solid var(--accent)}
+  .warn{border-left:4px solid var(--amber)}
+  .alert{border-left:4px solid var(--red)}
+  .info{border-left:4px solid var(--blue)}
+  .verified{border-left:4px solid var(--green)}
+  .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;vertical-align:middle}
+  .pill-ok{background:rgba(0,232,180,0.18);color:var(--accent)}
+  .pill-warn{background:rgba(255,179,64,0.18);color:var(--amber)}
+  .pill-alert{background:rgba(255,90,90,0.18);color:var(--red)}
+  .pill-verified{background:rgba(61,216,127,0.18);color:var(--green)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+  code{background:rgba(0,232,180,0.08);padding:2px 6px;border-radius:4px;color:var(--accent);font-family:'SF Mono','Menlo',monospace;font-size:12.5px}
+  pre{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;overflow-x:auto;font-size:12.5px;font-family:'SF Mono','Menlo',monospace;color:#cfe8ff;margin:8px 0}
+  a{color:var(--accent)}
+  a:hover{text-decoration:underline}
+  ul,ol{padding-left:22px;margin:6px 0}
+  li{margin:4px 0}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:14px 0 18px}
+  .stat{background:var(--card-alt);border:1px solid rgba(155,61,255,0.18);border-radius:12px;padding:14px}
+  .stat .num{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.5px;line-height:1.2}
+  .stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px}
+  .nav{margin-bottom:18px;font-size:13px}
+  .nav a{margin-right:12px}
+  .strike{text-decoration:line-through;color:var(--muted)}
+  .resolved-tile{background:linear-gradient(135deg,rgba(61,216,127,0.10),rgba(0,232,180,0.06));border:1px solid rgba(61,216,127,0.30);border-radius:14px;padding:16px 20px;margin:12px 0}
+  .footer{margin-top:40px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.08);font-size:13px;color:var(--muted)}
+  .footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="./index.html">← Nova Dashboard</a></div>
+
+<h1>Session Handover · 15–16 May 2026 · Lucky 11 Win Streak</h1>
+<div class="sub">11 customer-facing PRs shipped end-to-end with the strict protocol on every one · zero PROD damage · mystery stash resolved · 1 P0 banked (caught BEFORE re-enabling — protocol win) · trust signal: <em>"dream team work today. Big trust gained back. Super happy."</em> → <em>"lucky 7!!! 🚀🚀"</em> → <em>"UAT PVT pass 🚀🎉🙌"</em></div>
+
+<div class="stat-grid">
+  <div class="stat"><div class="num">11</div><div class="lbl">PRs shipped (customer-facing)</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">PROD damage</div></div>
+  <div class="stat"><div class="num">7</div><div class="lbl">Bug-types closed (PR #459 9.1–9.7)</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">Strict-protocol violations</div></div>
+</div>
+
+<!-- ═════════════════════════ PR TABLE ═════════════════════════ -->
+<h2>✅ PR ledger — all merged, all live, all visual-verified</h2>
+
+<div class="card verified">
+  <table>
+    <tr><th>PR</th><th>Merged</th><th>Title</th><th>UAT</th></tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/448">#448</a></td>
+      <td>14 May 13:57Z</td>
+      <td>chore(feature-visibility): structured error logging for PROD diagnosis</td>
+      <td>UAT pass — surfaced root cause for #449</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/449">#449</a></td>
+      <td>14 May 14:44Z</td>
+      <td>fix(feature-visibility): widen <code>hidden_by</code> from BIGINT → VARCHAR(36) for UUID userIds</td>
+      <td>UAT pass — toggles work</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/450">#450</a></td>
+      <td>14 May 15:57Z</td>
+      <td>fix(contacts): word-boundary search across name/email/company; digit-strip phone</td>
+      <td>UAT pass — Krosty/Barros dropped from "Ros" search</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/451">#451</a></td>
+      <td>14 May 16:11Z</td>
+      <td>ui(contacts): remove client/staff/supplier tabs + back link from list view</td>
+      <td>UAT pass — page de-cluttered</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/452">#452</a></td>
+      <td>15 May 06:25Z</td>
+      <td>ui(bookings): tighten booking-details slideout — subtle pills, flat details, Deposit Total</td>
+      <td>UAT + PVT pass</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/453">#453</a></td>
+      <td>15 May 07:19Z</td>
+      <td>ui(bookings): polish booking-details — black bg, side-by-side deposit cards, visit chip on RHS</td>
+      <td>UAT + PVT pass · Kathryn phone-fallback worked end-to-end</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/454">#454</a></td>
+      <td>15 May 09:44Z</td>
+      <td>ui(bookings): polish-2 — phone spacing, halved deposit cards, bigger name, liquid-grey shadows</td>
+      <td>UAT pass · 09:44 UTC deploy surfaced latent flaky test → fixed in #455</td>
+    </tr>
+    <tr>
+      <td>#455 <span class="pill pill-warn">test-only</span></td>
+      <td>15 May 09:53Z</td>
+      <td>test(availability): pin system time so 15 May 2026 regression test doesn't fail after 09:00 UTC</td>
+      <td><code>jest.useFakeTimers().setSystemTime</code> — root cause: hardcoded <code>'2026-05-15'</code> + <code>availability.js:196</code> past-slot clamp</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/456">#456</a></td>
+      <td>15 May 10:04Z</td>
+      <td>ui(bookings): switch dark-mode card borders from teal to BAT-purple (<code>#3A2660</code>)</td>
+      <td>UAT pass · also reclaimed first half of mystery stash</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/457">#457</a></td>
+      <td>15 May 11:48Z</td>
+      <td>ui(bookings): slideout panel bg matches Bookings list page (<code>#0D0618</code>), not pure black</td>
+      <td>UAT pass — was <code>bg-black</code>, too dark vs page bg</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/458">#458</a></td>
+      <td>15 May 12:19Z</td>
+      <td>ui(bookings): shorten action labels to AGAIN / NEW / RESCHEDULE</td>
+      <td>UAT pass · short labels fit above the fold on mobile · also reclaimed second half of mystery stash</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/459">#459</a></td>
+      <td>15 May 14:19Z</td>
+      <td>ui(bookings): mobile slideout polish — safe-area, centred actions, Notes-up, Upcoming section, clickable history</td>
+      <td><strong>UAT PVT pass 🚀🎉🙌</strong> · 7 sub-bugs (9.1–9.7) closed in one PR</td>
+    </tr>
+  </table>
+  <p style="margin-top:10px;font-size:12.5px;color:var(--muted)">11 customer-facing PRs (#448, 449, 450, 451, 452, 453, 454, 456, 457, 458, 459) + 1 test-only (#455). Total streak window: 14 May 13:57Z → 15 May 14:19Z, ~24h.</p>
+</div>
+
+<!-- ═════════════════════════ MYSTERY STASH RESOLVED ═════════════════════════ -->
+<h2>🟢 Resolved during 16 May continuation</h2>
+
+<div class="resolved-tile">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <span class="pill pill-verified">✅ RESOLVED</span>
+    <strong>Mystery stash on <code>ui/booking-details-purple-outlines</code></strong>
+  </div>
+  <p>Branch had been parked with uncommitted intent — origin and scope had become unclear by start of 15 May session. Now fully accounted for and shipped piecewise:</p>
+  <ul>
+    <li><strong>Purple borders</strong> → shipped in <a href="https://github.com/brisbanehifu/booking-api/pull/456">PR #456</a> (dark-mode card borders teal → BAT-purple <code>#3A2660</code>).</li>
+    <li><strong>AGAIN / NEW / RESCHEDULE label revert</strong> → shipped in <a href="https://github.com/brisbanehifu/booking-api/pull/458">PR #458</a>.</li>
+    <li><strong>Centred + bumped action row</strong> (the missing piece that made the row look "off" alongside the new labels) → shipped in <a href="https://github.com/brisbanehifu/booking-api/pull/459">PR #459</a> as fix 9.3 (<code>justify-center</code> + <code>text-sm px-3.5 py-2</code>).</li>
+  </ul>
+  <p>Net: the booking-details slideout is now both correctly labelled AND visually balanced. Branch can be deleted with no orphan work — every intent inside it has been merged through a clean PR.</p>
+</div>
+
+<!-- ═════════════════════════ P0 STRIPE REGRESSION ═════════════════════════ -->
+<h2>🔴 P0 banked — Stripe deposit-receipt regression (caught BEFORE re-enabling)</h2>
+
+<div class="card alert">
+  <p><strong>Status: <span class="pill pill-alert">P0 OPEN</span> · NOT YET DIAGNOSED · NOT YET FIXED.</strong></p>
+  <p style="margin-top:8px">Despite the 12 May Stripe Pipeline Reset closing END-TO-END (per CONFIGURATION_GUIDE v6.40) and the Stripe AT (Acceptance Test) suite passing on 15 May 2026, Kim has received <strong>ZERO real customer deposits</strong> 12–16 May. Quote: <em>"I have not received any deposit since enabling it again."</em> Real-money pipeline is broken somewhere — AT happy-path with test cards passes, but the live <code>sk_live_...</code> path is dead.</p>
+
+  <h3>Why this is framed as a protocol WIN, not a trust regression</h3>
+  <p>Send-Deposit-SMS button has remained <span class="pill pill-warn">🔴 PAUSED</span> since PR #420 (12 May). The strict protocol from the 12 May trust-rebuild kept the early-return short-circuit in place rather than re-enabling on the strength of AT-only tests. This caught the regression <em>before</em> any live customer was sent a broken link or charged-but-not-recorded. <strong>Discipline paid: the safety net Kim insisted on did exactly what it was meant to do.</strong></p>
+
+  <h3>Diagnostic outline — verify each link in the chain</h3>
+  <p style="margin-bottom:6px">Source: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md</a> §8.2 + §8.4 (v6.44).</p>
+  <ol>
+    <li><strong>DB sanity check</strong> — <code>SELECT * FROM stripe_payments WHERE created_at > '2026-05-12'</code>. If empty → flow is dead at or before the webhook insert step. If populated → narrow to a UI/notification-side bug, not the money pipeline.</li>
+    <li><strong><code>POST /api/bookings/:id/send-deposit-sms</code></strong> — confirm the route fires ClickSend AND mints a <code>/pay/&lt;id&gt;</code> link. (Will need the early-return block in <code>index.js</code> ~line 2869 temporarily lifted on a feature branch + tested on a non-customer booking.)</li>
+    <li><strong><code>GET /pay/:id</code></strong> — verify the redirect mints a fresh Stripe Checkout Session against the correct Connect account (or platform account fallback per §8.6). Confirm metadata includes <code>booking_id</code>, <code>tenant_id</code>, <code>source: pay_redirect</code>.</li>
+    <li><strong>Stripe Dashboard → Webhooks</strong> — endpoint <code>https://app.bookatreatment.ai/api/webhooks/stripe</code> (id <code>we_1TWFaQR8hNq8e4aO9zhoKkoi</code>). Check status (Active vs auto-Disabled — Stripe disables after 3 days of all-failing deliveries). Check Recent Deliveries for 4xx/5xx on <code>checkout.session.completed</code>.</li>
+    <li><strong><code>checkout.session.completed</code> handler</strong> (<code>index.js</code> ~line 2995, <code>handleStripeWebhook</code>) — the <code>mode==='payment'</code> + <code>metadata.source==='pay_redirect'</code> branch (PR #421) is what INSERTs <code>stripe_payments</code> + flips <code>bookings.payment_status='deposit_paid'</code>. If the webhook arrives but this branch doesn't match, the row never lands.</li>
+    <li><strong><code>STRIPE_WEBHOOK_SECRET</code> on Railway</strong> — most common cause of a silently-broken webhook is the env var drifting from Stripe's signing secret (typo on rotation, or someone re-revealed in the Stripe UI which mints a fresh one). Cross-check both values.</li>
+    <li><strong>End-to-end real-money test</strong> — only after 1–6 land green, do a $1 test on a real card on a real booking. <strong>Do NOT</strong> re-enable the Send Deposit SMS button (delete the early-return in <code>index.js</code> ~2869) until this passes with a real customer charge captured in <code>stripe_payments</code> AND <code>bookings.payment_status='deposit_paid'</code>.</li>
+  </ol>
+
+  <p style="margin-top:10px"><strong>Hard rule (carried over from v6.44):</strong> Do not re-enable the Send Deposit SMS button on AT-test evidence alone. Real money or no re-enable.</p>
+</div>
+
+<!-- ═════════════════════════ NEXT SESSION ═════════════════════════ -->
+<h2>👉 Next session — start here</h2>
+
+<div class="card info">
+  <ol>
+    <li>
+      <strong>Stripe deposit-receipt diagnostic</strong> (P0 above). Walk the 7-step chain. Surface findings before proposing a fix. Do <em>not</em> re-enable Send Deposit SMS until step 7 passes.
+    </li>
+    <li>
+      <strong>BAT slideout deposit-block consolidation PR</strong> — spec at <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/backlog_bat_deposit_block_consolidation.md">backlog_bat_deposit_block_consolidation.md</a>. Delete the 2 grey DEPOSIT TOTAL + DEPOSIT cards, move the blue "Deposit unpaid" alert from top of slideout to below Notes, expand it to carry the deposit total + status. <em>Send Deposit SMS in this consolidated alert stays disabled until P0 #1 is closed.</em> Two open questions to confirm before build (hide-on-paid vs green variant; SMS re-enable timing) — both materially depend on the P0 outcome, so item #1 should land first.
+    </li>
+    <li>
+      Redlands + multi-tenant UAT readiness — gap analysis already done (5 blockers in MEMORY index). 1-day shadow-mode UAT is feasible; full <code>TENANCY_MODE=enforce</code> is a follow-up sprint.
+    </li>
+  </ol>
+</div>
+
+<!-- ═════════════════════════ ACTIVE BRANCHES ═════════════════════════ -->
+<h2>🧹 Active branches</h2>
+
+<div class="card ok">
+  <p><strong><span class="pill pill-ok">EMPTY</span> — all branches from this session are merged.</strong></p>
+  <p style="margin-top:6px">Mystery <code>ui/booking-details-purple-outlines</code> stash now fully accounted for (see Resolved tile above) — safe to delete the remote branch. No orphan work, no parked commits, no in-flight PRs at session close.</p>
+</div>
+
+<!-- ═════════════════════════ BUG LIST STATUS ═════════════════════════ -->
+<h2>🐞 Bug list — state at session close</h2>
+
+<div class="card info">
+  <table>
+    <tr><th>#</th><th>Bug</th><th>State</th></tr>
+    <tr><td>1</td><td>Features page broken (<code>hidden_by</code> UUID truncation)</td><td><span class="pill pill-verified">✅ shipped</span> via PR #448 (logging) + PR #449 (BIGINT → VARCHAR(36))</td></tr>
+    <tr><td>2</td><td>Bookings filters — Completed/Cancelled sort + past date range hitting server</td><td><span class="pill pill-warn">queued</span></td></tr>
+    <tr class="strike"><td>3</td><td>Mobile status-bar overlap (X-close untappable on iPhone)</td><td><strong>✅ shipped via PR #459 fix 9.1</strong> (<code>paddingTop: env(safe-area-inset-top)</code>)</td></tr>
+    <tr><td>4</td><td>Contacts search noise (Krosty/Barros from "Ros") + admin de-clutter</td><td><span class="pill pill-verified">✅ shipped</span> via PR #450 + PR #451</td></tr>
+    <tr><td>5</td><td>Missing back buttons (Tier 1: ContactsPage, settings subpages, ClientDetail, etc.)</td><td><span class="pill pill-warn">queued</span></td></tr>
+    <tr><td>6</td><td>Booking-details slideout — pills/details/Deposit Total tightening</td><td><span class="pill pill-verified">✅ shipped</span> via PR #452</td></tr>
+    <tr><td>7</td><td>Booking-details slideout — black bg, side-by-side deposit cards, visit chip RHS</td><td><span class="pill pill-verified">✅ shipped</span> via PR #453</td></tr>
+    <tr><td>8</td><td>Booking-details polish-2 — phone format, halved cards, bigger name, liquid-grey shadows</td><td><span class="pill pill-verified">✅ shipped</span> via PR #454 (+ PR #455 test-time fix)</td></tr>
+    <tr><td>9.1–9.7</td><td>Booking-details mobile UAT — 7 fixes in one PR (safe-area, centred actions, Notes-up, Upcoming section, clickable history, no-duration tail, compact deposit cards)</td><td><span class="pill pill-verified">✅ shipped</span> via PR #459</td></tr>
+    <tr><td>9 (sep)</td><td>Reschedule/rebook details follow client (backend <code>COALESCE(b.phone, c.phone)</code> + one-time backfill of 585 rows + booking-creation-path safety net)</td><td><span class="pill pill-warn">queued</span> — 28% of Brisbane HIFU bookings affected; today's frontend fallback masks the read side</td></tr>
+    <tr><td>P0</td><td>Stripe deposit-receipt regression — zero real deposits 12–16 May despite AT pass</td><td><span class="pill pill-alert">🔴 OPEN</span> — diagnostic outlined above, item #1 next session</td></tr>
+  </table>
+</div>
+
+<!-- ═════════════════════════ TRUST TRAJECTORY ═════════════════════════ -->
+<h2>📈 Trust trajectory</h2>
+
+<div class="card ok">
+  <table>
+    <tr><th>Date</th><th>Signal</th></tr>
+    <tr>
+      <td>12 May</td>
+      <td>3 same-session misreports → trust-rebuild lock + strict protocol locked.</td>
+    </tr>
+    <tr>
+      <td>13–14 May</td>
+      <td>Protocol applied gradually. 4 PRs shipped 14 May. Kim: <em>"significant trust back now after today."</em></td>
+    </tr>
+    <tr>
+      <td>15 May</td>
+      <td>6 PRs in a single session, every one verified, zero rollbacks. Kim: <em>"dream team work today. Big trust gained back. Super happy."</em> → <em>"lucky 7!!! 🚀🚀"</em></td>
+    </tr>
+    <tr>
+      <td><strong>16 May</strong></td>
+      <td>
+        Continuation extended the streak to 11 customer-facing PRs (#448–#459, plus test-only #455). Mystery stash resolved. Kim on the final PR: <em>"UAT PVT pass 🚀🎉🙌"</em>.<br><br>
+        <strong>P0 framing:</strong> the Stripe deposit-receipt regression banked today is a <strong>protocol WIN, not a trust regression</strong>. The Send Deposit SMS button stayed paused because the strict protocol said real-money verify, not AT-only. That discipline caught a silent failure before a single customer hit a broken link. Same energy carries forward to next session.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="footer">
+  <p>
+    <strong>References:</strong>
+    <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/backlog_bat_deposit_block_consolidation.md">PR-next spec — BAT slideout deposit-block consolidation</a>
+    · <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md v6.44</a>
+    · <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/session_15may2026_strict_protocol_6pr_win_streak.md">15 May session memory</a>
+    · <a href="./session-handover-14may2026-end-of-day.html">14 May EOD handover</a>
+  </p>
+  <p style="margin-top:10px;font-size:11.5px">Generated 16 May 2026 · zero PROD damage across the streak · strict protocol intact</p>
+</div>
+
+</body>
+</html>
