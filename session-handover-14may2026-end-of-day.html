@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Session Handover · 14 May 2026 EOD · Today's Wins + Light-Mode Spec Ready</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
+    --accent:#00E8B4; --purple:#9B3DFF; --coral:#FF7A6E; --pink:#F040C8;
+    --red:#ff5a5a; --amber:#ffb340; --green:#3dd87f; --blue:#4aa3ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,'Plus Jakarta Sans','SF Pro Display',sans-serif;line-height:1.55;padding:32px;max-width:1180px;margin:0 auto}
+  h1{font-size:30px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#00FFCA 0%,#9B3DFF 55%,#FF7A6E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.4px}
+  h2{font-size:20px;font-weight:700;margin:32px 0 12px;color:var(--accent);letter-spacing:-0.2px}
+  h3{font-size:16px;font-weight:600;margin:16px 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 20px;margin:12px 0;transition:border-color 0.2s}
+  .ok{border-left:4px solid var(--accent)}
+  .warn{border-left:4px solid var(--amber)}
+  .alert{border-left:4px solid var(--red)}
+  .info{border-left:4px solid var(--blue)}
+  .verified{border-left:4px solid var(--green)}
+  .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;vertical-align:middle}
+  .pill-ok{background:rgba(0,232,180,0.18);color:var(--accent)}
+  .pill-warn{background:rgba(255,179,64,0.18);color:var(--amber)}
+  .pill-alert{background:rgba(255,90,90,0.18);color:var(--red)}
+  .pill-verified{background:rgba(61,216,127,0.18);color:var(--green)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+  code{background:rgba(0,232,180,0.08);padding:2px 6px;border-radius:4px;color:var(--accent);font-family:'SF Mono','Menlo',monospace;font-size:12.5px}
+  pre{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;overflow-x:auto;font-size:12.5px;font-family:'SF Mono','Menlo',monospace;color:#cfe8ff;margin:8px 0}
+  a{color:var(--accent)}
+  a:hover{text-decoration:underline}
+  ul,ol{padding-left:22px;margin:6px 0}
+  li{margin:4px 0}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:14px 0 18px}
+  .stat{background:var(--card-alt);border:1px solid rgba(155,61,255,0.18);border-radius:12px;padding:14px}
+  .stat .num{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.5px;line-height:1.2}
+  .stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px}
+  .nav{margin-bottom:18px;font-size:13px}
+  .nav a{margin-right:12px}
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="./index.html">← Nova Dashboard</a></div>
+
+<h1>Session Handover · 14 May 2026 · End of Day</h1>
+<div class="sub">4 PRs shipped + verified live · Redlands criterion #3 closed · Light-mode bug discovered + scoped · Trust rebuilt</div>
+
+<div class="stat-grid">
+  <div class="stat"><div class="num">5</div><div class="lbl">PRs shipped today</div></div>
+  <div class="stat"><div class="num">3 / 4</div><div class="lbl">Redlands criteria done or scoped</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">PRs left open at EOD</div></div>
+  <div class="stat"><div class="num">P0</div><div class="lbl">Light-mode bug status</div></div>
+</div>
+
+<!-- ═════════════════════════ TODAY'S WINS ═════════════════════════ -->
+<h2>✅ Today's wins — all verified live on PROD</h2>
+
+<div class="card verified">
+  <table>
+    <tr><th>PR</th><th>Title</th><th>Verification</th></tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/439">#439</a></td>
+      <td>feat(sms): per-tenant ClickSend credentials + sender id</td>
+      <td>Live <code>getTenantClickSendCreds(1)</code> → BrisbaneHifu / FBC8...49AB / +61416248639 · <code>(4)</code> → Redlandshifu / B5D5...001E / RedlandHIFU. Tenant isolation confirmed.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/440">#440</a></td>
+      <td>ci(integration): timeout-minutes:15 — Layer 1 of CI hardening</td>
+      <td>Validated on its own CI run — Integration Tests exited at exactly 15m15s instead of hanging. <strong>Refinement banked</strong>: produces CANCELLED conclusion, branch protection still blocks. Layer 2 is the actual unblock.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/443">#443</a></td>
+      <td>feat(ui): Bookings/Calendar polish — orphan header + first-name on narrow events</td>
+      <td>Live screenshot (after hard reload to bust stale lazy-chunk): Bookings desktop shows PageHeader alone (Calendly row gone). Calendar overlap events show "Kathryn" / "Pooja" / "Beth" / "Kristine" / "Mandy" / "Peter" — first-name-only on overlap, full name when standalone (Tracey Press).</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/444">#444</a></td>
+      <td>fix(ui): PageHeader title squishes word-by-word at laptop viewport</td>
+      <td>Kim flagged via laptop screenshot of <code>/admin/event-types</code> — title block was stacking "BRISBANE / HIFU / Services / 63 / active / services" because actions block was `flex-shrink-0` + `md:flex-nowrap`. Fix: actions allowed to wrap to 2nd row + give up width. Bundle hash flipped <code>Co8XFVCJ.js</code> → <code>Db4Entj1.js</code>, new <code>PageHeader-CfPg1tJS.js</code> contains both new classes. Kim verifies on her laptop post-deploy.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ═════════════════════════ REDLANDS CRITERIA ═════════════════════════ -->
+<h2>🎯 Redlands re-entry criteria — state at session end</h2>
+
+<div class="card info">
+  <table>
+    <tr><th>#</th><th>Criterion</th><th>State</th></tr>
+    <tr><td>1</td><td>Brisbane HIFU bug backlog cleared</td><td>Partial — 4 PRs landed today plus parallel-merge hamburger fix + forecast price fix. 1 bug issue + 5-6 actionable PRs in queue still.</td></tr>
+    <tr><td>2</td><td>UI consistency sweep done (or clearly scoped)</td><td><strong class="pill pill-ok">CLEARLY SCOPED</strong> — Bookings/Calendar polish shipped (PR #443). Light-mode rebuild fully scoped in <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/B3_LIGHT_MODE_REBUILD_SPEC.md">B3 spec</a>.</td></tr>
+    <tr><td>3</td><td>Per-tenant ClickSend code shipped + verified on tenant 1</td><td><strong class="pill pill-verified">DONE</strong> — PR #439, tenant 4 also seeded with Redlandshifu creds.</td></tr>
+    <tr><td>4</td><td>RedlandHIFU alpha tag APPROVED by ACMA</td><td>Kim handling ACMA Assist click — 24-72h external approval clock.</td></tr>
+  </table>
+</div>
+
+<!-- ═════════════════════════ CRITICAL FINDING ═════════════════════════ -->
+<h2>🔴 Critical finding — light-mode bug still open</h2>
+
+<div class="card alert">
+  <p>Found tonight during visual audit on live PROD via Chrome MCP. Verified DOM-level:</p>
+  <ul>
+    <li><code>data-theme="light"</code> correctly set on <code>&lt;html&gt;</code></li>
+    <li><code>data-lg="on"</code> (Liquid Glass active)</li>
+    <li>Body bg computed = <code>rgb(247, 246, 251)</code> — light grey ✅</li>
+  </ul>
+  <p style="margin-top:8px"><strong>BUT</strong>: sidebar / PageHeader card / booking row cards / calendar event cards / calendar today-column highlight all use hard-coded dark color classes (<code>bg-[#221240]</code> etc) that don't respect the theme attribute.</p>
+  <p style="margin-top:8px"><strong>User impact</strong>: clicking "Light mode" toggle changes the label but the app looks unchanged. Anyone preferring light mode cannot use the app.</p>
+  <p style="margin-top:8px"><strong>Scope</strong>: 30+ admin pages + 20+ component files (51+ occurrences in components alone). Sized at 1.5-2 days full sweep / 4-8 hours for Tier 1 high-traffic first pass.</p>
+  <p style="margin-top:8px"><strong>Full plan</strong>: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/B3_LIGHT_MODE_REBUILD_SPEC.md">B3_LIGHT_MODE_REBUILD_SPEC.md</a></p>
+</div>
+
+<!-- ═════════════════════════ NEXT SESSION ═════════════════════════ -->
+<h2>🚀 Next session — picking up cold</h2>
+
+<div class="card ok">
+  <h3>Read in this order</h3>
+  <ol>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/MEMORY.md"><code>MEMORY.md</code></a> — top entry is today's summary</li>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/session_14may2026_wins_and_light_mode_finding.md"><code>session_14may2026_wins_and_light_mode_finding.md</code></a> — full session detail</li>
+    <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/B3_LIGHT_MODE_REBUILD_SPEC.md"><strong>B3_LIGHT_MODE_REBUILD_SPEC.md</strong></a> — the actual work plan</li>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_visual_verify_frontend_before_push.md"><code>feedback_visual_verify_frontend_before_push.md</code></a> — extended tonight; now covers UI audits too</li>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_serialize_deployments.md"><code>feedback_serialize_deployments.md</code></a> — parallel-merge guard rule</li>
+  </ol>
+</div>
+
+<div class="card warn">
+  <h3>Recommended next-session work order</h3>
+  <ol>
+    <li><strong>Verify the bug still exists</strong> — Chrome MCP to <code>https://app.bookatreatment.ai/admin/bookings</code>, set <code>localStorage.theme='light'</code> + reload, screenshot. If sidebar still dark, bug is still there.</li>
+    <li><strong>Surface B3 §6 decision points to Kim</strong> — brand colors in light mode, default theme choice, LG alignment, sidebar geometry</li>
+    <li><strong>Lock B3 §5 color mapping table</strong> — grep existing <code>dark:</code> pairs in the repo to derive definitive mappings</li>
+    <li><strong>Start Tier 1</strong> — branch <code>feat/b3-light-mode-rebuild-tier1</code>; PageHeader + AdminLayoutLG + BookingDetailPanel + BookingsPage + CalendarPage + HomeScreen</li>
+    <li><strong>Per-component visual-verify in BOTH modes</strong> via Chrome MCP screenshots</li>
+    <li><strong>Ship Tier 1 PR</strong> — full 4-gate flow (tsc · visual-verify both modes · serialize check · parallel-merge re-check post-merge)</li>
+    <li><strong>If time allows</strong>: Tier 2 admin pages remaining. Else schedule for following session.</li>
+  </ol>
+</div>
+
+<!-- ═════════════════════════ OTHER QUEUED ═════════════════════════ -->
+<h2>🗂 Other work still queued (not blocking)</h2>
+<div class="card">
+  <ul>
+    <li><strong>Layer 2 CI hardening</strong> — schema baseline + numbered migrations. Refinement banked: Layer 1 alone DOESN'T unblock branch protection (CANCELLED conclusion still blocks). Layer 2 is the actual unblock. ~1 day work. See <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/bat_ci_integration_tests_flaky_3_layer_fix.md"><code>bat_ci_integration_tests_flaky_3_layer_fix.md</code></a>.</li>
+    <li><strong>DLR webhook for SMS</strong> — follow-up to PR #438 send-side observability. Need ClickSend dashboard config + new endpoint. Recommended after BRISHIFU + RedlandHIFU ACMA approvals so DLRs report real handset delivery.</li>
+    <li><strong>RedlandHIFU ACMA Assist click</strong> — Kim's action. Open email from Brisbane.HIFU.clinic@gmail.com or redlandshifu@gmail.com inbox; click confirmation link.</li>
+    <li><strong>BRISHIFU ACMA approval</strong> — ✅ <strong style="color:var(--accent)">APPROVED 14 May 2026 7:09pm AEST</strong> (under 25h from ACMA Assist confirm). PROD <code>account_settings.sms_sender_id</code> for tenant 1 flipped <code>+61416248639</code> → <code>BRISHIFU</code> immediately on approval — LIVE E2E confirmed via <code>getTenantClickSendCreds(1).from = 'BRISHIFU'</code>. ClickSend internal sync of the ACMA status may take up to 24h; Smart Sender falls back to Shared Numbers in the interim (no regression).</li>
+  </ul>
+</div>
+
+<!-- ═════════════════════════ TOOLS STATE ═════════════════════════ -->
+<h2>🛠 Tools state at handover</h2>
+<div class="card">
+  <ul>
+    <li><strong>Repo</strong>: <code>C:\Users\kimkl\Documents\Claude\booking-api</code>. Main HEAD post-#443 squash merge (commit <code>89e6377</code>). Frontend bundle <code>index-Co8XFVCJ.js</code>. No open feature branches needing cleanup.</li>
+    <li><strong>Railway link</strong>: BAT-PROD / production / web (confirm via <code>railway status</code> after restart).</li>
+    <li><strong>Chrome MCP</strong>: tab id <code>489601170</code> in this session's group. Brisbane HIFU logged in via session cookie. <code>data-theme=dark</code> currently. May not survive into next session if Chrome closed.</li>
+    <li><strong>PROD account_settings</strong>: Tenant 1 + Tenant 4 both have <code>clicksend_username</code> / <code>clicksend_api_key</code> / <code>sms_sender_id</code>.</li>
+  </ul>
+</div>
+
+<!-- ═════════════════════════ RULES IN FORCE ═════════════════════════ -->
+<h2>⚠ Standing rules in force for next session</h2>
+<div class="card warn">
+  <ul>
+    <li><strong>Validate each step</strong> — no drift, no shortcuts. Kim's no-drift instruction stands.</li>
+    <li><strong>Visual-verify before push</strong> — applies to UI audits AND pre-push (refinement banked tonight).</li>
+    <li><strong>Pre-merge serialize check + 60-90s post-merge re-check</strong> — parallel-merge guard.</li>
+    <li><strong>Admin-merge still needed</strong> for any PR until Layer 2 CI ships. Layer 1 timeout fix doesn't bypass branch protection.</li>
+    <li><strong>Visual-verify on Chrome MCP via live PROD</strong> beats spec-based audit. Screenshot first, read spec second.</li>
+    <li><strong>Never put credentials in chat transcript.</strong></li>
+    <li><strong>Clickable links</strong> — always use markdown hyperlinks, never bare filenames.</li>
+  </ul>
+</div>
+
+<!-- ═════════════════════════ TRUST SIGNAL ═════════════════════════ -->
+<h2>🤝 Trust signal</h2>
+<div class="card ok">
+  <p>Kim at session end: <em>"I have some significant trust back now after today. And I have slowed down my releases and decisions to ensure we are not pushing releases over the top of one another and it is working better."</em></p>
+  <p style="margin-top:6px">The pattern that earned it back: validating each step, slowed-down release cadence, parallel-merge guard, live-PROD visual audits, honest scope flags when work turned out bigger than estimated. Don't drift from any of these.</p>
+</div>
+
+<p style="margin-top:32px;font-size:11px;color:rgba(255,255,255,0.35);text-align:center">Generated 14 May 2026 EOD as the handover for tomorrow's session focused on light-mode rebuild. If session resumes mid-Tier-1, pick up from B3 spec §8 re-entry plan.</p>
+
+</body>
+</html>

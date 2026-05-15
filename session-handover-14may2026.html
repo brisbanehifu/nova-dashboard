@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Session Handover · 14 May 2026 · Redlands Unblock + UI Rebuild + CI Hardening</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
+    --accent:#00E8B4; --purple:#9B3DFF; --coral:#FF7A6E; --pink:#F040C8;
+    --red:#ff5a5a; --amber:#ffb340; --green:#3dd87f; --blue:#4aa3ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,'Plus Jakarta Sans','SF Pro Display',sans-serif;line-height:1.55;padding:32px;max-width:1180px;margin:0 auto}
+  h1{font-size:28px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#00FFCA 0%,#9B3DFF 55%,#FF7A6E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.4px}
+  h2{font-size:19px;font-weight:700;margin:28px 0 10px;color:var(--accent);letter-spacing:-0.2px}
+  h3{font-size:15px;font-weight:600;margin:14px 0 6px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 18px;margin:10px 0}
+  .ok{border-left:4px solid var(--accent)}
+  .warn{border-left:4px solid var(--amber)}
+  .alert{border-left:4px solid var(--red)}
+  .info{border-left:4px solid var(--blue)}
+  .pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;vertical-align:middle}
+  .pill-ok{background:rgba(0,232,180,0.18);color:var(--accent)}
+  .pill-warn{background:rgba(255,179,64,0.18);color:var(--amber)}
+  .pill-alert{background:rgba(255,90,90,0.18);color:var(--red)}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0}
+  th,td{padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:0.05em}
+  code{background:rgba(0,232,180,0.08);padding:2px 5px;border-radius:4px;color:var(--accent);font-family:'SF Mono','Menlo',monospace;font-size:12px}
+  pre{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;overflow-x:auto;font-size:12px;font-family:'SF Mono','Menlo',monospace;color:#cfe8ff;margin:6px 0}
+  a{color:var(--accent)}
+  a:hover{text-decoration:underline}
+  ul,ol{padding-left:22px;margin:6px 0}
+  li{margin:3px 0}
+  .nav{margin-bottom:18px;font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="./index.html">← Nova Dashboard</a></div>
+
+<h1>Session Handover · 14 May 2026</h1>
+<div class="sub">Redlands re-entry criteria push · 3 PRs open · UI rebuild + CI hardening sequenced</div>
+
+<h2>🎯 The day's mandate</h2>
+<div class="card info">
+  <p>Kim's call mid-session: <strong>complete all 4 Redlands re-entry criteria today + close CI flakiness loop today</strong>. Plus visual UI sweep for Bookings + Calendar after doc-based audit was caught drifting.</p>
+  <p style="margin-top:6px"><strong>Re-entry criteria state (live):</strong></p>
+  <table>
+    <tr><th>#</th><th>Criterion</th><th>State at handover</th></tr>
+    <tr><td>1</td><td>Brisbane HIFU bug backlog cleared</td><td>Partial — 4 PRs landed last 24h (#435/#436/#437/#438), 1 bug issue + 6 actionable PRs in queue</td></tr>
+    <tr><td>2</td><td>UI consistency sweep done (or clearly scoped)</td><td>In progress — visual audit found light mode partially broken (P0), Bookings + Calendar polish items (P1)</td></tr>
+    <tr><td>3</td><td>Per-tenant ClickSend code shipped + verified on tenant 1</td><td>PR #439 open + green, awaiting Kim merge</td></tr>
+    <tr><td>4</td><td>RedlandHIFU alpha tag APPROVED by ACMA</td><td>Kim handling ACMA Assist click; 24-72h external approval clock</td></tr>
+  </table>
+</div>
+
+<h2>📦 Open PRs at handover</h2>
+<div class="card warn">
+  <table>
+    <tr><th>PR</th><th>Title</th><th>State</th><th>Notes</th></tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/439">#439</a></td>
+      <td>feat(sms): per-tenant ClickSend credentials + sender id</td>
+      <td>Open · pre-gates green · awaiting merge</td>
+      <td>Kim must run post-deploy seed step (sets TENANT_4_* env vars + runs <code>scripts/seed-tenant-sms-creds.js</code>). API key stays out of agent transcript.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/440">#440</a></td>
+      <td>ci(integration): timeout-minutes:15 — Layer 1 of CI hardening</td>
+      <td>Open · awaiting merge</td>
+      <td>10-line YAML. Once landed, future merges unblock without admin-bypass on CI flakiness. Standalone, low risk.</td>
+    </tr>
+  </table>
+</div>
+
+<h2>🔴 Light mode is partially broken — confirmed via Chrome MCP visual audit</h2>
+<div class="card alert">
+  <p><strong>Bug discovered 14 May PM during visual UI sweep.</strong> Live PROD, Brisbane HIFU tenant.</p>
+  <p style="margin-top:6px"><strong>DOM state is correct</strong>:</p>
+  <ul>
+    <li><code>data-theme="light"</code> set on <code>&lt;html&gt;</code></li>
+    <li><code>data-lg="on"</code> (Liquid Glass active)</li>
+    <li>Body bg computed = <code>rgb(247, 246, 251)</code> — light grey ✅</li>
+  </ul>
+  <p style="margin-top:6px"><strong>Components ignore the theme</strong>: sidebar / PageHeader card / booking row cards / calendar event cards / calendar today-column highlight all stay dark. Many hard-coded <code>bg-[#221240]</code> / <code>bg-purple-900</code> style classes don't have <code>dark:</code> + light variants.</p>
+  <p style="margin-top:6px"><strong>User impact</strong>: clicking "Light mode" toggle changes the label but the app looks unchanged. Anyone who prefers light mode cannot use the app in light mode.</p>
+  <p style="margin-top:6px"><strong>Fix scope</strong>: NOT a quick CSS tweak. Each component with hard-coded dark colors needs to be made theme-aware (Tailwind <code>dark:</code> prefix discipline or CSS variables). ~1 day focused work to do properly.</p>
+</div>
+
+<h2>📋 UI punch list — concrete items from live audit</h2>
+<div class="card">
+  <h3>Bookings page (dark mode polish)</h3>
+  <table>
+    <tr><th>#</th><th>Issue</th><th>Fix</th><th>Size</th></tr>
+    <tr><td>B1</td><td>"May 2026 ▼" dropdown orphaned above PageHeader</td><td>Move into PageHeader actions or filter row</td><td>30 min</td></tr>
+    <tr><td>B2</td><td>View-toggle grid icon (top-right) also orphaned above header</td><td>Move into PageHeader actions or remove if redundant</td><td>15 min</td></tr>
+    <tr><td>B3</td><td>Generous header padding pushes first booking row low on laptop</td><td>Tighten header vertical spacing</td><td>15 min</td></tr>
+  </table>
+  <h3 style="margin-top:14px">Calendar page (dark mode polish)</h3>
+  <table>
+    <tr><th>#</th><th>Issue</th><th>Fix</th><th>Size</th></tr>
+    <tr><td>C1</td><td>Event card text truncates aggressively ("Kathryn Lis...", "12:30pm - 1:0...")</td><td>Smaller font on time, truncate only on name, allow 2-line wrap</td><td>30 min</td></tr>
+    <tr><td>C2</td><td>No "now" line on today's column</td><td>1px teal line at currentTime on today's column</td><td>45 min</td></tr>
+    <tr><td>C3</td><td>Multiple-event overlaps stack visually noisy</td><td>Inter-event padding + drop-shadow or explicit overlap-split</td><td>1-2 hr</td></tr>
+    <tr><td>C4</td><td>Events all render identically regardless of status</td><td>Status-coloured stripe on left edge (matches Calendly spec)</td><td>45 min</td></tr>
+    <tr><td>C5</td><td>Hard to tell where day starts/ends — only 09:00-14:00 visible</td><td>Scroll-to-now button or remember last scroll-position</td><td>30 min</td></tr>
+  </table>
+</div>
+
+<h2>🚦 Planned sequence (Option C: A then B today)</h2>
+<div class="card ok">
+  <ol>
+    <li>This handover dashboard (15 min) — done when you read this</li>
+    <li>Merge PR #440 (CI timeout) — unblocks future merges</li>
+    <li>Merge PR #439 (per-tenant ClickSend) + Kim seed step</li>
+    <li>Option A PR: Bookings/Calendar quick polish (dark mode only — B1/B2 + C1/C2/C4) — ~3 hr</li>
+    <li>Option B PR: Light-mode rebuild — replace hard-coded color classes across sidebar/header/cards/events — ~6-8 hr</li>
+    <li>(Deferred to tomorrow per recommendation) Layer 2 schema-baseline CI fix</li>
+    <li>(Deferred to tomorrow) Layer 3 remove continue-on-error</li>
+  </ol>
+  <p style="margin-top:8px">If session ends mid-way, pick up from whichever step is in_progress in the todo list at session-end.</p>
+</div>
+
+<h2>🧠 Memories banked tonight</h2>
+<div class="card info">
+  <ul>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/bat_ci_integration_tests_flaky_3_layer_fix.md"><code>bat_ci_integration_tests_flaky_3_layer_fix.md</code></a> — full 3-layer fix plan for CI Integration Tests flakiness</li>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_serialize_deployments.md"><code>feedback_serialize_deployments.md</code></a> — parallel-merge hazard section added (60-90s post-merge re-check rule)</li>
+    <li>MEMORY.md index entries updated for both above</li>
+  </ul>
+</div>
+
+<h2>🛠 Tools state</h2>
+<div class="card">
+  <ul>
+    <li><strong>Railway link</strong>: BAT-PROD / production / web (confirm via <code>railway status</code> after restart — temporarily switched to BAT-DEV during smoke runs tonight)</li>
+    <li><strong>Chrome MCP tab</strong>: tab id 489601170 (this session's MCP tab group). Brisbane HIFU logged in via session cookie. data-theme=light set in localStorage.</li>
+    <li><strong>Booking-api repo</strong>: <code>C:\Users\kimkl\Documents\Claude\booking-api</code>. Main HEAD after #438 merge: <code>fba3a3e</code>; after #437 merge: <code>b1e1b55</code>. Three feature branches local: <code>feat/sms-observability-send-side</code> (merged), <code>feat/sms-per-tenant-credentials</code> (PR #439), <code>chore/ci-integration-tests-timeout</code> (PR #440).</li>
+  </ul>
+</div>
+
+<h2>⚠ Rules to keep applying in this session or next</h2>
+<div class="card warn">
+  <ul>
+    <li><strong>Validate each step</strong> — Kim's no-drift instruction. Don't bulldoze through.</li>
+    <li><strong>Visual-verify before push</strong> for any frontend change — Chrome MCP screenshot each state.</li>
+    <li><strong>Serialize deployments</strong> — pre-merge queue check AND 60-90s post-merge re-check for parallel-actor overlaps.</li>
+    <li><strong>Never put credentials in chat transcript</strong> — Redlands API key stays in Railway env vars + DB only.</li>
+    <li><strong>Verify deploy via deployed-code grep</strong>, not just Railway "success" status.</li>
+  </ul>
+</div>
+
+<p style="margin-top:32px;font-size:11px;color:rgba(255,255,255,0.35);text-align:center">Handover generated 14 May 2026 PM-late as insurance against long-session degradation. If session keeps going, this dashboard stays valid; if it breaks, next session reads this + open PRs first.</p>
+
+</body>
+</html>

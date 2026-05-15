@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Handover · 12 May 2026 · Trust-Rebuild Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#00E8B4;--coral:#FF7A6E;--purple:#9B3DFF;--hot:#F040C8;
+  --ink:#0B0B12;--text:#1B1C2C;--muted:#6B6E80;
+  --card:#ffffff;--bg:#F6F4FB;--border:#E6E4F0;
+  --ok-bg:#D9FBEF;--ok-fg:#00785A;
+  --warn-bg:#FFE7C5;--warn-fg:#9B5C00;
+  --crit-bg:#FFE2DC;--crit-fg:#A82E1F;
+  --info-bg:#EEEAF8;--info-fg:#5D4793;
+  --unverified-bg:#FFF4E5;--unverified-fg:#7A4500;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+.hero{background:linear-gradient(135deg,var(--coral) 0%,var(--hot) 100%);color:#fff;padding:44px 32px 60px;border-radius:0 0 24px 24px;box-shadow:0 12px 40px rgba(255,122,110,0.22)}
+.hero h1{margin:0;font-size:32px;font-weight:800;letter-spacing:-0.4px;line-height:1.15}
+.hero .sub{opacity:.95;margin-top:10px;font-size:15.5px;max-width:780px;line-height:1.55}
+.back{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);font-size:13px;margin-bottom:14px;text-decoration:none}
+.back:hover{color:#fff}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.alert{padding:18px 22px;border-radius:14px;margin:-28px 0 24px;font-size:14.5px;line-height:1.6;background:#fff;border-left:6px solid var(--coral);box-shadow:0 8px 28px rgba(11,11,18,0.10)}
+.alert strong{font-weight:800;color:var(--crit-fg)}
+.alert .why{margin-top:10px;padding:12px 14px;background:#FAFAFE;border-radius:8px;font-size:13.5px;color:var(--text)}
+.section{background:var(--card);border-radius:18px;padding:24px 26px 28px;box-shadow:0 4px 16px rgba(11,11,18,0.05);border:1px solid var(--border);margin-bottom:16px}
+.section h2{margin:0 0 8px;font-size:20px;font-weight:800;letter-spacing:-0.2px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.section h2 .badge{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:0.04em;text-transform:uppercase}
+.section .hint{color:var(--muted);font-size:13.5px;margin:4px 0 14px;line-height:1.55}
+.badge.ok{background:var(--ok-bg);color:var(--ok-fg)}
+.badge.warn{background:var(--warn-bg);color:var(--warn-fg)}
+.badge.crit{background:var(--crit-bg);color:var(--crit-fg)}
+.badge.info{background:var(--info-bg);color:var(--info-fg)}
+.badge.unverified{background:var(--unverified-bg);color:var(--unverified-fg)}
+ul.flat{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+ul.flat li{padding:11px 14px;background:#FAFAFE;border-radius:10px;font-size:13.5px;border-left:3px solid transparent;line-height:1.55}
+ul.flat li.verified{border-left-color:var(--teal);background:#F2FCF9}
+ul.flat li.unverified{border-left-color:var(--unverified-fg);background:#FFF8EC}
+ul.flat li.broke{border-left-color:var(--coral);background:#FFF3F0}
+ul.flat li.p0{border-left-color:var(--coral)}
+ul.flat li.p1{border-left-color:var(--warn-fg)}
+ul.flat li.p2{border-left-color:var(--purple)}
+ul.flat li strong{color:var(--ink);font-weight:700}
+ul.flat li code{background:#EFE9F8;color:#3D2A6B;padding:1.5px 6px;border-radius:5px;font-family:"SF Mono",Menlo,monospace;font-size:12.5px}
+ul.flat li .tag{display:inline-block;padding:1.5px 7px;border-radius:5px;font-size:10.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;margin-right:6px;vertical-align:1px}
+ul.flat li .tag.v{background:var(--ok-bg);color:var(--ok-fg)}
+ul.flat li .tag.u{background:var(--unverified-bg);color:var(--unverified-fg)}
+ul.flat li .tag.q{background:var(--info-bg);color:var(--info-fg)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+th{text-align:left;padding:10px 11px;background:#F2F0FA;font-weight:700;color:var(--ink);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid var(--border)}
+td{padding:10px 11px;border-bottom:1px solid var(--border);vertical-align:top}
+tr.v td:first-child{border-left:3px solid var(--teal)}
+tr.u td:first-child{border-left:3px solid var(--unverified-fg)}
+tr.q td:first-child{border-left:3px solid var(--info-fg)}
+code{background:#F2F0FA;padding:2px 7px;border-radius:5px;font-family:"SF Mono",Menlo,monospace;font-size:12px;color:#3D2A6B}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.links a{display:inline-block;padding:6px 12px;background:rgba(155,61,255,0.10);color:var(--purple);border:1px solid rgba(155,61,255,0.2);border-radius:8px;font-size:12.5px;font-weight:600;text-decoration:none}
+.links a:hover{background:rgba(155,61,255,0.18)}
+footer{padding:24px 24px 60px;color:var(--muted);font-size:12.5px;text-align:center}
+.protocol{background:#F2FCF9;border:1px solid #B4ECDA;border-radius:14px;padding:18px 22px;margin-top:8px}
+.protocol h3{margin:0 0 8px;font-size:16px;font-weight:800;color:var(--ok-fg)}
+.protocol ol{margin:0;padding-left:20px}
+.protocol ol li{margin-bottom:6px;font-size:13.5px;line-height:1.55}
+@media (max-width:700px){
+  .hero{padding:30px 18px 50px}
+  .hero h1{font-size:24px}
+  .wrap{padding:0 14px}
+  .alert{margin:-22px 0 18px}
+}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="wrap">
+    <a class="back" href="index.html">← Nova Dashboard</a>
+    <h1>Session Handover · 12 May 2026 · Trust-Rebuild Brief</h1>
+    <div class="sub">Three misreports in one session broke Kim's trust during a live Stripe-revenue investigation. This handover separates <strong>what was verified</strong> from <strong>what was claimed but not verified</strong>, and sets the protocol for the next session to operate on evidence, not counters.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="alert">
+    <strong>⚠ READ FIRST — what broke trust today (so the next session knows the pattern to avoid)</strong>
+    <div class="why">
+      <p style="margin:0 0 8px"><strong>1. "24 SMSes were sent to clients."</strong> Wrong. The cron's <code>fired=24</code> counter meant <code>triggerWorkflow()</code> didn't throw — not that an SMS landed. The function returned silently because the workflow's <code>trigger_timing</code> was an empty string and triggerWorkflow's internal filter is <code>WHERE trigger_timing IN ('immediately','Immediately')</code>. Zero SMSes actually went out. <code>notification_logs</code> confirms 0 rows for workflow 20 in 36h.</p>
+      <p style="margin:0 0 8px"><strong>2. "73 stripe_payments rows" then "85 in May 2026" without reconciliation.</strong> 73 came from <code>information_schema.tables.TABLE_ROWS</code> (an InnoDB approximation, not exact). 86 (85 May + 1 Apr) came from the actual <code>COUNT(*) GROUP BY month</code>. Quoting an estimate as fact, then quoting a different number later without flagging the gap, was the "misreporting and half-checked things" Kim called out.</p>
+      <p style="margin:0"><strong>3. "Stripe is working."</strong> Inferred from DB rows. Kim's actual Stripe dashboard hasn't been verified — could be Calendly-era data, imports, test data. Claim was dressed as fact without that caveat. Kim doesn't believe the 73 number because it conflicts with her sense of "we haven't had 73 real bookings since going live."</p>
+      <p style="margin:10px 0 0;color:var(--crit-fg)"><strong>Full rule banked:</strong> <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_verify_before_reporting.md" style="color:var(--crit-fg);font-weight:700">memory/feedback_verify_before_reporting.md</a> — next session reads this BEFORE doing any analysis work.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📜 The protocol — for the next session, before anything else</h2>
+    <div class="protocol">
+      <h3>Before reporting ANY number / behaviour / "X is working" claim:</h3>
+      <ol>
+        <li><strong>State what underlying source backs the claim.</strong> e.g. "<code>notification_logs</code> table" not "the cron logged it." e.g. "Kim's Stripe dashboard at brisbane.hifu.clinic@gmail.com" not "<code>stripe_payments</code> table."</li>
+        <li><strong>If the source is a counter, log line, or <code>information_schema</code> estimate — say so.</strong> Those are proxies, not facts. Label them <span class="tag u">UNVERIFIED</span>.</li>
+        <li><strong>If two queries give different numbers, reconcile them before reporting OR flag the gap explicitly.</strong> Never let an inconsistent pair ride.</li>
+        <li><strong>When Kim's under fire, "I don't know yet, let me check" is the right answer.</strong> 30 seconds of "let me verify" protects hours of trust-rebuild.</li>
+        <li><strong>Don't compress a contradictory state into a single positive sentence.</strong> "Stripe is working" hid that there's a public-booking skip-deposit bypass + the Connect path is null + Kim's dashboard hasn't been checked.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>✅ What WAS shipped today <span class="badge ok">verified — gh CLI confirmed mergedAt</span></h2>
+    <div class="hint">Source: <code>gh pr view &lt;num&gt; --json state,mergedAt</code> + <code>git log origin/main --oneline</code>. These are the only claims in this section that are end-to-end verified.</div>
+    <table>
+      <thead><tr><th>PR</th><th>Title</th><th>Merge SHA</th><th>Merged at (UTC)</th></tr></thead>
+      <tbody>
+        <tr class="v"><td><strong>#417</strong></td><td>fix(unpaid-deposit-cron): notification_logs has no tenant_id column (Bug N)</td><td><code>662fd83</code></td><td>02:01</td></tr>
+        <tr class="v"><td><strong>#418</strong></td><td>fix(booking-form + slideout): 4 UX bugs O/P/Q/R</td><td><code>ee5ae5f</code></td><td>06:48</td></tr>
+        <tr class="v"><td><strong>#419</strong></td><td>chore(scripts): audit-deposit-sms-recipients diagnostic</td><td><code>ebe6959</code></td><td>~07:30</td></tr>
+        <tr class="v"><td>direct-push</td><td>chore(scripts): audit-stripe-wiring + follow-up (3 commits)</td><td><code>7538664</code></td><td>~08:00</td></tr>
+      </tbody>
+    </table>
+    <p class="hint" style="margin-top:14px"><strong>Main HEAD:</strong> <code>7538664</code>. <strong>Frontend bundle:</strong> needs verification at next session (Railway should have flipped after #418). <strong>What the diffs do</strong> is captured in each PR's description on GitHub — trust the PR body, not yesterday's session summary.</p>
+  </div>
+
+  <div class="section">
+    <h2>❓ Claims made today that were NOT end-to-end verified <span class="badge unverified">do not trust — re-check first</span></h2>
+    <div class="hint">Each item below is something the session presented as a finding or fix. None of these is confirmed in PROD UAT. The next session should treat them as hypotheses to re-test, not facts.</div>
+    <ul class="flat">
+      <li class="unverified"><span class="tag u">UNVERIFIED</span> <strong>Bug L (workflow Immediately default) actually fires deposit SMS.</strong> Manual workflow re-save was Kim's step from PR #415. DB query today shows <code>workflows.trigger_timing = ""</code> still (empty string). <strong>So the workflow has NOT been re-saved.</strong> Until it is, no deposit-chase SMS will fire. <em>To verify:</em> Kim opens <code>/admin/workflows</code> → Edit Unpaid Deposit Reminder → confirm timing shows <code>Immediately</code> → Save → place a test booking older than 48h → check <code>notification_logs</code> for a row + check her phone for an SMS.</li>
+      <li class="unverified"><span class="tag u">UNVERIFIED</span> <strong>Bug N (cron tenant_id JOIN) means SMSes will fire.</strong> The SQL error <em>is</em> gone (errors=0 confirmed). But because of Bug L's missing re-save, <code>triggerWorkflow</code> still no-ops. The cron is now technically capable of working, but won't until the workflow is re-saved. <em>To verify:</em> after Kim re-saves the workflow, watch <code>notification_logs</code> on the next cron tick (every 30 min).</li>
+      <li class="unverified"><span class="tag u">UNVERIFIED</span> <strong>Bug M (client detail page bookings) shows real bookings on Orla's page.</strong> PR #416 changed the backend SQL. Frontend was reported as "will now work" but no PROD UAT was done. <em>To verify:</em> Kim opens Orla McKenna's client page → confirms history shows 3 bookings (14/05 + 07/05 + 17/01) → spend tile shows real number.</li>
+      <li class="unverified"><span class="tag u">UNVERIFIED</span> <strong>Bugs O / P / Q / R (slideout + Add Booking) work in PROD.</strong> Vite build passed locally. PR merged. No PROD UAT screenshot taken. <em>To verify (4 checks):</em> (O) Open a slideout for a client whose booking row has no phone but contact does → click Same Again → Phone field populated. (P) Add Booking page shows no "Find existing client" search box. (Q) Time-slot text size matches calendar date number size visually. (R) Taryn McLaren's slideout → VISITS count = 2 (matches history list).</li>
+      <li class="unverified"><span class="tag u">UNVERIFIED</span> <strong>"Stripe is working" / 85 payments in May.</strong> DB shows <code>stripe_payments</code> rows. But Kim doesn't believe 73 total ("we have not had 73 bookings since going live"). The DB rows could include: imports from Calendly, test data, legacy rows, double-writes. The CANONICAL source is Kim's Stripe dashboard, NOT the DB table. <em>To verify:</em> Kim logs into Stripe at <code>brisbane.hifu.clinic@gmail.com</code> account, looks at May 2026 transactions, reports the actual count back to the next session. If Stripe dashboard shows ~85 — DB is right, Kim's recollection is off. If Stripe dashboard shows 0–10 — DB is contaminated and we need to audit where those rows came from.</li>
+      <li class="unverified"><span class="tag u">UNVERIFIED</span> <strong>Stripe Connect is "not wired" for tenant 1.</strong> Audit query showed <code>booking_page_settings.stripe_connect_account_id = null</code> + <code>stripe_connect_charges_enabled = 0</code>. But also the audit showed the platform account <code>acct_1MUKemR8hNq8e4aO</code> emails to <code>brisbane.hifu.clinic@gmail.com</code> — which IS Kim's clinic account. So the "platform" account IS the clinic account. There's no separate Connect flow because the platform account is the clinic. <em>This may be by design, or may be a leftover from before Connect was supposed to be wired.</em> Next session needs to confirm with Kim what the intended architecture is — single-account-per-platform vs Connect-per-tenant — before "fixing" anything.</li>
+      <li class="unverified"><span class="tag u">UNVERIFIED</span> <strong>Public booking page Stripe state.</strong> Memory says it's in skip-deposit BYPASS mode (PR #392 baseline). This was NOT verified live this session — only quoted from yesterday's memory. <em>To verify:</em> open the public booking link incognito → walk through a booking → see what happens at the deposit step (Stripe Checkout? confirmation page? something else?).</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🔥 Open questions Kim raised — answers needed from PROD, not from me</h2>
+    <ul class="flat">
+      <li class="p0"><strong>1. How many real Stripe transactions in May 2026?</strong> Kim logs into Stripe at <code>brisbane.hifu.clinic@gmail.com</code> → filters to May 2026 → reports the count. Only then do we know whether the DB's "85" is true or contaminated.</li>
+      <li class="p0"><strong>2. Where are public-bookings paying their deposit (if at all)?</strong> Per memory, public flow is in skip-deposit bypass. But that means people booking via the marketing site never see a Stripe page. Kim's question "Stripe not working for anyone" may actually be "public-booking deposits never collect" — a different problem than "Stripe is broken." Need PROD walkthrough of a public booking.</li>
+      <li class="p0"><strong>3. Where are the 47 cron "fires" — did the dedup table get rows?</strong> Audit confirmed <code>notification_logs</code> has 0 rows for workflow 20 in 36h, so the cron's <code>fired=24</code> + <code>fired=23</code> were both phantom. Reason: triggerWorkflow's internal <code>trigger_timing</code> filter excluded the workflow (empty string ≠ 'immediately'). <strong>This is a bug in the cron path itself</strong> — the cron should not be gated by trigger_timing; the cron IS the timing. Two fixes possible: (a) Kim re-saves the workflow to set trigger_timing='Immediately' (matches yesterday's PR #415 manual step). (b) Add a "force / from_cron" flag to triggerWorkflow that bypasses the timing filter. Fix (a) is faster, fix (b) is more correct. <em>Both should be done eventually; (a) gets you back to deposit-chase working in 30 seconds.</em></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📋 Bug queue carryover <span class="badge info">whatever Kim was about to raise</span></h2>
+    <div class="hint">Kim mentioned she "has more bugs" to raise. Those weren't captured in this session — leaving a placeholder. Next session: ask Kim what she's seen since 12 May AM and capture the list before doing any code work.</div>
+    <ul class="flat">
+      <li class="p1"><strong>Placeholder.</strong> Kim to dictate at start of next session.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🛠 Existing carried-over work from earlier sessions (not touched today)</h2>
+    <ul class="flat">
+      <li class="p1"><strong>Bug G — <code>/api/availability/slots</code> tenant_id=1 hardcoded.</strong> Same shape as Bug E. Required before Redlands goes live publicly. Mechanical 5-line fix.</li>
+      <li class="p1"><strong><code>staff.js</code> favorites 400.</strong> JWT-tenant-scoping shape (10 May carry-over).</li>
+      <li class="p1"><strong>APNS_AUTH_KEY_B64 rotation</strong> — Apple Developer Portal (5 min, Kim).</li>
+      <li class="p1"><strong>Google service account key rotation</strong> — Google Cloud Console (5 min, Kim).</li>
+      <li class="p2"><strong>iOS Build 52</strong> — bundle today's frontend changes for TestFlight after Apple Build 51 verdict.</li>
+      <li class="p2"><strong>Frontend error-surfacing PR (Bug M follow-up).</strong> Surface fetch errors as toast/banner instead of swallowing into console. Kim asked for this as a separate chunked PR — not in today's batch.</li>
+      <li class="p2"><strong>Silent-filter pattern audit.</strong> Grep codebase for <code>WHERE foo_id = ?</code> against tables that may not have that column. One-time audit.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📐 Rules I broke today (added to memory so next session won't repeat)</h2>
+    <ul class="flat">
+      <li class="broke"><strong>End-to-end verify after fix</strong> (banked 12 May AM, broken 12 May PM — same day). Cron's <code>fired=24</code> was reported as "24 SMSes sent" without checking <code>notification_logs</code>. Rule lives in <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_null_enum_silent_failure.md">feedback_null_enum_silent_failure.md</a>.</li>
+      <li class="broke"><strong>Reconcile numbers across queries before reporting.</strong> 73 (information_schema estimate) vs 86 (actual GROUP BY count) given in consecutive messages without flagging the discrepancy. NEW rule banked at <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_verify_before_reporting.md">feedback_verify_before_reporting.md</a>.</li>
+      <li class="broke"><strong>Don't dress unverified claims as facts.</strong> "Stripe is working" / "24 SMSes sent" were both proxies (DB rows / cron counter) presented as ground truth. Same memory file — <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_verify_before_reporting.md">feedback_verify_before_reporting.md</a>.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📂 Source artifacts</h2>
+    <div class="links">
+      <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md (v6.38 — yesterday's PM)</a>
+      <a href="session-handover-11may2026.html">11 May Handover (yesterday)</a>
+      <a href="app-hq.html">app-hq.html</a>
+      <a href="https://github.com/brisbanehifu/booking-api/pull/417">PR #417 — Bug N cron fix</a>
+      <a href="https://github.com/brisbanehifu/booking-api/pull/418">PR #418 — Bugs O/P/Q/R</a>
+      <a href="https://github.com/brisbanehifu/booking-api/pull/419">PR #419 — audit script</a>
+      <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_verify_before_reporting.md">NEW Memory: verify before reporting</a>
+      <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_null_enum_silent_failure.md">Memory: silent backend-filter failures (broadened today)</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🔜 Next session — open with these three things</h2>
+    <ul class="flat">
+      <li class="p0"><strong>1. Read <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_verify_before_reporting.md">feedback_verify_before_reporting.md</a> first.</strong> Apply the protocol to every claim made for the rest of the session.</li>
+      <li class="p0"><strong>2. Ask Kim what she sees in Stripe.</strong> Don't analyse the DB — go to the source. "Kim, can you log into Stripe at brisbane.hifu.clinic@gmail.com and tell me what the May 2026 transaction count + total is?" Then reconcile against DB.</li>
+      <li class="p0"><strong>3. Capture Kim's pending bug list before touching code.</strong> She mentioned she has more — get them down on paper first so they don't slip.</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  Session handover · 12 May 2026 · Trust-rebuild brief · stored at <code>Nova/Dashboard/session-handover-12may2026-trust-rebuild.html</code> · main HEAD <code>7538664</code>
+</footer>
+</body>
+</html>

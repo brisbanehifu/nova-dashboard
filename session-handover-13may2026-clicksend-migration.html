@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Session Handover · 13 May 2026 PM-late · ClickSend Multi-Tenant Migration</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
+    --accent:#00E8B4; --purple:#9B3DFF; --coral:#FF7A6E; --pink:#F040C8;
+    --red:#ff5a5a; --amber:#ffb340; --green:#3dd87f; --blue:#4aa3ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,'Plus Jakarta Sans','SF Pro Display',sans-serif;line-height:1.55;padding:32px;max-width:1180px;margin:0 auto}
+  h1{font-size:30px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#00FFCA 0%,#9B3DFF 55%,#FF7A6E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.4px}
+  h2{font-size:20px;font-weight:700;margin:32px 0 12px;color:var(--accent);letter-spacing:-0.2px}
+  h3{font-size:16px;font-weight:600;margin:16px 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 20px;margin:12px 0;transition:border-color 0.2s}
+  .ok{border-left:4px solid var(--accent)}
+  .warn{border-left:4px solid var(--amber)}
+  .alert{border-left:4px solid var(--red)}
+  .info{border-left:4px solid var(--blue)}
+  .verified{border-left:4px solid var(--green)}
+  .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;vertical-align:middle}
+  .pill-ok{background:rgba(0,232,180,0.18);color:var(--accent)}
+  .pill-warn{background:rgba(255,179,64,0.18);color:var(--amber)}
+  .pill-alert{background:rgba(255,90,90,0.18);color:var(--red)}
+  .pill-verified{background:rgba(61,216,127,0.18);color:var(--green)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+  code{background:rgba(0,232,180,0.08);padding:2px 6px;border-radius:4px;color:var(--accent);font-family:'SF Mono','Menlo',monospace;font-size:12.5px}
+  pre{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;overflow-x:auto;font-size:12.5px;font-family:'SF Mono','Menlo',monospace;color:#cfe8ff;margin:8px 0}
+  a{color:var(--accent)}
+  a:hover{text-decoration:underline}
+  ul,ol{padding-left:22px;margin:6px 0}
+  li{margin:4px 0}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:14px 0 18px}
+  .stat{background:var(--card-alt);border:1px solid rgba(155,61,255,0.18);border-radius:12px;padding:14px}
+  .stat .num{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.5px;line-height:1.2}
+  .stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px}
+  .nav{margin-bottom:18px;font-size:13px}
+  .nav a{margin-right:12px}
+</style>
+</head>
+<body>
+
+<div class="nav"><a href="./index.html">← Nova Dashboard</a></div>
+
+<h1>Session Handover · 13 May 2026 PM-late</h1>
+<div class="sub">ClickSend multi-tenant migration · BRISHIFU + RedlandHIFU alpha tag registrations · P0 master-username outage + fix · Redlands tenant PARKED</div>
+
+<div class="stat-grid">
+  <div class="stat"><div class="num">3</div><div class="lbl">PRs deployed</div></div>
+  <div class="stat"><div class="num">2</div><div class="lbl">Alpha tags filed</div></div>
+  <div class="stat"><div class="num">1</div><div class="lbl">P0 outage (resolved)</div></div>
+  <div class="stat"><div class="num">PARKED</div><div class="lbl">Tenant 4 status</div></div>
+</div>
+
+<!-- ═════════════════════════ SESSION ARC ═════════════════════════ -->
+<h2>📜 Session arc — start to finish</h2>
+
+<div class="card verified">
+  <h3>1. Friday 15 May overlap (PR #435) <span class="pill pill-verified">DEPLOYED + VERIFIED</span></h3>
+  <p>Kim flagged overlapping bookings on Brisbane HIFU's Friday 15 May agenda (Ali Bull 1:00-2:00 pm + Johana Serrano 1:30-2:00 pm on same staff). Root cause: <code>availability.js</code> conflict-check used stored <code>duration</code> column, but imported rows had <code>duration=30</code> while <code>event_types.duration</code> was 60 — the agenda displayed the correct 60 min but the conflict-check trusted the stale 30 → public booking slipped into the gap.</p>
+  <p style="margin-top:6px"><strong>Fix:</strong> <code>availability.js</code> conflict-check now computes effective slot length as <code>MAX(stored_duration, event_types.duration, end_time - time)</code>. Conservative by design. 5 Jest unit tests pin the regression. Backfill script <code>scripts/backfill-booking-duration-consistency.js</code> committed but NOT run (dry-run default).</p>
+  <p style="margin-top:6px"><strong>Live verification:</strong> <code>GET /api/availability/slots?date=2026-05-15&duration=30</code> went from <code>[11:00, 12:00, 13:00, 16:00-18:30]</code> → <code>[11:00, 16:00-18:30]</code>. 12:00 and 13:00 (which sat inside Kathryn's real <code>end_time=14:00</code> block) are now correctly hidden.</p>
+</div>
+
+<div class="card verified">
+  <h3>2. Edit Client button UX (PR #436) <span class="pill pill-verified">DEPLOYED + VERIFIED</span></h3>
+  <p>Kim couldn't find the Edit Client button on the client detail screen. The button existed at the very bottom (<code>ClientDetailPage.tsx:927-938</code>) below the appointment history — invisible without scrolling.</p>
+  <p style="margin-top:6px"><strong>Fix:</strong> small purple "✏ Edit" pill inline next to the contact name in the header card. Click navigates to <code>/admin/contacts/:id</code> (same destination as the bottom button, which is kept).</p>
+  <p style="margin-top:6px"><strong>Live verification (Chrome MCP):</strong> opened <code>app.bookatreatment.ai/admin/clients/rosalind-lemmey-96f</code>, confirmed Edit pill appears next to "Rosalind Lemmey" in header above the fold. Click navigated to contact record edit page with editable Phone/Email/Name fields.</p>
+</div>
+
+<div class="card alert">
+  <h3>3. SMS delivery investigation — clients didn't receive <span class="pill pill-alert">ROOT CAUSE FOUND</span></h3>
+  <p>Kim reported Polly Wolstenholme + Chris Cumming + Rosalind Lemmey didn't get SMS confirmations. My initial diagnosis from <code>notification_logs.status='sent'</code>: "they were sent." Kim corrected: "Clients have confirmed they have not received SMS."</p>
+  <p style="margin-top:6px"><strong>Trust-rebuild moment.</strong> Same pattern as the 12 May "24 SMSes sent" false claim. Status flags are claims, not facts. Triggered proper end-to-end investigation via ClickSend's API + dashboard.</p>
+  <p style="margin-top:6px"><strong>What I found:</strong></p>
+  <ul>
+    <li>Phones are stored correctly: Chris <code>+61499990317</code>, Polly <code>+61420247494</code></li>
+    <li>Rosalind has never had a phone in our DB (no historical booking with one)</li>
+    <li>ClickSend's <code>status</code> badge for Polly + Chris = <code>Sent</code>, never moved to <code>Delivered</code></li>
+    <li>ClickSend's <code>status_text="Message delivered to the handset"</code> is misleading default 201 description, NOT a DLR</li>
+    <li>27% of last-14-day sends came from random rotating AU mobile pool — ClickSend's Smart Sender = "Shared Numbers" because no alpha tag registered</li>
+    <li>Telstra (Chris) + Vodafone (Polly) silently filter unregistered numeric senders even when ClickSend says "delivered to network"</li>
+  </ul>
+</div>
+
+<div class="card verified">
+  <h3>4. BRISHIFU alpha tag registered <span class="pill pill-verified">FILED · 24-72h ACMA WAIT</span></h3>
+  <p>Via ClickSend dashboard → Sender IDs → Alpha Tags → Add. Use case: <strong>Contraction of Name</strong> (BRISHIFU contracts "Brisbane HIFU" — Neo-Klien Pty Ltd's registered ASIC business name). Registration fee: $0.24 USD.</p>
+  <p style="margin-top:6px">Then logged into ACMA Assist (<code>acmaassist.gov.au</code>), confirmed registration on "1. Sender IDs" tab.</p>
+  <p style="margin-top:6px"><strong>Status:</strong> ClickSend has it as <code>PENDING</code> (id <code>9abb6d4c-051a-46b0-83ad-5e57f202d649</code>). ACMA Assist shows it as "Registered by 14/05/2026 at 6:44pm" by Kim Klein, service provider CLICKSEND PTY LTD. Awaiting ACMA approval — typically 24-72h.</p>
+  <p style="margin-top:6px"><strong>Once approved:</strong> ClickSend Smart Sender will automatically route Brisbane HIFU SMS via BRISHIFU. No code change needed. Recipients see "BRISHIFU" as sender on their phones.</p>
+</div>
+
+<div class="card verified">
+  <h3>5. Master account → sub-account architecture <span class="pill pill-verified">RESTRUCTURED</span></h3>
+  <p>Kim tried to create a second ClickSend account for "BAT master" — blocked by phone-uniqueness rule (mobile already linked to existing account). API discovery showed her existing account has <code>access_reseller=1</code> — supports unlimited sub-accounts under one billing entity.</p>
+  <p style="margin-top:6px"><strong>Created Redlandshifu sub-account:</strong></p>
+  <table>
+    <tr><td style="color:var(--muted);width:160px">First/Last</td><td>Grace Areas</td></tr>
+    <tr><td style="color:var(--muted)">Username</td><td><code>Redlandshifu</code></td></tr>
+    <tr><td style="color:var(--muted)">API key</td><td><code>B5D53F31-B3BC-EAB5-CC61-49EA2679001E</code></td></tr>
+    <tr><td style="color:var(--muted)">Email</td><td>redlandshifu@gmail.com (Grace + Kim share)</td></tr>
+    <tr><td style="color:var(--muted)">Mobile</td><td>0423813120 (Grace)</td></tr>
+    <tr><td style="color:var(--muted)">Permissions</td><td>Settings ON, Reporting ON (own only), Global Sending ON, Hide Pricing ON · Modify Users / Billing / Share Contacts / Share Campaigns / Reseller all OFF</td></tr>
+  </table>
+</div>
+
+<div class="card alert">
+  <h3>6. P0 outage — master api_username silently reformatted <span class="pill pill-alert">RESOLVED IN ~5 MIN</span></h3>
+  <p>The moment the Redlandshifu sub-account was saved, ClickSend reformatted the master subaccount's <code>api_username</code> from <code>Brisbane.HIFU.clinic@gmail.com</code> (email-as-username) to <code>BrisbaneHifu</code> (short label).</p>
+  <p style="margin-top:6px">BAT's Railway env var <code>CLICKSEND_USERNAME</code> still held the old email → every SMS API call started returning <strong>401 Unauthorized</strong>. Brisbane HIFU SMS sending was down until fixed.</p>
+  <p style="margin-top:6px"><strong>Fix sequence:</strong></p>
+  <pre>railway variables --set CLICKSEND_USERNAME=BrisbaneHifu --service web
+railway redeploy --service web --yes
+# wait ~30s for container restart
+railway ssh --service web 'echo $CLICKSEND_USERNAME'  # → BrisbaneHifu
+# API auth check returns 200 OK with balance $78.23</pre>
+  <p style="margin-top:6px"><strong>Rule banked:</strong> after any ClickSend account restructure, verify <code>process.env.CLICKSEND_USERNAME</code> matches the dashboard "Username" column. Sub-account creation can mutate the master's API username, especially on legacy email-as-username accounts. <strong>Diagnostic command for future P0:</strong></p>
+  <pre>railway ssh --service web 'cd /app && node -e "
+const axios = require(\"axios\");
+const auth = \"Basic \" + Buffer.from(process.env.CLICKSEND_USERNAME + \":\" + process.env.CLICKSEND_API_KEY).toString(\"base64\");
+axios.get(\"https://rest.clicksend.com/v3/account\", { headers: { Authorization: auth }})
+  .then(r => console.log(\"OK balance:\", r.data?.data?.balance))
+  .catch(e => console.log(\"AUTH FAIL:\", e.response?.status));
+"'</pre>
+</div>
+
+<div class="card warn">
+  <h3>7. RedlandHIFU alpha tag — registered but NOT yet ACMA-confirmed <span class="pill pill-warn">KIM ACTION</span></h3>
+  <p>Submitted to ClickSend 13 May. <strong>ACMA Assist confirmation step skipped</strong> — Kim needs to open the email notification from ACMA Assist and click the confirmation link (similar to what she did for BRISHIFU on 14 May).</p>
+  <p style="margin-top:6px"><strong>Action queued:</strong> Kim — check Brisbane.HIFU.clinic@gmail.com OR redlandshifu@gmail.com inbox for "ACMA Sender ID Application" email + complete the confirm step.</p>
+</div>
+
+<!-- ═════════════════════════ FILES UPDATED ═════════════════════════ -->
+<h2>📂 Files updated this session</h2>
+
+<div class="card">
+  <table>
+    <tr><th>File</th><th>Change</th></tr>
+    <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md"><code>CONFIGURATION_GUIDE.md</code></a></td><td>§7 SMS section entirely rewritten with verified state. Version 6.41 entry added.</td></tr>
+    <tr><td><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/bat_clicksend_subaccount_migration_13may2026.md"><code>memory/bat_clicksend_subaccount_migration_13may2026.md</code></a></td><td>NEW — full session log + diagnostics + lessons banked</td></tr>
+    <tr><td><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/checklist_redlands_onboarding.md"><code>memory/checklist_redlands_onboarding.md</code></a></td><td>NEW — what's already done + what still needs to happen, with re-entry criteria</td></tr>
+    <tr><td><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/backlog_acma_sender_id_registration.md"><code>memory/backlog_acma_sender_id_registration.md</code></a></td><td>Updated from "Not started" → IN PROGRESS, with both alpha tags' state tabulated</td></tr>
+    <tr><td><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/MEMORY.md"><code>memory/MEMORY.md</code></a></td><td>New top-of-index entry summarising today's session. Correction noted: Redlands HIFU is tenant_id <strong>4</strong>, not 2 (memory line 13 was wrong)</td></tr>
+    <tr><td><code>Nova/Dashboard/index.html</code> (this dashboard)</td><td>Added SMS/ClickSend section + Tenant 4 PARKED section + handover link</td></tr>
+    <tr><td><code>Nova/Dashboard/session-handover-13may2026-clicksend-migration.html</code></td><td>NEW — this file</td></tr>
+    <tr><td><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html"><code>APP_HQ.html</code></a></td><td>(updating now)</td></tr>
+  </table>
+</div>
+
+<!-- ═════════════════════════ NEXT SESSION ═════════════════════════ -->
+<h2>🎯 Next session — fresh start</h2>
+
+<div class="card info">
+  <h3>Pre-session reading (in this order)</h3>
+  <ol>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/MEMORY.md"><code>MEMORY.md</code></a> — top entry will be today's ClickSend summary</li>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_verify_before_reporting.md"><code>feedback_verify_before_reporting.md</code></a> — trust-rebuild rule (status flags are claims, not facts)</li>
+    <li>This handover file</li>
+    <li><a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/checklist_redlands_onboarding.md"><code>checklist_redlands_onboarding.md</code></a> — only if Redlands work is requested (defaults to PARKED)</li>
+  </ol>
+</div>
+
+<div class="card warn">
+  <h3>Open / blocking items</h3>
+  <ul>
+    <li><strong>BRISHIFU alpha tag ACMA approval</strong> — pending 24-72h (filed 13-14 May)</li>
+    <li><strong>RedlandHIFU alpha tag ACMA Assist confirm</strong> — Kim needs to click email link before clock starts</li>
+    <li><strong>SMS observability code fix</strong> — `clicksend.js` + `notifications.js` to capture per-message status + message_id + carrier; add DLR webhook. Avoids future silent SMS failures. QUEUED.</li>
+    <li><strong>Per-tenant ClickSend credentials in BAT code</strong> — `account_settings`-based lookup, 10-file `tenantId` thread, Jest tests, PR. QUEUED for after current bug-fix sprint settles.</li>
+    <li><strong>OG meta tags on service-share links</strong> — Kim's queued UI fix (Logo + Service title + "Brisbane's No.1 HIFU Clinic" format mirroring Calendly). QUEUED.</li>
+  </ul>
+</div>
+
+<div class="card ok">
+  <h3>Stable / verified at session close</h3>
+  <ul>
+    <li>Brisbane HIFU SMS sending operational (API auth restored, balance $78.23)</li>
+    <li>15 May 2026 booking overlap closed at conflict-check layer</li>
+    <li>Edit Client button discoverable above the fold</li>
+    <li>Master ClickSend account architecture documented + sub-account pattern banked for future tenants</li>
+    <li>Redlands tenant infrastructure in place (DB row, admin user, ClickSend sub-account, alpha tag registered) — code wiring deferred</li>
+  </ul>
+</div>
+
+<p style="margin-top:32px;font-size:11px;color:rgba(255,255,255,0.35);text-align:center">Generated 13 May 2026 PM-late at end-of-session handover. All claims in this file were verified at time of writing — refer to MEMORY.md note above each section if details may have shifted.</p>
+
+</body>
+</html>
