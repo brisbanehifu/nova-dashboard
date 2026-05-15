@@ -53,13 +53,14 @@
 <div class="nav"><a href="./index.html">← Nova Dashboard</a></div>
 
 <h1>Session Handover · 15–16 May 2026 · Lucky 11 Win Streak</h1>
-<div class="sub">11 customer-facing PRs shipped end-to-end with the strict protocol on every one · zero PROD damage · mystery stash resolved · 1 P0 banked (caught BEFORE re-enabling — protocol win) · trust signal: <em>"dream team work today. Big trust gained back. Super happy."</em> → <em>"lucky 7!!! 🚀🚀"</em> → <em>"UAT PVT pass 🚀🎉🙌"</em></div>
+<div class="sub">11 customer-facing PRs shipped end-to-end with the strict protocol on every one · zero PROD damage · mystery stash resolved · 1 P0 banked (caught BEFORE re-enabling — protocol win) · trust signal: <em>"dream team work today. Big trust gained back. Super happy."</em> → <em>"lucky 7!!! 🚀🚀"</em> → <em>"UAT PVT pass 🚀🎉🙌"</em><br><br><strong>+ 16 May continuation:</strong> UAT §4.4 on demo caught a latent cross-tenant data leak (Redlands HIFU would have seen Brisbane HIFU's full client list); fix in <a href="https://github.com/brisbanehifu/booking-api/pull/460">PR #460</a>, in flight under Tier-3 Mode A.</div>
 
 <div class="stat-grid">
-  <div class="stat"><div class="num">11</div><div class="lbl">PRs shipped (customer-facing)</div></div>
+  <div class="stat"><div class="num">11 + 1</div><div class="lbl">PRs shipped + 1 in-flight (#460)</div></div>
   <div class="stat"><div class="num">0</div><div class="lbl">PROD damage</div></div>
   <div class="stat"><div class="num">7</div><div class="lbl">Bug-types closed (PR #459 9.1–9.7)</div></div>
   <div class="stat"><div class="num">0</div><div class="lbl">Strict-protocol violations</div></div>
+  <div class="stat"><div class="num">1</div><div class="lbl">Latent data leak caught (UAT §4.4)</div></div>
 </div>
 
 <!-- ═════════════════════════ PR TABLE ═════════════════════════ -->
@@ -161,6 +162,42 @@
   <p>Net: the booking-details slideout is now both correctly labelled AND visually balanced. Branch can be deleted with no orphan work — every intent inside it has been merged through a clean PR.</p>
 </div>
 
+<!-- ═════════════════════════ P0 #2 — CROSS-TENANT LEAK ═════════════════════════ -->
+<h2>🔴 P0 #2 banked — cross-tenant data leak on <code>/api/contacts</code> (FIX IN FLIGHT)</h2>
+
+<div class="card alert">
+  <p><strong>Status: <span class="pill" style="background:rgba(155,61,255,0.20);color:var(--purple)">🟣 PR #460 OPEN</span> · CI RUNNING · awaiting Kim's merge go-ahead per Tier-3 Mode A.</strong></p>
+
+  <p style="margin-top:8px"><strong>One-line summary:</strong> UAT plan §4.4 against <code>demo.bookatreatment.ai</code> with a tenant-3 JWT returned <strong>47 of tenant 1's contacts × 3 consecutive calls</strong>. Root cause: 5 CRUD handlers in <code>index.js</code> called <code>contacts.js</code> helpers without passing <code>tenantId</code> → helpers defaulted to <code>tenantId=1</code>. The PR #347 / PR #397 multi-tenant sweep missed contacts entirely.</p>
+
+  <h3>Affected surface (5 handlers)</h3>
+  <ul>
+    <li><code>POST /api/contacts</code></li>
+    <li><code>GET /api/contacts</code></li>
+    <li><code>GET /api/contacts/:id</code></li>
+    <li><code>PUT /api/contacts/:id</code></li>
+    <li><code>DELETE /api/contacts/:id</code></li>
+  </ul>
+
+  <h3>Pre-fix real-world impact on PROD</h3>
+  <ul>
+    <li><strong>Tenant 1 (Brisbane HIFU)</strong> — unaffected. Default-1 fallback matched the actual tenant, so reads/writes stayed correct.</li>
+    <li><strong>Tenant 4 (Redlands HIFU / Grace)</strong> — <strong class="pill pill-alert">latent breach</strong>. The moment Grace opened the Clients page she would have seen Brisbane HIFU's full client list: names, emails, phones, age, notes, allergies. Not yet triggered because Grace is PARKED (per the Redlands snooze decisions banked earlier today).</li>
+    <li><strong>Every future non-tenant-1 customer</strong> — same breach class, same trigger.</li>
+  </ul>
+
+  <h3>Fix shape</h3>
+  <p>Canonical resolution at the top of each handler:</p>
+  <pre>const tenantId = req.user?.tenantId || req.tenantId || 1;</pre>
+  <p>...then threaded through each <code>contacts.js</code> helper call. Unique grep marker <code>contacts-crud-tenant-scoping-15may2026</code> appears 5× in <code>index.js</code> — use it to verify the deployed bundle contains the fix. Shipped via <a href="https://github.com/brisbanehifu/booking-api/pull/460">PR #460</a>.</p>
+
+  <h3>Why this is a protocol WIN (like the Stripe P0)</h3>
+  <p>UAT §4.4 was authored as a multi-tenant safety net. The <strong>FIRST time it ran end-to-end</strong> against <code>demo.bookatreatment.ai</code>, it caught a real breach class <em>before any non-tenant-1 customer onboarded</em>. Same energy as the Stripe regression catch below: discipline (writing + actually running the safety net) caught the failure before any real customer hit it.</p>
+
+  <h3>Followup (out of scope for #460)</h3>
+  <p><code>/api/contacts/:id/price-lists</code> and <code>/.../:listId/items</code> query <code>supplier_price_lists</code> / <code>supplier_price_items</code> with <strong>no <code>tenant_id</code> filter at all</strong> — different shape (raw SQL on the join, not a helper-call default), separate sweep PR queued. See Bug 11 in the bug list below.</p>
+</div>
+
 <!-- ═════════════════════════ P0 STRIPE REGRESSION ═════════════════════════ -->
 <h2>🔴 P0 banked — Stripe deposit-receipt regression (caught BEFORE re-enabling)</h2>
 
@@ -186,19 +223,53 @@
   <p style="margin-top:10px"><strong>Hard rule (carried over from v6.44):</strong> Do not re-enable the Send Deposit SMS button on AT-test evidence alone. Real money or no re-enable.</p>
 </div>
 
+<!-- ═════════════════════════ MULTI-TENANT GAP ANALYSIS ═════════════════════════ -->
+<h2>📐 Multi-tenant gap analysis — authored today</h2>
+
+<div class="card info">
+  <p>New canonical doc: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/MULTI_TENANCY_GAP_ANALYSIS.md">MULTI_TENANCY_GAP_ANALYSIS.md</a> v1.0 · CONFIGURATION_GUIDE row added: v6.42 (15 May PM).</p>
+
+  <h3>What it captures</h3>
+  <ul>
+    <li><strong>Phase 1 + Phase 2 + continuation PRs envelope:</strong> #347 / #381 / #397 / #398 / #439 — what each landed and what each <em>didn't</em> cover (e.g. PR #460 today proves contacts CRUD was missed by #347/#397).</li>
+    <li><strong>Phase 3 = 503 stub.</strong> Wildcard subdomain routing was scoped but never built; the route returns 503. That single fact forces every multi-tenant decision below.</li>
+    <li><strong>4 decision points:</strong>
+      <ul>
+        <li><strong>D1 — Redlands DNS:</strong> needs to be cut over before Grace can hit her own subdomain (currently NXDOMAIN, see below).</li>
+        <li><strong>D2 — shadow-vs-enforce:</strong> <strong>forced to shadow-mode</strong> by the Phase 3 stub. Full <code>TENANCY_MODE=enforce</code> is a follow-up sprint.</li>
+        <li><strong>D3 — email uniqueness:</strong> deferred (per-tenant unique vs global unique still undecided).</li>
+        <li><strong>D4 — UAT path:</strong> shadow-mode UAT against demo, 1-day feasible.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>5 MEMORY blockers reconciled live this session</h3>
+  <table>
+    <tr><th>Blocker</th><th>State</th></tr>
+    <tr><td>Verify tenant 4 row on PROD</td><td><span class="pill pill-verified">✅ verified</span></td></tr>
+    <tr><td>Confirm <code>admin_user.tenant_id=4</code></td><td><span class="pill pill-verified">✅ verified</span></td></tr>
+    <tr><td>Verify Redlands DNS</td><td><span class="pill pill-alert">🔴 NXDOMAIN</span> — <code>redlands.bookatreatment.ai</code> resolves NXDOMAIN via three resolvers (1.1.1.1, 8.8.8.8, local). Kim's call: cut DNS or stay on path-routing.</td></tr>
+    <tr><td>Decide shadow-vs-enforce</td><td><span class="pill pill-warn">forced</span> — Phase 3 stub forces shadow-mode for now</td></tr>
+    <tr><td>Run UAT plan §4</td><td><span class="pill pill-verified">✅ ran</span> — caught the cross-tenant leak above (UAT §4.4)</td></tr>
+  </table>
+</div>
+
 <!-- ═════════════════════════ NEXT SESSION ═════════════════════════ -->
 <h2>👉 Next session — start here</h2>
 
 <div class="card info">
   <ol>
     <li>
+      <strong><a href="https://github.com/brisbanehifu/booking-api/pull/460">PR #460</a> — verify deploy + run live UAT §4.4 re-test against <code>demo.bookatreatment.ai</code></strong>. Fire the same tenant-3 JWT call sequence — <strong>expect <code>total=0</code></strong> (was 47). Bundle-hash check + grep deployed code for <code>contacts-crud-tenant-scoping-15may2026</code> (should appear 5×). Only after green: branch protection clean → admin merge under Tier-3 Mode A → Kim attending each step.
+    </li>
+    <li>
       <strong>Stripe deposit-receipt diagnostic</strong> (P0 above). Walk the 7-step chain. Surface findings before proposing a fix. Do <em>not</em> re-enable Send Deposit SMS until step 7 passes.
     </li>
     <li>
-      <strong>BAT slideout deposit-block consolidation PR</strong> — spec at <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/backlog_bat_deposit_block_consolidation.md">backlog_bat_deposit_block_consolidation.md</a>. Delete the 2 grey DEPOSIT TOTAL + DEPOSIT cards, move the blue "Deposit unpaid" alert from top of slideout to below Notes, expand it to carry the deposit total + status. <em>Send Deposit SMS in this consolidated alert stays disabled until P0 #1 is closed.</em> Two open questions to confirm before build (hide-on-paid vs green variant; SMS re-enable timing) — both materially depend on the P0 outcome, so item #1 should land first.
+      <strong>BAT slideout deposit-block consolidation PR</strong> — spec at <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/backlog_bat_deposit_block_consolidation.md">backlog_bat_deposit_block_consolidation.md</a>. Delete the 2 grey DEPOSIT TOTAL + DEPOSIT cards, move the blue "Deposit unpaid" alert from top of slideout to below Notes, expand it to carry the deposit total + status. <em>Send Deposit SMS in this consolidated alert stays disabled until P0 #1 (Stripe) is closed.</em> Two open questions to confirm before build (hide-on-paid vs green variant; SMS re-enable timing) — both materially depend on the P0 outcome, so item #2 should land first.
     </li>
     <li>
-      Redlands + multi-tenant UAT readiness — gap analysis already done (5 blockers in MEMORY index). 1-day shadow-mode UAT is feasible; full <code>TENANCY_MODE=enforce</code> is a follow-up sprint.
+      <strong>Redlands + multi-tenant UAT readiness</strong> — gap analysis now formalised as a doc, not just a MEMORY line. See <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/MULTI_TENANCY_GAP_ANALYSIS.md">MULTI_TENANCY_GAP_ANALYSIS.md</a> v1.0 above for the 4 decision points + 5 reconciled blockers. Outstanding: D1 Redlands DNS (NXDOMAIN — Kim's call), D3 email uniqueness. Shadow-mode UAT is the immediate path; full <code>TENANCY_MODE=enforce</code> is a follow-up sprint gated on Phase 3 wildcard-subdomain build (currently 503 stub).
     </li>
   </ol>
 </div>
@@ -227,7 +298,10 @@
     <tr><td>8</td><td>Booking-details polish-2 — phone format, halved cards, bigger name, liquid-grey shadows</td><td><span class="pill pill-verified">✅ shipped</span> via PR #454 (+ PR #455 test-time fix)</td></tr>
     <tr><td>9.1–9.7</td><td>Booking-details mobile UAT — 7 fixes in one PR (safe-area, centred actions, Notes-up, Upcoming section, clickable history, no-duration tail, compact deposit cards)</td><td><span class="pill pill-verified">✅ shipped</span> via PR #459</td></tr>
     <tr><td>9 (sep)</td><td>Reschedule/rebook details follow client (backend <code>COALESCE(b.phone, c.phone)</code> + one-time backfill of 585 rows + booking-creation-path safety net)</td><td><span class="pill pill-warn">queued</span> — 28% of Brisbane HIFU bookings affected; today's frontend fallback masks the read side</td></tr>
-    <tr><td>P0</td><td>Stripe deposit-receipt regression — zero real deposits 12–16 May despite AT pass</td><td><span class="pill pill-alert">🔴 OPEN</span> — diagnostic outlined above, item #1 next session</td></tr>
+    <tr><td>P0</td><td>Stripe deposit-receipt regression — zero real deposits 12–16 May despite AT pass</td><td><span class="pill pill-alert">🔴 OPEN</span> — diagnostic outlined above, item #2 next session</td></tr>
+    <tr><td>10</td><td>Contacts CRUD cross-tenant data leak (5 handlers in <code>index.js</code> dropped <code>tenantId</code> → defaulted to 1)</td><td><span class="pill" style="background:rgba(155,61,255,0.20);color:var(--purple)">🟣 PR #460 OPEN</span> — fix in flight under Tier-3 Mode A, item #1 next session</td></tr>
+    <tr><td>11</td><td>Price-list sub-endpoints under <code>/api/contacts/:id/price-lists</code> + <code>/.../:listId/items</code> query <code>supplier_price_lists</code> + <code>supplier_price_items</code> with <strong>NO <code>tenant_id</code> filter</strong></td><td><span class="pill pill-warn">⚪ queued</span> — separate sweep PR, raw-SQL shape (not a helper-default fix like #460)</td></tr>
+    <tr><td>12</td><td>Doc drift in <code>WHERE_NOVA_LIVES.md</code>: line 74 claims "Phase 3 wildcard subdomain DNS live since 27 Apr 2026" but <code>*.bookatreatment.ai</code> resolves NXDOMAIN; line 69 claims working tree at <code>OneDrive\Documents\Claude\booking-api</code> but actual repo is <code>C:\repos\booking-api</code></td><td><span class="pill pill-warn">⚪ Tier-1 doc fix queued</span></td></tr>
   </table>
 </div>
 
@@ -256,6 +330,13 @@
         <strong>P0 framing:</strong> the Stripe deposit-receipt regression banked today is a <strong>protocol WIN, not a trust regression</strong>. The Send Deposit SMS button stayed paused because the strict protocol said real-money verify, not AT-only. That discipline caught a silent failure before a single customer hit a broken link. Same energy carries forward to next session.
       </td>
     </tr>
+    <tr>
+      <td><strong>16 May continuation</strong></td>
+      <td>
+        UAT §4 multi-tenant safety net ran for the <strong>first time end-to-end</strong>, caught a latent cross-tenant leak that affected every future non-tenant-1 customer (would have surfaced Brisbane HIFU's full client list to Grace the moment she opened Clients). <a href="https://github.com/brisbanehifu/booking-api/pull/460">PR #460</a> in flight under Tier-3 Mode A (Kim attending each merge step).<br><br>
+        <strong>Second protocol WIN in 24h</strong> — same pattern as the Stripe deposit catch: the discipline (writing a multi-tenant UAT plan AND actually running it) caught the breach before any real customer hit it. Two for two on safety nets paying out the same day they were exercised.
+      </td>
+    </tr>
   </table>
 </div>
 
@@ -264,6 +345,7 @@
     <strong>References:</strong>
     <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/backlog_bat_deposit_block_consolidation.md">PR-next spec — BAT slideout deposit-block consolidation</a>
     · <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md v6.44</a>
+    · <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/MULTI_TENANCY_GAP_ANALYSIS.md">MULTI_TENANCY_GAP_ANALYSIS.md v1.0 (15 May 2026)</a>
     · <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/session_15may2026_strict_protocol_6pr_win_streak.md">15 May session memory</a>
     · <a href="./session-handover-14may2026-end-of-day.html">14 May EOD handover</a>
   </p>
