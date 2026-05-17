@@ -53,6 +53,20 @@ try {
       $dstHash = (Get-FileHash $dst -Algorithm SHA256).Hash
       if ($srcHash -eq $dstHash) { $needsCopy = $false }
     }
+
+    # GUARD: don't let a smaller local file clobber a larger published file.
+    # Trips on the failure mode that wiped the rich-tiles index.html on first
+    # sync (local was a 341-line stripped version, repo had 800-line tiles).
+    # Threshold: 30% shrink or more is rejected; otherwise allowed.
+    if ($needsCopy -and (Test-Path $dst)) {
+      $srcLen = $_.Length
+      $dstLen = (Get-Item $dst).Length
+      if ($dstLen -gt 0 -and $srcLen -lt ($dstLen * 0.7)) {
+        Write-SyncLog "  SKIP (shrink-guard): $rel local=$srcLen bytes vs repo=$dstLen bytes (<70%) -- not overwriting"
+        $needsCopy = $false
+      }
+    }
+
     if ($needsCopy) {
       Copy-Item -Path $_.FullName -Destination $dst -Force
       $copied++

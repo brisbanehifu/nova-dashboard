@@ -2,340 +2,799 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Nova Dashboard · BAT Current State</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Nova · Kim's Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
-    --accent:#00E8B4; --purple:#9B3DFF; --coral:#FF7A6E; --pink:#F040C8;
-    --red:#ff5a5a; --amber:#ffb340; --green:#3dd87f; --blue:#4aa3ff;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:-apple-system,'Plus Jakarta Sans','SF Pro Display',sans-serif;line-height:1.55;padding:32px;max-width:1180px;margin:0 auto}
-  h1{font-size:34px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#00FFCA 0%,#9B3DFF 55%,#FF7A6E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.4px}
-  h2{font-size:22px;font-weight:700;margin:36px 0 14px;color:var(--accent);letter-spacing:-0.2px}
-  h3{font-size:17px;font-weight:600;margin:18px 0 8px}
-  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:14px 0}
-  .card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px 20px;transition:border-color 0.2s, transform 0.15s}
-  .card:hover{border-color:rgba(0,232,180,0.25)}
-  .card a.card-link{color:inherit;text-decoration:none;display:block}
-  .ok{border-left:4px solid var(--accent)}
-  .warn{border-left:4px solid var(--amber)}
-  .alert{border-left:4px solid var(--red)}
-  .info{border-left:4px solid var(--blue)}
-  .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;vertical-align:middle}
-  .pill-ok{background:rgba(0,232,180,0.18);color:var(--accent)}
-  .pill-warn{background:rgba(255,179,64,0.18);color:var(--amber)}
-  .pill-alert{background:rgba(255,90,90,0.18);color:var(--red)}
-  .pill-purple{background:rgba(155,61,255,0.22);color:#d4b0ff}
-  .pill-blue{background:rgba(74,163,255,0.18);color:var(--blue)}
-  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
-  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
-  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
-  code{background:rgba(0,232,180,0.08);padding:2px 6px;border-radius:4px;color:var(--accent);font-family:'SF Mono','Menlo',monospace;font-size:12.5px}
-  a{color:var(--accent)}
-  a:hover{text-decoration:underline}
-  ul{padding-left:22px;margin:6px 0}
-  li{margin:4px 0}
-  .hero{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:8px}
-  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:14px 0 18px}
-  .stat{background:var(--card-alt);border:1px solid rgba(155,61,255,0.18);border-radius:12px;padding:14px}
-  .stat .num{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.5px;line-height:1.2}
-  .stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px}
-  .small{font-size:12px;color:var(--muted)}
-  .row-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-  .row-list a{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;text-decoration:none;color:var(--text);font-size:13.5px;transition:background 0.15s}
-  .row-list a:hover{background:rgba(0,232,180,0.06);border-color:rgba(0,232,180,0.25)}
-  .meta{color:var(--muted);font-size:12px}
+:root{
+  /* Light theme + purple accent — palette refresh 29 Apr 2026 */
+  --bg:#f7f6fb;          /* soft off-white with a faint purple wash */
+  --panel:#ffffff;        /* clean white cards */
+  --panel-2:#f1efff;      /* light purple-tinted hover */
+  --panel-3:#e9e5fb;      /* slightly deeper purple-tint surface */
+  --border:#e4e0f0;       /* subtle purple-grey border */
+  --border-soft:#f0eef7;  /* extra-soft divider */
+  --text:#1a1530;         /* deep purple-black, high contrast */
+  --text-dim:#5d5780;     /* medium readable muted */
+  --text-faint:#8b86a3;   /* low-emphasis */
+  --accent:#7c5cff;       /* primary purple — kept */
+  --accent-strong:#5a3dd6;/* deeper purple for hover/active */
+  --accent-soft:rgba(124,92,255,0.10);
+  --red:#dc2626;          --red-soft:rgba(220,38,38,0.10);
+  --amber:#d97706;        --amber-soft:rgba(217,119,6,0.10);
+  --green:#059669;        --green-soft:rgba(5,150,105,0.10);
+  --blue:#2563eb;         --blue-soft:rgba(37,99,235,0.10);
+  --shadow-card:0 1px 2px rgba(20,16,50,0.04), 0 4px 12px rgba(20,16,50,0.04);
+  --shadow-modal:0 20px 60px rgba(20,16,50,0.18);
+
+  /* Hero buttons — Apple mirror-gloss palette (added 2 May 2026) */
+  --teal:#00b896;
+  --teal-grad-from:#00d2a8;
+  --teal-grad-to:#00866a;
+  --pink:#ff4d8d;
+  --pink-grad-from:#ff6da3;
+  --pink-grad-to:#d12970;
+}
+
+/* ========== HERO BUTTON STRIP — Apple mirror gloss ========== */
+.hero-strip{
+  display:flex;flex-wrap:wrap;gap:14px;
+  margin-bottom:24px;padding:4px;
+}
+.hero-strip .hero-btn{flex:1 1 180px}
+@media (max-width:880px){.hero-strip{gap:12px;margin-bottom:20px}.hero-strip .hero-btn{flex:1 1 calc(50% - 6px)}}
+.hero-btn{
+  position:relative;display:flex;flex-direction:column;justify-content:center;
+  padding:24px 22px;min-height:104px;border-radius:20px;
+  text-decoration:none;color:#fff;overflow:hidden;
+  border:1px solid rgba(255,255,255,0.25);
+  transition:transform 0.18s ease, box-shadow 0.18s ease;
+}
+.hero-btn:hover,.hero-btn:active{transform:translateY(-2px)}
+.hero-btn::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:50%;
+  background:linear-gradient(180deg,rgba(255,255,255,0.30) 0%,rgba(255,255,255,0.05) 70%,transparent 100%);
+  border-radius:20px 20px 0 0;pointer-events:none;
+}
+.hero-btn::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:30%;
+  background:linear-gradient(0deg,rgba(0,0,0,0.10) 0%,transparent 100%);
+  border-radius:0 0 20px 20px;pointer-events:none;
+}
+.hero-btn .label{
+  position:relative;z-index:2;font-size:22px;font-weight:800;
+  letter-spacing:0.5px;text-transform:uppercase;line-height:1;
+  text-shadow:0 1px 2px rgba(0,0,0,0.12);
+  margin-bottom:6px;
+}
+.hero-btn .desc{
+  position:relative;z-index:2;font-size:13px;font-weight:500;
+  opacity:0.92;letter-spacing:0.2px;line-height:1.3;
+}
+.hero-btn.teal{
+  background:linear-gradient(135deg,var(--teal-grad-from) 0%,var(--teal-grad-to) 100%);
+  box-shadow:
+    0 6px 18px rgba(0,184,150,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(0,0,0,0.08);
+}
+.hero-btn.teal:hover{box-shadow:0 10px 26px rgba(0,184,150,0.45),inset 0 1px 0 rgba(255,255,255,0.6)}
+.hero-btn.pink{
+  background:linear-gradient(135deg,var(--pink-grad-from) 0%,var(--pink-grad-to) 100%);
+  box-shadow:
+    0 6px 18px rgba(255,77,141,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(0,0,0,0.08);
+}
+.hero-btn.pink:hover{box-shadow:0 10px 26px rgba(255,77,141,0.45),inset 0 1px 0 rgba(255,255,255,0.6)}
+.hero-btn .lock{
+  position:absolute;top:12px;right:14px;font-size:11px;font-weight:700;
+  background:rgba(255,255,255,0.22);padding:3px 8px;border-radius:8px;
+  letter-spacing:0.5px;
+}
+
+/* ========== READABILITY BUMP — larger fonts across the board ========== */
+body{font-size:17px}
+.head h1{font-size:30px;letter-spacing:-0.4px;line-height:1.2}
+.head .sub{font-size:16px;margin-top:6px}
+.nav-item{font-size:16px;padding:11px 14px}
+.brand-name{font-size:20px}
+.brand-sub{font-size:12px}
+.nav-section{font-size:12px;letter-spacing:0.1em}
+.chip{font-size:14px;padding:8px 14px}
+.card .title{font-size:18px;line-height:1.4}
+.card .body{font-size:15px;line-height:1.55}
+.btn{font-size:15px;padding:10px 16px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,system-ui,sans-serif;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+textarea{font-family:inherit}
+
+.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+@media (max-width:880px){.app{grid-template-columns:1fr}}
+
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:24px 20px;position:sticky;top:0;height:100vh;overflow-y:auto}
+@media (max-width:880px){.sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border);padding:16px;overflow-x:auto}}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.brand-name{font-weight:700;font-size:18px;letter-spacing:-0.01em}
+.brand-sub{font-size:11px;color:var(--text-faint);margin-top:2px;letter-spacing:0.05em;text-transform:uppercase}
+.nav-section{font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.08em;margin:24px 0 10px;font-weight:500}
+.nav{display:flex;flex-direction:column;gap:2px}
+@media (max-width:880px){.nav{flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:4px}.nav-section{display:none}}
+.nav-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:8px;color:var(--text-dim);font-size:14px;font-weight:500;transition:all 0.12s ease;border-left:2px solid transparent;white-space:nowrap}
+.nav-item:hover{background:var(--panel-3);color:var(--text)}
+.nav-item.active{background:var(--panel-3);color:var(--text);border-left-color:var(--accent)}
+@media (max-width:880px){.nav-item{border-left:none;border-bottom:2px solid transparent;padding:8px 12px}.nav-item.active{border-bottom-color:var(--accent);border-left:none}}
+.nav-item .label{display:flex;align-items:center;gap:8px}
+.nav-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.nav-dot.red{background:var(--red)} .nav-dot.amber{background:var(--amber)} .nav-dot.green{background:var(--green)} .nav-dot.blue{background:var(--blue)} .nav-dot.faint{background:var(--text-faint)}
+.count{background:var(--panel-3);color:var(--text-dim);font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;min-width:24px;text-align:center}
+.nav-item.active .count{background:var(--accent-soft);color:var(--accent)}
+.export-btn{margin-top:12px;width:100%;padding:10px;border-radius:8px;background:var(--panel-3);border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:500;transition:all 0.12s}
+.export-btn:hover{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.assign-btn{margin-top:24px;width:100%;padding:12px;border-radius:8px;background:var(--accent);border:none;color:#fff;font-size:14px;font-weight:600;transition:all 0.12s;box-shadow:0 2px 8px rgba(124,92,255,0.25);display:flex;align-items:center;justify-content:center;gap:8px}
+.assign-btn:hover{background:var(--accent-strong);box-shadow:0 4px 14px rgba(124,92,255,0.4)}
+.assign-btn .icon{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.25);display:inline-flex;align-items:center;justify-content:center;font-size:14px;line-height:1}
+
+.main{padding:28px 32px;max-width:980px}
+@media (max-width:880px){.main{padding:20px 16px}}
+.head{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px}
+.head h1{font-size:24px;font-weight:700;letter-spacing:-0.02em}
+.head .sub{color:var(--text-dim);font-size:14px;margin-top:4px}
+.ai-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:600}
+.ai-pill .pulse{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+.filters{display:flex;gap:8px;margin:20px 0 24px;flex-wrap:wrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chip{padding:6px 12px;border-radius:999px;background:var(--panel-2);border:1px solid var(--border);color:var(--text-dim);font-size:12px;font-weight:500;white-space:nowrap;transition:all 0.12s}
+.chip:hover{color:var(--text);border-color:var(--text-faint)}
+.chip.active{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+
+.cards{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;transition:all 0.15s}
+.card:hover{border-color:var(--text-faint)}
+.card.urgent{border-color:rgba(239,68,68,0.35)}
+.card.acted{opacity:0.55}
+.card.acted .actions{display:none}
+.card-status-strip{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:6px 10px;background:var(--green-soft);color:var(--green);border-radius:6px;font-size:12px;font-weight:600}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.identity{display:flex;align-items:center;gap:12px}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--panel-3);color:var(--text);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex-shrink:0;border:1px solid var(--border)}
+.avatar.brisbane{background:linear-gradient(135deg,#1e3a8a,#3b82f6)}
+.avatar.redlands{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
+.avatar.bat{background:linear-gradient(135deg,#4c1d95,#7c3aed)}
+.avatar.teamneo{background:linear-gradient(135deg,#064e3b,#10b981)}
+.avatar.hms{background:linear-gradient(135deg,#92400e,#f59e0b)}
+.avatar.toombul{background:linear-gradient(135deg,#831843,#ec4899)}
+.identity-text .name{font-weight:600;font-size:14px;color:var(--text)}
+.identity-text .meta{font-size:12px;color:var(--text-faint);margin-top:2px}
+.tag{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;flex-shrink:0;letter-spacing:0.02em}
+.tag.urgent{background:var(--red-soft);color:var(--red)}
+.tag.review{background:var(--amber-soft);color:var(--amber)}
+.tag.in-flight{background:var(--blue-soft);color:var(--blue)}
+.tag.done{background:var(--green-soft);color:var(--green)}
+.tag.waiting{background:var(--panel-3);color:var(--text-faint)}
+.title{font-size:16px;font-weight:600;letter-spacing:-0.01em;margin-bottom:6px;color:var(--text)}
+.body{font-size:14px;color:var(--text-dim);margin-bottom:14px}
+.user-edit{display:block;margin-bottom:14px;padding:10px 12px;background:var(--amber-soft);border-left:2px solid var(--amber);border-radius:6px;font-size:13px;color:var(--text-dim);white-space:pre-wrap}
+.user-edit-label{font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px}
+.user-note{display:block;margin-bottom:14px;padding:10px 12px;background:rgba(124,92,255,0.08);border-left:2px solid var(--accent);border-radius:6px;font-size:13px;color:var(--text-dim);white-space:pre-wrap}
+.user-note-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
+.user-note-edit{font-size:11px;color:var(--accent);text-transform:none;letter-spacing:0;cursor:pointer;padding:2px 6px;border-radius:4px;background:transparent;border:none}
+.user-note-edit:hover{background:var(--accent-soft)}
+.add-note-btn{margin-top:10px;padding:6px 10px;border-radius:6px;background:transparent;border:1px dashed var(--border);color:var(--text-faint);font-size:12px;font-weight:500;cursor:pointer;transition:all 0.12s}
+.add-note-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.reopen-btn{margin-left:auto;padding:2px 8px;border-radius:4px;background:transparent;border:none;color:var(--green);font-size:11px;font-weight:600;cursor:pointer}
+.reopen-btn:hover{background:var(--green-soft)}
+.nova-note{display:flex;gap:8px;padding:10px 12px;background:var(--panel-2);border-left:2px solid var(--accent);border-radius:6px;margin-bottom:14px}
+.nova-note .badge{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;flex-shrink:0;margin-top:2px}
+.nova-note .text{font-size:13px;color:var(--text-dim)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:8px 14px;border-radius:8px;background:var(--panel-3);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:500;transition:all 0.12s}
+.btn:hover{background:var(--panel-2);border-color:var(--text-faint)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:#6f4ef0}
+.btn.danger:hover{background:var(--red-soft);color:var(--red);border-color:var(--red)}
+
+.empty{text-align:center;padding:60px 20px;color:var(--text-faint)}
+.empty-emoji{font-size:36px;margin-bottom:12px;opacity:0.5}
+.empty-title{font-size:15px;font-weight:600;color:var(--text-dim);margin-bottom:4px}
+.empty-body{font-size:13px}
+
+.footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:100;backdrop-filter:blur(4px)}
+.modal-overlay.show{display:flex}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:16px;width:100%;max-width:560px;padding:24px;max-height:90vh;overflow-y:auto}
+.modal h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.modal .modal-sub{font-size:13px;color:var(--text-faint);margin-bottom:16px}
+.modal textarea{width:100%;min-height:160px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-size:14px;resize:vertical;line-height:1.5}
+.modal textarea:focus{outline:none;border-color:var(--accent)}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+
+/* Snooze menu */
+.snooze-menu{position:absolute;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:6px;display:none;z-index:50;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.snooze-menu.show{display:block}
+.snooze-menu button{display:block;width:100%;text-align:left;padding:8px 12px;border-radius:6px;font-size:13px;color:var(--text-dim)}
+.snooze-menu button:hover{background:var(--panel-3);color:var(--text)}
+
+/* Toast */
+.toast-container{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{background:var(--panel-3);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(0,0,0,0.4);pointer-events:auto;animation:toastIn 0.2s ease-out;max-width:90vw}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.toast .toast-text{font-size:13px;color:var(--text)}
+.toast .toast-undo{padding:4px 10px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:600;cursor:pointer}
+.toast .toast-undo:hover{background:var(--accent);color:#fff}
+
+/* Sync banner */
+.sync-banner{margin-top:14px;padding:10px 14px;background:var(--amber-soft);border:1px solid rgba(245,158,11,0.3);border-radius:10px;color:var(--amber);font-size:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sync-banner button{font-size:12px;color:var(--amber);font-weight:600;text-decoration:underline}
+
+/* Hide on small */
+@media (max-width:600px){.hide-mobile{display:none}}
 </style>
 </head>
 <body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-name">Nova</div>
+        <div class="brand-sub">Command Center</div>
+      </div>
+    </div>
 
-<div class="hero">
-  <div>
-    <h1>Nova Dashboard</h1>
-    <div class="sub">BAT current-state hub · last updated <strong>16 May 2026 early UTC (15 May AEST EOD)</strong> · active session in progress · 14 May EOD section preserved below for prior-session context</div>
-  </div>
-  <div class="small">Refreshes whenever a major in-flight item changes state. Latest full session detail: <a href="./session-handover-15may2026.html">15–16 May 2026 — Lucky 11 Win Streak</a>.</div>
+    <div class="nav-section">Triage</div>
+    <div class="nav" id="navTriage">
+      <button class="nav-item active" data-filter="needs-action"><span class="label"><span class="nav-dot red"></span>Needs action</span><span class="count" id="c-needs-action">0</span></button>
+      <button class="nav-item" data-filter="drafts-ready"><span class="label"><span class="nav-dot amber"></span>Drafts ready</span><span class="count" id="c-drafts-ready">0</span></button>
+      <button class="nav-item" data-filter="in-flight"><span class="label"><span class="nav-dot blue"></span>In flight</span><span class="count" id="c-in-flight">0</span></button>
+      <button class="nav-item" data-filter="waiting"><span class="label"><span class="nav-dot faint"></span>Waiting on others</span><span class="count" id="c-waiting">0</span></button>
+      <button class="nav-item" data-filter="done"><span class="label"><span class="nav-dot green"></span>Done today</span><span class="count" id="c-done">0</span></button>
+      <button class="nav-item" data-filter="snoozed"><span class="label">💤 Snoozed</span><span class="count" id="c-snoozed">0</span></button>
+      <button class="nav-item" data-filter="nova-decided" style="border-left-color:var(--accent)"><span class="label"><span class="nav-dot" style="background:var(--accent)"></span>Nova decided</span><span class="count" id="c-nova-decided">0</span></button>
+    </div>
+
+    <div class="nav-section">By tier</div>
+    <div class="nav" id="navTier">
+      <button class="nav-item" data-tier="P0"><span class="label"><span class="nav-dot red"></span>P0 — same day</span><span class="count" id="c-P0">0</span></button>
+      <button class="nav-item" data-tier="P1"><span class="label"><span class="nav-dot amber"></span>P1 — this week</span><span class="count" id="c-P1">0</span></button>
+      <button class="nav-item" data-tier="P2"><span class="label"><span class="nav-dot faint"></span>P2 — when possible</span><span class="count" id="c-P2">0</span></button>
+    </div>
+
+    <div class="nav-section">By business</div>
+    <div class="nav" id="navBusiness">
+      <button class="nav-item" data-business="all"><span class="label">All businesses</span></button>
+      <button class="nav-item" data-business="BAT.AI"><span class="label">BookATreatment.AI</span></button>
+      <button class="nav-item" data-business="Brisbane HIFU"><span class="label">Brisbane HIFU</span></button>
+      <button class="nav-item" data-business="Redlands HIFU"><span class="label">Redlands HIFU</span></button>
+      <button class="nav-item" data-business="HIFU Machine Sales"><span class="label">HIFU Machine Sales</span></button>
+      <button class="nav-item" data-business="TeamNEO"><span class="label">TeamNEO + tender</span></button>
+    </div>
+
+    <div class="nav-section">📚 Strategy Docs</div>
+    <div class="nav">
+      <a class="nav-item" href="g2-capterra-strategy.html" target="_blank" style="text-decoration:none"><span class="label">G2 + Capterra playbook</span></a>
+      <a class="nav-item" href="marketing-command-centre.html" target="_blank" style="text-decoration:none"><span class="label">Marketing Command Centre</span></a>
+      <a class="nav-item" href="app-hq.html" target="_blank" style="text-decoration:none"><span class="label">APP HQ — engineering pulse</span></a>
+      <a class="nav-item" href="redlands-training.html" target="_blank" style="text-decoration:none"><span class="label">🆕 Redlands HIFU — training plan</span></a>
+    </div>
+
+    <button class="assign-btn" id="assignBtn"><span class="icon">+</span>Send Nova a task</button>
+    <button class="export-btn" id="exportBtn">📤 Export decisions</button>
+  </aside>
+
+  <main class="main">
+    <!-- Hero button strip — fast phone access to key dashboards -->
+    <nav class="hero-strip" aria-label="Key dashboards">
+      <a class="hero-btn teal" href="app-hq.html"><span class="label">APP HQ</span><span class="desc">Engineering pulse · session log</span></a>
+      <a class="hero-btn pink" href="marketing-command-centre.html"><span class="label">Marketing</span><span class="desc">Content · campaigns · launch</span></a>
+      <a class="hero-btn teal" href="competitors.html"><span class="label">Competitors</span><span class="desc">Red-team · intelligence</span></a>
+      <a class="hero-btn pink" href="investment.html"><span class="label">Investment</span><span class="desc">Pack · pitch · cashflow</span><span class="lock">🔒</span></a>
+      <a class="hero-btn teal" href="ceo-dashboard.pdf"><span class="label">CEO</span><span class="desc">Executive snapshot</span><span class="lock">🔒</span></a>
+    </nav>
+
+    <div class="head">
+      <div>
+        <h1 id="paneTitle">Needs your attention</h1>
+        <div class="sub" id="paneSub">Loading…</div>
+      </div>
+      <div class="ai-pill"><span class="pulse"></span>Nova active</div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="chip active" data-business="all">All</button>
+      <button class="chip" data-business="BAT.AI">BAT.AI</button>
+      <button class="chip" data-business="Brisbane HIFU">Brisbane HIFU</button>
+      <button class="chip" data-business="Redlands HIFU">Redlands HIFU</button>
+      <button class="chip" data-business="HIFU Machine Sales">HMS</button>
+      <button class="chip" data-business="TeamNEO">TeamNEO</button>
+    </div>
+
+    <div id="syncBanner"></div>
+    <div class="cards" id="cards"></div>
+
+    <div class="footer">
+      <span>Nova — last updated <span id="lastUpdate">—</span></span>
+      <span>Decisions saved on this device · Export to sync with Nova</span>
+    </div>
+  </main>
 </div>
 
-<!-- ═════════════════════════ ACTIVE SESSION (16 MAY UTC) ═════════════════════════ -->
-<div class="card alert" style="border-left-color:var(--purple);background:linear-gradient(135deg,rgba(155,61,255,0.10),rgba(0,232,180,0.04))">
-  <h3>🟢 ACTIVE SESSION — Path D (gap analysis → PROD probes → UAT §4 on demo) <span class="pill pill-purple">IN FLIGHT</span></h3>
-  <p>Multi-tenancy gap analysis authored + UAT §4.4 on demo caught a <strong>cross-tenant data leak on <code>/api/contacts</code></strong> (5 CRUD handlers in <code>index.js</code> defaulted to <code>tenantId=1</code> instead of JWT-scoping). Fix shipped as <a href="https://github.com/brisbanehifu/booking-api/pull/460">PR #460</a>, currently in CI / awaiting admin-merge per Layer-1 timeout pattern.</p>
-  <ul style="margin-top:8px">
-    <li><strong>New canonical doc:</strong> <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/MULTI_TENANCY_GAP_ANALYSIS.md">MULTI_TENANCY_GAP_ANALYSIS.md</a> v1.0 — captures Phase 1 + 2 + continuation PRs (#347/#381/#397/#398/#439) envelope, Phase 3 still 503 stub, 4 decision points surfaced (D1 Redlands DNS, D2 shadow-vs-enforce forced, D3 email uniqueness deferred, D4 UAT path)</li>
-    <li><strong>CONFIGURATION_GUIDE:</strong> v6.42 row added documenting the gap analysis</li>
-    <li><strong>PROD read-only probes done:</strong> tenant 4 row verified (Grace, trialing, AUD), admin_user.tenant_id=4 verified, DNS for <code>redlands.bookatreatment.ai</code> = NXDOMAIN (Phase 3 wildcard not in DNS)</li>
-    <li><strong>UAT §4.4 finding (verified live):</strong> tenant-3 JWT → <code>GET /api/contacts</code> on demo returned 47 of tenant-1's contacts × 3 consecutive calls. Same buggy handler verified on PROD via <code>railway ssh</code>. Real-world impact pre-fix: latent breach for Grace (tenant 4) if she'd opened Clients page — Brisbane HIFU's full client list would have surfaced.</li>
-    <li><strong>Followup queued:</strong> <code>/api/contacts/:id/price-lists</code> + <code>/api/contacts/:id/price-lists/:listId/items</code> have NO <code>tenant_id</code> filter at all — different shape bug, separate sweep PR</li>
-  </ul>
-</div>
-
-<div class="stat-grid">
-  <div class="stat"><div class="num">v1.0 / B53</div><div class="lbl">App Store · WAITING</div></div>
-  <div class="stat"><div class="num">6th</div><div class="lbl">Apple attempt</div></div>
-  <div class="stat"><div class="num">24-48h</div><div class="lbl">Apple verdict ETA</div></div>
-  <div class="stat"><div class="num">5</div><div class="lbl">G8 gates banked</div></div>
-</div>
-
-<!-- ═════════════════════════ TODAY'S DELIVERIES — 14 MAY EOD ═════════════════════════ -->
-<h2>🟢 14 May 2026 EOD — today's deliveries</h2>
-
-<div class="card ok">
-  <h3>5 PRs shipped + verified live <span class="pill pill-ok">DONE</span></h3>
-  <table>
-    <tr><th>PR</th><th>Title</th><th>State</th></tr>
-    <tr>
-      <td><a href="https://github.com/brisbanehifu/booking-api/pull/438">#438</a></td>
-      <td>SMS observability send-side — provider_message_id, provider_status, carrier, message_parts, etc.</td>
-      <td>(prior session) verified live — Kim's TEST booking row id=390 captured <code>provider_message_id=1F14F3F7-…</code></td>
-    </tr>
-    <tr>
-      <td><a href="https://github.com/brisbanehifu/booking-api/pull/439">#439</a></td>
-      <td>Per-tenant ClickSend credentials + sender id (Redlands criterion #3)</td>
-      <td>Admin-merged + deployed + seeded + LIVE E2E green. Tenant 1 → BrisbaneHifu / +61416248639. Tenant 4 → Redlandshifu / RedlandHIFU.</td>
-    </tr>
-    <tr>
-      <td><a href="https://github.com/brisbanehifu/booking-api/pull/440">#440</a></td>
-      <td>CI Integration Tests <code>timeout-minutes: 15</code> — Layer 1 of CI hardening</td>
-      <td>Admin-merged + deployed. Validated on its own CI run — fails fast at 15m15s instead of hanging.</td>
-    </tr>
-    <tr>
-      <td><a href="https://github.com/brisbanehifu/booking-api/pull/443">#443</a></td>
-      <td>Bookings/Calendar polish — orphan header md:hidden + first-name on narrow events</td>
-      <td>Admin-merged + deployed + visual-verified live via Chrome MCP (Kathryn / Pooja / Beth / Kristine / Mandy / Peter — first names on overlap; Tracey Press full name when standalone).</td>
-    </tr>
-    <tr>
-      <td><a href="https://github.com/brisbanehifu/booking-api/pull/444">#444</a></td>
-      <td>PageHeader title squished word-by-word at laptop viewport — actions block now allowed to wrap</td>
-      <td>Admin-merged + deployed. Bundle hash flipped <code>Co8XFVCJ.js</code> → <code>Db4Entj1.js</code>; new <code>PageHeader-CfPg1tJS.js</code>. Kim verifies on her laptop after refresh.</td>
-    </tr>
-  </table>
-  <p style="margin-top:10px;font-size:13px;color:var(--muted)">Discipline that earned the trust signal at session end: validating each step, slowed-down release cadence, parallel-merge guard at 60-90s post-merge, live-PROD visual audits via Chrome MCP (not stale specs).</p>
-</div>
-
-<div class="card alert">
-  <h3>🔴 P0 finding — light mode is partially broken <span class="pill pill-alert">SCOPED, NOT FIXED</span></h3>
-  <p>Live audit on PROD Brisbane HIFU (admin view) via Chrome MCP found that the "Light mode" toggle flips <code>data-theme="light"</code> on <code>&lt;html&gt;</code> AND body bg goes to <code>rgb(247, 246, 251)</code> (light grey) correctly — but sidebar / PageHeader card / booking-row cards / calendar event cards / calendar today-column highlight all use hard-coded dark color classes (e.g. <code>bg-[#221240]</code>) that don't respect the theme attribute.</p>
-  <p style="margin-top:8px"><strong>User impact</strong>: clicking the toggle changes the button label ("Light mode" → "Dark mode") but the app looks unchanged. Anyone preferring light mode cannot actually use the app in light mode.</p>
-  <p style="margin-top:8px"><strong>Surface</strong>: 30+ admin pages + 20+ component files (51+ occurrences in components alone). Sized at 1.5-2 days full sweep / 4-8 hours for high-traffic first pass.</p>
-  <p style="margin-top:8px"><strong>Full plan</strong>: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/B3_LIGHT_MODE_REBUILD_SPEC.md">B3_LIGHT_MODE_REBUILD_SPEC.md</a> — 9-section spec ready for next session to pick up cold (3-tier rollout: Tier 1 high-traffic, Tier 2 admin pages, Tier 3 components).</p>
-</div>
-
-<div class="card warn">
-  <h3>⚠ CI Layer 1 refinement — admin-merge STILL needed <span class="pill pill-warn">REFINEMENT</span></h3>
-  <p>PR #440's <code>timeout-minutes: 15</code> works — Integration Tests fails fast at 15m15s instead of hanging 30m+. BUT the timeout exit produces conclusion <code>CANCELLED</code>, not <code>FAILED</code>. Branch protection treats <code>CANCELLED</code> as blocking just like <code>pending</code>, and <code>continue-on-error: true</code> doesn't help because it requires the check to be <code>success</code>.</p>
-  <p style="margin-top:8px"><strong>Net effect</strong>: Layer 1 saves 15+ minutes of hanging-CI per PR (real value — lower runner cost, faster signal of test trouble). But admin-merge bypass remains routine until <strong>Layer 2 (schema baseline)</strong> makes Integration Tests reliably pass. Memory: <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/bat_ci_integration_tests_flaky_3_layer_fix.md"><code>bat_ci_integration_tests_flaky_3_layer_fix.md</code></a>.</p>
-</div>
-
-<div class="card info">
-  <h3>🎯 Redlands re-entry criteria state at EOD</h3>
-  <table>
-    <tr><th>#</th><th>Criterion</th><th>State</th></tr>
-    <tr><td>1</td><td>Brisbane HIFU bug backlog cleared</td><td>Partial — 5 PRs landed today plus parallel-merge hamburger/forecast fixes</td></tr>
-    <tr><td>2</td><td>UI consistency sweep done (or clearly scoped)</td><td><span class="pill pill-ok">CLEARLY SCOPED</span> via B3 spec + #443/#444 polish shipped</td></tr>
-    <tr><td>3</td><td>Per-tenant ClickSend code shipped + verified on tenant 1</td><td><span class="pill pill-verified">DONE</span> — PR #439, tenant 4 also seeded</td></tr>
-    <tr><td>4</td><td>RedlandHIFU alpha tag APPROVED by ACMA</td><td>Kim handling ACMA Assist click — 24-72h external clock</td></tr>
-  </table>
-</div>
-
-<!-- ═════════════════════════ APPLE APP STORE ═════════════════════════ -->
-<h2>🍎 Apple App Store — v1.0 in review</h2>
-
-<div class="card ok">
-  <h3>Current state <span class="pill pill-ok">WAITING_FOR_REVIEW</span></h3>
-  <table>
-    <tr><td style="width:170px;color:var(--muted)">Submission</td><td><code>9f24d527-e328-4728-a74e-548dffbe7390</code></td></tr>
-    <tr><td style="color:var(--muted)">Build attached</td><td>53 (id <code>2087348b-2dd2-43b9-bf9c-8e6817194f94</code>)</td></tr>
-    <tr><td style="color:var(--muted)">Submitted</td><td>2026-05-13T03:45:42 UTC</td></tr>
-    <tr><td style="color:var(--muted)">App Store version</td><td>v1.0 (id <code>42f7a957-…</code>)</td></tr>
-    <tr><td style="color:var(--muted)">Reviewer demo creds</td><td><code>demo@bookatreatment.ai</code> / <code>BATdemo2026!Reviewer</code> (tenant 3, app-store-demo-clinic)</td></tr>
-  </table>
-  <p style="margin-top:10px"><strong>Why this attempt should land:</strong> first submission where every prior cause is fixed + visually verified + Kim explicitly authorized in plain English.</p>
-</div>
-
-<div class="grid">
-  <div class="card info">
-    <h3>The five rejections (7-12 May) — what broke each time</h3>
-    <table>
-      <tr><th>Build</th><th>Date</th><th>Root cause</th></tr>
-      <tr><td>42</td><td>5 May</td><td>2.3.8 placeholder AppIcon + 2.1(a) black splash + coincident prod outage</td></tr>
-      <tr><td>48</td><td>7 May</td><td>3.1.1 + 2.1(a) login — IS_IOS_NATIVE const tree-shaken; demo only on BAT-DEMO</td></tr>
-      <tr><td>49 ×2</td><td>8 May</td><td>Same tree-shake bug — template-recycled rejections</td></tr>
-      <tr><td>51</td><td>10 May</td><td>2.1(a) iPad crash on photo upload — Info.plist missing photo/camera keys</td></tr>
-      <tr><td>52</td><td>12 May</td><td>Self-cancelled — Claude submitted without Kim's authorization (G8.5 banked)</td></tr>
-    </table>
-  </div>
-
-  <div class="card ok">
-    <h3>What's in Build 53 — every fix shipped + verified</h3>
-    <ul>
-      <li><strong>IAP gate</strong> — <code>isIOSNative()</code> as a runtime function (PR #388); const form was tree-shaken to false by Vite</li>
-      <li><strong>Photo permissions</strong> — <code>NSPhotoLibraryUsageDescription</code> + <code>NSCameraUsageDescription</code> + <code>NSPhotoLibraryAddUsageDescription</code> injected in <code>build-mobile.yml</code> (PR #422)</li>
-      <li><strong>Stripe Connect</strong> belt-and-braces gate on iOS (PR #434) — section technically 3.1.5(a)-allowed but visually similar to subscription pattern</li>
-      <li><strong>Demo account auth</strong> — cross-tenant fallback in <code>auth.js</code> (PR #381), demo user lives in tenant 3 isolated from Brisbane HIFU</li>
-      <li><strong>Visual verification</strong> — local Puppeteer + Capacitor mock confirmed iOS hides every paid surface and web still shows them; LIVE E2E re-ran 10/10 surfaces gated post-deploy</li>
-    </ul>
+<!-- Edit modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <h3 id="editModalTitle">Edit</h3>
+    <p class="modal-sub" id="editModalSub">Your edits stay on this device until you Export to Nova.</p>
+    <textarea id="editTextarea" placeholder="Edit the wording…"></textarea>
+    <div class="modal-actions">
+      <button class="btn" id="editCancel">Cancel</button>
+      <button class="btn" id="editClear">Clear edit</button>
+      <button class="btn primary" id="editSave">Save</button>
+    </div>
   </div>
 </div>
 
-<div class="card warn">
-  <h3>Standing rules banked from this saga <span class="pill pill-warn">DO NOT VIOLATE</span></h3>
-  <ul>
-    <li><strong>G8.1</strong> — <code>Capacitor.isNativePlatform()</code> / <code>getPlatform()</code> must be inside a function call, NEVER a module-level const. Vite tree-shakes the const to false → every IAP gate dead-code-eliminated.</li>
-    <li><strong>G8.4</strong> — Any iOS code path that touches Photos / Camera / Mic / Location / Contacts / Bluetooth requires the corresponding <code>NS*UsageDescription</code> in the Info.plist injection step. iOS silent-crashes the app otherwise — no exception, no dialog.</li>
-    <li><strong>G8.5</strong> — Apple submission requires Kim's plain-English authorization in the immediately preceding turn. "I'm confident" / static evidence / prior approval-of-different-action all FAIL this gate.</li>
-    <li><strong>Visual-verify rule</strong> — for any frontend UI change, run vite dev + browser + screenshot BEFORE pushing. Static analysis + tsc green is not sufficient.</li>
-    <li><strong>Serialize-deployments rule</strong> — one deploy at a time. Verify bundle flip + deployed-code grep (not just ETag) before next merge. Auto-merge and <code>--admin</code> force-merges both count as deploy triggers.</li>
-  </ul>
-</div>
-
-<!-- ═════════════════════════ SMS / CLICKSEND ═════════════════════════ -->
-<h2>📨 SMS & ClickSend — multi-tenant migration + send-side observability</h2>
-
-<div class="card ok">
-  <h3>PR #438 — Per-message ClickSend observability (SEND SIDE) <span class="pill pill-ok">SHIPPED 14 MAY 02:35 UTC</span></h3>
-  <p>Closes the gap behind the Polly/Chris/Rosalind incident. <code>notification_logs</code> now captures <code>provider_message_id</code>, <code>provider_status</code>, <code>provider_status_text</code>, <code>carrier</code>, <code>message_parts</code> + reserves <code>delivered_at</code>/<code>failed_at</code> for the DLR webhook follow-up. Every SMS callsite (6 across <code>notifications.js</code> + <code>consent-forms.js</code> + <code>index.js</code>) routes through new <code>logSmsAttempt()</code> helper.</p>
-  <p style="margin-top:8px"><strong>Gates green:</strong> Jest 521/521 · tsc clean · BAT-DEV real-MySQL smoke (7/7 cols + idx, INSERT/SELECT round-trip, idempotent on re-run) · serialize check · post-deploy verified 7/7 cols on PROD (after PR #437 overlap resolved) · <strong>LIVE E2E green</strong> — Kim's TEST booking fired <code>booking_created</code> workflow, row id=390 captured <code>provider_message_id=1F14F3F7-CDD8-672E-A64E-0DA0025AFB9B</code>, carrier=Vodafone, parts=2.</p>
-  <p style="margin-top:8px;font-size:13px;color:var(--muted)"><strong>Follow-up queued:</strong> <code>POST /api/webhooks/clicksend-dlr/:secret</code> — looks up row by <code>provider_message_id</code>, flips <code>delivered_at</code>/<code>failed_at</code>. Needs ClickSend dashboard config too. Best to ship once BRISHIFU alpha tag is ACMA-approved so DLRs actually report real-handset delivery (vs Shared-Numbers black hole).</p>
-</div>
-
-<div class="grid">
-  <div class="card warn">
-    <h3>Alpha tags <span class="pill pill-ok">BRISHIFU ACMA-approved</span> <span class="pill pill-warn" style="margin-left:6px">ClickSend sync pending</span> <span class="pill pill-warn" style="margin-left:6px">RedlandHIFU pending</span></h3>
-    <table>
-      <tr><th>Tag</th><th>Tenant</th><th>ClickSend</th><th>ACMA Assist</th><th>ACMA approval</th></tr>
-      <tr style="background:rgba(0,232,180,0.10)"><td><code>BRISHIFU</code></td><td>1 — Brisbane HIFU</td><td>✅ 13 May 06:08</td><td>✅ 14 May 06:44 PM</td><td><strong style="color:var(--accent)">✅ ACMA approved 14 May 7:09 PM AEST</strong><br/><span style="color:var(--amber);font-size:11px">⏳ ClickSend dashboard still shows "Verify in ACMA Assist" — their sync from ACMA takes ~24h per their own banner. Expected ready: <strong>15 May ~7-9pm AEST</strong>. Test SMS until then continues via Shared Numbers (no regression).</span></td></tr>
-      <tr><td><code>RedlandHIFU</code></td><td>4 — Redlands HIFU</td><td>✅ 13 May</td><td>❌ Kim action</td><td>—</td></tr>
-    </table>
-    <p style="margin-top:10px;font-size:13px;color:var(--muted)">RedlandHIFU is queued — Kim needs to open ACMA notification email (Brisbane.HIFU.clinic@gmail.com or redlandshifu@gmail.com inbox) and click "Confirm registration" before clock starts. AU regulatory deadline 1 July 2026.</p>
-  </div>
-
-  <div class="card ok">
-    <h3>Master account architecture <span class="pill pill-ok">LIVE</span></h3>
-    <table>
-      <tr><td style="color:var(--muted);width:160px">Master entity</td><td>Neo-Klien Pty Ltd</td></tr>
-      <tr><td style="color:var(--muted)">access_reseller</td><td>1 (unlimited sub-accounts)</td></tr>
-      <tr><td style="color:var(--muted)">Subaccount #1</td><td><code>BrisbaneHifu</code> (is_main, tenant 1)</td></tr>
-      <tr><td style="color:var(--muted)">Subaccount #2</td><td><code>Redlandshifu</code> (tenant 4, created today)</td></tr>
-      <tr><td style="color:var(--muted)">Master balance</td><td>$78.23 (verified post-restart)</td></tr>
-    </table>
+<!-- Export modal -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <h3>Export decisions to Nova</h3>
+    <p class="modal-sub">Copy this and paste it in your next Claude Code conversation. Nova will read your decisions and update the underlying files.</p>
+    <textarea id="exportTextarea" readonly></textarea>
+    <div class="modal-actions">
+      <button class="btn" id="exportClose">Close</button>
+      <button class="btn primary" id="exportCopy">Copy to clipboard</button>
+    </div>
   </div>
 </div>
 
-<div class="card alert">
-  <h3>P0 outage today — master username reformat (RESOLVED) <span class="pill pill-alert">FIXED</span></h3>
-  <p>Sub-account split caused ClickSend to reformat master <code>api_username</code> from <code>Brisbane.HIFU.clinic@gmail.com</code> → <code>BrisbaneHifu</code>. BAT's Railway <code>CLICKSEND_USERNAME</code> env var still held the old email → every SMS API call started returning <strong>401 Unauthorized</strong>. Brisbane HIFU SMS sending was down for the duration.</p>
-  <p style="margin-top:8px"><strong>Fix:</strong> <code>railway variables --set CLICKSEND_USERNAME=BrisbaneHifu --service web</code> + <code>railway redeploy --service web --yes</code>. Container reports <code>env user: BrisbaneHifu</code>, API returns 200 OK.</p>
-  <p style="margin-top:8px;font-size:13px;color:var(--muted)"><strong>Rule banked:</strong> after ANY ClickSend account restructure, verify <code>process.env.CLICKSEND_USERNAME</code> matches the dashboard "Username" column. Sub-account creation can mutate the master's API username, especially on legacy email-as-username accounts.</p>
-</div>
+<div class="toast-container" id="toastContainer"></div>
 
-<div class="card info">
-  <h3>What clients actually experienced (root cause investigation)</h3>
-  <p style="margin-bottom:8px">Polly (Vodafone) + Chris (Telstra) + Rosalind all reported not receiving SMSes. Investigation revealed:</p>
-  <ul>
-    <li><strong>ClickSend Smart Sender was set to "Shared Numbers"</strong> (only option — no alpha tag registered) → 27% of last-14-day sends came from random rotating AU mobile numbers</li>
-    <li><strong>Telstra/Vodafone silently filter</strong> unregistered numeric senders even when ClickSend's DLR reports "delivered to network"</li>
-    <li><strong>Our <code>notification_logs.status='sent'</code> was misleading</strong> — only meant HTTP 200 at submit, NOT carrier-confirmed delivery. <span style="color:var(--green)">✅ Send-side closed by PR #438 today — row now carries <code>provider_message_id</code> + per-recipient <code>provider_status</code></span></li>
-    <li><strong>ClickSend's <code>status_text="Message delivered to the handset"</code> is misleading</strong> default 201 description, NOT actual DLR. <span style="color:var(--green)">✅ Captured verbatim in <code>provider_status_text</code> column now — visible at log-row level so we don't confuse it with delivery again</span></li>
-    <li><strong>Real DLR moves the <code>status</code> badge</strong> from <code>Sent</code> → <code>Delivered</code>. Polly's and Chris's messages sat at <code>Sent</code> forever. <span style="color:var(--amber)">⏳ DLR-side closure is the follow-up PR — <code>delivered_at</code>/<code>failed_at</code> columns reserved, webhook handler to come</span></li>
-  </ul>
-  <p style="margin-top:10px"><strong>Once BRISHIFU is ACMA-approved (24-72h):</strong> Smart Sender auto-routes Brisbane HIFU SMS via the branded <code>BRISHIFU</code> sender, recipient-trusted, high delivery rate.</p>
-</div>
+<script>
+// ============================================================
+// NOVA DATA — Nova rewrites this block on each update.
+// ============================================================
+const novaState = {
+  lastUpdate: "2026-04-29 AEST",
+  items: [
+    { id:"batapp-ai-dual-domain", business:"BAT.AI", avatarClass:"bat", initials:"🌐", contact:"batapp.ai dual-domain plan", meta:"Logged 2026-04-29 · Deferred 2-3 weeks", tier:"P1", category:"snoozed", tag:"in-flight", tagText:"Queued post-AppSumo", title:"Run bookatreatment.ai + batapp.ai in parallel — short URLs for new tenants", body:"Kim secured batapp.ai. Strategy: NOT a hard migration. Run BOTH domains. New tenants get <slug>.batapp.ai. Existing app.bookatreatment.ai stays as permanent 301. iOS Admin app keeps loading current URL — migrate at v1.1. All OAuth callbacks (Stripe / Xero / QBO / Google / Microsoft / Resend) stay on bookatreatment.ai forever. Setup ~3 hrs + 24-48h DNS propagation, same playbook as Phase 3.", novaNote:"Decision LOCKED 29 Apr: defer 2-3 weeks until AppSumo application is in. AppSumo can launch on bookatreatment.ai subdomains — batapp.ai is not blocking. Nova will write BATAPP_AI_DUAL_DOMAIN_PLAN.md when Kim says go.", actions:[{label:"Start now (override)",act:"approve"},{label:"Hold until AppSumo done",act:"acknowledge"},{label:"Snooze 14 days",act:"snooze"}] },
+    { id:"acl-pricing", business:"Brisbane HIFU", avatarClass:"brisbane", initials:"BH", contact:"ACL pricing claim", meta:"Done 2026-04-20", tier:"P0", category:"done", tag:"done", tagText:"Done", title:"$1,700 normally $3,400 anchor pricing pulled", body:"Kim confirmed website changes made — ACL s.29 risk removed.", novaNote:"Optional follow-up: Nova does a visual verify of the live site to confirm no stray instances elsewhere.", actions:[{label:"Run visual verify",act:"acknowledge"},{label:"Skip verify",act:"defer"}] },
+    { id:"acl-guarantee", business:"Brisbane HIFU", avatarClass:"brisbane", initials:"BH", contact:"ACL results-guaranteed wording", meta:"Done 2026-04-20", tier:"P0", category:"done", tag:"done", tagText:"Done", title:"'Results guaranteed' language softened", body:"Kim confirmed website changes made — ACL s.29 express warranty risk removed.", novaNote:"Same optional follow-up applies — visual sweep for stray instances.", actions:[{label:"Run visual verify",act:"acknowledge"},{label:"Skip verify",act:"defer"}] },
+    { id:"redlands-contract-variation", business:"Redlands HIFU", avatarClass:"redlands", initials:"RH", contact:"Redlands HIFU contract", meta:"Reid Gillman · before machine delivery", tier:"P0", category:"needs-action", tag:"urgent", tagText:"Urgent", title:"Contract variation needed before balance invoice", body:"Signed agreement names QCAD PTY LTD as buyer. Must amend to REDLANDS HIFU PTY LTD (ABN 32 695 485 468), insert protected postcode 4165, re-execute with Reid as signatory.", novaNote:"Variation draft ready. Once Kim approves wording, sends to Reid for signature. ETA: 10 min from approval.", actions:[{label:"Approve draft",act:"approve"},{label:"Edit wording",act:"edit"},{label:"Snooze",act:"snooze"}] },
+    { id:"redlands-gst", business:"Redlands HIFU", avatarClass:"redlands", initials:"RH", contact:"Redlands HIFU — GST", meta:"Heads-up to Reid before invoicing", tier:"P0", category:"needs-action", tag:"review", tagText:"Decide", title:"Flag GST registration to Reid?", body:"Per ABR, Redlands HIFU Pty Ltd is not registered for GST. With $43,995 purchase + expected >$75k turnover, Reid should register before balance invoice to claim GST credit.", novaNote:"Recommended: yes. 2-line note in next email. Nova has a draft.", actions:[{label:"Yes, include",act:"approve"},{label:"Skip — Kim raises directly",act:"defer"},{label:"Snooze",act:"snooze"}] },
+    { id:"security-redline", business:"BAT.AI", avatarClass:"bat", initials:"📄", contact:"SECURITY_DOCS_REDLINE.md ready for review", meta:"Coffee tomorrow · 5 docs audited", tier:"P0", category:"needs-action", tag:"review", tagText:"Review", title:"3 of 5 security docs treat Phase-3 hardening as 'to do' when shipped 13 Apr", body:"bcrypt, CORS, Helmet, rate-limit, 2FA, DB backups, key rotation, BizCover, ToS/Refund, err.message — all wrongly marked not-done. SECURITY_AUDIT_LOG self-contradicts on 8 items.", novaNote:"Tier-2 workflow: Kim approves redline in batches, then Nova edits. Never edits security docs without explicit per-batch approval (legal/compliance weight).", actions:[{label:"Open redline",act:"acknowledge"},{label:"Defer to weekend",act:"snooze"}] },
+    { id:"waiver-redesign-investigation", business:"BAT.AI", avatarClass:"bat", initials:"📝", contact:"Waiver redesign — find the truth", meta:"Snoozed by Kim until 2026-05-07 7:09 PM · was Flagged 2026-04-20", tier:"P1", category:"snoozed", tag:"review", tagText:"Snoozed · 7 May", title:"Where did the waiver smart-form-fields upgrade go?", body:"Kim redesigned waivers 2-3 days ago (17-18 Apr) with legal review + smart form fields + formatting. She was told it was built. Demo shows plain waivers with no smart fields/formatting. Either (a) built-not-deployed, (b) spec-but-not-built, (c) shipped but bug. This is the same memory-drift pattern as multi-tenancy — need file:line truth.", novaNote:"Investigation agent running now → `Nova/BAT-AI/WAIVER_REDESIGN_TRUTH.md`. Notable: Kim's working tree has uncommitted consent-forms work (ConsentFormsPage.tsx + db/migrations 009+010 + RichTextEditor). That MIGHT be the redesign, uncommitted — verify. NOTE 2026-04-22: Kim has now decided to pivot R1 away from pre-built templates → see consent-form-upload-spec card.", actions:[{label:"Read truth doc when ready",act:"acknowledge"},{label:"Snooze until multi-tenancy done",act:"snooze"}] },
+    { id:"g2-review-brisbane-hifu", business:"Brisbane HIFU", avatarClass:"brisbane", initials:"BH", contact:"Brisbane HIFU · G2 review ask", meta:"Anchor reference for BAT.AI G2 listing", tier:"P1", category:"needs-action", tag:"review", tagText:"Action", title:"Ask Brisbane HIFU to post a G2 review for BAT.AI", body:"First live BAT tenant with direct experience of all 6 canonical benefits. G2 + Capterra listings being claimed this week (defensive move vs Fresha/Timely squatting). One anchor review from Brisbane HIFU gives the listing credibility from day one.", novaNote:"Draft ready: warm ask from Kim, links to G2 product page, suggests 3-4 sentence review hitting retention AI + supplier intel + drag-drop calendar (aligns with the 3 G2 screenshots already queued). Offer to ghost-write for the clinic team if easier.", actions:[{label:"Approve draft",act:"approve"},{label:"Edit wording",act:"edit"},{label:"Snooze",act:"snooze"}] },
+    { id:"marketing-r1-dev-only", business:"BAT.AI", avatarClass:"bat", initials:"BA", contact:"Marketing module · R1 scope decision", meta:"Decision locked 2026-04-22", tier:"P0", category:"needs-action", tag:"review", tagText:"Decide", title:"Remove Marketing from PROD + Brisbane HIFU — keep in DEV only", body:"Marketing module stays hidden in R1 until multi-tenancy Phases 3-5 ship. Rationale: tenants should be able to use everything else without an incomplete Marketing feature getting in the way. Kim will spec Marketing properly post-rebuild.", novaNote:"Two paths. (a) Feature-flag off in PROD + Demo via env var — zero-risk, ~10 min, no migration, reversible in one click. (b) Remove routes + nav entries — cleaner, small PR, less reversible. Recommend (a). Tier-3 PROD change — needs explicit go-ahead from Kim before touching bat-prod.", actions:[{label:"Approve feature-flag path",act:"approve"},{label:"Remove code instead",act:"acknowledge"},{label:"Snooze",act:"snooze"}] },
+    { id:"consent-form-upload-spec", business:"BAT.AI", avatarClass:"bat", initials:"BA", contact:"Consent forms · upload-your-own flow", meta:"BUILD IN FLIGHT · Tier-2 overnight agent 2026-04-22", tier:"P1", category:"in-flight", tag:"in-flight", tagText:"Agent building", title:"Autonomous build running — Step 1 (migrations) committed as 1e100c5", body:"Worktree feat/consent-form-upload on booking-api. Migrations 009+010 committed — added to migrate.js (real migration system; db/migrations/*.sql were dead reference). Kim's 4 answers locked: share PROD ANTHROPIC_API_KEY / dedicated bat-consent S3 bucket / generic no-reply@bookatreatment.ai for R1 (tenant-branded = P1) / autonomous agent overnight.", novaNote:"Agent brief: Steps 2-11 + UAT + PR. 10MB file cap, 3 photos max, HEIC, skip-window 365d, gm.teamneo@gmail.com intake. Will deliver PR by morning with test results + Chrome screenshots + staged migrations for Kim to run (Tier-3). Kim does not deploy to bat-prod unattended. Silent bug fixed en route: consent_forms table never existed despite router querying it for weeks.", actions:[{label:"Wait for PR",act:"acknowledge"},{label:"Kill agent",act:"defer"},{label:"Snooze",act:"snooze"}] },
+    { id:"brisbanehifu-resend-domain", business:"Brisbane HIFU", avatarClass:"brisbane", initials:"BH", contact:"Brisbane HIFU · Resend domain verification", meta:"P1 · next few days", tier:"P1", category:"needs-action", tag:"review", tagText:"Investigate", title:"Confirm if brisbanehifu.com is verified in Resend — needed for tenant-branded consent emails", body:"During consent-form spec lock, discovered we don't know if brisbanehifu.com has a verified Resend sender. Hostinger hosts the DNS. R1 consent PDFs ship with generic no-reply@bookatreatment.ai as fallback. Once verified, swap Brisbane HIFU to tenant-branded — better UX, better deliverability.", novaNote:"Steps: (1) Login to Resend, check Domains tab for brisbanehifu.com. (2) If verified, copy the DKIM/SPF values for records — confirm DNS matches in Hostinger. (3) If not verified, add TXT + MX records in Hostinger DNS per Resend wizard. (4) Update Brisbane HIFU tenant record with tenant_resend_domain. Nova can run Phase 1 (Resend dashboard check) today if you give me the Resend login. Phase 2-4 need Hostinger access.", actions:[{label:"Nova investigate now",act:"approve"},{label:"I'll check myself",act:"acknowledge"},{label:"Snooze 3 days",act:"snooze"}] },
+    { id:"ci-pipeline-debt", business:"BAT.AI", avatarClass:"bat", initials:"CI", contact:"CI pipeline — 3 stacked failures (30 min into rerun)", meta:"Flagged 2026-04-21 · NOT a 30-min fix", tier:"P1", category:"needs-action", tag:"review", tagText:"Investigate", title:"CI: Type Check ✅ · Lint ❌ · Unit Tests ❌ · Integration 🔄", body:"Type Check passes. Lint fails with 101 real errors + 100 warnings — these are LONG-STANDING CODE HYGIENE DEBT, not a config issue. Unit Tests: 230/230 pass locally but fail in CI (environmental — probably missing env var in workflow). Integration tests were still running at 30 min — likely a genuine test failure.", novaNote:"Correction to prior framing: the 'eslint flat-config migration' frame in the handover was WRONG — Dependabot reverts already restored eslint v8. The 101 errors are accumulated hygiene debt from months of merges, not a tooling migration. Honest timeline: ~1 hr lint auto-fix + manual fixes, ~30 min Unit Tests env-var investigation, UNKNOWN for integration tests. Do not re-use the 'flat-config' framing in any future handover.", actions:[{label:"Queue for fix next session",act:"acknowledge"},{label:"Defer until Phase 1 done",act:"snooze"},{label:"Provide CI env vars",act:"provide-info"}] },
+    { id:"calendly-migration", business:"BAT.AI", avatarClass:"bat", initials:"BA", contact:"Brisbane HIFU · Calendly migration", meta:"Pre-cutover scoping", tier:"P0", category:"needs-action", tag:"review", tagText:"Decide", title:"6 scope decisions needed before cutover", body:"Calendly account login? Subscription tier? Cutover date? Past data or future-only? Customer comms plan? Sandbox tenant available?", novaNote:"Phase 0 discovery (does BAT have built-in import?) doesn't need these — Nova can run that today. Beyond Phase 0 needs answers.", actions:[{label:"Run discovery now",act:"approve"},{label:"Answer here",act:"provide-info"},{label:"Defer",act:"snooze"}] },
+    { id:"toombul-julliana", business:"BAT.AI", avatarClass:"toombul", initials:"TS", contact:"Toombul Skin Clinic · Julliana", meta:"Warm intro — long-standing relationship", tier:"P0", category:"needs-action", tag:"review", tagText:"Action", title:"Julliana wants info about the app sent", body:"3 things needed: spelling Toombul/Toombil, Julliana's email + surname, send preference (Kim from own inbox / Nova drafts / Nova sends from gm.teamneo cc Kim).", novaNote:"Once details land, Nova drafts warm-tone intro using 6 canonical benefits + Brisbane HIFU as live reference.", actions:[{label:"Provide details",act:"provide-info"},{label:"Defer 24h",act:"snooze"}] },
+    { id:"gold-coast-hifu", business:"BAT.AI", avatarClass:"bat", initials:"GC", contact:"Gold Coast HIFU — customer #3", meta:"Details outstanding", tier:"P1", category:"needs-action", tag:"waiting", tagText:"Waiting", title:"Need operational details to start onboarding", body:"Entity name, ABN, director, day-to-day SPOC, address, stage, launch target, brand assets.", novaNote:"Nova can't pre-build onboarding pack without these. Same template as Redlands once info is in.", actions:[{label:"Provide details",act:"provide-info"},{label:"Defer",act:"snooze"}] },
+    { id:"hamptons-watch", business:"BAT.AI", avatarClass:"bat", initials:"HB", contact:"Hamptons Body Lounge — Fiona + Trent", meta:"Switching from Fresha", tier:"P0", category:"waiting", tag:"waiting", tagText:"Watching inbox", title:"Competitive win — capture pain points during onboarding", body:"Hamptons leaving Fresha. Nova will watch jk@startupbusiness4sale.com and capture every 'why we're leaving Fresha' moment. Marketing fuel + reference quotes.", novaNote:"Need details still: entity, address, machine model, switch date, stage. Same gaps as Gold Coast.", actions:[{label:"Provide details",act:"provide-info"},{label:"Mark seen",act:"acknowledge"}] },
+    { id:"redlands-email-5", business:"Redlands HIFU", avatarClass:"redlands", initials:"RH", contact:"Email 5 of 5 — colour choices (send first)", meta:"To: reidandgrace@proton.me", tier:"P0", category:"drafts-ready", tag:"review", tagText:"Send first", title:"Quick one — two colour choices needed for fit-out", body:"Asks Grace for shelving colour (Brown/White) + POS table colour (Beige/Brown/Black). Once she replies, all 4 remaining items can be ordered.", novaNote:"Already drafted in Redlands-HIFU-Rollout-Plan.html. Flagged 'send first' because other 4 emails depend on confirmed delivery date — this one doesn't.", actions:[{label:"Approve to send",act:"approve"},{label:"Edit wording",act:"edit"},{label:"Skip",act:"defer"}] },
+    { id:"redlands-email-1", business:"Redlands HIFU", avatarClass:"redlands", initials:"RH", contact:"Email 1 of 5 — delivery confirmation", meta:"To: reidandgrace@proton.me", tier:"P0", category:"drafts-ready", tag:"review", tagText:"Review", title:"Machine delivery confirmation + receiving logistics", body:"Confirms day next week, who's on-site, treatment-room readiness check, balance-invoice notice, what happens delivery day, warranty start, genuine-cartridges rule.", novaNote:"Send after Email 5 once Grace's colour reply lands AND delivery date locks with HMS.", actions:[{label:"Approve to send",act:"approve"},{label:"Edit wording",act:"edit"},{label:"Hold",act:"snooze"}] },
+    { id:"redlands-batch", business:"Redlands HIFU", avatarClass:"redlands", initials:"RH", contact:"Emails 2, 3, 4 of 5", meta:"To: reidandgrace@proton.me", tier:"P1", category:"drafts-ready", tag:"review", tagText:"Review batch", title:"Training scheduling · Account access · Fit-out delivery", body:"3 more drafts queued: 3-day Brisbane masterclass scheduling, Zeller/Afterpay/Google/Meta access request (with ID), fit-out starter set delivery.", novaNote:"All ready. Recommended order: 5→1→3→2→4 based on dependencies. See Redlands-HIFU-Rollout-Plan.html.", actions:[{label:"Review all 3",act:"acknowledge"},{label:"Approve all to send",act:"approve"},{label:"Edit",act:"edit"}] },
+    { id:"defensive-google-ads", business:"BAT.AI", avatarClass:"bat", initials:"BA", contact:"Defensive: brand keywords on Google Ads", meta:"~$30/day defensive spend", tier:"P0", category:"needs-action", tag:"review", tagText:"This week", title:"Buy own brand keywords before a competitor does", body:"Per red-team: Fresha or Timely could buy 'bookatreatment.ai', 'BookATreatment review', 'kim klein booking software' for $30/day and pull 40-70% of high-intent searches.", novaNote:"Awaiting Kim's spend approval (zero-spend authority until further notice). Nova can have keyword list + draft ad copy ready in 30 min once approved.", actions:[{label:"Approve $30/day",act:"approve"},{label:"Different budget",act:"provide-info"},{label:"Defer",act:"snooze"}] },
+    { id:"defensive-capterra", business:"BAT.AI", avatarClass:"bat", initials:"BA", contact:"Defensive: claim Capterra + G2 listings", meta:"Free — prevents lookalike squatting", tier:"P0", category:"needs-action", tag:"review", tagText:"This week", title:"Claim listings before a competitor squats them", body:"Per red-team: BAT has no Capterra/G2 profile yet. Competitor can create lookalike or pay to rank above future BAT listing.", novaNote:"Free for both. ~30 min each. Nova can stage the listing copy and assets — Kim claims under bookatreatmentai@gmail.com.", actions:[{label:"Stage listing copy",act:"approve"},{label:"Defer",act:"snooze"}] },
+    { id:"defensive-www-421", business:"BAT.AI", avatarClass:"bat", initials:"BA", contact:"Defensive: fix www.bookatreatment.ai 421 error", meta:"DNS / Lovable config", tier:"P0", category:"needs-action", tag:"review", tagText:"This week", title:"www subdomain currently returns 421 — first impression broken", body:"Per red-team finding. Hurts SEO + every share where someone types www. Fix likely a 5-min Hostinger DNS or Lovable config tweak.", novaNote:"Tier-2 — Nova can attempt fix in worktree, queue PR. Or Kim handles directly in Hostinger console (faster).", actions:[{label:"Nova investigates",act:"approve"},{label:"Kim handles directly",act:"acknowledge"},{label:"Defer",act:"snooze"}] },
+    { id:"vdz-policy-check", business:"TeamNEO", avatarClass:"teamneo", initials:"VD", contact:"VDZ inbox bridge — IT policy check", meta:"Pre-config", tier:"P1", category:"needs-action", tag:"review", tagText:"Decide", title:"How to bridge kim.klein@virtualdynamicz.com to gm.teamneo", body:"VDZ owns the M365 tenant. Auto-forwarding may breach corporate IT policy. Tender content is exactly what corporate IT cares about.", novaNote:"Recommended: manual forwarding of tender-critical threads only. Test self-serve auto-forward later if VDZ allows.", actions:[{label:"Use manual-only",act:"approve"},{label:"Try auto-forward",act:"acknowledge"},{label:"Ask VDZ IT first",act:"defer"}] },
+    { id:"competitor-redteam", business:"BAT.AI", avatarClass:"bat", initials:"📄", contact:"COMPETITOR_RED_TEAM.md ready", meta:"Cynical-competitor analysis · 2,500 words", tier:"P0", category:"in-flight", tag:"in-flight", tagText:"Ready to read", title:"Top 5 defensive moves stack-ranked by ROI", body:"Real competitors named (Fresha, Timely, Mangomint + actual Brisbane clinics). Pressure-point map. Free-money plays competitor could run for under $100. 5 highest-ROI defensive moves.", novaNote:"4 of the 5 moves are surfaced above as separate cards. Full report at Nova/BAT-AI/COMPETITOR_RED_TEAM.md.", actions:[{label:"Open report",act:"acknowledge"},{label:"Mark read",act:"approve"}] },
+    { id:"content-os", business:"BAT.AI", avatarClass:"bat", initials:"NV", contact:"Content OS for 3 businesses", meta:"Inventory complete · design pending", tier:"P1", category:"in-flight", tag:"in-flight", tagText:"Next up", title:"Unified content pipeline (Brisbane + Redlands + BAT)", body:"Inventory done — found 24 finished MP4s, 7 logos, locked brand bible, 30-day calendar drafted. Brisbane HIFU has all 4 social channels mapped today.", novaNote:"Designing OS after Kim's eyes are on competitor red-team — that intel reshapes positioning, which reshapes content pillars.", actions:[{label:"Start design",act:"approve"},{label:"Hold",act:"snooze"}] },
+    { id:"investment-pack", business:"BAT.AI", avatarClass:"bat", initials:"IP", contact:"Investment Pack refresh", meta:"Tier-2 audit job", tier:"P2", category:"in-flight", tag:"in-flight", tagText:"Queued", title:"Audit + redline pack against current state", body:"Customer count now 4 (was 0–1 in pack). TAM number conflict ($11.2B AU vs $3.5B Global). Cross-business story (Redlands + Hamptons buying both HMS + BAT) not in pack.", novaNote:"Will produce INVESTMENT_PACK_REDLINE.md. Won't touch source until Kim signs off on the redline.", actions:[{label:"Start now",act:"approve"},{label:"Hold",act:"snooze"}] },
+    { id:"pwc-next", business:"TeamNEO", avatarClass:"teamneo", initials:"PT", contact:"PwC tender — next stage", meta:"Awaiting instructions", tier:"P1", category:"waiting", tag:"waiting", tagText:"Awaiting PwC", title:"Shortlisted across all 3 categories — what's next?", body:"Engineering, ICT, Project Management all shortlisted. Awaiting PwC's next-stage instructions.", novaNote:"Nova will surface the moment PwC's email lands in md@teamneo.tech or kim.klein@virtualdynamicz.com.", actions:[{label:"Mark seen",act:"acknowledge"},{label:"Snooze",act:"snooze"}] },
+    { id:"done-nova", business:"TeamNEO", avatarClass:"teamneo", initials:"✓", contact:"Nova role created today", meta:"2026-04-20", tier:"P0", category:"done", tag:"done", tagText:"Done", title:"Nova scaffolded — all 5 interview rounds locked", body:"Identity, decision rights, 3-tier overnight autonomy, 11 inboxes mapped, 4 BAT.AI customers + 1 pipeline lead, Redlands rollout integrated, Jeremy as backup escalation.", novaNote:"Full picture in Nova/CLAUDE.md and Nova/MEMORY.md.", actions:[{label:"Open Nova folder",act:"acknowledge"}] },
 
-<!-- ═════════════════════════ TENANT 4 (REDLANDS) ═════════════════════════ -->
-<h2>🛌 Tenant 4 (Redlands HIFU) — PARKED</h2>
+    /* ━━━ Nova Decided audit log (Mode A — Kim sees what Nova did autonomously) ━━━ */
+    { id:"nova-decided-where-nova-lives", business:"BAT.AI", avatarClass:"bat", initials:"📌", contact:"Nova decided — Where Nova Lives index doc", meta:"2 May 2026 · auto-shipped", tier:"P2", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"Pinned WHERE_NOVA_LIVES.md to OneDrive root", body:"Single index doc at workspace root so any future Claude session / agent / Kim finds the right context in one place. Maps every doc location, all 7 calendars, MCP connector status, standing rules. No more 'where is X?' loops.", novaNote:"Auto-shipped under Tier-1 'docs + internal tooling' authority. No external surface change. Reversible by deleting the file.", actions:[{label:"✅ Agree",act:"approve"},{label:"Edit / refine",act:"add-note"}] },
+    { id:"nova-decided-mode-a-locked", business:"BAT.AI", avatarClass:"bat", initials:"🎚️", contact:"Nova decided — Mode A locked in MEMORY", meta:"2 May 2026", tier:"P1", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"Operating model: Mode A + Nova-decided audit log", body:"Locked Kim's choice to Nova MEMORY: Mode A high-touch, with this audit tab as the safety net. All Nova autonomous actions log here for Kim's review. Trust graduates to Mode B as patterns get explicit approval.", novaNote:"Memory entry added at top of MEMORY.md so every future session reads it first.", actions:[{label:"✅ Agree",act:"approve"},{label:"Adjust the rule",act:"add-note"}] },
+    { id:"nova-decided-phone-numbers", business:"all", avatarClass:"bat", initials:"📱", contact:"Nova decided — phone routing rule", meta:"2 May 2026", tier:"P1", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"All Nova-initiated SMS routes to +61 404 843 405 (personal)", body:"Locked rule: briefing previews + urgent escalations + P0 alerts go to Kim's personal/NEO iPhone. Brisbane HIFU iPhone (+61 416 248 639) reserved for clinic ops only. Prevents accidental clinic-comms pollution.", novaNote:"Also locked both numbers to MEMORY.md so every future session respects the routing.", actions:[{label:"✅ Agree",act:"approve"},{label:"Change routing",act:"add-note"}] },
 
-<div class="card warn">
-  <h3>Status: PARKED until codebase settles <span class="pill pill-warn">DO NOT TOUCH</span></h3>
-  <p>Kim's call 13 May PM-late: "I want to park Redlands until we get through the bugs and UI changes. The code needs to settle further before we start configuring that environment."</p>
-  <p style="margin-top:8px"><strong>Resume trigger (all 4 must be true):</strong></p>
-  <ol style="margin-left:18px;margin-top:6px">
-    <li>Brisbane HIFU bug backlog cleared</li>
-    <li>UI consistency sweep done (or clearly scoped)</li>
-    <li>Per-tenant ClickSend code shipped + verified on tenant 1</li>
-    <li>RedlandHIFU alpha tag APPROVED by ACMA</li>
-  </ol>
-  <p style="margin-top:10px"><strong>Full checklist:</strong> <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/checklist_redlands_onboarding.md">checklist_redlands_onboarding.md</a></p>
-</div>
+    { id:"nova-decided-yoga-sacred", business:"all", avatarClass:"bat", initials:"🧘", contact:"Nova decided — yoga sacred-time rule", meta:"2 May 2026", tier:"P1", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"Tuesday <9:30am + Thursday <10:30am = yoga, NEVER schedule into", body:"Locked Kim's standing rule. First meetings on yoga days = Tue 9:30am earliest, Thu 10:30am earliest. Auto-block engine respects this alongside HIFU 30-min buffer, Wed PM granddaughters, personal-calendar opaque blocks, and sacred treatment days.", novaNote:"In MEMORY.md so every future session honours yoga without re-asking. Buffer time after class is also protected (e.g. transit from studio to clinic).", actions:[{label:"✅ Agree",act:"approve"},{label:"Adjust window",act:"add-note"}] },
 
-<div class="grid">
-  <div class="card ok">
-    <h3>Already done (don't re-do)</h3>
-    <ul>
-      <li>Tenant row (id 4, slug <code>redlands-hifu-clinic</code>, trialing until 27 May)</li>
-      <li>Stripe customer <code>cus_UURNh19QamrdkK</code></li>
-      <li>Owner admin user <code>redlandshifu@gmail.com</code> (Grace Areas + Kim)</li>
-      <li>Account settings (owner_email, owner_name, trial dates)</li>
-      <li>ClickSend sub-account <code>Redlandshifu</code> + API key</li>
-      <li>Alpha tag <code>RedlandHIFU</code> submitted to ClickSend</li>
-    </ul>
-  </div>
+    { id:"nova-decided-mode-b-time-blocking", business:"all", avatarClass:"bat", initials:"📅", contact:"Nova decided — Mode B calendar auto-blocking", meta:"2 May 2026", tier:"P0", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"P0/P1 actions auto-block into neoklien.consulting@gmail.com", body:"Authorised: read+write on all 7 calendars (primary write = neoklien.consulting). When new P0/P1 lands, Nova finds the next sensible free slot + drops a [NOVA] event. You can move/delete/decline with one tap. Respects yoga, HIFU buffer, granddaughters, opaque personal blocks.", novaNote:"Pending Google Calendar OAuth re-auth (in flight). Once authed, this activates immediately — first auto-block likely tomorrow morning's briefing.", actions:[{label:"✅ Agree",act:"approve"},{label:"Be more conservative",act:"add-note"}] },
 
-  <div class="card info">
-    <h3>Pending before Redlands can go live</h3>
-    <ul>
-      <li>Kim confirms RedlandHIFU on ACMA Assist + 24-72h approval wait</li>
-      <li>Per-tenant ClickSend credentials code change (10 files, half-day PR — separate from #438)</li>
-      <li><s>Send-side SMS observability (message_id, carrier)</s> — <span style="color:var(--green)">✅ shipped 14 May via PR #438 on tenant 1</span></li>
-      <li>DLR webhook for true handset-delivery signal (deferred — wait for BRISHIFU ACMA approval first)</li>
-      <li>Custom domain / subdomain decision</li>
-      <li>Booking page settings (brand, copy, hours)</li>
-      <li>Staff rows, services/event_types, availability windows</li>
-      <li>Stripe Connect onboarding for Redlands bank account</li>
-      <li>Resend sender setup, plan upgrade from trial, Grace login + permissions test, full SMS+email+deposit round-trips</li>
-    </ul>
-  </div>
-</div>
+    { id:"nova-decided-news-pulse", business:"BAT.AI", avatarClass:"bat", initials:"📰", contact:"Nova decided — daily industry news pulse", meta:"2 May 2026", tier:"P1", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"Top 3 stories per day inside 7am briefing — depth + click-through + auto-update RED_TEAM.md", body:"Locked format: 3 stories, 3-4 sentence depth each, link to source article. Verticals: aesthetics / HIFU / laser / injectables / salon-spa-hair-beauty / clinic-tech SaaS / AU industry. When a competitor releases something material, Nova auto-updates Nova/BAT-AI/COMPETITOR_RED_TEAM.md with the datapoint and flags 'Updated' in the next briefing.", novaNote:"News infrastructure (RSS feeds + scheduled task) building Tier-2 in next session. First news segment in 7am briefing within 1-2 weeks once feeds are wired.", actions:[{label:"✅ Agree",act:"approve"},{label:"Adjust verticals",act:"add-note"}] },
 
-<!-- ═════════════════════════ HANDOVERS ═════════════════════════ -->
-<h2>📄 Recent session handovers</h2>
-<div class="row-list">
-  <a href="./session-handover-15may2026.html"><span><strong>15–16 May 2026</strong> — Lucky 11 Win Streak (11 PRs · 0 PROD damage · 7 bug-types closed · 1 P0 banked)</span><span class="meta">latest</span></a>
-  <a href="./session-handover-14may2026-end-of-day.html"><span><strong>14 May 2026 EOD</strong> — 5 PRs shipped + Redlands criterion #3 closed + light-mode P0 scoped (B3 spec)</span><span class="meta">prior</span></a>
-  <a href="./session-handover-14may2026.html"><span><strong>14 May 2026 mid-session</strong> — handover insurance written mid-session before PR #443/#444 shipped</span><span class="meta">prior</span></a>
-  <a href="./session-handover-13may2026-clicksend-migration.html"><span><strong>13 May 2026 PM-late</strong> — ClickSend multi-tenant migration + alpha tags + P0 username reformat</span><span class="meta">prior</span></a>
-  <a href="./session-handover-13may2026-build53-submitted.html"><span><strong>13 May 2026 AM</strong> — Build 53 submitted (clean run with rule compliance evidenced)</span><span class="meta">prior</span></a>
-  <a href="./session-handover-12may2026-build52-resubmit.html"><span><strong>12 May 2026</strong> — Build 52 / Info.plist fix · then self-cancelled (G8.5 banked)</span><span class="meta">prior</span></a>
-  <a href="./session-handover-12may2026-trust-rebuild.html"><span><strong>12 May 2026</strong> — Trust-rebuild + Stripe pipeline reset session</span><span class="meta">prior</span></a>
-</div>
+    { id:"nova-decided-competitor-newsletters", business:"BAT.AI", avatarClass:"bat", initials:"📨", contact:"Nova decided — competitor newsletter sign-ups", meta:"2 May 2026", tier:"P1", category:"nova-decided", tag:"done", tagText:"Done by Nova", title:"Sign up to 10 competitor newsletters using gm.teamneo@gmail.com", body:"Locked sign-up list: Fresha, Mindbody, Booksy, Timely, Shortcuts Software (AU priority — Kim's flag), Mangomint, GlossGenius, Vagaro, Setmore, Calendly. Weekly digest of anything competitive captured. YouTube weekly cadence on ~10 industry channels.", novaNote:"Actual newsletter sign-ups happen as Tier-1 background work over the next 48 hours via gm.teamneo@gmail.com. Will appear in Nova-Decided log as each signup is confirmed.", actions:[{label:"✅ Agree",act:"approve"},{label:"Add / remove vendors",act:"add-note"}] }
+  ]
+};
 
-<!-- ═════════════════════════ CROSS-LINKS ═════════════════════════ -->
-<h2>🔗 Source-of-truth links</h2>
-<div class="grid">
-  <div class="card">
-    <h3>Technical Documents</h3>
-    <ul>
-      <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/INDEX.md">INDEX.md</a> — top-level entry point</li>
-      <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md</a> — master config (latest: <strong>v6.42</strong> · multi-tenant gap analysis · 15 May 2026)</li>
-      <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/MULTI_TENANCY_GAP_ANALYSIS.md">MULTI_TENANCY_GAP_ANALYSIS.md</a> — Phase 1+2+continuation envelope · 4 decision points · path forward</li>
-      <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/MULTI_TENANCY_UAT_PLAN.md">MULTI_TENANCY_UAT_PLAN.md</a> — UAT §4 caught the contacts CRUD leak via signup path (C-2)</li>
-      <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/B3_LIGHT_MODE_REBUILD_SPEC.md">B3_LIGHT_MODE_REBUILD_SPEC.md</a> — light-mode rebuild plan (next session)</li>
-      <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">APP_HQ.html</a> — top-level dashboard</li>
-      <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/IMPLEMENTATION_STATUS.md">IMPLEMENTATION_STATUS.md</a> — what's built right now</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>Governance (locked 11 May)</h3>
-    <ul>
-      <li><a href="file:///C:/Users/kimkl/Documents/Claude/Governance/DEFINITION_OF_DONE.md">DEFINITION_OF_DONE.md</a> — 11 gates including G8.1-G8.5 iOS gates</li>
-      <li><a href="file:///C:/Users/kimkl/Documents/Claude/Governance/DRIFT_SIGNALS.md">DRIFT_SIGNALS.md</a> — P0-triggers including unauthorized-submit</li>
-      <li><a href="file:///C:/Users/kimkl/Documents/Claude/Governance/PR_CHECKLIST.md">PR_CHECKLIST.md</a></li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>Live ASC status</h3>
-    <ul>
-      <li><a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/ios/version/inflight" target="_blank">App Store Connect — Resolution Center</a></li>
-      <li>CLI status: <code>node C:\Users\kimkl\Downloads\asc-rejection-check.js</code></li>
-      <li>Build state: <code>node C:\Users\kimkl\Downloads\asc-build-check.js</code></li>
-    </ul>
-  </div>
-</div>
+// ============================================================
+// LOCAL STATE (per-device, persistent)
+// ============================================================
+const STATE_KEY = 'novaDashboardState_v1';
+let userState = {};
+try { userState = JSON.parse(localStorage.getItem(STATE_KEY) || '{}'); } catch(e) { userState = {}; }
+function saveState() { localStorage.setItem(STATE_KEY, JSON.stringify(userState)); }
+function getState(id) { return userState[id] || {}; }
+function setState(id, patch) {
+  const prev = JSON.parse(JSON.stringify(getState(id)));
+  userState[id] = {...getState(id), ...patch, updatedAt: new Date().toISOString()};
+  saveState();
+  return prev;
+}
 
-<p style="margin-top:32px;font-size:11px;color:rgba(255,255,255,0.35);text-align:center">Re-render this dashboard whenever a major in-flight item changes state. The hero stats and the App Store block are the two most volatile — keep them honest.</p>
+// ============================================================
+// FILTER + RENDER
+// ============================================================
+let activeFilter = "needs-action";
+let activeBusiness = "all";
+let activeTier = null;
 
+const titles = {
+  "needs-action":"Needs your attention","drafts-ready":"Drafts ready for your review","in-flight":"Nova is working on these",
+  "waiting":"Waiting on others","done":"Done today","snoozed":"Snoozed",
+  "nova-decided":"Nova decided for you"
+};
+const subs = {
+  "needs-action":"Decisions Nova can't make for you","drafts-ready":"Approve, edit, or hold — nothing sends without your nod",
+  "in-flight":"Tier-2 work — Nova does the heavy lifting, queues for review","waiting":"Nova monitoring; will surface when something moves",
+  "done":"Cleared today — closed loop","snoozed":"You'll see these again when the timer expires",
+  "nova-decided":"Audit log of decisions Nova made on your behalf — review any time, override or guide further"
+};
+
+function isSnoozed(id) {
+  const s = getState(id);
+  return s.snoozedUntil && Date.now() < s.snoozedUntil;
+}
+
+function getEffectiveCategory(item) {
+  const s = getState(item.id);
+  if (s.status === 'done' || s.status === 'approved') return 'done';
+  if (s.status === 'deferred') return null; // hidden everywhere except snoozed view if explicitly there
+  if (isSnoozed(item.id)) return 'snoozed';
+  return item.category;
+}
+
+function getFiltered() {
+  return novaState.items.filter(it => {
+    const eff = getEffectiveCategory(it);
+    if (activeFilter && eff !== activeFilter) return false;
+    if (!activeFilter && activeTier && it.tier !== activeTier) return false;
+    if (activeBusiness !== "all" && it.business !== activeBusiness) return false;
+    return true;
+  });
+}
+
+function renderCounts() {
+  const cats = ["needs-action","drafts-ready","in-flight","waiting","done","snoozed"];
+  cats.forEach(c => {
+    const n = novaState.items.filter(it => getEffectiveCategory(it) === c).length;
+    const el = document.getElementById("c-" + c);
+    if (el) el.textContent = n;
+  });
+  ["P0","P1","P2"].forEach(t => {
+    const n = novaState.items.filter(it => {
+      const eff = getEffectiveCategory(it);
+      return it.tier === t && eff !== 'snoozed' && eff !== 'done';
+    }).length;
+    const el = document.getElementById("c-" + t);
+    if (el) el.textContent = n;
+  });
+}
+
+function renderSyncBanner() {
+  const editedCount = Object.values(userState).filter(s => s.userEdit || s.userNote || s.status || s.snoozedUntil).length;
+  const banner = document.getElementById('syncBanner');
+  if (editedCount > 0) {
+    banner.innerHTML = `<div class="sync-banner"><span>📌 ${editedCount} decision${editedCount===1?'':'s'} made on this device — not yet synced to Nova's files.</span><button onclick="openExport()">Export now</button></div>`;
+  } else {
+    banner.innerHTML = '';
+  }
+}
+
+function renderCards() {
+  const items = getFiltered();
+  const root = document.getElementById("cards");
+  document.getElementById("paneTitle").textContent = activeTier ? `${activeTier} priority` : (titles[activeFilter] || "All items");
+  document.getElementById("paneSub").textContent = `${items.length} item${items.length===1?'':'s'} · ${activeTier ? 'Sorted by tier' : (subs[activeFilter] || '')}`;
+
+  if (items.length === 0) {
+    root.innerHTML = `<div class="empty"><div class="empty-emoji">✓</div><div class="empty-title">All clear in this view</div><div class="empty-body">Nothing to surface. Check another tab.</div></div>`;
+    return;
+  }
+
+  root.innerHTML = items.map(it => {
+    const s = getState(it.id);
+    const acted = s.status === 'approved' || s.status === 'done';
+    const userEdit = s.userEdit;
+    const userNote = s.userNote;
+    const statusStrip = acted ? `<div class="card-status-strip">✓ ${s.status === 'approved' ? 'Approved' : 'Done'} · ${formatTime(s.updatedAt)} <button class="reopen-btn" data-act="reopen" data-id="${it.id}">↩ Reopen</button></div>` : '';
+    const editStrip = userEdit ? `<div class="user-edit"><div class="user-edit-label">Your edit</div>${escapeHtml(userEdit)}</div>` : '';
+    const noteStrip = userNote ? `<div class="user-note"><div class="user-note-label"><span>📝 Your note</span><button class="user-note-edit" data-act="add-note" data-id="${it.id}">edit</button></div>${escapeHtml(userNote)}</div>` : '';
+    return `<div class="card ${it.tag === 'urgent' ? 'urgent' : ''} ${acted ? 'acted' : ''}" data-id="${it.id}">
+      ${statusStrip}
+      <div class="card-head">
+        <div class="identity">
+          <div class="avatar ${it.avatarClass||''}">${escapeHtml(it.initials || '?')}</div>
+          <div class="identity-text"><div class="name">${escapeHtml(it.contact)}</div><div class="meta">${escapeHtml(it.meta || '')}</div></div>
+        </div>
+        <div class="tag ${it.tag}">${escapeHtml(it.tagText)}</div>
+      </div>
+      <div class="title">${escapeHtml(it.title)}</div>
+      <div class="body">${escapeHtml(it.body)}</div>
+      ${noteStrip}
+      ${editStrip}
+      <div class="nova-note"><div class="badge">Nova</div><div class="text">${escapeHtml(it.novaNote)}</div></div>
+      <div class="actions">
+        ${(it.actions||[]).map((a,i) => `<button class="btn ${i===0?'primary':''}" data-act="${a.act}" data-id="${it.id}">${escapeHtml(a.label)}</button>`).join('')}
+      </div>
+      ${!userNote && !acted ? `<button class="add-note-btn" data-act="add-note" data-id="${it.id}">+ Add note for Nova</button>` : ''}
+    </div>`;
+  }).join('');
+
+  // Wire action buttons (including reopen + add-note buttons)
+  root.querySelectorAll('button[data-act]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      handleAction(btn.dataset.id, btn.dataset.act, btn.textContent, btn);
+    });
+  });
+}
+
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function formatTime(iso){if(!iso)return'';const d=new Date(iso);return d.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});}
+
+// ============================================================
+// ACTIONS
+// ============================================================
+function handleAction(id, act, label, btnEl) {
+  const item = novaState.items.find(x => x.id === id);
+  if (!item) return;
+  if (act === 'approve') {
+    const prev = setState(id, {status: 'approved', actionTaken: label});
+    toast(`✓ ${label}`, () => { userState[id] = prev || {}; saveState(); rerender(); });
+  } else if (act === 'acknowledge') {
+    const prev = setState(id, {status: 'done', actionTaken: label});
+    toast(`✓ ${label}`, () => { userState[id] = prev || {}; saveState(); rerender(); });
+  } else if (act === 'defer') {
+    const prev = setState(id, {status: 'deferred', actionTaken: label});
+    toast(`Deferred — hidden from active views`, () => { userState[id] = prev || {}; saveState(); rerender(); });
+  } else if (act === 'snooze') {
+    showSnoozeMenu(id, btnEl || event.target);
+    return;
+  } else if (act === 'edit') {
+    openModal(id, 'edit');
+    return;
+  } else if (act === 'provide-info' || act === 'add-note') {
+    openModal(id, act === 'provide-info' ? 'info' : 'note');
+    return;
+  } else if (act === 'reopen') {
+    const prev = setState(id, {status: null, actionTaken: null});
+    delete userState[id].status;
+    delete userState[id].actionTaken;
+    saveState();
+    toast('↩ Reopened', () => { userState[id] = prev || {}; saveState(); rerender(); });
+  }
+  rerender();
+}
+
+function showSnoozeMenu(id, anchor) {
+  document.querySelectorAll('.snooze-menu').forEach(m => m.remove());
+  const menu = document.createElement('div');
+  menu.className = 'snooze-menu show';
+  menu.innerHTML = `
+    <button data-h="1">Snooze 1 hour</button>
+    <button data-h="4">Snooze 4 hours</button>
+    <button data-h="24">Snooze until tomorrow</button>
+    <button data-h="168">Snooze 7 days</button>
+  `;
+  document.body.appendChild(menu);
+  const r = anchor.getBoundingClientRect();
+  menu.style.top = (r.bottom + window.scrollY + 4) + 'px';
+  menu.style.left = (r.left + window.scrollX) + 'px';
+  menu.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', e => {
+      const hours = parseInt(b.dataset.h, 10);
+      const prev = setState(id, {snoozedUntil: Date.now() + hours * 3600 * 1000, actionTaken: `Snooze ${hours}h`});
+      toast(`💤 Snoozed ${hours < 24 ? hours + 'h' : Math.round(hours/24) + 'd'}`, () => { userState[id] = prev; saveState(); rerender(); });
+      menu.remove();
+      rerender();
+    });
+  });
+  setTimeout(() => {
+    document.addEventListener('click', () => menu.remove(), {once: true});
+  }, 0);
+}
+
+// ============================================================
+// EDIT / NOTE / INFO MODAL (one modal, three modes)
+// ============================================================
+let editingId = null;
+let editingMode = 'edit'; // 'edit' | 'note' | 'info'
+
+function openModal(id, mode) {
+  const item = novaState.items.find(x => x.id === id);
+  if (!item) return;
+  editingId = id;
+  editingMode = mode;
+  const s = getState(id);
+  const titles = {
+    'edit': 'Edit wording: ' + item.contact,
+    'note': 'Add a note: ' + item.contact,
+    'info': 'Provide details: ' + item.contact
+  };
+  const subs = {
+    'edit': 'Revise the draft. Nova picks up your version next session.',
+    'note': 'Free-form note for yourself or Nova. Stays on the card. Nova reads it next session.',
+    'info': 'Type the info Nova needs. Item stays open until Nova acts on it.'
+  };
+  document.getElementById('editModalTitle').textContent = titles[mode];
+  document.getElementById('editModalSub').textContent = subs[mode];
+  let existing;
+  if (mode === 'edit') {
+    existing = s.userEdit || `${item.body}\n\n--- Nova's note ---\n${item.novaNote}`;
+  } else {
+    existing = s.userNote || '';
+  }
+  document.getElementById('editTextarea').value = existing;
+  document.getElementById('editModal').classList.add('show');
+  setTimeout(() => document.getElementById('editTextarea').focus(), 50);
+}
+
+document.getElementById('editCancel').addEventListener('click', () => document.getElementById('editModal').classList.remove('show'));
+document.getElementById('editSave').addEventListener('click', () => {
+  if (!editingId) return;
+  const text = document.getElementById('editTextarea').value.trim();
+  if (editingMode === 'edit') {
+    setState(editingId, {userEdit: text});
+    toast('✓ Edit saved');
+  } else {
+    setState(editingId, {userNote: text});
+    toast(editingMode === 'info' ? '✓ Details saved — item stays open for Nova' : '✓ Note saved');
+  }
+  document.getElementById('editModal').classList.remove('show');
+  rerender();
+});
+document.getElementById('editClear').addEventListener('click', () => {
+  if (!editingId) return;
+  if (editingMode === 'edit') delete userState[editingId].userEdit;
+  else delete userState[editingId].userNote;
+  saveState();
+  document.getElementById('editModal').classList.remove('show');
+  toast('Cleared');
+  rerender();
+});
+
+// ============================================================
+// EXPORT TO NOVA
+// ============================================================
+function openExport() {
+  const decisions = Object.entries(userState).filter(([id, s]) => s.status || s.userEdit || s.snoozedUntil);
+  if (decisions.length === 0) {
+    toast('No decisions to export yet');
+    return;
+  }
+  const lines = ['Nova — here are my dashboard decisions:', ''];
+  decisions.forEach(([id, s]) => {
+    const item = novaState.items.find(x => x.id === id);
+    if (!item) return;
+    lines.push(`### ${item.contact}`);
+    if (s.status === 'approved') lines.push(`- ✅ APPROVED via "${s.actionTaken || 'Approve'}" at ${formatTime(s.updatedAt)}`);
+    if (s.status === 'done') lines.push(`- ✅ MARKED DONE via "${s.actionTaken}" at ${formatTime(s.updatedAt)}`);
+    if (s.status === 'deferred') lines.push(`- ⏸ DEFERRED via "${s.actionTaken}" at ${formatTime(s.updatedAt)}`);
+    if (s.snoozedUntil) lines.push(`- 💤 SNOOZED until ${new Date(s.snoozedUntil).toLocaleString('en-AU')}`);
+    if (s.userNote) lines.push(`- 📝 MY NOTE:`, '```', s.userNote, '```');
+    if (s.userEdit) lines.push(`- ✏️ MY EDIT:`, '```', s.userEdit, '```');
+    lines.push('');
+  });
+  document.getElementById('exportTextarea').value = lines.join('\n');
+  document.getElementById('exportModal').classList.add('show');
+}
+document.getElementById('exportBtn').addEventListener('click', openExport);
+
+// Send Nova a task — opens email composer with [NOVA-TASK] prefix
+// Nova's 7am scheduled briefing task scans gm.teamneo for these subjects
+// and surfaces them as new actions in tomorrow's briefing.
+function openAssign() {
+  const now = new Date().toLocaleString('en-AU', { timeZone: 'Australia/Brisbane', dateStyle: 'short', timeStyle: 'short' });
+  const subject = encodeURIComponent('[NOVA-TASK] ');
+  const body = encodeURIComponent(
+    `Hi Nova,\n\n` +
+    `Please action this for me:\n\n` +
+    `WHAT: \n\n` +
+    `WHY / CONTEXT: \n\n` +
+    `WHEN BY: \n\n` +
+    `BUSINESS: (BAT.AI / TeamNEO / HIFU Sales / Brisbane HIFU / Other)\n\n` +
+    `PRIORITY: (P0 / P1 / P2)\n\n` +
+    `---\n` +
+    `Sent ${now} from Nova Dashboard`
+  );
+  window.location.href = `mailto:gm.teamneo@gmail.com?subject=${subject}&body=${body}`;
+}
+document.getElementById('assignBtn').addEventListener('click', openAssign);
+document.getElementById('exportClose').addEventListener('click', () => document.getElementById('exportModal').classList.remove('show'));
+document.getElementById('exportCopy').addEventListener('click', async () => {
+  const ta = document.getElementById('exportTextarea');
+  try {
+    await navigator.clipboard.writeText(ta.value);
+    toast('📋 Copied to clipboard');
+  } catch (e) {
+    ta.select();
+    document.execCommand('copy');
+    toast('📋 Copied');
+  }
+});
+
+// ============================================================
+// TOAST
+// ============================================================
+function toast(text, undoFn) {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<span class="toast-text">${escapeHtml(text)}</span>${undoFn ? '<button class="toast-undo">Undo</button>' : ''}`;
+  if (undoFn) {
+    t.querySelector('.toast-undo').addEventListener('click', () => {
+      undoFn();
+      t.remove();
+      toast('Undone');
+    });
+  }
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 5000);
+}
+
+// ============================================================
+// REGISTER NAV
+// ============================================================
+function rerender() {
+  renderCounts();
+  renderCards();
+  renderSyncBanner();
+}
+document.querySelectorAll('#navTriage .nav-item').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('#navTriage .nav-item').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('#navTier .nav-item').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    activeFilter = b.dataset.filter;
+    activeTier = null;
+    rerender();
+  });
+});
+document.querySelectorAll('#navTier .nav-item').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('#navTriage .nav-item').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('#navTier .nav-item').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    activeTier = b.dataset.tier;
+    activeFilter = null;
+    rerender();
+  });
+});
+document.querySelectorAll('#navBusiness .nav-item').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('#navBusiness .nav-item').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    activeBusiness = b.dataset.business;
+    document.querySelectorAll('#filters .chip').forEach(c => c.classList.toggle('active', c.dataset.business === activeBusiness));
+    rerender();
+  });
+});
+document.querySelectorAll('#filters .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#filters .chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    activeBusiness = c.dataset.business;
+    document.querySelectorAll('#navBusiness .nav-item').forEach(n => n.classList.toggle('active', n.dataset.business === activeBusiness));
+    rerender();
+  });
+});
+
+// Initial render
+document.getElementById("lastUpdate").textContent = novaState.lastUpdate;
+rerender();
+</script>
 </body>
 </html>
