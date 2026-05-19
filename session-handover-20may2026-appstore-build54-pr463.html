@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Session Handover · 20 May 2026 · Build 53 Rejected — Build 54 Fix Staged (PR #463)</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
+    --accent:#00E8B4; --purple:#9B3DFF; --coral:#FF7A6E; --pink:#F040C8;
+    --red:#ff5a5a; --amber:#ffb340; --green:#3dd87f; --blue:#4aa3ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,'Plus Jakarta Sans','SF Pro Display',sans-serif;line-height:1.55;padding:32px;max-width:1180px;margin:0 auto}
+  h1{font-size:30px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#00FFCA 0%,#9B3DFF 55%,#FF7A6E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.4px}
+  h2{font-size:20px;font-weight:700;margin:32px 0 12px;color:var(--accent);letter-spacing:-0.2px}
+  h3{font-size:16px;font-weight:600;margin:16px 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 20px;margin:12px 0;transition:border-color 0.2s}
+  .ok{border-left:4px solid var(--accent)}
+  .warn{border-left:4px solid var(--amber)}
+  .alert{border-left:4px solid var(--red)}
+  .info{border-left:4px solid var(--blue)}
+  .verified{border-left:4px solid var(--green)}
+  .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;vertical-align:middle}
+  .pill-ok{background:rgba(0,232,180,0.18);color:var(--accent)}
+  .pill-warn{background:rgba(255,179,64,0.18);color:var(--amber)}
+  .pill-alert{background:rgba(255,90,90,0.18);color:var(--red)}
+  .pill-verified{background:rgba(61,216,127,0.18);color:var(--green)}
+  .pill-info{background:rgba(74,163,255,0.18);color:var(--blue)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+  code{background:rgba(0,232,180,0.08);padding:2px 6px;border-radius:4px;color:var(--accent);font-family:'SF Mono','Menlo',monospace;font-size:12.5px}
+  pre{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;overflow-x:auto;font-size:12.5px;font-family:'SF Mono','Menlo',monospace;color:#cfe8ff;margin:8px 0}
+  a{color:var(--accent)}
+  a:hover{text-decoration:underline}
+  ul,ol{padding-left:22px;margin:6px 0}
+  li{margin:4px 0}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:14px 0 18px}
+  .stat{background:var(--card-alt);border:1px solid rgba(155,61,255,0.18);border-radius:12px;padding:14px}
+  .stat .num{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.5px;line-height:1.2}
+  .stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px}
+  .nav{margin-bottom:18px;font-size:13px}
+  .nav a{margin-right:12px}
+  .kbd{display:inline-block;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:4px;padding:1px 6px;font-family:'SF Mono','Menlo',monospace;font-size:11px;color:#cfe8ff}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="./index.html">← Nova Dashboard</a>
+  <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">APP HQ</a>
+  <a href="https://github.com/brisbanehifu/booking-api/pull/463">PR #463</a>
+  <a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/reviewsubmissions/details/9f24d527-e328-4728-a74e-548dffbe7390">ASC Rejection Thread</a>
+</div>
+
+<h1>Session Handover · 20 May 2026 · Build 53 Rejected — Build 54 Fix Staged</h1>
+<div class="sub">Apple flagged 4 NEW guidelines on the 13 May 2026 review · PR <a href="https://github.com/brisbanehifu/booking-api/pull/463">#463</a> open at commit <code>fecc595</code> · HOLDING for parallel session on <code>ui/light-mode-copylink-and-activity-log-columns</code> to merge first</div>
+
+<div class="stat-grid">
+  <div class="stat"><div class="num">4</div><div class="lbl">Apple guidelines flagged</div></div>
+  <div class="stat"><div class="num">5</div><div class="lbl">Files changed in PR #463</div></div>
+  <div class="stat"><div class="num">+407 / −23</div><div class="lbl">Lines net</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">Static checks failing</div></div>
+</div>
+
+<h2>What Apple actually said</h2>
+
+<div class="card alert">
+  <p><span class="pill pill-alert">Rejected</span> Submission <code>9f24d527-e328-4728-a74e-548dffbe7390</code> · Build 53 · iPad Air 11" (M3) + iPhone 17 Pro Max · 13 May 2026 6:10 PM AEST.</p>
+  <p style="margin-top:8px;">This was the 8th submission attempt of v1.0. Builds 42, 48, 49×2, 51 hit prior issues (placeholder icons · IS_IOS_NATIVE tree-shake · Info.plist photo permissions). Build 52 was self-cancelled. Build 53 fixed all those — but the reviewer found <strong>four entirely new surfaces</strong> that hadn't been gated. NOT a regression of prior bugs.</p>
+</div>
+
+<table>
+  <thead>
+    <tr><th style="width:14%;">Guideline</th><th style="width:42%;">What Apple said</th><th>How PR #463 addresses it</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="pill pill-alert">3.1.1</span><br>Business · Payments · IAP</td>
+      <td>"The app includes an account registration feature for businesses and organizations, which is considered access to external mechanisms for purchases or subscriptions."</td>
+      <td>SignupPage iOS early-return blocks <code>/signup</code> <code>/register</code> <code>/trial</code> <code>/get-started</code> · AdminLoginPage hides "Start free trial" link via <code>{!isIOSNative() && ...}</code> · AdminMobileSettings hides the external "Account, billing, integrations" link on iOS (Apple treats that link as an external-purchase mechanism too).</td>
+    </tr>
+    <tr>
+      <td><span class="pill pill-alert">5.1.1(v)</span><br>Data Collection &amp; Storage</td>
+      <td>"The app supports account creation but does not include an option to initiate account deletion."</td>
+      <td>New <code>DELETE /api/account</code> endpoint hard-deletes the caller's <code>admin_users</code> row (cascade-deletes biometric_enrollments + password_reset_tokens via existing FK_abe_user / FK_pd_user) and marks <code>tenants.status='closed'</code> if no active owners remain. New "Account" Section in AdminMobileSettings with a red "Delete my account" button → confirmation modal requiring user to type <span class="kbd">DELETE</span> → API call → cleanup of native registrations + JWT → sign out to <code>/admin/login?reason=account_deleted</code>. Apple wants a screen recording — that's queued as the next ASC Review-Notes attachment.</td>
+    </tr>
+    <tr>
+      <td><span class="pill pill-alert">3.1.3(c)</span><br>Enterprise Services</td>
+      <td>"The app offers enterprise services sold to organizations, but these same services are also sold to single users without using In-App Purchase."</td>
+      <td>Addressed <strong>transitively</strong> by the 3.1.1 fixes. With iOS sign-up removed, no consumer path exists in the iOS binary — only existing clinic owners can sign in. No IAP needed. Option B (add StoreKit IAP for individuals) was rejected in favour of A (B2B-only on iOS) because BAT is a clinic platform, not a consumer app.</td>
+    </tr>
+    <tr>
+      <td><span class="pill pill-alert">2.1</span><br>Information Needed</td>
+      <td>"We need access to a demo account with an expired subscription to review the entire purchase flow."</td>
+      <td>New <code>scripts/seed-appstore-review-expired.js</code> — idempotent seeder that provisions a tenant (<code>slug=appstore-review-expired</code>, <code>status='cancelled'</code>, <code>trial_end_date=2025-01-01</code>) plus admin_user (<code>appstore.review.expired@bookatreatment.ai</code> / <code>AppReview2026!Expired</code>). Will run once against PROD MySQL after deploy. Credentials added to ASC App Review Information alongside the existing active demo account.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Three apps in the account</h2>
+
+<div class="card info">
+  <p>Worth flagging while we're here: <code>appstoreconnect.apple.com/apps</code> shows <strong>three</strong> BAT apps under Neo-Klien Pty Ltd:</p>
+  <ul style="margin-top:6px;">
+    <li><strong>BookATreatment Admin</strong> (app ID <code>6763552565</code>) — the rejected one. This is the binary the reviewer downloaded.</li>
+    <li><strong>BookATreatment Staff</strong> — "Prepare for Submission" status, no rejection.</li>
+    <li><strong>BookATreatment</strong> (no suffix) — "Prepare for Submission" status, no rejection. Consumer-facing.</li>
+  </ul>
+  <p style="margin-top:8px;">Rejection #3 (enterprise services sold to consumers without IAP) makes more sense in this light. The reviewer was looking at Admin's binary, but Apple's listing search likely also surfaced the consumer-facing BookATreatment entry. If <em>either</em> app's metadata description, screenshots, or in-app copy reads as consumer-facing, that conflates the two products in Apple's eyes. <strong>Recommend</strong>: audit all three app listings' marketing copy + screenshots for consumer-targeted language before resubmission. Queued for the ASC update step.</p>
+</div>
+
+<h2>The fix — PR <a href="https://github.com/brisbanehifu/booking-api/pull/463">#463</a></h2>
+
+<table>
+  <thead>
+    <tr><th>File</th><th>Change</th><th>Lines</th><th>Guideline</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>frontend/src/pages/SignupPage.tsx</code></td>
+      <td>Early-return on <code>isIOSNative()</code> renders a "Sign in to your clinic" screen instead of the business signup form. Blocks all 4 signup-aliased routes.</td>
+      <td>+40</td>
+      <td>3.1.1</td>
+    </tr>
+    <tr>
+      <td><code>frontend/src/pages/admin/AdminLoginPage.tsx</code></td>
+      <td>Wraps the "Don't have an account? Start free trial" paragraph in <code>{!isIOSNative() && (...)}</code>.</td>
+      <td>+18</td>
+      <td>3.1.1</td>
+    </tr>
+    <tr>
+      <td><code>frontend/src/pages/admin/AdminMobileSettings.tsx</code></td>
+      <td>Hides external "Account, billing, integrations" link on iOS. New "Account" Section with "Delete my account" button + type-DELETE confirmation modal. Calls <code>DELETE /api/account</code> → clears native push/biometric → signs out.</td>
+      <td>+169</td>
+      <td>3.1.1 + 5.1.1(v)</td>
+    </tr>
+    <tr>
+      <td><code>index.js</code></td>
+      <td>New <code>DELETE /api/account</code> endpoint. Hard-deletes <code>admin_users</code> row (cascades biometric_enrollments + password_reset_tokens via existing FKs). When last active owner deleted, sets <code>tenants.status='closed'</code>. Clinic-side records (bookings, contacts) reference tenants via <code>ON DELETE RESTRICT</code> and are NOT cascaded — clients' data has independent retention obligations.</td>
+      <td>+63</td>
+      <td>5.1.1(v)</td>
+    </tr>
+    <tr>
+      <td><code>scripts/seed-appstore-review-expired.js</code></td>
+      <td>New file. Idempotent seeder for the expired-subscription demo tenant. Creates tenant + admin_user + account_settings (<code>trial_active='false'</code>, <code>trial_end_date='2025-01-01'</code>) + booking_page_settings + availability.</td>
+      <td>+117 new</td>
+      <td>2.1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Stash-recovery side-quest</h2>
+
+<div class="card warn">
+  <p>Early in the session every Edit call was reported successful by the tool but the changes silently disappeared from disk seconds later. <code>git status</code> at edit-time showed my files modified; <code>git status</code> ~60s later showed a different set of modified files (none of them mine) and <code>scripts/seed-appstore-review-expired.js</code> was deleted (<code>ls: No such file or directory</code>).</p>
+  <p style="margin-top:8px;">Root cause: I was on branch <code>fix/booking-page-settings-jwt-first-tenant</code> when a parallel Claude session was actively working there. A watch process (or their own <code>git restore</code>) reverted any change that wasn't part of their edit-set. Exactly the <em>"parallel-actor overlap"</em> failure mode banked in <code>feedback_serialize_deployments.md</code> — but at the file level, not the deploy level.</p>
+  <p style="margin-top:8px;"><strong>The win:</strong> a previous session had already done this exact fix and parked it in <code>stash@{1}</code> with the message <em>"PR462-parking — pre-existing uncommitted work (SignupPage, AdminLoginPage, AdminMobileSettings, index.js, seed-appstore-review-expired.js) from prior sessions, stashed to land Bug 15+17 fix cleanly. Kim — pop when ready to review."</em> So I checked out <code>main</code>, pulled latest, created the fresh branch <code>fix/appstore-rejection-build54</code>, popped <code>stash@{1}</code>, and all 5 changes landed without conflict. Same byte-for-byte content the prior session had produced. Committed as <code>fecc595</code>.</p>
+  <p style="margin-top:8px;"><strong>Parallel session's WIP preserved</strong> in <code>stash@{0}</code> on branch <code>ui/light-mode-copylink-and-activity-log-columns</code> (<code>ActivityLog.tsx</code>, <code>EventTypesPage.tsx</code>, <code>index.js</code>, <code>frontend/dist/*</code>). When that session resumes, they pop their stash. No data lost.</p>
+</div>
+
+<h2>Pre-merge protocol — all green</h2>
+
+<table>
+  <thead>
+    <tr><th>Check</th><th>Status</th><th>Evidence</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tsc --noEmit (frontend)</td>
+      <td><span class="pill pill-verified">Pass</span></td>
+      <td>Exit code 0, no output</td>
+    </tr>
+    <tr>
+      <td>node --check (backend)</td>
+      <td><span class="pill pill-verified">Pass</span></td>
+      <td>Clean on <code>index.js</code> and <code>scripts/seed-appstore-review-expired.js</code></td>
+    </tr>
+    <tr>
+      <td>Visual-verify (non-iOS path)</td>
+      <td><span class="pill pill-verified">Pass</span></td>
+      <td>vite dev at <code>localhost:5173</code>: <code>/signup</code> renders business form intact for web users · <code>/admin/login</code> shows "Don't have an account? Start free trial" link · existing behaviour preserved</td>
+    </tr>
+    <tr>
+      <td>Visual-verify (iOS path)</td>
+      <td><span class="pill pill-warn">Deferred</span></td>
+      <td>Forcing <code>Capacitor.isNativePlatform() = true</code> via devtools console doesn't survive Vite SPA navigation. iOS-gated UI can only be exercised inside the Capacitor binary. <strong>Deferred to TestFlight install of Build 54</strong> (Kim's iPad Air 11" + iPhone 17 Pro Max simulator).</td>
+    </tr>
+    <tr>
+      <td>Serialize: Deploy Production in-flight</td>
+      <td><span class="pill pill-verified">None</span></td>
+      <td><code>gh run list --status in_progress</code> returned 0 rows</td>
+    </tr>
+    <tr>
+      <td>Serialize: Deploy Production queued</td>
+      <td><span class="pill pill-verified">None</span></td>
+      <td><code>gh run list --status queued</code> returned 0 rows</td>
+    </tr>
+    <tr>
+      <td>Last successful deploy</td>
+      <td>2026-05-19 05:31Z (commit 92cfdce)</td>
+      <td>~well past 60-90s sibling-overlap window</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Hard-delete semantics — why we're not cascading clinic data</h2>
+
+<div class="card info">
+  <p>Apple's wording on 5.1.1(v) is "give users more control of the data they've shared." That's the USER's data — not their clients' data. The hard-delete in PR #463 is scoped accordingly:</p>
+  <ul style="margin-top:6px;">
+    <li><strong>Cascaded automatically:</strong> the user's own <code>admin_users</code> row + their <code>biometric_enrollments</code> + their <code>password_reset_tokens</code> via existing <code>FK_abe_user</code> / <code>FK_pd_user</code> ON DELETE CASCADE constraints.</li>
+    <li><strong>NOT cascaded:</strong> <code>bookings</code>, <code>contacts</code>, <code>services</code>, <code>payments</code> etc. They reference <code>tenants</code> via <code>ON DELETE RESTRICT</code> because they represent <em>clients'</em> data (appointments, health notes, payment receipts) with independent retention obligations under health-record and tax law.</li>
+    <li><strong>Tenant closure:</strong> when the deleted user was the last active owner, <code>tenants.status</code> flips to <code>'closed'</code> and <code>name</code> to <code>"Closed account #&lt;id&gt;"</code>. Staff can no longer sign in and the public booking page returns 404. No new records are created against a closed tenant.</li>
+  </ul>
+  <p style="margin-top:8px;"><strong>Option α (hard-delete + type-DELETE confirm)</strong> was chosen over Option β (30-day soft-delete grace) because Kim explicitly asked for the fastest Apple-compliant path off the rejection treadmill, and BAT's clinic owners are technical enough that an accidental delete-with-typing-confirmation is essentially impossible. Soft-delete with grace is a future-proofing enhancement; can be retrofitted later.</p>
+</div>
+
+<h2>What's next — post-clearance sequence</h2>
+
+<ol>
+  <li><strong>Wait</strong> for the parallel session on <code>ui/light-mode-copylink-and-activity-log-columns</code> to merge their bug fixes. Kim will signal when clear.</li>
+  <li><strong>Re-check serialize</strong> — <code>gh run list --workflow="Deploy Production"</code> must be empty 60-90s past their deploy completing (per the sibling-overlap rule).</li>
+  <li><strong>Kim admin-merges</strong> <a href="https://github.com/brisbanehifu/booking-api/pull/463">PR #463</a> — Integration Tests will likely <code>CANCELLED</code> at 15m (Layer 1 timeout), so admin-merge is routine per the CI-3-layer-fix backlog.</li>
+  <li><strong>Watch Railway deploy</strong> — when it completes, <code>railway ssh --service web "grep -c ACCOUNT_DELETE /app/index.js"</code> should return <code>2</code> (signature confirmed). 60-90s later, re-check no sibling deploy fired during the rollout window.</li>
+  <li><strong>Rule 4 — Re-run E2E against LIVE bundle</strong> at <code>app.bookatreatment.ai/signup</code> and <code>/admin/login</code>. Non-iOS path verifications same as local.</li>
+  <li><strong>Run the seed</strong> — <code>railway run -- node scripts/seed-appstore-review-expired.js --service web</code> against PROD MySQL. One-shot. Output prints the demo credentials Kim adds to ASC Review Information.</li>
+  <li><strong>Dispatch Build 54</strong> — <code>gh workflow run build-mobile.yml -f target=ios-testflight -f flavor=admin</code>. ~3 min to archive + sign + upload via Fastlane gym/pilot. Build number = workflow run number (so this will be Build 54 or 55 depending on macOS minute usage since).</li>
+  <li><strong>Visual-verify on TestFlight</strong> — Kim's iPad Air 11" / iPhone 17 Pro Max simulator. Install Build 54, exercise all four reviewer paths: no signup link in AdminLogin · /signup → "Sign in to your clinic" screen · /admin/mobile-settings → "Delete my account" + no external billing link · full delete flow signs out cleanly.</li>
+  <li><strong>Update App Store Connect</strong> — App Review Information Notes field gets both demo accounts (active <code>demo@bookatreatment.ai</code> + expired <code>appstore.review.expired@bookatreatment.ai</code>) and a link to the deletion screen-recording (Apple explicitly asks for the recording per the 5.1.1(v) requirement). Attach Build 54 to v1.0.</li>
+  <li><strong>Hand Kim the screenshot bundle</strong> for sign-off — iOS auth screen with no signup link · screen recording of deletion flow · ASC Notes field showing both demo creds · ASC build attached to v1.0 · Railway deployed-code grep proof. <strong>Kim presses Resubmit only after explicit sign-off.</strong></li>
+</ol>
+
+<h2>Open risks &amp; watchpoints</h2>
+
+<ul>
+  <li><strong>iOS visual-verify happens late.</strong> First real iOS exercise of the gates is on TestFlight Build 54 install. If <code>isIOSNative()</code> somehow doesn't return true inside the Capacitor binary (it should — that's exactly what the platform.ts docstring guards against), the gates ship dead and Apple will reject again on 3.1.1. Mitigation: code-review confirms the function uses runtime evaluation, not constant folding, exactly per the PR #380/#381/#387 lesson.</li>
+  <li><strong>Three-app metadata audit</strong> — Apple's 3.1.3(c) flag may have been triggered partly by the consumer-facing <strong>BookATreatment</strong> listing's metadata. Need to check all three apps' descriptions/screenshots before resubmit. Queued for the ASC update step.</li>
+  <li><strong>Reviewer screen recording</strong> — Apple's 5.1.1(v) explicitly asks for "a screen recording captured on a physical device that demonstrates: creating a new account or signing in with the demo account · navigating to the account deletion option · the complete account deletion flow from initiation to confirmation." That's Kim's hands on the iPad. Recording the demo-account deletion is necessary because the expired demo account exists; we'd want a DIFFERENT throwaway account to record the deletion (so the demo creds still work for Apple).</li>
+  <li><strong>Eighth submission</strong> — if rejected again on resubmit, the next iteration must be especially careful about new surfaces. Apple has flagged 4 distinct guidelines in this rejection; reviewer may look harder next time.</li>
+</ul>
+
+<h2>Trust signal</h2>
+
+<div class="card ok">
+  <p>Kim's tone today: frustrated but not angry — <em>"rejected AGAIN... very disappointed"</em>. The frustration is at the recurrence, not at the work. She greenlit the full end-to-end flow on the AskUserQuestion, picked Option α for delete-style with the "Recommended" tag, and explicitly invoked the strict-protocol checklist (visual-verify pre-merge · serialize · post-deploy verify · LIVE E2E). When the parallel-session revert surfaced, she instructed <em>"wait for the agent in the other session to finish the bug fixes. Then you may go. They must be clear before you proceed."</em> — full trust in the recovery path + serialize discipline.</p>
+</div>
+
+<h2>Related files</h2>
+
+<ul>
+  <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md</a> — §25.7 reject history updated (Build 53 → rejected, Build 54 → PR open) · §25.8 PR list adds #463 · Version History v6.43 entry added</li>
+  <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">APP_HQ.html</a> — iOS banner flipped to red-tinted "REJECTED · PR #463 staged · HOLDING" with new button column · reject-history table Build 53 row updated + Build 54 row added</li>
+  <li><a href="https://github.com/brisbanehifu/booking-api/pull/463">PR #463 on GitHub</a> — branch <code>fix/appstore-rejection-build54</code>, commit <code>fecc595</code></li>
+  <li><a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/reviewsubmissions/details/9f24d527-e328-4728-a74e-548dffbe7390">ASC rejection thread</a> — full reviewer message for the 13 May rejection</li>
+  <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/session-handover-13may2026-build53-submitted.html">13 May handover — Build 53 submitted</a> — the original Kim-authorized submission that became this rejection</li>
+</ul>
+
+</body>
+</html>

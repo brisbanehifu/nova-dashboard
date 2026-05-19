@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session Handover · 20 May 2026 · RFT0577 Recruitment Build-Out</title>
+<style>
+  :root{--ink:#1a1a1a;--muted:#555;--line:#dfe3e7;--bg:#f6f7f9;--navy:#0B2B5B;--neo:#1B6F4A;--gold:#FFC107;--win:#2e7d32}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55;padding:20px}
+  .wrap{max-width:1100px;margin:0 auto}
+  header{background:linear-gradient(135deg,#0B2B5B 0%,#1565C0 100%);color:white;padding:28px 32px;border-radius:14px;box-shadow:0 8px 24px rgba(11,43,91,0.18);margin-bottom:20px}
+  header h1{font-size:26px;font-weight:700;letter-spacing:-0.3px;margin-bottom:6px}
+  header .sub{font-size:14px;opacity:0.9;font-weight:500}
+  header .meta{font-size:12px;opacity:0.75;margin-top:10px;text-transform:uppercase;letter-spacing:0.6px}
+  .win-banner{background:linear-gradient(135deg,#2e7d32 0%,#1b5e20 100%);color:white;padding:18px 24px;border-radius:10px;margin-bottom:20px;box-shadow:0 4px 14px rgba(46,125,50,0.25);font-size:15px;line-height:1.55}
+  .win-banner .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;opacity:0.85;margin-bottom:6px}
+  .win-banner blockquote{font-style:italic;border-left:3px solid #ffc107;padding-left:14px;margin-top:8px;opacity:0.95}
+  section{background:white;border-radius:12px;padding:20px 24px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+  h2{color:var(--navy);font-size:18px;border-bottom:2px solid var(--gold);padding-bottom:8px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  h3{color:var(--navy);font-size:14px;text-transform:uppercase;letter-spacing:0.8px;margin:14px 0 8px}
+  ul,ol{padding-left:22px;margin:6px 0}
+  li{margin:5px 0}
+  code{background:#f1f3f5;padding:2px 6px;border-radius:4px;font-size:12px;color:#0d47a1;font-family:"SF Mono","Cascadia Mono",Consolas,monospace}
+  pre{background:#fafbfc;border:1px solid var(--line);border-radius:6px;padding:12px;font-size:12px;line-height:1.5;overflow-x:auto;font-family:"SF Mono","Cascadia Mono",Consolas,monospace;margin:8px 0}
+  a{color:#1565C0;text-decoration:none}
+  a:hover{text-decoration:underline}
+  .kv{display:grid;grid-template-columns:200px 1fr;gap:6px 14px;margin-top:8px}
+  .kv dt{font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.4px}
+  .kv dd{font-size:13.5px}
+  .tag{display:inline-block;padding:2px 9px;border-radius:30px;font-size:11px;font-weight:700;letter-spacing:0.3px;margin-right:4px}
+  .tag.priority-high{background:#ffebee;color:#b71c1c;border:1px solid #ef5350}
+  .tag.priority-med{background:#fff8e1;color:#bf360c;border:1px solid #fbc02d}
+  .tag.priority-low{background:#e8f5e9;color:#1b5e20;border:1px solid #66bb6a}
+  .tag.cat-a{background:#fff3e0;color:#e65100;border:1px solid #ff9800}
+  .tag.cat-b{background:#e3f2fd;color:#0d47a1;border:1px solid #1976d2}
+  .tag.cat-c{background:#e1f5fe;color:#01579b;border:1px solid #0277bd}
+  .tag.cat-d{background:#ffebee;color:#b71c1c;border:1px solid #c62828}
+  .tag.cat-e{background:#f3e5f5;color:#4a148c;border:1px solid #7b1fa2}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:10px}
+  .card{background:#fafbfc;border-left:4px solid var(--navy);padding:12px 14px;border-radius:6px}
+  .card.gold{border-left-color:var(--gold);background:#fff8e1}
+  .card.green{border-left-color:var(--win);background:#e8f5e9}
+  .card.red{border-left-color:#c62828;background:#ffebee}
+  .card .t{font-size:11px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;color:var(--muted);margin-bottom:4px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+  th{background:var(--navy);color:white;padding:8px 10px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+  td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:nth-child(even) td{background:#fafbfc}
+  .locked{background:#ffebee;border:2px solid #ef5350;padding:12px 16px;border-radius:8px;margin-top:10px}
+  .locked .t{color:#b71c1c;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:0.6px;margin-bottom:6px}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:18px;border-top:1px solid var(--line);margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🚀 RFT0577 — Recruitment Build-Out Handover</h1>
+  <div class="sub">Next-session brief · Build the Recruitment folder structure + grow the candidate pool ahead of further panel rounds</div>
+  <div class="meta">Issued 20 May 2026 · TeamNEO.tech · Power &amp; Water Corporation RFT0577</div>
+</header>
+
+<div class="win-banner">
+  <div class="label">🏆 WIN — 20 May 2026</div>
+  <strong>First panel interview passed.</strong> Through to the next round.
+  <blockquote>"Good news is we did knock them dead. It went really well and we have made it through to the next panel interview. There are several." — Kim</blockquote>
+</div>
+
+<section>
+  <h2>🎯 Mission for next session</h2>
+  <p><strong>Build out a Recruitment folder</strong> so Kim has every original CV + its matching 1-page summary filed by PWC Category. This lets her audit, update and scale fast as more candidates come in between panel rounds.</p>
+  <p style="margin-top:8px">The current Master Resume Library has files organised by Submitted/Bench then by primary cat — but files are <em>flat</em> in each folder. The next iteration is <strong>per-candidate sub-folders</strong> holding both the long-form CV and the 1-pager side by side. That's the audit-friendly view she wants.</p>
+</section>
+
+<section>
+  <h2>📁 Target folder structure</h2>
+  <pre>Recruitment/   (parent name TBC — Kim to confirm)
+├─ A - AMS/
+│   ├─ Ali Callow/
+│   │   ├─ Original_Resume_AliCallow.pdf      ← long-form CV she received
+│   │   └─ 1Pager_AliCallow.pdf               ← VDZ ICT one-pager
+│   ├─ Christopher Mullan/
+│   ├─ Hasnain Haider/
+│   └─ … (~21+ submitted A candidates)
+├─ B - CCP (MUFASA)/
+│   ├─ Kim Klein/        (dual primary B+D)
+│   ├─ Dr Raaf'ai Anwr/
+│   ├─ Sarah Ryder/
+│   ├─ Bill Mallett/
+│   └─ … (~5 submitted B candidates)
+├─ C - IDS/
+│   ├─ Sarah Ryder (also)/  ← decide: duplicate or symlink for multi-cat
+│   └─ … (~10 submitted C candidates)
+├─ D - Cybersecurity/
+│   ├─ Tam Singh/        (sole D primary anchor)
+│   ├─ Jagatheeswaran/
+│   ├─ Kim Klein (also)/
+│   └─ … (13 verified-cyber candidates total)
+├─ E - OT &amp; SCADA/  (if Kim wants this category folder)
+├─ _BENCH/             (or split per-cat under Bench)
+└─ _index.html         (clickable master index)</pre>
+
+  <h3>Decisions to confirm with Kim before building</h3>
+  <ol>
+    <li><strong>Parent folder location:</strong> in <code>ICT/Submission Pack/Recruitment/</code> (alongside Master-Resume-Library)? Or somewhere else more visible (Desktop / OneDrive root)?</li>
+    <li><strong>Multi-cat candidates:</strong> someone primary B who also sits in A and C — duplicate the files into all three folders, OR put them in their primary cat only and add a separate "Cross-Cat" sub-folder?</li>
+    <li><strong>Bench candidates:</strong> include the 95 bench candidates in the same per-cat structure, OR keep them in a separate <code>_BENCH/</code> tree?</li>
+    <li><strong>Original resume sources:</strong> these live in multiple locations today (see file paths below) — confirm which is the "source of truth" original CV for each candidate.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>📂 Where the source files live today</h2>
+  <table>
+    <thead><tr><th>Folder</th><th>What's in it</th><th>Format</th></tr></thead>
+    <tbody>
+      <tr><td><code>ICT/Submission Pack/A-Team_Resumes_ICT_RFT0577/</code></td><td>43 submitted ICT 1-page resumes (FROZEN — DO NOT EDIT)</td><td>HTML</td></tr>
+      <tr><td><code>ICT/Submission Pack/A-Team Resumes - with additional people…/</code></td><td>Extended pool 1-pagers + PDFs of the above</td><td>PDF + HTML</td></tr>
+      <tr><td><code>ICT/Submission Pack/Master-Resume-Library/</code></td><td>Current consolidated library (flat by primary cat — needs per-candidate sub-folders next)</td><td>Mixed</td></tr>
+      <tr><td><code>ICT/Submission Pack/Cat B Bench Resumes/</code></td><td>8 Cat B subs bench at rate-card pricing + combined PDF</td><td>PDF + HTML</td></tr>
+      <tr><td><code>NT Tender - Engineering/1-Page Resumes/A-TEAM/</code></td><td>ENG-* 1-pagers from the Engineering tender</td><td>DOCX</td></tr>
+      <tr><td><code>NT Tender - Engineering/1-Page Resumes/B-TEAM/</code></td><td>B-team engineering 1-pagers</td><td>DOCX</td></tr>
+      <tr><td><code>NT Tender - Engineering/Resumes/</code></td><td>Original long-form CVs from engineering candidates</td><td>PDF</td></tr>
+      <tr><td><code>NT Tender - Project Management/1-Page Resumes/</code></td><td>PM-* tender 1-pagers</td><td>DOCX</td></tr>
+      <tr><td><code>Recruitment/Resumes/</code></td><td>Original CVs from earlier intake</td><td>PDF + DOCX</td></tr>
+      <tr><td><code>ICT/Resumes/</code></td><td>Original CVs incl. ICT-specific candidates (Dr Raaf'ai full CV etc)</td><td>PDF + DOCX</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>📊 Counts to work with</h2>
+  <div class="grid">
+    <div class="card"><div class="t">Total resources in dashboard</div><div style="font-size:22px;font-weight:700">153</div></div>
+    <div class="card gold"><div class="t">Submitted (named in matrices)</div><div style="font-size:22px;font-weight:700">60</div></div>
+    <div class="card green"><div class="t">Bench (placeholder backfill)</div><div style="font-size:22px;font-weight:700">95</div></div>
+    <div class="card"><div class="t">L5 + L4 leads (with detail)</div><div style="font-size:22px;font-weight:700">38</div></div>
+    <div class="card red"><div class="t">Cat D — Cyber-verified</div><div style="font-size:22px;font-weight:700">13</div></div>
+  </div>
+  <h3 style="margin-top:14px">Per-Cat candidate counts (submitted)</h3>
+  <p>
+    <span class="tag cat-a">A · AMS = ~21</span>
+    <span class="tag cat-b">B · CCP = ~5–8 primary + cross-cat</span>
+    <span class="tag cat-c">C · IDS = ~10</span>
+    <span class="tag cat-d">D · Cyber = 13 verified</span>
+    <span class="tag cat-e">E · SCADA = ~8</span>
+  </p>
+  <p style="font-size:12px;color:#555;margin-top:6px;font-style:italic">Counts are approximate — get exact list from the dashboard's PWC Cat filter or from <code>unified_categories.json</code>.</p>
+</section>
+
+<section>
+  <h2>🔒 Locked decisions — DO NOT re-litigate</h2>
+  <div class="locked">
+    <div class="t">⚠ Hard locks from prior sessions</div>
+    <ul>
+      <li><strong>Submitted resumes are FROZEN.</strong> The 43 1-pagers in <code>A-Team_Resumes_ICT_RFT0577/</code> cannot be edited. Daily rates in those resumes don't match the rate card — that's intentional, per Kim. Don't "fix" them.</li>
+      <li><strong>Kim Klein primary cat is B + D (dual primary).</strong> Yellow outline on both badges. Don't change to single primary.</li>
+      <li><strong>Cat D filter shows 13 verified-cyber candidates only.</strong> Don't add others without cyber resume evidence. Removed names: Sarah Ryder, Ahmed Ali Elzeftawy, Ahmed ElSayed Ismail, Abdul Basit + 24 more.</li>
+      <li><strong>"Transferable to" in a resume = hedge.</strong> Never count as direct credential. Sarah Ryder is asset-mgmt programme adjacency, NOT Oracle.</li>
+      <li><strong>Word version of any artefact:</strong> copy source content only — do NOT re-author. Drift incident on 19 May with Kim's Word resume.</li>
+      <li><strong>Firm-level partner credentials (Oracle OPN, IBM Partner Plus, Microsoft Solutions Partner) are TARGET-ACQUISITION during 90-day mobilisation</strong> — not currently held. Declared in letter to Zoe Dales.</li>
+      <li><strong>Tam Singh resume = 100% cybersecurity.</strong> Don't ever claim him as "Oracle EBS lead" again.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>🛠 Suggested first moves for next session</h2>
+  <ol>
+    <li><strong>Confirm folder location + structure decisions</strong> with Kim (see "Decisions to confirm" above).</li>
+    <li><strong>Generate a name→source-file map</strong> for every candidate: original CV path + 1-pager path. Re-use the matcher logic from <code>match_missing_resumes.js</code>.</li>
+    <li><strong>Build the Recruitment folder skeleton</strong> with empty per-cat / per-candidate sub-folders.</li>
+    <li><strong>Copy original CVs + 1-pagers</strong> into the right sub-folders. Use copyFile (don't move — original locations stay intact).</li>
+    <li><strong>Generate <code>_index.html</code></strong> with clickable links to every file, grouped by cat.</li>
+    <li><strong>Dashboard link</strong> — add a "Recruitment Library" link on the dashboard so Kim can jump straight in.</li>
+    <li><strong>Update the Master Resume Library or replace it</strong> — Kim probably wants this new per-candidate structure to <em>replace</em> the flat library, not coexist with it. Confirm before deleting.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>🗺 Key files / canonical paths</h2>
+  <dl class="kv">
+    <dt>Dashboard (working)</dt><dd><code>ICT\teamneo-recruitment-dashboard.html</code></dd>
+    <dt>Dashboard (Nova mirror)</dt><dd><code>Nova\Dashboard\teamneo-rft0577-panel-dashboard.html</code></dd>
+    <dt>Master Resume Library</dt><dd><code>ICT\Submission Pack\Master-Resume-Library\_INDEX.html</code></dd>
+    <dt>Submission Pack root</dt><dd><code>ICT\Submission Pack\</code> (all tender artefacts)</dd>
+    <dt>Source-of-truth tender docs</dt><dd><code>ICT\Submission Pack\Submitted documents - source of truth - all reports\</code></dd>
+    <dt>Cat B Bench Resumes</dt><dd><code>ICT\Submission Pack\Cat B Bench Resumes\</code></dd>
+    <dt>Declaration to Zoe Dales (VDZ)</dt><dd><code>ICT\Submission Pack\TeamNEO-Declaration-Partnership-Transition-RFT0577-CatB-v1.docx</code></dd>
+    <dt>Drift report</dt><dd><code>ICT\Submission Pack\TeamNEO-PWC-Category-Drift-Report-RFT0577-18May2026.docx</code></dd>
+    <dt>Unified candidate data (for scripting)</dt><dd><code>%LOCALAPPDATA%\Temp\unified_categories.json</code> (regenerate if not present)</dd>
+    <dt>Memory thread for context</dt><dd><code>~/.claude/projects/.../memory/session_18may2026_rft0577_panel_dashboard_complete.md</code></dd>
+  </dl>
+</section>
+
+<section>
+  <h2>📝 Open backlog / nice-to-haves</h2>
+  <ul>
+    <li>Update XLSX Dashboard tab with PWC Cat breakdown chart (deferred from 18 May — Kim said low priority)</li>
+    <li>Resume top-up for the 7 Cat B drift-locked candidates if she wants the locks removed: Dip Das, Jacqueline Padit, M. Jamal Sharf, Mark Waters, Showkat Ara Khan, Syed Yahya Hassan, Shajil Kuriachan</li>
+    <li>Tam Singh / Kim Klein resume reconciliation — Kim Klein's resume claims Tam as "Oracle EBS lead at Unitywater" but Tam's resume is 100% cyber. <strong>Don't auto-fix</strong> — flag and let Kim decide.</li>
+    <li>Contact-sheet drift: Walid Ahmed, Amr Magdy, Xavier Hoenner, Dip Das, Josie De Marco have claims in the TeamNEO Contact Sheet not substantiated by submitted resumes.</li>
+    <li>Cat A and Cat E primary counts could be deeper-audited the way Cat D was, if Kim wants the same cleanup applied (don't pre-empt — wait for her ask).</li>
+  </ul>
+</section>
+
+<footer>
+  Session handover · 20 May 2026 · TeamNEO.tech · Commercial-in-Confidence · #dreamteam 🚀
+</footer>
+
+</div>
+</body>
+</html>
