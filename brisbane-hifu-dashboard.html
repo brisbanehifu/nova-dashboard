@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Brisbane HIFU — Master Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c0a09;--ink-soft:#4a4a4a;--ink-faint:#7a7a7a;
+    --line:#DBDFE3;--line-soft:#EDF0F3;--bg:#F6F7F9;
+    --teal:#00B894;--teal-light:#00E8B4;--purple:#9B3DFF;--purple-deep:#6B21A8;
+    --blue:#0B2B5B;--gold:#C9A76B;
+    --green:#16a34a;--amber:#d97706;--red:#dc2626;
+    --r:14px;
+  }
+  *{box-sizing:border-box}
+  body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;margin:0;padding:24px 28px 80px;background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.55}
+  .page{max-width:1320px;margin:0 auto}
+  header.hero{background:linear-gradient(135deg,#00B894 0%,#00E8B4 50%,#9B3DFF 100%);color:#fff;border-radius:var(--r);padding:34px 38px;margin-bottom:22px;box-shadow:0 8px 24px rgba(0,184,148,.22)}
+  .eyebrow{text-transform:uppercase;font-size:11.5px;letter-spacing:1.8px;opacity:.92;margin-bottom:8px;font-weight:700}
+  header.hero h1{margin:0 0 8px;font-size:32px;font-weight:800;letter-spacing:-.5px}
+  header.hero p{margin:0;opacity:.97;font-size:15px;max-width:980px}
+  .meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:13px}
+  .meta span{background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px}
+  section{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px 28px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  section h2{margin:0 0 14px;font-size:20px;font-weight:800;letter-spacing:-.2px;color:var(--blue);display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid var(--line-soft)}
+  section h2 .num{background:var(--teal);color:#fff;width:30px;height:30px;border-radius:50%;font-size:14px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  section h2 .num.purple{background:var(--purple)}
+  section h2 .num.gold{background:var(--gold)}
+  h3{font-size:14.5px;font-weight:800;margin:18px 0 8px;color:var(--ink)}
+  h4{font-size:13px;font-weight:700;margin:12px 0 6px;color:var(--purple-deep);text-transform:uppercase;letter-spacing:.4px}
+  a{color:var(--blue);font-weight:600}
+  a.btn{display:inline-block;background:var(--blue);color:#fff!important;text-decoration:none;padding:8px 14px;border-radius:8px;font-weight:700;font-size:13px;margin:4px 6px 4px 0}
+  a.btn.teal{background:var(--teal)}
+  a.btn.purple{background:var(--purple)}
+  a.btn.green{background:var(--green)}
+  a.btn.amber{background:var(--amber)}
+  a.btn.gold{background:var(--gold)}
+  a.btn:hover{opacity:.92}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0}
+  th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  th{background:var(--line-soft);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--blue)}
+  code{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace;font-size:12.3px;background:#F4F5F7;padding:1px 6px;border-radius:4px}
+  .callout{border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13.5px;border-left:4px solid var(--gold);background:#FBF7EE}
+  .callout.green{background:#F0FDF4;border-left-color:var(--green)}
+  .callout.red{background:#FEF2F2;border-left-color:var(--red)}
+  .callout.blue{background:#EFF6FF;border-left-color:var(--blue)}
+  .callout.purple{background:#FAF5FF;border-left-color:var(--purple)}
+  .callout.teal{background:#ECFDF5;border-left-color:var(--teal)}
+  .callout.amber{background:#FFFBEB;border-left-color:var(--amber)}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:10px 0 6px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;border-left:4px solid var(--teal)}
+  .stat.brand{border-left-color:var(--purple)}.stat.gold{border-left-color:var(--gold)}.stat.good{border-left-color:var(--green)}.stat.warn{border-left-color:var(--amber)}.stat.bad{border-left-color:var(--red)}
+  .stat .num{font-size:24px;font-weight:800;line-height:1;margin-bottom:4px;color:var(--ink)}
+  .stat .lbl{font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+  .stat .det{font-size:11.5px;color:var(--ink-faint);margin-top:6px}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+  .p-current{background:#DCFCE7;color:#14532D}
+  .p-supers{background:#E5E7EB;color:#4B5563}
+  .p-historical{background:#DBEAFE;color:#1E3A8A}
+  .p-live{background:#DCFCE7;color:#14532D}
+  .p-paused{background:#FEE2E2;color:#7F1D1D}
+  .p-queue{background:#FEF3C7;color:#854D0E}
+  .doc-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;border-left:4px solid var(--teal)}
+  .doc-card.current{border-left-color:var(--green);background:linear-gradient(to right,#F0FDF4 0%,#fff 60%)}
+  .doc-card.superseded{border-left-color:var(--ink-faint);background:#FAFAFA;opacity:.92}
+  .doc-card.historical{border-left-color:var(--blue)}
+  .doc-card h3{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .doc-card .doc-meta{font-size:12px;color:var(--ink-faint);margin-bottom:10px}
+  .doc-card p{margin:6px 0 10px;font-size:13.5px;color:var(--ink-soft)}
+  .footer{text-align:center;color:var(--ink-faint);font-size:11.5px;margin-top:24px;padding:14px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:900px){.two-col{grid-template-columns:1fr}}
+  .nav{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 0;margin-bottom:18px;z-index:5;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px}
+  .nav a{color:var(--blue);text-decoration:none;font-weight:700;padding:4px 8px;border-radius:6px}
+  .nav a:hover{background:var(--line-soft)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="hero">
+  <div class="eyebrow">Brisbane HIFU · Master Dashboard</div>
+  <h1>Brisbane HIFU — Website · SEO · Google Ads · Strategy Hub</h1>
+  <p>Single hub for everything Brisbane HIFU. Website is on <b>Lovable</b> since 15 May 2026 cutover (NOT Hostinger). All strategy docs, tracking IDs, current state, and live URLs in one place.</p>
+  <div class="meta">
+    <span>Last updated 20 May 2026</span>
+    <span>Site host: Lovable</span>
+    <span>DNS: Hostinger (records only)</span>
+    <span>1st live BAT tenant (tenant_id=1)</span>
+    <span>5.0★ GBP · 132 reviews</span>
+  </div>
+</header>
+
+<div class="nav">
+  <a href="#urls">Live URLs</a>
+  <a href="#tracking">Tracking IDs</a>
+  <a href="#docs">Strategy docs</a>
+  <a href="#state">Current state</a>
+  <a href="#ads">Google Ads</a>
+  <a href="#seo">SEO snapshot</a>
+  <a href="#queue">Queue</a>
+  <a href="#rules">Standing rules</a>
+</div>
+
+<!-- ─────────────── 1 — LIVE URLS ─────────────── -->
+<section id="urls">
+  <h2><span class="num">1</span>Live URLs &amp; access</h2>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="num"><a href="https://brisbanehifu.com" target="_blank" style="color:var(--ink);text-decoration:none">brisbanehifu.com</a></div>
+      <div class="lbl">Production site (Lovable)</div>
+      <div class="det">SSL active · 9 pages · 28 verbatim reviews</div>
+    </div>
+    <div class="stat brand">
+      <div class="num"><a href="https://brisbane-hifu.lovable.app" target="_blank" style="color:var(--ink);text-decoration:none">brisbane-hifu.lovable.app</a></div>
+      <div class="lbl">Lovable production URL</div>
+      <div class="det">Direct Lovable deploy target</div>
+    </div>
+    <div class="stat gold">
+      <div class="num"><a href="https://app.bookatreatment.ai/book/brisbane-hifu-clinic" target="_blank" style="color:var(--ink);text-decoration:none">app.bookatreatment.ai/book</a></div>
+      <div class="lbl">Booking flow (BAT, tenant 1)</div>
+      <div class="det">⚠ Currently affected by Railway+GCP outage 20 May — see Nova dashboard</div>
+    </div>
+    <div class="stat good">
+      <div class="num">brisbane.hifu.clinic@gmail.com</div>
+      <div class="lbl">Google account (Ads/GSC/GA4 owner)</div>
+      <div class="det">Single account for all Google services</div>
+    </div>
+  </div>
+
+  <h3>Quick access</h3>
+  <a class="btn teal" href="https://lovable.dev" target="_blank">🎨 Lovable editor</a>
+  <a class="btn purple" href="https://search.google.com/search-console" target="_blank">📊 Google Search Console</a>
+  <a class="btn gold" href="https://ads.google.com" target="_blank">💰 Google Ads (443-403-6290)</a>
+  <a class="btn green" href="https://analytics.google.com" target="_blank">📈 Google Analytics 4</a>
+  <a class="btn" href="https://business.google.com" target="_blank">🏢 Google Business Profile</a>
+  <a class="btn amber" href="https://hpanel.hostinger.com/domain/brisbanehifu.com/dns?tab=dns_records" target="_blank">🔧 Hostinger DNS (DNS only — not website)</a>
+</section>
+
+<!-- ─────────────── 2 — TRACKING IDS ─────────────── -->
+<section id="tracking">
+  <h2><span class="num">2</span>Tracking IDs (verified installed in Lovable)</h2>
+
+  <table>
+    <thead><tr><th>Service</th><th>ID / Value</th><th>Where used</th></tr></thead>
+    <tbody>
+      <tr><td>GA4 — primary</td><td><code>G-6BBENL3GJN</code></td><td>All page views, every Lovable page</td></tr>
+      <tr><td>GA4 — secondary</td><td><code>G-Q1WT3KSLTB</code></td><td>Backup measurement ID</td></tr>
+      <tr><td>Google Ads tag</td><td><code>AW-11077673835</code></td><td>Site-wide remarketing + conversion attribution</td></tr>
+      <tr><td>Booking conversion send_to</td><td><code>AW-11077673835/q9fdCPmf9awcEOvGn6Ip</code></td><td>"BAT Booking Click" conversion (fires on any Book Now click)</td></tr>
+      <tr><td>Google Site Verification</td><td><code>google-site-verification=bXJtkQbwQri47hjtEg8y9qfqxkYjU8Wdf-V-vzbPawg</code></td><td>TXT record in Hostinger DNS — do not delete</td></tr>
+      <tr><td>Google Ads Customer ID</td><td><code>443-403-6290</code></td><td>Brisbane HIFU Clinic account</td></tr>
+      <tr><td>GCLID passthrough</td><td>active</td><td>Paid attribution survives BAT booking redirect</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout green">
+    <b>✅ Verification status:</b> All tracking active and verified live as of 15 May Lovable cutover. GCLID test was performed pre-cutover with a fresh <code>?gclid=test-cutover-morning</code> URL parameter.
+  </div>
+</section>
+
+<!-- ─────────────── 3 — STRATEGY DOCS ─────────────── -->
+<section id="docs">
+  <h2><span class="num purple">3</span>Strategy docs (chronological — most current first)</h2>
+
+  <div class="doc-card current">
+    <h3>📋 SEO Uplift Master Plan <span class="pill p-current">CURRENT</span></h3>
+    <div class="doc-meta">20 May 2026 · 1043 lines · post-Lovable cutover master plan · supersedes earlier docs</div>
+    <p><b>What it is:</b> Multi-phase SEO uplift to make Brisbane HIFU the dominant HIFU search authority across Greater Brisbane. 7 phases / 12-week execution arc / ~140 hours Kim-time. Beats corporate chains (Laser Clinics Australia, Australian Skin Clinics, SILK Laser) for high-intent commercial queries via 20-suburb × 8-treatment programmatic matrix layered over a pillar-and-cluster content engine.</p>
+    <p><b>Four superiority axes:</b> technical foundation → local pack domination → pillar+cluster content (40+ pieces) → suburb/treatment matrix → authority backlinks via digital PR → CRO → ongoing maintenance.</p>
+    <a class="btn green" href="./brisbane-hifu/01-seo-uplift-master-plan-20may2026.html" target="_blank">📖 Open full doc</a>
+  </div>
+
+  <div class="doc-card superseded">
+    <h3>📋 SEO Action Plan <span class="pill p-supers">SUPERSEDED 20 MAY</span></h3>
+    <div class="doc-meta">11 May 2026 · 1342 lines · pre-Lovable cutover · references Hostinger Website Builder (now obsolete)</div>
+    <p><b>What it is:</b> 8 paste-ready landing-page briefs, 3 JSON-LD schema blocks, 17-directory submission blitz, alt-text rewrites for the 17 homepage images, 12-week content calendar, Hot-5 daily priorities. Contains "Lovable Rebuild State" section (added 15 May post-cutover).</p>
+    <p><b>Why superseded:</b> Built for Hostinger Website Builder paste-flow. Lovable cutover changed the editor + many of the specific landing-page mechanics. Use the 20 May master plan for the strategic direction; mine this doc for the SCHEMA BLOCKS and CONTENT CALENDAR if useful (still applicable, just delivery mechanism changed).</p>
+    <a class="btn" href="./brisbane-hifu/seo-action-plan-11may2026.html" target="_blank">📖 Open (reference only)</a>
+  </div>
+
+  <div class="doc-card historical">
+    <h3>📋 SEO Fastest Wins <span class="pill p-historical">HISTORICAL</span></h3>
+    <div class="doc-meta">7 May 2026 · 1192 lines · original audit · first GSC setup + first .com/.com.au duplicate-content discovery</div>
+    <p><b>What it is:</b> First live on-page SEO audit. Found the .com vs .com.au duplicate-content issue (silently halving SEO). Established Google Search Console for the first time + pulled real keyword data from Brisbane HIFU's own Google Ads account (better than SEMrush). 4 pages audited live.</p>
+    <p><b>Why kept:</b> Historical reference for "where we started". The audit findings drove the 11 May plan, which drove the 20 May plan. Most action items now done or superseded — read it to understand the chain of decisions.</p>
+    <a class="btn" href="./seo-fastest-wins-brisbanehifu.html" target="_blank">📖 Open (reference only)</a>
+  </div>
+
+  <h3 style="margin-top:18px">Supporting markdown files (not HTML but referenced by the docs above)</h3>
+  <ul>
+    <li><code>Brisbane HIFU/bat-service-urls-14may2026.md</code> — BAT booking URL slugs for every Brisbane HIFU service</li>
+    <li><code>Brisbane HIFU/bat-services-14may2026.csv</code> + <code>.json</code> — full service catalogue with prices + durations</li>
+    <li><code>Brisbane HIFU/bat-services-reference-14may2026.md</code> — quick-reference for service mapping</li>
+    <li><code>Brisbane HIFU/hifu-deals-remap-14may2026.md</code> — deals-page URL remapping after BAT service updates</li>
+    <li><code>Brisbane HIFU/lovable-seo-landing-pages-prompts.md</code> — paste-ready Lovable prompts for SEO landing pages</li>
+  </ul>
+</section>
+
+<!-- ─────────────── 4 — CURRENT STATE ─────────────── -->
+<section id="state">
+  <h2><span class="num">4</span>Current state — what's done since the 15 May Lovable cutover</h2>
+
+  <div class="two-col">
+    <div>
+      <h4>✅ Done / Live</h4>
+      <ul style="margin:6px 0 0 18px">
+        <li>9 pages built (home, deals, reviews, FAQ, about, blog with 12 posts, contact, win-a-face-lift, start-a-clinic)</li>
+        <li>27 deal cards with correct prices + BAT booking URLs</li>
+        <li>5 hero Pexels videos correctly wired</li>
+        <li>28 verbatim text reviews</li>
+        <li>4 JSON-LD schema blocks (BeautySalon, FAQPage, Reviews+Aggregate, Person)</li>
+        <li>All tracking IDs installed (GA4 × 2, Ads, conversion, GSC)</li>
+        <li>GCLID passthrough so paid attribution survives BAT redirect</li>
+        <li>www + root SSL active</li>
+        <li>Old Zyro permanently deleted from Hostinger</li>
+        <li>GSC verified + sitemap submitted (41 pages discovered)</li>
+        <li>BAT Booking Click conversion in Google Ads</li>
+      </ul>
+    </div>
+    <div>
+      <h4>🟡 In progress / next session</h4>
+      <ul style="margin:6px 0 0 18px">
+        <li>Phase 1: Technical SEO foundation (CWV verification, schema graph expansion, internal linking architecture, sitemap segmentation)</li>
+        <li>Phase 2: Local SEO domination (Greater Brisbane)</li>
+        <li>Phase 3: Pillar + cluster content engine (40+ pieces)</li>
+        <li>Phase 4: 20-suburb × 8-treatment programmatic matrix</li>
+        <li>Phase 5: Authority backlinks + digital PR</li>
+        <li>Phase 6: CRO + conversion optimisation</li>
+        <li>Phase 7: Ongoing maintenance + reporting</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 5 — GOOGLE ADS ─────────────── -->
+<section id="ads">
+  <h2><span class="num gold">5</span>Google Ads — Brisbane HIFU Clinic</h2>
+
+  <div class="stat-grid">
+    <div class="stat gold">
+      <div class="num">443-403-6290</div>
+      <div class="lbl">Customer ID</div>
+    </div>
+    <div class="stat">
+      <div class="num">AW-11077673835</div>
+      <div class="lbl">Conversion ID</div>
+    </div>
+    <div class="stat good">
+      <div class="num">"BAT Booking Click"</div>
+      <div class="lbl">Conversion (active)</div>
+      <div class="det">Fires on any Book Now click on brisbanehifu.com</div>
+    </div>
+    <div class="stat warn">
+      <div class="num">Monthly review</div>
+      <div class="lbl">Scheduled task: brisbane-hifu-google-ads-monthly-review</div>
+      <div class="det"><code>C:\Users\kimkl\Documents\Claude\Scheduled\brisbane-hifu-google-ads-monthly-review\SKILL.md</code></div>
+    </div>
+  </div>
+
+  <h3>What's tracked + what to watch</h3>
+  <ul>
+    <li><b>Real keyword data</b> is pulled from the Brisbane HIFU Ads account directly (better than SEMrush) — see 7 May fastest-wins doc for the original method</li>
+    <li><b>GCLID passthrough</b> from brisbanehifu.com → BAT booking URL preserves paid attribution through the redirect (tested with <code>?gclid=test-cutover-morning</code>)</li>
+    <li><b>Conversion verification:</b> Open <code>https://brisbanehifu.com/?gclid=test-XXX</code>, click Book Now, confirm BAT URL preserves the gclid, then check Google Ads → Goals → Conversions → "BAT Booking Click" shows "Recording" within 1-2 hr</li>
+  </ul>
+
+  <div class="callout purple">
+    <b>🏆 Competitive separation rule:</b> Brisbane HIFU is Kim's own clinic. Redlands HIFU is a client. Never replicate Brisbane HIFU's specific keyword lists, ad strategies, bid tactics, or audience layers into Redlands HIFU. Quality delta intentional: Brisbane HIFU = enterprise top-tier; Redlands HIFU = good for Bayside catchment only.
+  </div>
+</section>
+
+<!-- ─────────────── 6 — SEO SNAPSHOT ─────────────── -->
+<section id="seo">
+  <h2><span class="num">6</span>SEO snapshot — pre-uplift baseline</h2>
+
+  <div class="stat-grid">
+    <div class="stat brand">
+      <div class="num">41 pages</div>
+      <div class="lbl">Discovered by GSC (7 May)</div>
+      <div class="det">via DNS-verified Domain property</div>
+    </div>
+    <div class="stat">
+      <div class="num">127 keywords</div>
+      <div class="lbl">Ranking on SEMrush (7 May)</div>
+      <div class="det">~400 monthly visits</div>
+    </div>
+    <div class="stat good">
+      <div class="num">+9.43%</div>
+      <div class="lbl">Non-branded traffic trend</div>
+      <div class="det">vs prior month, as of 7 May</div>
+    </div>
+    <div class="stat warn">
+      <div class="num">5.0★ · 132 reviews</div>
+      <div class="lbl">Google Business Profile</div>
+      <div class="det">Strong local-pack signal</div>
+    </div>
+  </div>
+
+  <h3>Schema currently deployed</h3>
+  <ol>
+    <li><b>BeautySalon</b> (LocalBusiness child) — name, address, phone, opening hours, geo, rating aggregate · <em>was MedicalBusiness, changed per "not medical" brand rule</em></li>
+    <li><b>FAQPage</b> — clinic FAQ entities</li>
+    <li><b>Reviews + AggregateRating</b> — 28 verbatim reviews + 5.0★ rating</li>
+    <li><b>Person</b> — Kim Klein owner schema</li>
+  </ol>
+
+  <h3>Schema queued in 20 May master plan (Phase 1)</h3>
+  <ol>
+    <li>Organization → LocalBusiness → 8 Service nodes (one per treatment) → VideoObject for 10 reviews → expanded FAQPage → BreadcrumbList</li>
+    <li>Internal linking architecture across pillar/cluster pages</li>
+    <li>Sitemap segmentation</li>
+  </ol>
+</section>
+
+<!-- ─────────────── 7 — QUEUE ─────────────── -->
+<section id="queue">
+  <h2><span class="num">7</span>Next-action queue (priority order)</h2>
+
+  <table>
+    <thead><tr><th>#</th><th>Phase</th><th>Action</th><th>Effort</th><th>State</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Phase 1</td><td>Core Web Vitals verification on every page (mobile + desktop)</td><td>~2 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>2</td><td>Phase 1</td><td>Expand schema graph (8 Service nodes + VideoObject + Breadcrumb)</td><td>~4 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>3</td><td>Phase 1</td><td>Internal linking architecture (pillar → cluster pages)</td><td>~3 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>4</td><td>Phase 1</td><td>Sitemap segmentation by page type</td><td>~1 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>5</td><td>Phase 2</td><td>GBP optimisation (services, attributes, photos, weekly posts)</td><td>~3 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>6</td><td>Phase 2</td><td>30 AU citation submissions (consistent NAP)</td><td>~3 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>7</td><td>Phase 3</td><td>Pillar page #1 (e.g. "Complete Guide to Non-Surgical Facelift in Brisbane")</td><td>~6 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>8+</td><td>Phase 3-7</td><td>40+ pillar/cluster pieces, 20×8 matrix, backlinks, CRO, reporting</td><td>~120 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ─────────────── 8 — RULES ─────────────── -->
+<section id="rules">
+  <h2><span class="num">8</span>Standing rules — read before editing</h2>
+
+  <div class="callout red">
+    <b>🚨 Brisbane HIFU is on LOVABLE, not Hostinger.</b> Hostinger is DNS-only since 15 May 2026 cutover. Banners / new pages / copy edits / SEO meta → Lovable editor. NEVER advise editing the website via Hostinger's website builder (it's empty — Zyro was deleted). DNS records (A/CNAME/TXT) DO still live in Hostinger DNS panel.
+  </div>
+
+  <div class="callout amber">
+    <b>⚖ ACL + brand rules:</b><br>
+    1. Never invent regulatory claims (TGA-registered, FDA-cleared, medical-grade, clinically proven) unless Kim has confirmed it's true for the SPECIFIC device.<br>
+    2. Never write "Patient" — always "Client" (cosmetic context, not medical).<br>
+    3. Schema is <code>BeautySalon</code>, not <code>MedicalBusiness</code> — locked per non-medical positioning.<br>
+    4. Never use anchor pricing like "$1,700 normally $3,400" — ACL s.29 risk (already cleaned up).<br>
+    5. Never write "results guaranteed" or similar express warranty — ACL s.29 risk.
+  </div>
+
+  <div class="callout purple">
+    <b>🏆 Brisbane vs Redlands competitive separation:</b> Brisbane HIFU's keyword lists, ad strategies, bid tactics, and audience layers are NEVER replicated into Redlands HIFU. Quality delta intentional. For policy appeals, draft generic AU-practitioner justifications — never cite Brisbane HIFU as precedent.
+  </div>
+
+  <div class="callout teal">
+    <b>📷 Media substitution rule:</b> When prompting Lovable / AI builders for media, NEVER allow them to substitute their own Pexels/stock/AI media when extraction fails. Spec says "if extraction fails, leave the slot blank, label EXTRACTION FAILED, ask me what to do."
+  </div>
+
+  <div class="callout blue">
+    <b>🔍 Verification rule:</b> For Lovable page rebuilds, verify page structure with Claude-in-Chrome MCP, NOT WebFetch alone. WebFetch has confabulated structure twice on Brisbane HIFU rebuilds (deals page count, blog index emptiness).
+  </div>
+</section>
+
+<div class="footer">
+  Brisbane HIFU Master Dashboard · Generated 20 May 2026 · Lovable + Hostinger DNS + BAT app tenant 1 · Last cutover 15 May 2026
+</div>
+
+</div>
+</body>
+</html>

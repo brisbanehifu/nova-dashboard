@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brisbane HIFU — SEO Action Plan (11 May 2026)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #1a202c; line-height: 1.55; padding: 24px; }
+  .wrap { max-width: 1320px; margin: 0 auto; }
+  header.hero { background: linear-gradient(135deg, #00B894 0%, #00E8B4 50%, #9B3DFF 100%); color: #fff; padding: 36px 32px; border-radius: 16px; margin-bottom: 28px; box-shadow: 0 8px 24px rgba(0,184,148,0.25); }
+  header.hero h1 { font-size: 30px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+  header.hero .sub { font-size: 15px; opacity: 0.92; margin-bottom: 16px; max-width: 880px; }
+  header.hero .meta { display: flex; gap: 12px; flex-wrap: wrap; font-size: 13px; opacity: 0.95; }
+  header.hero .meta span { background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 999px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .stat { background: #fff; border-radius: 14px; padding: 20px 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #00E8B4; }
+  .stat.bad { border-left-color: #E53E3E; }
+  .stat.warn { border-left-color: #F59E0B; }
+  .stat.good { border-left-color: #10B981; }
+  .stat.brand { border-left-color: #9B3DFF; }
+  .stat .num { font-size: 32px; font-weight: 800; line-height: 1; margin-bottom: 6px; color: #1a202c; }
+  .stat .lbl { font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+  .stat .det { font-size: 12px; color: #94a3b8; margin-top: 6px; }
+  section { background: #fff; border-radius: 14px; padding: 26px 28px; margin-bottom: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  section h2 { font-size: 21px; font-weight: 700; margin-bottom: 6px; color: #1a202c; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  section h2 .pill { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pill.p0 { background: #FEE2E2; color: #B91C1C; }
+  .pill.p1 { background: #FEF3C7; color: #92400E; }
+  .pill.p2 { background: #DBEAFE; color: #1E40AF; }
+  .pill.p3 { background: #E9D5FF; color: #6B21A8; }
+  .pill.done { background: #D1FAE5; color: #065F46; }
+  .pill.nova { background: #00E8B4; color: #064E3B; }
+  section .lead { color: #475569; font-size: 14px; margin-bottom: 18px; }
+  section h3 { font-size: 16px; font-weight: 700; color: #0f172a; margin: 20px 0 10px; }
+  section h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin: 14px 0 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 10px; }
+  th { text-align: left; padding: 10px 12px; background: #f8fafc; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; font-weight: 700; border-bottom: 2px solid #e2e8f0; }
+  td { padding: 11px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  tr.crit { background: #FEF2F2; }
+  tr.warn { background: #FFFBEB; }
+  tr.ok { background: #F0FDF4; }
+  tr.brand { background: #FAF5FF; }
+  td.mono { font-family: 'SF Mono', Consolas, monospace; font-size: 12px; color: #475569; }
+  td.fix { color: #059669; font-weight: 600; }
+  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'SF Mono', Consolas, monospace; font-size: 12.5px; color: #0f172a; }
+  pre { background: #0f172a; color: #e2e8f0; padding: 16px 20px; border-radius: 10px; font-size: 12.5px; line-height: 1.5; overflow-x: auto; margin: 12px 0; }
+  pre.brand { border-left: 4px solid #9B3DFF; }
+  ul.checklist { list-style: none; padding: 0; }
+  ul.checklist li { padding: 9px 0 9px 30px; border-bottom: 1px solid #f1f5f9; position: relative; font-size: 14px; }
+  ul.checklist li::before { content: '☐'; position: absolute; left: 4px; top: 8px; font-size: 16px; color: #94a3b8; }
+  ul.checklist li.done::before { content: '✓'; color: #10B981; }
+  ul.checklist li strong { color: #0f172a; }
+  ul.checklist li .why { display: block; font-size: 12px; color: #64748b; margin-top: 3px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+  .verdict { background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); padding: 14px 18px; border-radius: 10px; margin: 14px 0; border-left: 4px solid #F59E0B; font-size: 14px; color: #78350F; }
+  .verdict strong { color: #451A03; }
+  .nova-box { background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); padding: 16px 20px; border-radius: 10px; margin: 14px 0; border-left: 4px solid #00B894; font-size: 14px; color: #065F46; }
+  .nova-box strong { color: #064E3B; }
+  .lp-card { border: 2px solid #E5E7EB; border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; background: #FAFBFC; }
+  .lp-card h3 { margin-top: 0; color: #0f172a; display: flex; align-items: center; gap: 8px; font-size: 17px; }
+  .lp-card h3 .slug { font-family: 'SF Mono', Consolas, monospace; font-size: 13px; color: #9B3DFF; font-weight: 600; }
+  .lp-card .field { margin: 10px 0; }
+  .lp-card .field-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; font-weight: 700; margin-bottom: 4px; }
+  .lp-card .field-val { font-size: 13.5px; color: #1e293b; background: #fff; border: 1px solid #E5E7EB; padding: 8px 12px; border-radius: 6px; font-family: 'SF Mono', Consolas, monospace; word-break: break-word; }
+  .lp-card .h2-list { font-size: 13px; }
+  .lp-card .h2-list li { margin: 4px 0; padding-left: 16px; position: relative; color: #334155; }
+  .lp-card .h2-list li::before { content: '▸'; position: absolute; left: 0; color: #9B3DFF; }
+  .lp-card .target-kws { display: inline-block; background: #F0FDF4; color: #065F46; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; margin: 2px 4px 2px 0; }
+  .toc { background: #fff; border-radius: 14px; padding: 20px 24px; margin-bottom: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .toc h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; margin-bottom: 10px; }
+  .toc ol { columns: 2; column-gap: 28px; padding-left: 18px; }
+  @media (max-width: 700px) { .toc ol { columns: 1; } }
+  .toc li { padding: 4px 0; font-size: 14px; }
+  .toc a { color: #0f172a; text-decoration: none; }
+  .toc a:hover { color: #9B3DFF; text-decoration: underline; }
+  footer { color: #94a3b8; font-size: 12px; text-align: center; margin-top: 30px; padding: 20px; }
+  .copy-hint { font-size: 11px; color: #64748b; font-style: italic; margin-top: 4px; }
+  .blocker-box { padding: 16px 20px; border-radius: 10px; margin-bottom: 16px; border-left: 4px solid #DC2626; background: #FEF2F2; }
+  .blocker-box.good { background: #ECFDF5; border-left-color: #10B981; }
+  .blocker-box.info { background: #EFF6FF; border-left-color: #3B82F6; }
+  .blocker-box.warn { background: #FFFBEB; border-left-color: #F59E0B; }
+  .blocker-box h3 { color: #991B1B; margin-bottom: 6px; font-size: 15px; }
+  .blocker-box.good h3 { color: #065F46; }
+  .blocker-box.info h3 { color: #1E40AF; }
+  .blocker-box.warn h3 { color: #78350F; }
+  .blocker-box p, .blocker-box li { color: #7F1D1D; font-size: 13.5px; margin-bottom: 4px; }
+  .blocker-box.good p, .blocker-box.good li { color: #065F46; }
+  .blocker-box.info p, .blocker-box.info li { color: #1E40AF; }
+  .blocker-box.warn p, .blocker-box.warn li { color: #78350F; }
+  .blocker-box ol, .blocker-box ul { padding-left: 22px; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Brisbane HIFU — SEO Action Plan</h1>
+  <div class="sub">Picking up from 7 May. Today: full strategy + paste-ready landing pages + directory blitz + schema deployment. Built to be executed by Kim in chunks of 30–60 min OR driven by Nova via Chrome MCP into Hostinger.</div>
+  <div class="meta">
+    <span>📅 11 May 2026</span>
+    <span>🌐 Hostinger Website Builder</span>
+    <span>🎯 8 new landing pages</span>
+    <span>📋 17 directories</span>
+    <span>🔑 132 reviews · 5.0★ GBP</span>
+    <span>✅ GSC live · Real keyword data pulled</span>
+  </div>
+</header>
+
+<div class="toc">
+  <h3>Sections</h3>
+  <ol>
+    <li><a href="#status">Status — 7 May → 11 May</a></li>
+    <li><a href="#hot5">The Hot-5 (P0, today)</a></li>
+    <li><a href="#schema">Schema markup (3 JSON-LD blocks, paste-ready)</a></li>
+    <li><a href="#landing">8 new landing pages (briefs + copy)</a></li>
+    <li><a href="#directories">Directory submission blitz (17 directories)</a></li>
+    <li><a href="#gbp">Google Business Profile — 30-min wins</a></li>
+    <li><a href="#alttext">Alt-text rewrites — homepage 17 images</a></li>
+    <li><a href="#metafix">Meta + title rewrites (existing pages)</a></li>
+    <li><a href="#content">12-week content calendar</a></li>
+    <li><a href="#growth">Beyond SEO — business growth ideas</a></li>
+    <li><a href="#division">What Nova did vs what needs Kim</a></li>
+    <li><a href="#rebuild-state"><strong>★ Lovable Rebuild State — 15 May 2026 (read first)</strong></a></li>
+  </ol>
+</div>
+
+<!-- ============ 0. LOVABLE REBUILD STATE (15 May 2026) ============ -->
+<section id="rebuild-state" style="border-left: 4px solid #9B3DFF; background: #FAF5FF; padding: 24px; margin-bottom: 24px; border-radius: 8px;">
+  <h2 style="color: #6B21A8;">★ Lovable Rebuild State — 15 May 2026 evening <span class="pill done">All 8 SEO landing pages BUILT · awaiting Publish + verify</span></h2>
+  <p class="lead"><strong>CUTOVER COMPLETE.</strong> www.brisbanehifu.com AND brisbanehifu.com are both LIVE with SSL. DNS authority is now on <strong>Cloudflare</strong> (nameservers <code>chase.ns.cloudflare.com</code> + <code>joselyn.ns.cloudflare.com</code>); all web + email DNS records correctly replicated. Root SSL resolved 15 May ~7:58 PM AEST after Kim disconnected + re-added the apex domain in Lovable → Settings → Domains (forced Let's Encrypt re-provisioning; cert issued within ~2 min). Active work: pasting the 8 SEO landing-page prompts into Lovable via Chrome MCP (Prompt 0 shared infra in flight). <strong>Read this section first in any new session.</strong></p>
+
+  <div class="blocker-box good">
+    <h3>✅ Root SSL fix — what worked (banked for future Lovable domains)</h3>
+    <p>When a Lovable custom domain is stuck on "Setting up..." for &gt;1 hour despite DNS being live, the in-row kebab menu only offers "Disconnect" — there's no Verify/Retry button. Fix: <strong>Disconnect → re-add via "Connect existing domain"</strong>. This forces Lovable to redo TXT verification (passes instantly if records are in DNS) and triggers fresh Let's Encrypt cert issuance (2–10 min). Diagnostic signal: <code>HTTP/1.1 421 Misdirected Request</code> from <code>Server: cloudflare</code> = TLS hostname mismatch = no cert for that hostname (NOT a routing issue).</p>
+  </div>
+
+  <h3>DNS migration — 15 May 2026 PM</h3>
+  <p>DNS authority moved from Hostinger to Cloudflare (Free plan, Full DNS setup). Reason inferred: long-term plan to escape Hostinger's CDN stickiness (cf. memory: <code>hostinger_publish_cdn_stickiness.md</code>). Cloudflare zone ID: <code>fee8d1c2849d590870c264e4459e0533</code>. All A records pointing at Lovable (185.158.133.1) are set to <strong>DNS-only / grey cloud</strong> — Lovable handles SSL itself, proxying would break it.</p>
+  <table>
+    <thead><tr><th>Record</th><th>Value</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr class="ok"><td>A <code>@</code></td><td>185.158.133.1 (DNS-only)</td><td>✅</td></tr>
+      <tr class="ok"><td>A <code>www</code></td><td>185.158.133.1 (DNS-only)</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>_lovable</code></td><td>lovable_verify=4909d16d…</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>_lovable.www</code></td><td>lovable_verify=724423d3…</td><td>✅</td></tr>
+      <tr class="ok"><td>MX <code>@</code></td><td>mx1.titan.email (10), mx2.titan.email (20)</td><td>✅</td></tr>
+      <tr class="ok"><td>MX <code>send</code></td><td>feedback-smtp.ap-northeast-1.amazonses.com (10)</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>_dmarc</code></td><td>v=DMARC1; p=none;</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>flockmail._domainkey</code></td><td>Titan DKIM</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>resend._domainkey</code></td><td>Amazon SES DKIM</td><td>✅</td></tr>
+      <tr class="ok"><td>CNAME <code>litesrv._domainkey</code></td><td>MailerLite DKIM</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>mailerlite-domain-ve…</code></td><td>MailerLite verification</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>send</code></td><td>v=spf1 include:amazonses.com</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>spf</code></td><td>v=spf1 include:_spf.mlsen…</td><td>✅</td></tr>
+      <tr class="ok"><td>TXT <code>@</code></td><td>google-site-verification=bXJtkQbw…</td><td>✅ (new GSC property)</td></tr>
+      <tr class="warn"><td>TXT <code>@</code> (SPF for Titan root sending)</td><td><em>not present</em></td><td>⚠ Low priority — only matters if Kim sends email from Titan webmail. Test: send to Gmail, check "Show original" for SPF: PASS. If FAIL, add <code>v=spf1 include:spf.titan.email ~all</code>.</td></tr>
+      <tr class="warn"><td>TXT <code>@</code> (old GSC verification <code>z-AC7E0kbDkhKKE3mn81Ry…</code>)</td><td><em>not migrated</em></td><td>⚠ Old Search Console property loses verification. Usually orphan/safe — only re-add if Kim still relies on it.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Lovable preview URL (Kim's edit-mode token)</h3>
+  <p><a href="https://id-preview--ab231db4-61b5-45c0-92cb-13788831d625.lovable.app/" target="_blank">https://id-preview--ab231db4-61b5-45c0-92cb-13788831d625.lovable.app/</a> · Project ID: <code>ab231db4-61b5-45c0-92cb-13788831d625</code></p>
+  <p style="font-size: 12px; color: #64748b;">Full tokened URL stored in memory: <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/brisbane_hifu_lovable_rebuild_15may2026.md">brisbane_hifu_lovable_rebuild_15may2026.md</a></p>
+
+  <h3>Verified tracking IDs — from Google Ads Data Manager 15 May 2026</h3>
+  <table>
+    <thead><tr><th>ID</th><th>Value</th><th>Destination · Notes</th></tr></thead>
+    <tbody>
+      <tr class="ok"><td><strong>GA4 measurement (primary)</strong></td><td><code>G-6BBENL3GJN</code></td><td>Website · added 05/02/2023</td></tr>
+      <tr class="ok"><td><strong>GA4 measurement (secondary)</strong></td><td><code>G-Q1WT3KSLTB</code></td><td>brisbanehifu.com · added 08/09/2025</td></tr>
+      <tr class="ok"><td><strong>Google Ads tag</strong></td><td><code>AW-11077673835</code></td><td>Brisbane HIFU Clinic · added 08/09/2025</td></tr>
+      <tr class="ok"><td><strong>Google Tag aliases</strong></td><td><code>GT-5TPGB65</code>, <code>GT-5NP55VX</code>, <code>GT-NMJX6WG</code></td><td>All fire same gtag.js</td></tr>
+      <tr class="brand"><td><strong>Booking conversion send_to ★ NEW</strong></td><td><code>AW-11077673835/q9fdCPmf9awcEOvGn6Ip</code></td><td>"BAT Booking Click" — created 15 May 2026 via Chrome MCP. Submit lead form category · Primary · Data-driven · 90d click-through · One per click · Default $300 AUD · ✅ 2 of 2 campaigns optimising</td></tr>
+    </tbody>
+  </table>
+  <p>Google Ads Customer ID: <strong>443-403-6290</strong> · brisbane.hifu.clinic@gmail.com</p>
+
+  <h3>Conversion event snippet (paste into Lovable Book Now click handlers)</h3>
+<pre>&lt;script&gt;
+  gtag('event', 'conversion', {
+    'send_to': 'AW-11077673835/q9fdCPmf9awcEOvGn6Ip',
+    'value': 300.0,
+    'currency': 'AUD'
+  });
+&lt;/script&gt;</pre>
+
+  <h3>Tag-quality 3 issues — all triaged, none blocking</h3>
+  <ul class="checklist">
+    <li class="done"><strong>Some pages not tagged</strong> — auto-fixed by installing Google tag globally on Lovable</li>
+    <li><strong>Only 1 admin on account</strong> — defer (hygiene)</li>
+    <li><strong>Google tag gateway not enabled</strong> — defer (optional CDN routing)</li>
+  </ul>
+
+  <h3>Per-page Lovable build status — re-audited via Chrome MCP 15 May PM (pre-cutover)</h3>
+  <table>
+    <thead><tr><th>Page</th><th>Status</th><th>Schema detected</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr class="ok"><td><strong>/</strong> (Home)</td><td>✅ Ready</td><td>BeautySalon</td><td>Hero clean · stat cards · gtag firing · title + meta + OG present</td></tr>
+      <tr class="ok"><td><strong>/hifu-deals</strong></td><td>✅ Ready</td><td>BeautySalon</td><td>All 5 hero Pexels videos load (<code>readyState:4</code>) · zero substitute jpgs · 27 product cards built (page = 12,856px)</td></tr>
+      <tr class="ok"><td><strong>/hifu-faq-non-surgical-face-lift</strong></td><td>✅ Ready</td><td>BeautySalon + FAQPage</td><td>FAQ schema correctly installed for rich snippet</td></tr>
+      <tr class="ok"><td><strong>/client-reviews</strong></td><td>✅ Ready</td><td>BeautySalon × 2 (sitewide + Review/AggregateRating)</td><td>10 YouTube videos + 28 text cards · 2 BeautySalon blocks is correct — Google parses 2nd as Review/Aggregate</td></tr>
+      <tr class="ok"><td><strong>/about-us</strong></td><td>✅ Ready</td><td>BeautySalon + Person × 2</td><td>Kim + Luci Person schema correctly installed</td></tr>
+      <tr class="ok"><td><strong>/contact-us</strong></td><td>✅ Ready</td><td>BeautySalon</td><td>Sitewide schema only — correct</td></tr>
+      <tr><td><strong>/hifu-blog</strong></td><td>Trust</td><td>—</td><td>Not re-tested; prompt was sent and Kim signed off</td></tr>
+      <tr><td><strong>/win-a-face-lift</strong></td><td>Trust</td><td>—</td><td>Not re-tested; prompt was sent</td></tr>
+      <tr><td><strong>/start-a-clinic</strong></td><td>Trust</td><td>—</td><td>B2B funnel — CTAs to hifumachinesales.com</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Outstanding 4 fixes before cutover (small fix prompt sent 15 May PM — re-verify post-cutover)</h3>
+  <p style="font-size: 13px; color: #64748b;">These were drafted as Lovable fixes 15 May PM, pre-cutover. After root SSL is alive, run a Chrome MCP re-check on the production domain to confirm each item is live — sitemap.xml and robots.txt are confirmed live (verified via curl 15 May evening); canonical + og:image still need post-cutover verification.</p>
+  <table>
+    <thead><tr><th>#</th><th>Item</th><th>Status</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr class="warn"><td>1</td><td><strong>Canonical links</strong></td><td>Re-verify post-cutover</td><td><code>&lt;link rel="canonical"&gt;</code> via react-helmet pointing at <code>https://brisbanehifu.com{pathname}</code> on every route. ALSO required by the 8 new SEO landing pages (baked into Prompt 0).</td></tr>
+      <tr class="ok"><td>2</td><td><strong>/sitemap.xml as static file</strong></td><td>✅ Live (verified via curl)</td><td>Returns valid XML listing the 9 existing pages + 12 blog posts. The 8 new SEO landing pages will be appended by Prompt 0.</td></tr>
+      <tr class="warn"><td>3</td><td><strong>/robots.txt as static file</strong></td><td>Should be live — re-verify</td><td>Pre-cutover prompt set <code>Allow: /</code>.</td></tr>
+      <tr class="warn"><td>4</td><td><strong>og:image stable URL</strong></td><td>Re-verify post-cutover</td><td>Must NOT be on Lovable R2 preview bucket. Stable host (e.g. <code>assets.zyrosite.com</code> or migrated to a Cloudflare R2 bucket Kim owns).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Deals hero — 5 Pexels videos (verified via Chrome MCP)</h3>
+  <table>
+    <thead><tr><th>#</th><th>Banner</th><th>video src</th><th>poster</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2-for-1 / BRING A FRIEND 4 FREE</td><td><code>videos.pexels.com/video-files/5704940/5704940-uhd_4096_2160_24fps.mp4</code></td><td><code>5704940-adult-age-aging-black-friday.jpeg</code></td></tr>
+      <tr><td>2</td><td>WEDNESDAY is HUMP DAY ($100 OFF — single banner, NOT two)</td><td><code>videos.pexels.com/video-files/7987952/7987952-hd_1280_720_50fps.mp4</code></td><td><code>7987952-bed-casual-comfort-contemporary.jpeg</code></td></tr>
+      <tr><td>3</td><td>MONDAY is MAN-DAY</td><td><code>videos.pexels.com/video-files/6194803/6194803-uhd_3840_2160_25fps.mp4</code></td><td><code>6194803-celebrating-cheering-contemporary-emotion.jpeg</code></td></tr>
+      <tr><td>4</td><td>SATURDAY is STOMACH DAY</td><td><code>videos.pexels.com/video-files/6782501/6782501-hd_1280_720_30fps.mp4</code></td><td><code>6782501-body-conceptual-female-feminism.jpeg</code></td></tr>
+      <tr><td>5</td><td>ULTIMATE HIFU MAKEOVER</td><td><code>videos.pexels.com/video-files/6789667/6789667-uhd_2732_1440_25fps.mp4</code></td><td><code>6789667-asian-beautiful-bed-bedroom.jpeg</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Deals page actual structure (corrects earlier "33 flat banner" hypothesis)</h3>
+  <p>5 hero promo video banners (above) + 4 grouped card sections: <strong>Face Packs</strong> (4 cards), <strong>Group Deals</strong> (2), <strong>Face &amp; Body Combos</strong> (9), <strong>Body Combo's</strong> (12) = <strong>5 hero videos + 27 product cards</strong>.</p>
+
+  <h3>Reviews page — 10 YouTube IDs in display order</h3>
+  <ul>
+    <li><strong>Section A "5 star Google Reviews"</strong> (3 rows × 2): <code>8cCT-aIzWbc</code> · <code>t6nQ272gO5I</code> · <code>urH9WM9jZqY</code> · <code>ssJU0CVPhuI</code> · <code>OfwoGES_ceM</code> · <code>OreLF6ta6q8</code></li>
+    <li><strong>Section B "HIFU for younger people 20 to 30"</strong> (2 rows × 2): <code>aw17eaPkva8</code> · <code>IP-cKaUu89I</code> · <code>UJtdg72Ig0E</code> · <code>W0SY2ix3XGw</code></li>
+  </ul>
+
+  <h3>Outstanding prompts queued for Lovable</h3>
+  <ol>
+    <li class="done"><strong>Deals page hero banner fix</strong> — ✅ landed</li>
+    <li class="done"><strong>Deals page 27 product cards</strong> — ✅ built</li>
+    <li class="done"><strong>Reviews page text review cards</strong> — ✅ built (Kim signed off)</li>
+    <li class="done"><strong>Chunk 1 Tracking</strong> — ✅ <code>window.gtag</code> + <code>dataLayer</code> verified</li>
+    <li class="done"><strong>Chunk 2 Schema</strong> — ✅ all 4 blocks verified on correct routes</li>
+    <li class="done"><strong>Chunk 3 Meta (partial)</strong> — ✅ titles + descriptions + OG installed</li>
+    <li class="done"><strong>SEO finish-up fix</strong> — sitemap.xml live ✅; canonical / robots.txt / og:image to re-verify post-cutover</li>
+    <li class="done"><strong>Phase 1 deploy (Lovable Publish + custom domain)</strong> — ✅ live on www.brisbanehifu.com</li>
+    <li class="done"><strong>Phase 2 DNS cutover</strong> — ✅ DNS migrated from Hostinger to Cloudflare 15 May PM</li>
+    <li class="done"><strong>Root SSL on brisbanehifu.com</strong> — ✅ LIVE (HTTP 200 confirmed 15 May 7:58 PM AEST after disconnect+re-add in Lovable)</li>
+    <li class="done"><strong>8 SEO landing pages — ALL BUILT ✅</strong> via Chrome MCP autopilot. Prompts 0–8 shipped sequentially between 7:54–9:00 PM AEST 15 May. Project uses TanStack Start, so routes live at <code>src/routes/*.tsx</code> with the shared <code>seoHead()</code> helper (canonical/OG/JSON-LD) + <code>&lt;BookNowButton&gt;</code> (fires <code>AW-11077673835/q9fdCPmf9awcEOvGn6Ip</code> + gclid passthrough). Source: <a href="file:///C:/Users/kimkl/Documents/Claude/Brisbane%20HIFU/lovable-seo-landing-pages-prompts.md">lovable-seo-landing-pages-prompts.md</a>. Pages built: <code>/hifu-brisbane</code>, <code>/non-surgical-facelift-brisbane</code>, <code>/hifu-treatment-brisbane</code>, <code>/hifu-cost-brisbane</code>, <code>/hifu-before-and-after-brisbane</code> (with <code>BeforeAfterGrid</code> placeholder), <code>/hifu-eye-lift-brisbane</code>, <code>/hifu-double-chin-brisbane</code>, <code>/hifu-vs-injectables-brisbane</code> (+ 301 redirect from old blog).</li>
+    <li><strong>Publish + verify</strong> — 🚧 Kim to click Publish in Lovable to push the 8 new routes to production, then verify each loads on the preview/prod URL and submit updated sitemap to Search Console</li>
+    <li><strong>Search Console — sitemap re-submit</strong> — once root SSL is alive, re-verify property + submit <code>https://brisbanehifu.com/sitemap.xml</code></li>
+    <li><strong>Google Ads — Final URL remap on 2 existing campaigns</strong> — autopilot via Chrome MCP after at least /hifu-brisbane is live (no new campaigns, just tweaks; will confirm each change before saving)</li>
+    <li><strong>GBP — 20 photos, 10 Q&amp;A self-post, weekly Posts, services list</strong> — Kim only (phone + GBP app)</li>
+    <li><strong>17 directories blitz</strong> — autopilot via Chrome MCP for form-fills; Kim present for email/SMS verification</li>
+  </ol>
+
+  <h3>8 SEO landing pages — ready to drop into Lovable</h3>
+  <p>10 paste-ready prompts saved to <a href="file:///C:/Users/kimkl/Documents/Claude/Brisbane%20HIFU/lovable-seo-landing-pages-prompts.md">Brisbane HIFU/lovable-seo-landing-pages-prompts.md</a>. Each prompt builds one route with title/meta/canonical/og, H1 + H2 outline, opening copy verbatim, JSON-LD schema, internal-link list, and two <code>&lt;BookNowButton /&gt;</code> placements (fires the <code>AW-11077673835/q9fdCPmf9awcEOvGn6Ip</code> conversion + preserves gclid).</p>
+  <table>
+    <thead><tr><th>#</th><th>Route</th><th>Priority</th><th>Target keyword (vol)</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>Shared infra (<code>&lt;SeoHead&gt;</code> + <code>&lt;BookNowButton&gt;</code> + sitemap update + 301 redirect)</td><td>Required first</td><td>—</td></tr>
+      <tr class="crit"><td>1</td><td><code>/hifu-brisbane</code></td><td>P0</td><td>hifu brisbane (68 clicks/mo)</td></tr>
+      <tr class="crit"><td>2</td><td><code>/non-surgical-facelift-brisbane</code></td><td>P0</td><td>non surgical facelift brisbane</td></tr>
+      <tr class="warn"><td>3</td><td><code>/hifu-treatment-brisbane</code></td><td>P1</td><td>hifu treatment brisbane (11)</td></tr>
+      <tr class="warn"><td>4</td><td><code>/hifu-cost-brisbane</code></td><td>P1</td><td>hifu cost / price brisbane</td></tr>
+      <tr class="warn"><td>5</td><td><code>/hifu-before-and-after-brisbane</code></td><td>P1</td><td>hifu before and after</td></tr>
+      <tr><td>6</td><td><code>/hifu-eye-lift-brisbane</code></td><td>P2</td><td>hifu eye lift, eye lift brisbane</td></tr>
+      <tr><td>7</td><td><code>/hifu-double-chin-brisbane</code></td><td>P2</td><td>double chin removal near me</td></tr>
+      <tr><td>8</td><td><code>/hifu-vs-injectables-brisbane</code></td><td>P2</td><td>hifu vs botox / fillers (replaces blog redirect)</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size: 13px; color: #64748b;"><strong>Guardrails baked in:</strong> no FDA/TGA/medical-grade claims; no AI/stock substitutes on before/after page (placeholders only until consented client photos arrive); conversion event fires on every Book Now click; gclid passthrough preserved.</p>
+
+  <h3>Cutover playbook — Phases 1–5 (post Phase 0 greenlight)</h3>
+  <table>
+    <thead><tr><th>Phase</th><th>Action</th><th>Time</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Phase 1</strong></td><td><strong>Deploy Lovable to production.</strong> Upgrade Lovable to paid plan (~AU$30/mo) → Publish → Settings → Domains → connect brisbanehifu.com. Lovable handles SSL.</td><td>30 min</td></tr>
+      <tr><td><strong>Phase 2</strong></td><td><strong>DNS cutover at Hostinger.</strong> 24h before: drop TTL to 300 on `@` A + `www` CNAME, note current values. At cutover: replace A + CNAME with Lovable's. <strong>DO NOT touch MX records.</strong></td><td>5min + 15min–2h wait</td></tr>
+      <tr><td><strong>Phase 3</strong></td><td><strong>Verify live.</strong> brisbanehifu.com shows Lovable · SSL padlock · /sitemap.xml + /robots.txt return static files · Rich Results Test clean · gclid passthrough · Google Ads conversion records within 2h.</td><td>15 min</td></tr>
+      <tr><td><strong>Phase 4</strong></td><td><strong>Take Hostinger offline.</strong> hPanel → Edit website → Unpublish. <strong>Don't delete — keep 30–60 days as rollback safety net.</strong></td><td>5 min</td></tr>
+      <tr><td><strong>Phase 5</strong></td><td><strong>Housekeeping.</strong> Search Console → submit sitemap. Google Ads → verify ad final URLs. GBP → confirm website URL. Monitor Coverage for 404s in week 1.</td><td>30 min</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nova-box">
+    <strong>Resume protocol:</strong> (1) Read this section + the <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/brisbane_hifu_lovable_rebuild_15may2026.md">memory file</a> first. (2) Open Chrome MCP + load the Lovable preview URL (token rotates — ask Kim for a fresh tokened link if 401). (3) Verify against live brisbanehifu.com via Chrome MCP, NEVER WebFetch alone. (4) Check the 4 outstanding fixes (canonical / sitemap / robots / og-image) have landed. If ✅ → kick off Phase 1. If ✗ → re-send the small fix prompt. (5) Rollback plan: DNS revert to noted original A/CNAME values (TTL=300 means rollback in 5–15 min).
+  </div>
+</section>
+
+<!-- ============ 1. STATUS ============ -->
+<section id="status">
+  <h2>1. Where we are — 7 May → today <span class="pill done">Status check</span></h2>
+  <div class="lead">Quick reconciliation of the previous SEO dashboard against current live state.</div>
+
+  <div class="grid-2">
+    <div>
+      <h3>✅ Shipped since 7 May</h3>
+      <ul class="checklist">
+        <li class="done"><strong>Google Search Console live</strong><span class="why">DNS verified · sitemap submitted · 41 pages discovered</span></li>
+        <li class="done"><strong>Broken `/book-hifu` Purchase conversion removed</strong><span class="why">Smart Bidding now optimises real signal</span></li>
+        <li class="done"><strong>Calendly conversion removed</strong></li>
+        <li class="done"><strong>54 negative keywords added</strong><span class="why">27 × 2 campaigns</span></li>
+        <li class="done"><strong>8 high-value exact-match keywords added</strong></li>
+        <li class="done"><strong>Marketing Pixels infra shipped in BAT.ai</strong><span class="why">PR #355 deployed</span></li>
+        <li class="done"><strong>Real keyword data pulled from your own Google Ads</strong><span class="why">Beats SEMrush — your actual demand curve</span></li>
+        <li class="done"><strong>Standing rule banked: Hostinger Website Builder, not WordPress</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3>⏳ Still parked from 7 May</h3>
+      <ul class="checklist">
+        <li><strong>Create Google Ads conversion action</strong><span class="why">3-min wizard: Goals → + Create → Website → Purchase → Install yourself · then copy AW-XXX/YYY</span></li>
+        <li><strong>Paste AW + Label into BAT Marketing Pixels page</strong><span class="why">app.bookatreatment.ai/admin/settings/marketing-pixels · 30 sec</span></li>
+        <li><strong>Paste Hostinger snippet into Hostinger Custom Code</strong><span class="why">APPEND below the HIFU AI agent script — never replace</span></li>
+        <li><strong>Smoke test with `?gclid=test-nova-001`</strong></li>
+      </ul>
+      <div class="nova-box" style="margin-top: 10px;">
+        <strong>Reality check:</strong> the Hot-5 below is independent of these Google Ads steps. You can ship every SEO action below without unblocking Ads first. Ads + SEO are two parallel tracks. Don't let one block the other.
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 24px;">Re-tested today (11 May)</h3>
+  <table>
+    <thead><tr><th>Item</th><th>State on 7 May</th><th>State today</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr class="crit"><td><strong>Homepage title tag</strong></td><td>98 chars (truncated)</td><td>Still <strong>98 chars</strong>: "Non-surgical facelift. Brisbane's BEST HIFU…"</td><td class="fix">Rewrite — section 8</td></tr>
+      <tr class="crit"><td><strong>Homepage meta desc</strong></td><td>222 chars (truncated)</td><td>Missing entirely on live fetch</td><td class="fix">Write fresh — section 8</td></tr>
+      <tr class="crit"><td><strong>Schema (any)</strong></td><td>None</td><td>None — confirmed via WebFetch</td><td class="fix">Paste — section 3</td></tr>
+      <tr class="crit"><td><strong>Service-specific pages</strong></td><td>0 (only home/deals/FAQ/reviews/blog/about)</td><td>Still 0</td><td class="fix">Build — section 4</td></tr>
+      <tr class="warn"><td><strong>FAQ page schema</strong></td><td>WebPage</td><td>Still WebPage (no FAQPage)</td><td class="fix">Add FAQPage JSON-LD — section 3B</td></tr>
+      <tr class="warn"><td><strong>Reviews page meta desc</strong></td><td>Missing</td><td>Still missing</td><td class="fix">Write — section 8</td></tr>
+      <tr class="ok"><td><strong>FAQ content quality</strong></td><td>10 strong Q&amp;As confirmed</td><td>Same — perfect for FAQPage schema</td><td>Use in schema</td></tr>
+      <tr class="ok"><td><strong>Reviews on /client-reviews</strong></td><td>~30+</td><td>32 confirmed today</td><td>Use in AggregateRating</td></tr>
+      <tr class="ok"><td><strong>About page</strong></td><td>Light audit</td><td>Strong content — Kim + Luci profiles, 700+ reviews claim</td><td>Add Person schema (section 3D)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 2. HOT 5 ============ -->
+<section id="hot5">
+  <h2>2. The Hot-5 — biggest ROI, do today <span class="pill p0">P0</span></h2>
+  <div class="lead">If you do nothing else this week, do these. Combined effort: ~3 hours. Combined impact: ranks for <em>brisbane hifu clinic reviews</em>, rich-snippet star ratings in Google, "near me" surfaces, FAQ accordion on FAQ result.</div>
+
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Effort</th><th>Owner</th><th>Where in this dashboard</th></tr></thead>
+    <tbody>
+      <tr class="brand"><td>1</td><td><strong>Paste BeautySalon + AggregateRating schema into Hostinger site-wide Custom Code</strong><br><span style="color:#64748b;font-size:12.5px;">Triggers star ratings + "near me" map results</span></td><td>30 min</td><td>Kim (or Nova via Chrome)</td><td>Section 3A + 3C</td></tr>
+      <tr class="brand"><td>2</td><td><strong>Paste FAQPage schema on /hifu-faq-non-surgical-face-lift</strong><br><span style="color:#64748b;font-size:12.5px;">Triggers FAQ accordion under Google result — huge CTR boost</span></td><td>20 min</td><td>Kim (or Nova)</td><td>Section 3B</td></tr>
+      <tr class="brand"><td>3</td><td><strong>Rewrite home + FAQ + reviews title/meta</strong><br><span style="color:#64748b;font-size:12.5px;">Hostinger → Pages → Page Settings → SEO. 5 min × 3 pages</span></td><td>20 min</td><td>Kim</td><td>Section 8</td></tr>
+      <tr class="brand"><td>4</td><td><strong>Create /hifu-brisbane landing page in Hostinger</strong><br><span style="color:#64748b;font-size:12.5px;">Top keyword (68 clicks/mo); content brief ready to paste</span></td><td>45 min</td><td>Kim (or Nova)</td><td>Section 4 → page 1</td></tr>
+      <tr class="brand"><td>5</td><td><strong>Upload 20 photos to Google Business Profile</strong><br><span style="color:#64748b;font-size:12.5px;">Listings with 100+ photos get 520% more calls (BrightLocal 2024)</span></td><td>30 min</td><td>Kim only — needs phone photos</td><td>Section 6</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict">
+    <strong>Why these 5 first:</strong> Schema + GBP photos = "free" rich-snippet upgrades that lift CTR on existing rankings (no waiting for fresh content to index). Title rewrites stop Google truncating. The /hifu-brisbane page captures the keyword that <em>already</em> brings 68 clicks/month — owning it organically saves the $162/mo currently spent on it via Ads.
+  </div>
+</section>
+
+<!-- ============ 3. SCHEMA MARKUP ============ -->
+<section id="schema">
+  <h2>3. Schema markup — paste-ready JSON-LD <span class="pill p0">P0 · 1 hour total</span></h2>
+  <div class="lead">All three blocks below are filled with your real NAP, GBP rating, FAQs, and team. Just paste — no edits needed.</div>
+
+  <div class="blocker-box info">
+    <h3>🛠️ Where to paste these in Hostinger Website Builder</h3>
+    <p><strong>For site-wide (3A + 3C):</strong> Hostinger hPanel → Websites → brisbanehifu.com → Edit website → More (top-right) → Integrations → Custom code → <strong>APPEND</strong> below the existing HIFU AI agent script (<code>window.HIFU_AGENT_CONFIG</code>) — never replace. Save / Update website.</p>
+    <p><strong>For per-page (3B + 3D):</strong> open the page in the Builder → drop in an <strong>Embed Code</strong> element near the top of the page (it's invisible to visitors but Google reads it). Or if your plan supports per-page Custom Code in Page Settings, use that.</p>
+    <p><strong>Plan requirement:</strong> Custom Code is a Hostinger Business / Premium+ feature. If you're on Starter, you'll need to upgrade (~$5/mo more) — this is the unlock for rich snippets and is the single biggest free traffic lever.</p>
+  </div>
+
+  <h3>3A. BeautySalon — site-wide (header Custom Code)</h3>
+  <p style="font-size: 13px; color: #64748b;">Tells Google you're a Brisbane medical clinic with NAP, hours, services, and a 5.0★ rating from 132 reviews. Triggers map-pack inclusion for "near me" queries.</p>
+<pre>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  "@id": "https://brisbanehifu.com/#clinic",
+  "name": "Brisbane HIFU Clinic",
+  "alternateName": "Brisbane HIFU",
+  "description": "Brisbane's leading non-surgical face and body lifting clinic. Specialists in HIFU (High-Intensity Focused Ultrasound) treatments using UltraTherapy 15D MMFU technology. Family-run, 5.0-star rated, 800+ happy clients.",
+  "image": "https://brisbanehifu.com/logo.png",
+  "logo": "https://brisbanehifu.com/logo.png",
+  "url": "https://brisbanehifu.com",
+  "telephone": "+61-416-248-639",
+  "email": "brisbane.hifu.clinic@gmail.com",
+  "priceRange": "$$",
+  "currenciesAccepted": "AUD",
+  "paymentAccepted": "Cash, Credit Card, Afterpay, Zip",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "88 Allen St",
+    "addressLocality": "Hamilton",
+    "addressRegion": "QLD",
+    "postalCode": "4007",
+    "addressCountry": "AU"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": -27.4368, "longitude": 153.0694 },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "16:00" }
+  ],
+  ", "Aesthetic Medicine"],
+  "areaServed": [
+    { "@type": "City", "name": "Brisbane" },
+    { "@type": "Place", "name": "Hamilton" },
+    { "@type": "Place", "name": "Ascot" },
+    { "@type": "Place", "name": "Clayfield" },
+    { "@type": "Place", "name": "New Farm" },
+    { "@type": "Place", "name": "Bulimba" },
+    { "@type": "Place", "name": "Teneriffe" }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "HIFU Treatments",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "HIFU Face &amp; Neck Lift", "procedureType": "NoninvasiveProcedure" }, "price": "500.00", "priceCurrency": "AUD" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "HIFU Half Face Lift", "procedureType": "NoninvasiveProcedure" }, "price": "300.00", "priceCurrency": "AUD" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "HIFU Men's Face &amp; Neck Lift", "procedureType": "NoninvasiveProcedure" }, "price": "500.00", "priceCurrency": "AUD" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "HIFU Eye Lift", "procedureType": "NoninvasiveProcedure" }, "price": "300.00", "priceCurrency": "AUD" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "HIFU Stomach &amp; Waist", "procedureType": "NoninvasiveProcedure" }, "price": "400.00", "priceCurrency": "AUD" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ultimate HIFU Makeover (full body)", "procedureType": "NoninvasiveProcedure" }, "price": "1700.00", "priceCurrency": "AUD" }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "132",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "sameAs": [
+    "https://www.facebook.com/brisbanehifu",
+    "https://www.instagram.com/brisbane.hifu.clinic",
+    "https://g.page/brisbane-hifu-clinic"
+  ]
+}
+&lt;/script&gt;</pre>
+
+  <h3>3B. FAQPage — paste on /hifu-faq-non-surgical-face-lift</h3>
+  <p style="font-size: 13px; color: #64748b;">Pulls your 10 FAQs verbatim from the live page. Will trigger expandable Q&amp;A under your Google result — the #1 highest-impact rich snippet for this kind of clinic.</p>
+<pre>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is HIFU the best skin tightening and lift treatment?",
+      "acceptedAnswer": { "@type": "Answer", "text": "HIFU is one of the most effective non-surgical options for mild to moderate skin laxity because it targets deeper support layers without breaking the skin. The best option depends on your skin and goals, which Brisbane HIFU Clinic will assess during a personalised consultation." }
+    },
+    {
+      "@type": "Question",
+      "name": "What HIFU machine does Brisbane HIFU Clinic use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "We use state-of-the-art Macro and Micro Focused Ultrasound technology including UltraTherapy 15D MMFU HIFU, chosen for consistent energy delivery, efficient treatment times and a comfortable client experience." }
+    },
+    {
+      "@type": "Question",
+      "name": "Will I see results after one HIFU treatment?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Many clients notice immediate improvements like reduced redness and smoother texture. More noticeable lifting typically builds over 8 to 12 weeks as collagen remodels. A tailored 3-treatment plan is recommended for stronger results." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between MPT and older HIFU devices?",
+      "acceptedAnswer": { "@type": "Answer", "text": "MPT (Macro-Plus-Micro focused ultrasound technology) combines macro and micro ultrasound to treat multiple layers and concerns more precisely. It offers more customised treatment planning, more consistent energy delivery and a more comfortable experience versus older HIFU devices." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Brisbane HIFU Clinic guarantee results?",
+      "acceptedAnswer": { "@type": "Answer", "text": "We provide a complimentary follow-up treatment if clients complete the recommended 3-step plan and are not satisfied with their outcomes. Results vary individually based on skin condition, age and lifestyle." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does HIFU hurt? What is the pain level like?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most clients describe HIFU as virtually pain-free or minimal discomfort, with occasional warmth or tingling around bony areas. Energy settings are adjusted to your individual comfort level throughout the treatment." }
+    },
+    {
+      "@type": "Question",
+      "name": "Will I have downtime, swelling or bruising after HIFU?",
+      "acceptedAnswer": { "@type": "Answer", "text": "HIFU is non-invasive with no swelling, bruising or downtime typical with our technology. Some clients notice an immediate freshening or tightening effect and resume normal activities the same day." }
+    },
+    {
+      "@type": "Question",
+      "name": "How long do HIFU results last?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Results build over 4 to 12 weeks and typically last 6 to 12 months, depending on skin condition, lifestyle and treatment plan. Maintenance sessions every 6 to 12 months extend results." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can HIFU help with fat reduction as well as tightening?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — HIFU can be used for targeted fat reduction when contouring is the goal, or focused on lifting and tightening for those not seeking fat loss. Common HIFU body-contouring areas include stomach, waist, thighs and arms." }
+    },
+    {
+      "@type": "Question",
+      "name": "What areas can HIFU treat?",
+      "acceptedAnswer": { "@type": "Answer", "text": "HIFU treats face lifting and tightening, jawline and jowl definition, brow and eye area lifting, neck and décolletage tightening, plus body skin tightening and targeted fat reduction (stomach, waist, arms, thighs, knees, booty, hands)." }
+    }
+  ]
+}
+&lt;/script&gt;</pre>
+
+  <h3>3C. Review + AggregateRating — paste on /client-reviews</h3>
+  <p style="font-size: 13px; color: #64748b;">Star ratings under your Google search result. Triggered by the rating + at least 1 review object. Using your strongest 5 reviewers (anonymised first-name basis as on the live page).</p>
+<pre>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  "@id": "https://brisbanehifu.com/#clinic",
+  "name": "Brisbane HIFU Clinic",
+  "image": "https://brisbanehifu.com/logo.png",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "132",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Brooke" },
+      "datePublished": "2026-03-15",
+      "reviewBody": "Exceptional experience at Brisbane HIFU Clinic. I couldn't be more impressed — the results, the care, the professionalism.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Beck" },
+      "datePublished": "2026-02-22",
+      "reviewBody": "Oh my god the results! Can't recommend highly enough. I travelled from out of town and it was 100% worth it.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Sarah" },
+      "datePublished": "2026-01-30",
+      "reviewBody": "I am so happy with my results after three sessions. Kim is incredible — warm, professional, and the results speak for themselves.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Kelli" },
+      "datePublished": "2026-01-12",
+      "reviewBody": "Highly recommend Brisbane HIFU. Had tried other clinics but now Kim is the only person I'll go to.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Lucinda" },
+      "datePublished": "2025-12-18",
+      "reviewBody": "I'm a busy mum with 2 kids and really noticed the change in my skin. The lift, the glow — Kim is a magician.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+    }
+  ]
+}
+&lt;/script&gt;</pre>
+
+  <h3>3D. Person schema — paste on /about-us (optional but recommended)</h3>
+  <p style="font-size: 13px; color: #64748b;">E-E-A-T signal for medical content. Tells Google there are real qualified practitioners behind the clinic.</p>
+<pre>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://brisbanehifu.com/about-us#kim-klein",
+      "name": "Kim Klein",
+      "jobTitle": "Founder &amp; HIFU Master",
+      "description": "Founder of Brisbane HIFU Clinic. Twenty-plus years developing health and longevity programs, thirty-plus years as a technologist. Discovered HIFU four years ago seeking a non-injectable alternative; founded the clinic after years of research, training and HIFU equipment sales.",
+      "worksFor": { "@id": "https://brisbanehifu.com/#clinic" },
+      "knowsAbout": ["HIFU", "Non-surgical facelift", "Skin tightening", "Aesthetic medicine"],
+      "alumniOf": "HIFU Master Certification"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://brisbanehifu.com/about-us#luci",
+      "name": "Luci",
+      "jobTitle": "HIFU Master Practitioner",
+      "description": "Highly skilled HIFU Master at Brisbane HIFU Clinic. Known for precision, warmth and exceptional client care.",
+      "worksFor": { "@id": "https://brisbanehifu.com/#clinic" }
+    }
+  ]
+}
+&lt;/script&gt;</pre>
+
+  <div class="nova-box">
+    <strong>Validation step (don't skip):</strong> after pasting and publishing in Hostinger, run each page through Google's Rich Results Test at <a href="https://search.google.com/test/rich-results" target="_blank">search.google.com/test/rich-results</a>. Paste the URL → wait 10 sec → confirm "Page is eligible for rich results" with BeautySalon / FAQPage / Review detected. If it shows "Unparsable", the JSON has a typo — most often a stray comma or unescaped quote. Ping Nova and I'll fix the block.
+  </div>
+</section>
+
+<!-- ============ 4. LANDING PAGES ============ -->
+<section id="landing">
+  <h2>4. 8 new landing pages — paste-ready briefs <span class="pill p0">P0–P2</span></h2>
+  <div class="lead">Each card below is everything Hostinger needs to build a page that ranks for one of your real top-50 keywords. Title + meta + H1 + slug go in <strong>Pages → Page Settings → SEO</strong>; H2s + body go on the visible page; schema goes in an Embed Code element.</div>
+
+  <div class="blocker-box info">
+    <h3>📋 Building order (do P0 first, then P1, then P2)</h3>
+    <ol>
+      <li><strong>P0 — week 1:</strong> /hifu-brisbane, /non-surgical-facelift-brisbane (combined ~$190/mo Google Ads spend currently capturing this; owning organically reclaims it)</li>
+      <li><strong>P1 — week 2:</strong> /hifu-treatment-brisbane, /hifu-cost-brisbane, /hifu-before-and-after-brisbane</li>
+      <li><strong>P2 — week 3:</strong> /hifu-eye-lift-brisbane, /hifu-double-chin-brisbane, /hifu-vs-injectables-brisbane (renamed from /5-reasons-… which already exists — redirect old to new)</li>
+    </ol>
+    <p style="margin-top: 8px;"><strong>Internal linking rule:</strong> every new landing page should link to (a) /hifu-deals, (b) /client-reviews, (c) /hifu-faq, (d) /about-us, plus 1–2 other landing pages in this set. Update the main nav to surface 2–3 of them after launch.</p>
+  </div>
+
+  <!-- LP 1 -->
+  <div class="lp-card">
+    <h3>① HIFU Brisbane <span class="slug">/hifu-brisbane</span> <span class="pill p0">P0</span></h3>
+    <div class="field">
+      <div class="field-label">Target keywords</div>
+      <div><span class="target-kws">hifu brisbane (68 clicks/mo)</span><span class="target-kws">brisbane hifu (34 clicks/mo)</span><span class="target-kws">brisbane hifu clinic (32 clicks/mo)</span></div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="field"><div class="field-label">Title tag (≤60 chars)</div><div class="field-val">HIFU Brisbane | Non-Surgical Face &amp; Body Lift Clinic</div></div>
+        <div class="field"><div class="field-label">Meta description (≤155 chars)</div><div class="field-val">Brisbane's top-rated HIFU clinic. 5★ from 132 clients. Non-surgical face &amp; body lift in Hamilton. From $300. Book a consult — Mon–Sat.</div></div>
+        <div class="field"><div class="field-label">H1</div><div class="field-val">HIFU Brisbane — Non-Surgical Face &amp; Body Lift at Brisbane's #1 HIFU Clinic</div></div>
+      </div>
+      <div>
+        <div class="field"><div class="field-label">URL slug</div><div class="field-val">/hifu-brisbane</div></div>
+        <div class="field"><div class="field-label">Focus keyword density target</div><div class="field-val">"HIFU Brisbane" 6–8× across page (natural), "Hamilton" 2–3×, "Queensland" 1–2×</div></div>
+        <div class="field"><div class="field-label">Min word count</div><div class="field-val">1,200 words (competitor average for this keyword)</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">H2 structure</div>
+      <ul class="h2-list">
+        <li>What is HIFU? (Brisbane's leading non-surgical facelift)</li>
+        <li>How HIFU works on the skin — the science in plain English</li>
+        <li>Why Brisbane chooses our HIFU clinic over injectables and surgery</li>
+        <li>HIFU treatments we offer in Brisbane (link to /hifu-deals)</li>
+        <li>What to expect at your Brisbane HIFU appointment (Hamilton clinic)</li>
+        <li>HIFU before &amp; after results — real Brisbane clients</li>
+        <li>HIFU Brisbane cost — transparent pricing</li>
+        <li>HIFU Brisbane FAQ (link to full FAQ)</li>
+        <li>Book your HIFU consult in Brisbane (Hamilton, easy parking)</li>
+      </ul>
+    </div>
+    <div class="field"><div class="field-label">Internal links to add</div><div class="field-val">/hifu-deals · /client-reviews · /hifu-faq-non-surgical-face-lift · /about-us · /non-surgical-facelift-brisbane · /hifu-before-and-after-brisbane</div></div>
+    <div class="field"><div class="field-label">Body copy snippet for opening 150 words (paste verbatim)</div><div class="field-val" style="font-family: inherit; line-height: 1.6;">Brisbane HIFU Clinic is the city's most reviewed non-surgical face and body lifting clinic — 5.0 stars from over 130 Google reviews and 800+ happy clients. We use UltraTherapy 15D MMFU HIFU technology to lift, tighten and smooth skin on the face, neck, jawline, brows, eyes, stomach, waist, thighs, arms and more — all without surgery, injectables or downtime.<br><br>Located minutes from the Brisbane CBD in Hamilton, our family-run clinic specialises in tailored 3-treatment HIFU programs designed for natural, lasting results. Whether you're researching HIFU for the first time, looking to avoid Botox or fillers, or want a non-surgical alternative to a facelift, our HIFU Masters Kim and Luci will design a plan that fits your skin, your goals and your budget.</div></div>
+    <div class="field"><div class="field-label">Schema to embed on this page (in addition to the site-wide BeautySalon)</div><div class="field-val mono" style="white-space: pre-wrap;">{ "@context": "https://schema.org", "@type": "MedicalWebPage", "name": "HIFU Brisbane", "url": "https://brisbanehifu.com/hifu-brisbane", "about": { "@type": "Service", "name": "HIFU", "procedureType": "NoninvasiveProcedure" }, "mainEntityOfPage": { "@id": "https://brisbanehifu.com/#clinic" } }</div></div>
+  </div>
+
+  <!-- LP 2 -->
+  <div class="lp-card">
+    <h3>② Non-Surgical Facelift Brisbane <span class="slug">/non-surgical-facelift-brisbane</span> <span class="pill p0">P0</span></h3>
+    <div class="field"><div class="field-label">Target keywords</div><div><span class="target-kws">non surgical facelift brisbane</span><span class="target-kws">face lifting treatment near me</span><span class="target-kws">hifu facelift</span><span class="target-kws">hifu vs facelift</span></div></div>
+    <div class="grid-2">
+      <div>
+        <div class="field"><div class="field-label">Title tag</div><div class="field-val">Non-Surgical Facelift Brisbane | HIFU from $300</div></div>
+        <div class="field"><div class="field-label">Meta description</div><div class="field-val">No knives. No needles. No downtime. Brisbane's leading non-surgical facelift using HIFU. 5★ from 132 clients. Results in 8–12 weeks. Book a consult.</div></div>
+        <div class="field"><div class="field-label">H1</div><div class="field-val">Non-Surgical Facelift in Brisbane — HIFU That Lifts Without the Knife</div></div>
+      </div>
+      <div>
+        <div class="field"><div class="field-label">URL slug</div><div class="field-val">/non-surgical-facelift-brisbane</div></div>
+        <div class="field"><div class="field-label">Min word count</div><div class="field-val">1,400 words (competitive keyword)</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">H2 structure</div>
+      <ul class="h2-list">
+        <li>What is a non-surgical facelift?</li>
+        <li>Why HIFU is the gold-standard non-surgical facelift in 2026</li>
+        <li>How HIFU compares to a surgical facelift (cost, downtime, results)</li>
+        <li>How HIFU compares to Botox and fillers</li>
+        <li>How HIFU compares to thread lifts</li>
+        <li>What a non-surgical HIFU facelift treats — face, jawline, neck, brow, eyes</li>
+        <li>The 8–12 week results timeline</li>
+        <li>Non-surgical facelift cost in Brisbane (transparent)</li>
+        <li>Who is a good candidate? Who isn't?</li>
+        <li>Book your non-surgical facelift consult in Brisbane</li>
+      </ul>
+    </div>
+    <div class="field"><div class="field-label">Internal links</div><div class="field-val">/hifu-brisbane · /hifu-deals · /hifu-vs-injectables-brisbane · /client-reviews · /hifu-faq-non-surgical-face-lift · /hifu-before-and-after-brisbane</div></div>
+  </div>
+
+  <!-- LP 3 -->
+  <div class="lp-card">
+    <h3>③ HIFU Treatment Brisbane <span class="slug">/hifu-treatment-brisbane</span> <span class="pill p1">P1</span></h3>
+    <div class="field"><div class="field-label">Target keywords</div><div><span class="target-kws">hifu treatment brisbane (11 clicks/mo)</span><span class="target-kws">hifu treatment</span><span class="target-kws">hifu treatment near me</span></div></div>
+    <div class="grid-2">
+      <div>
+        <div class="field"><div class="field-label">Title tag</div><div class="field-val">HIFU Treatment Brisbane | What to Expect &amp; Cost</div></div>
+        <div class="field"><div class="field-label">Meta description</div><div class="field-val">Everything you need to know before your HIFU treatment in Brisbane: what happens, what it costs, how long it takes, what results to expect. 5★ clinic.</div></div>
+        <div class="field"><div class="field-label">H1</div><div class="field-val">HIFU Treatment Brisbane — What to Expect, Step by Step</div></div>
+      </div>
+      <div>
+        <div class="field"><div class="field-label">URL slug</div><div class="field-val">/hifu-treatment-brisbane</div></div>
+        <div class="field"><div class="field-label">Min word count</div><div class="field-val">1,000 words</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">H2 structure</div>
+      <ul class="h2-list">
+        <li>HIFU treatment Brisbane — overview</li>
+        <li>Step-by-step: what happens during a HIFU appointment</li>
+        <li>How long does a HIFU treatment take?</li>
+        <li>Does HIFU treatment hurt? (honest answer)</li>
+        <li>HIFU treatment cost in Brisbane — packages and pricing</li>
+        <li>How many HIFU sessions do I need?</li>
+        <li>Aftercare — what to do (and not do) after your HIFU treatment</li>
+        <li>When will I see results?</li>
+        <li>Book your HIFU treatment in Brisbane today</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LP 4 -->
+  <div class="lp-card">
+    <h3>④ HIFU Cost Brisbane <span class="slug">/hifu-cost-brisbane</span> <span class="pill p1">P1</span></h3>
+    <div class="field"><div class="field-label">Target keywords</div><div><span class="target-kws">hifu cost</span><span class="target-kws">hifu price brisbane</span><span class="target-kws">how much does hifu cost</span><span class="target-kws">hifu eye lift cost brisbane</span></div></div>
+    <div class="grid-2">
+      <div>
+        <div class="field"><div class="field-label">Title tag</div><div class="field-val">HIFU Cost Brisbane 2026 | Transparent Pricing (from $300)</div></div>
+        <div class="field"><div class="field-label">Meta description</div><div class="field-val">HIFU cost in Brisbane explained — face, neck, body. No hidden fees. From $300. Afterpay &amp; Zip. Group &amp; 3-pack discounts. See the full price list.</div></div>
+        <div class="field"><div class="field-label">H1</div><div class="field-val">HIFU Cost Brisbane — Transparent Pricing for 2026</div></div>
+      </div>
+      <div>
+        <div class="field"><div class="field-label">URL slug</div><div class="field-val">/hifu-cost-brisbane</div></div>
+        <div class="field"><div class="field-label">Min word count</div><div class="field-val">900 words</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">H2 structure</div>
+      <ul class="h2-list">
+        <li>How much does HIFU cost in Brisbane?</li>
+        <li>HIFU face &amp; neck cost</li>
+        <li>HIFU body treatment cost</li>
+        <li>HIFU eye lift cost</li>
+        <li>Why our HIFU prices include the consult and aftercare</li>
+        <li>Save with 3-pack &amp; group deals</li>
+        <li>Pay-later options — Afterpay &amp; Zip</li>
+        <li>What HIFU costs compared to surgery, Botox, fillers</li>
+        <li>Book a free consult — no obligation</li>
+      </ul>
+    </div>
+    <div class="field"><div class="field-label">Pricing table to embed (use Hostinger Table element)</div><div class="field-val" style="font-family: inherit;">Pull from /hifu-deals — same prices, but presented as a clean comparison grid: Face Packs · Group Deals · Combos · Body · Specials. Add "From $X" callouts.</div></div>
+  </div>
+
+  <!-- LP 5 -->
+  <div class="lp-card">
+    <h3>⑤ HIFU Before &amp; After Brisbane <span class="slug">/hifu-before-and-after-brisbane</span> <span class="pill p1">P1</span></h3>
+    <div class="field"><div class="field-label">Target keywords</div><div><span class="target-kws">hifu before and after</span><span class="target-kws">hifu results</span><span class="target-kws">hifu photos</span></div></div>
+    <div class="grid-2">
+      <div>
+        <div class="field"><div class="field-label">Title tag</div><div class="field-val">HIFU Before &amp; After Brisbane | Real Client Results</div></div>
+        <div class="field"><div class="field-label">Meta description</div><div class="field-val">Real before &amp; after HIFU photos from Brisbane clients. Face lift, jawline, eye lift, neck, stomach. See the results that 132 5★ reviewers describe.</div></div>
+        <div class="field"><div class="field-label">H1</div><div class="field-val">HIFU Before &amp; After — Real Brisbane Client Results</div></div>
+      </div>
+      <div>
+        <div class="field"><div class="field-label">URL slug</div><div class="field-val">/hifu-before-and-after-brisbane</div></div>
+        <div class="field"><div class="field-label">Min word count</div><div class="field-val">800 words + 12–20 image pairs</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">H2 structure</div>
+      <ul class="h2-list">
+        <li>What HIFU before &amp; after looks like (timeline: day 1, week 4, week 12)</li>
+        <li>HIFU face lift before &amp; after — Brisbane clients</li>
+        <li>HIFU jawline before &amp; after</li>
+        <li>HIFU eye lift before &amp; after</li>
+        <li>HIFU neck before &amp; after</li>
+        <li>HIFU body — stomach, waist, thighs before &amp; after</li>
+        <li>HIFU for men — before &amp; after</li>
+        <li>Why these results are typical (not retouched, not filtered)</li>
+        <li>Book your HIFU treatment in Brisbane</li>
+      </ul>
+    </div>
+    <div class="field"><div class="field-label">Nova note</div><div class="field-val" style="font-family: inherit; color: #b91c1c;">This page lives or dies on photo quality. Pull from your existing Instagram + client phone library — get explicit consent in writing for each before/after pair you publish (already a standard medical-clinic legal requirement). If photo permission is the blocker, use anonymised "result type" + text testimonials in the meantime — still ranks better than not having the page at all.</div></div>
+  </div>
+
+  <!-- LP 6 -->
+  <div class="lp-card">
+    <h3>⑥ HIFU Eye Lift Brisbane <span class="slug">/hifu-eye-lift-brisbane</span> <span class="pill p2">P2</span></h3>
+    <div class="field"><div class="field-label">Target keywords</div><div><span class="target-kws">hifu eye lift</span><span class="target-kws">eye lift brisbane</span><span class="target-kws">non-surgical eye lift</span><span class="target-kws">how much does it cost to have an eye lift</span></div></div>
+    <div class="grid-2">
+      <div>
+        <div class="field"><div class="field-label">Title tag</div><div class="field-val">HIFU Eye Lift Brisbane | Non-Surgical from $300</div></div>
+        <div class="field"><div class="field-label">Meta description</div><div class="field-val">Lift hooded eyes, droopy lids and crow's feet without surgery. HIFU eye lift Brisbane — from $300 in our Hamilton clinic. Results in 8 weeks.</div></div>
+        <div class="field"><div class="field-label">H1</div><div class="field-val">HIFU Eye Lift Brisbane — Non-Surgical Brow &amp; Eye Lift</div></div>
+      </div>
+      <div>
+        <div class="field"><div class="field-label">URL slug</div><div class="field-val">/hifu-eye-lift-brisbane</div></div>
+        <div class="field"><div class="field-label">Min word count</div><div class="field-val">800 words</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">H2 structure</div>
+      <ul class="h2-list">
+        <li>HIFU eye lift — non-surgical alternative to blepharoplasty</li>
+        <li>What HIFU treats around the eyes: hooded lids, brow droop, crow's feet, dark circles</li>
+        <li>How a HIFU eye lift works (and why it's safer than energy near the eye)</li>
+        <li>HIFU eye lift cost Brisbane</li>
+        <li>HIFU eye lift before &amp; after</li>
+        <li>How many sessions are needed?</li>
+        <li>Recovery (there is none)</li>
+        <li>HIFU eye lift FAQ</li>
+        <li>Book your HIFU eye lift consult</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LP 7 -->
+  <div class="lp-card">
+    <h3>⑦ HIFU for Double Chin Brisbane <span class="slug">/hifu-double-chin-brisbane</span> <span class="pill p2">P2</span></h3>
+    <div class="field"><div class="field-label">Target keywords</div><div><span class="target-kws">double chin removal near me</span><span class="target-kws">jawline brisbane</span><span class="target-kws">hifu jowls</span></div></div>
+    <div class="grid-2">
+      <div>
+        <div class="field"><div class="field-label">Title tag</div><div class="field-val">HIFU Double Chin Brisbane | Non-Surgical Jawline Lift</div></div>
+        <div class="field"><div class="field-label">Meta description</div><div class="field-val">Tighten a double chin and define your jawline without surgery, injectables or downtime. HIFU double chin Brisbane — Hamilton clinic.</div></div>
+        <div class="field"><div class="field-label">H1</div><div class="field-val">HIFU for Double Chin &amp; Jawline — Brisbane Clinic</div></div>
+      </div>
+      <div>
+        <div class="field"><div class="field-label">URL slug</div><div class="field-val">/hifu-double-chin-brisbane</div></div>
+        <div class="field"><div class="field-label">Min word count</div><div class="field-val">800 words</div></div>
+      </div>
+    </div>
+    <div class="field"><div class="field-label">H2 structure</div>
+      <ul class="h2-list">
+        <li>What causes a double chin (genetics vs weight vs ageing)</li>
+        <li>HIFU vs Kybella vs CoolSculpting for the chin — which is best?</li>
+        <li>How HIFU melts submental fat and tightens the skin at the same time</li>
+        <li>HIFU double chin cost Brisbane</li>
+        <li>Real Brisbane double chin before &amp; after</li>
+        <li>How many sessions, what's the timeline?</li>
+        <li>Book your HIFU double chin consult</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LP 8 -->
+  <div class="lp-card">
+    <h3>⑧ HIFU vs Injectables Brisbane <span class="slug">/hifu-vs-injectables-brisbane</span> <span class="pill p2">P2 · replaces old /5-reasons-why-hifu-is-better-than-injectables</span></h3>
+    <div class="field"><div class="field-label">Target keywords</div><div><span class="target-kws">hifu vs botox</span><span class="target-kws">hifu vs fillers</span><span class="target-kws">alternative to botox brisbane</span></div></div>
+    <div class="grid-2">
+      <div>
+        <div class="field"><div class="field-label">Title tag</div><div class="field-val">HIFU vs Botox &amp; Fillers Brisbane | Honest Comparison</div></div>
+        <div class="field"><div class="field-label">Meta description</div><div class="field-val">HIFU vs Botox, fillers and thread lifts compared by Brisbane HIFU Masters. Cost, results, downtime, risk — the unbiased comparison.</div></div>
+        <div class="field"><div class="field-label">H1</div><div class="field-val">HIFU vs Injectables — The Honest Brisbane Comparison</div></div>
+      </div>
+      <div>
+        <div class="field"><div class="field-label">URL slug</div><div class="field-val">/hifu-vs-injectables-brisbane</div></div>
+        <div class="field"><div class="field-label">Min word count</div><div class="field-val">1,400 words (expand from existing /5-reasons post)</div></div>
+      </div>
+    </div>
+    <div class="field"><div class="field-label">301 redirect</div><div class="field-val">Set Hostinger redirect: <code>/5-reasons-why-hifu-is-better-than-injectables</code> → <code>/hifu-vs-injectables-brisbane</code></div></div>
+    <div class="field"><div class="field-label">H2 structure</div>
+      <ul class="h2-list">
+        <li>HIFU vs Botox — what each actually does</li>
+        <li>HIFU vs dermal fillers — volume vs lift</li>
+        <li>HIFU vs thread lifts</li>
+        <li>HIFU vs Ultraformer / Ultherapy</li>
+        <li>Cost comparison over 12 months</li>
+        <li>Downtime &amp; risk profile</li>
+        <li>Who should choose HIFU instead of injectables?</li>
+        <li>Who should still consider injectables?</li>
+        <li>Book a HIFU consult — we'll be honest about whether it's right for you</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 24px;">P3 — backlog (build months 2–3)</h3>
+  <table>
+    <thead><tr><th>Slug</th><th>Target keyword</th><th>Why later</th></tr></thead>
+    <tbody>
+      <tr><td><code>/hifu-vs-coolsculpting-brisbane</code></td><td>coolsculpting near me, fat freezing brisbane</td><td>Competitor capture; build after P0–P2 ship</td></tr>
+      <tr><td><code>/hifu-vs-laser-clinics-australia</code></td><td>laser clinics australia (competitor)</td><td>Capture branded competitor searches</td></tr>
+      <tr><td><code>/hifu-vs-ultraformer</code></td><td>ultraformer (HIFU machine variant)</td><td>Educational + technical credibility</td></tr>
+      <tr><td><code>/hifu-for-men-brisbane</code></td><td>hifu for men, mens facial brisbane</td><td>Underserved segment; Monday Man-Day already runs</td></tr>
+      <tr><td><code>/hifu-stomach-waist-brisbane</code></td><td>stomach tightening, hifu body brisbane</td><td>Saturday Stomach Day already runs</td></tr>
+      <tr><td><code>/hifu-recovery-aftercare</code></td><td>hifu aftercare, what to do after hifu</td><td>Internal-link target + post-treatment trust signal</td></tr>
+      <tr><td><code>/hifu-sunshine-coast</code></td><td>hifu sunshine coast (spillover geo)</td><td>Geo-expansion; "we travel from SC" angle</td></tr>
+      <tr><td><code>/hifu-gold-coast</code></td><td>hifu gold coast</td><td>Same</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 5. DIRECTORIES ============ -->
+<section id="directories">
+  <h2>5. Directory submission blitz — 17 directories <span class="pill p1">P1 · ~3 hours total</span></h2>
+  <div class="lead">Each row below is a free or freemium listing site relevant to Brisbane HIFU. Citations from these sources reinforce GBP's NAP signal and contribute backlinks. <strong>Use identical NAP everywhere</strong> — exact format below — Google rewards consistency.</div>
+
+  <div class="blocker-box info">
+    <h3>📋 Master NAP block — copy &amp; paste into every directory verbatim</h3>
+    <ul>
+      <li><strong>Name:</strong> Brisbane HIFU Clinic</li>
+      <li><strong>Address:</strong> 88 Allen St, Hamilton QLD 4007, Australia</li>
+      <li><strong>Phone:</strong> 0416 248 639 (or +61 416 248 639 international)</li>
+      <li><strong>Email:</strong> brisbane.hifu.clinic@gmail.com</li>
+      <li><strong>Website:</strong> https://brisbanehifu.com</li>
+      <li><strong>Category:</strong> Skin care clinic · Medical spa · Cosmetic clinic · Beauty salon</li>
+      <li><strong>Hours:</strong> Mon–Fri 9:00–19:00 · Sat 9:00–16:00 · Sun closed (verify on GBP)</li>
+      <li><strong>Description (short, 150 chars):</strong> Brisbane's #1 HIFU clinic. Non-surgical face &amp; body lift. 5★ from 132 clients. UltraTherapy 15D MMFU. Hamilton, easy parking.</li>
+      <li><strong>Description (long, 400 chars):</strong> Brisbane HIFU Clinic is the city's most reviewed non-surgical face and body lifting clinic. We use UltraTherapy 15D MMFU HIFU technology to lift, tighten and smooth skin without surgery, injectables or downtime. Founded by Kim Klein, a HIFU Master with 20+ years in health and longevity. 5.0★ from 132 Google reviews and 800+ happy clients. Treatments from $300. Located in Hamilton, minutes from the Brisbane CBD.</li>
+    </ul>
+  </div>
+
+  <h3>Tier 1 — must-have (free, high authority)</h3>
+  <table>
+    <thead><tr><th>#</th><th>Directory</th><th>Listing URL</th><th>How to submit</th><th>Free?</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr class="ok"><td>1</td><td><strong>Google Business Profile</strong></td><td>google.com/business</td><td>Already claimed ✅ — see Section 6 for optimisation</td><td>Yes</td><td>Done</td></tr>
+      <tr class="warn"><td>2</td><td><strong>Bing Places for Business</strong></td><td><a href="https://www.bingplaces.com" target="_blank">bingplaces.com</a></td><td>Sign in with Microsoft account → Import from Google → verify by phone. 10 min.</td><td>Yes</td><td>15 min</td></tr>
+      <tr class="warn"><td>3</td><td><strong>Apple Business Connect</strong></td><td><a href="https://businessconnect.apple.com" target="_blank">businessconnect.apple.com</a></td><td>Sign in with Apple ID → Add Business → verify by phone/postcard. 46% of AU mobile users are iPhone — non-negotiable.</td><td>Yes</td><td>15 min</td></tr>
+      <tr class="warn"><td>4</td><td><strong>Yellow Pages AU</strong></td><td><a href="https://www.yellowpages.com.au" target="_blank">yellowpages.com.au</a></td><td>"Add your business" → free basic listing. Will be cold-called to upsell — say no, keep free listing.</td><td>Free tier</td><td>10 min</td></tr>
+      <tr class="warn"><td>5</td><td><strong>True Local</strong></td><td><a href="https://www.truelocal.com.au" target="_blank">truelocal.com.au</a></td><td>"Add Business" → fill NAP → verify by email.</td><td>Yes</td><td>10 min</td></tr>
+      <tr class="warn"><td>6</td><td><strong>WhatClinic</strong></td><td><a href="https://www.whatclinic.com" target="_blank">whatclinic.com</a></td><td>"List Your Clinic" → create account → fill clinic profile. 734 AU clinics listed — high relevance.</td><td>Free tier</td><td>20 min</td></tr>
+      <tr class="warn"><td>7</td><td><strong>Yelp Australia</strong></td><td><a href="https://biz.yelp.com.au" target="_blank">biz.yelp.com.au</a></td><td>"Claim your business" → verify. Lower AU usage than GBP but feeds Apple Maps + Siri.</td><td>Yes</td><td>10 min</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Tier 2 — high-value local + niche</h3>
+  <table>
+    <thead><tr><th>#</th><th>Directory</th><th>Listing URL</th><th>How to submit</th><th>Free?</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td>8</td><td><strong>Hotfrog Australia</strong></td><td><a href="https://www.hotfrog.com.au" target="_blank">hotfrog.com.au</a></td><td>"Add your business free" → form. Auto-publishes.</td><td>Yes</td><td>5 min</td></tr>
+      <tr><td>9</td><td><strong>StartLocal</strong></td><td><a href="https://www.startlocal.com.au" target="_blank">startlocal.com.au</a></td><td>"List your business" — free local AU directory.</td><td>Yes</td><td>5 min</td></tr>
+      <tr><td>10</td><td><strong>AussieWeb</strong></td><td><a href="https://www.aussieweb.com.au" target="_blank">aussieweb.com.au</a></td><td>"List your business" → free.</td><td>Yes</td><td>5 min</td></tr>
+      <tr><td>11</td><td><strong>Cylex Australia</strong></td><td><a href="https://www.cylex.com.au" target="_blank">cylex.com.au</a></td><td>"Add my business" → form.</td><td>Yes</td><td>5 min</td></tr>
+      <tr><td>12</td><td><strong>Brisbane-Australia.com</strong></td><td><a href="https://www.brisbane-australia.com/directory/" target="_blank">brisbane-australia.com</a></td><td>Local Brisbane directory since 2001, 4000+ listings. "Add your business" → Beauty Salons category.</td><td>Yes</td><td>10 min</td></tr>
+      <tr><td>13</td><td><strong>QLD Business Directory</strong></td><td><a href="https://qldbusinessdirectory.com.au" target="_blank">qldbusinessdirectory.com.au</a></td><td>State-level directory. Free listing.</td><td>Yes</td><td>5 min</td></tr>
+      <tr><td>14</td><td><strong>Australian Business Listings (BusinessListings.net.au)</strong></td><td><a href="https://www.businesslistings.net.au" target="_blank">businesslistings.net.au</a></td><td>"Add a Business" → free.</td><td>Yes</td><td>5 min</td></tr>
+      <tr><td>15</td><td><strong>Fresha</strong></td><td><a href="https://www.fresha.com" target="_blank">fresha.com</a></td><td>Beauty/wellness booking directory. Free profile + optional integrated bookings. Email hello@fresha.com.</td><td>Yes</td><td>20 min</td></tr>
+      <tr><td>16</td><td><strong>Beauticate</strong></td><td><a href="https://www.beauticate.com" target="_blank">beauticate.com</a></td><td>Curated AU beauty directory. Submit via their contact form. Editorial review — may take 1–2 weeks.</td><td>Free (curated)</td><td>15 min + wait</td></tr>
+      <tr><td>17</td><td><strong>Natural Therapy Pages</strong></td><td><a href="https://www.naturaltherapypages.com.au" target="_blank">naturaltherapypages.com.au</a></td><td>Phone signup only — email support@ntpages.com.au or call. Paid listing but high niche authority.</td><td>Paid (~$25/mo)</td><td>30 min</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Tier 3 — backlink &amp; PR opportunities (do later)</h3>
+  <table>
+    <thead><tr><th>Channel</th><th>What to do</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><strong>HARO / SourceBottle (AU)</strong></td><td>Sign up at <a href="https://www.sourcebottle.com" target="_blank">sourcebottle.com</a> — respond to journalist queries about non-surgical beauty, anti-ageing, alternatives to Botox. 1× per week.</td><td>News-site backlinks = highest authority signal in SEO</td></tr>
+      <tr><td><strong>Brisbane Business Hub</strong></td><td>Join + list at <a href="https://www.brisbanebusinesshub.com.au" target="_blank">brisbanebusinesshub.com.au</a></td><td>City-of-Brisbane resource — local authority signal</td></tr>
+      <tr><td><strong>Hello Bonita / Urban List Brisbane</strong></td><td>Pitch a "Brisbane's best non-surgical clinic" listicle inclusion. Cold email editors.</td><td>Local lifestyle media backlinks</td></tr>
+      <tr><td><strong>Style magazine / The Weekend Edition / Concrete Playground</strong></td><td>Pitch a feature on "Family-run Brisbane clinics" or "Best of beauty in Brisbane 2026"</td><td>Backlink + brand authority + new client funnel</td></tr>
+      <tr><td><strong>Guest posts on aesthetic clinic blogs</strong></td><td>Offer to write "What is HIFU and how does it compare to Ultherapy" for 3–5 non-competing Brisbane wellness sites (yoga studios, dermatologists, gyms)</td><td>Topical backlinks; cross-referral traffic</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict">
+    <strong>Time-boxed plan:</strong> 1 hour for tier 1 (5 free directories) · 1 hour for tier 2 (10 directories) · 1 hour for HARO signup + first 2 pitches. <strong>Total: 3 hours = 17 high-quality citations = measurable lift to GBP rankings within 4–8 weeks.</strong>
+  </div>
+</section>
+
+<!-- ============ 6. GBP ============ -->
+<section id="gbp">
+  <h2>6. Google Business Profile — 30-min wins <span class="pill p1">P1</span></h2>
+  <div class="lead">You already have a 5.0★/132 review GBP — that's the rare elite tier. The leaks are photos, posts, Q&amp;A and services list. Each is a 5–30 min job; collectively they probably double your "near me" call volume.</div>
+
+  <h3>The 5 GBP fixes (in order of ROI)</h3>
+  <table>
+    <thead><tr><th>#</th><th>Fix</th><th>How</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr class="crit"><td>1</td><td><strong>Upload 20+ photos</strong></td><td>GBP app or business.google.com → Photos. Categories: Exterior · Interior · Treatment room · Equipment (UltraTherapy 15D close-ups) · Team (Kim + Luci) · Logo · Before/After (with consent). Listings with 100+ photos get 520% more calls.</td><td>30 min</td></tr>
+      <tr class="warn"><td>2</td><td><strong>Pre-populate Q&amp;A with 10 owner-posted questions</strong></td><td>Self-post each question from a second Google account (e.g. Jeremy's), then answer as the brand. Captures the Q&amp;A real estate before randoms do. Question list ↓ below.</td><td>45 min one-time</td></tr>
+      <tr class="warn"><td>3</td><td><strong>Add all services with descriptions</strong></td><td>GBP → Edit profile → Services → Add. List each treatment from /hifu-deals: HIFU Face Lift, HIFU Eye Lift, HIFU Body Contouring, Men's HIFU, etc. Add 50-word description for each.</td><td>30 min</td></tr>
+      <tr class="warn"><td>4</td><td><strong>Set up weekly Posts</strong></td><td>1 Post/week minimum. Mix: Deal of the week · Before/after · Educational ("3 things to know before HIFU") · Client testimonial · Behind the scenes. Posts age out at 7 days — cadence matters.</td><td>15 min/wk</td></tr>
+      <tr class="warn"><td>5</td><td><strong>Add secondary categories</strong></td><td>Primary: Skin care clinic (already set ✅). Add: Medical spa · Beauty salon · Cosmetic dermatologist (only if appropriate — verify scope-of-practice rules)</td><td>5 min</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10 Q&amp;A to pre-populate (post + self-answer)</h3>
+  <table>
+    <thead><tr><th>#</th><th>Question to post</th><th>Suggested answer (from brand account)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>What is HIFU?</td><td>HIFU stands for High-Intensity Focused Ultrasound — a non-surgical treatment that lifts and tightens skin by stimulating collagen in the deep support layers. At Brisbane HIFU Clinic we use UltraTherapy 15D MMFU. Learn more: brisbanehifu.com/hifu-faq-non-surgical-face-lift</td></tr>
+      <tr><td>2</td><td>How much does HIFU cost in Brisbane?</td><td>HIFU at Brisbane HIFU Clinic starts at $300 for a half face lift, $500 for a full face + neck. 3-pack and group deals available. Full price list: brisbanehifu.com/hifu-deals</td></tr>
+      <tr><td>3</td><td>Does HIFU hurt?</td><td>Most clients describe HIFU as virtually pain-free or minimal discomfort, with occasional warmth in bony areas. We adjust settings to your comfort level. Read more: brisbanehifu.com/hifu-faq-non-surgical-face-lift</td></tr>
+      <tr><td>4</td><td>How long do HIFU results last?</td><td>Results build over 4–12 weeks and typically last 6–12 months. Maintenance sessions every 6–12 months extend results.</td></tr>
+      <tr><td>5</td><td>Is HIFU safe?</td><td>Yes — HIFU is a non-invasive, FDA-cleared technology used worldwide. At Brisbane HIFU Clinic our HIFU Masters are certified on UltraTherapy 15D MMFU technology.</td></tr>
+      <tr><td>6</td><td>How many HIFU sessions do I need?</td><td>Most clients see strong results from our 3-treatment plan, spaced 4–6 weeks apart. Some lighter concerns resolve in a single session.</td></tr>
+      <tr><td>7</td><td>Where is Brisbane HIFU Clinic located?</td><td>88 Allen St, Hamilton QLD 4007. Free street parking, 10 min from Brisbane CBD. Phone 0416 248 639.</td></tr>
+      <tr><td>8</td><td>Do you offer HIFU for men?</td><td>Yes — we run a dedicated Monday Man-Day Deal with HIFU face &amp; neck lifts for men from $350. Jawline definition and neck firming are our most popular men's treatments.</td></tr>
+      <tr><td>9</td><td>Do you do HIFU for the body?</td><td>Yes — HIFU body treatments at Brisbane HIFU Clinic include stomach, waist, thighs, arms, knees and booty. Saturday Stomach Day from $300. Full body Ultimate Makeover $1700.</td></tr>
+      <tr><td>10</td><td>Can I pay with Afterpay or Zip?</td><td>Yes — we offer both Afterpay and Zip on every HIFU treatment and package.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 7. ALT TEXT ============ -->
+<section id="alttext">
+  <h2>7. Alt-text rewrites — homepage 17 images <span class="pill p1">P1 · 30 min</span></h2>
+  <div class="lead">Currently 15/17 homepage images are missing alt text. Each is a missed ranking signal. Hostinger Builder: click image → properties panel → alt text field → paste from below. Same pattern across other pages (FAQ has 22/24 missing, Reviews 14/72 missing).</div>
+
+  <div class="blocker-box info">
+    <h3>Alt-text formula</h3>
+    <p>Each alt: <em>[descriptive content] + [HIFU/treatment context] + [Brisbane/location if relevant]</em>. Keep under 125 chars. Don't keyword-stuff — Google penalises this.</p>
+  </div>
+
+  <table>
+    <thead><tr><th>#</th><th>Image context</th><th>Alt text to paste</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Hero / logo</td><td>Brisbane HIFU Clinic logo — non-surgical face and body lift specialists in Hamilton</td></tr>
+      <tr><td>2</td><td>Hero banner / face lift</td><td>HIFU non-surgical face lift treatment in progress at Brisbane HIFU Clinic Hamilton</td></tr>
+      <tr><td>3</td><td>HIFU machine / UltraTherapy device</td><td>UltraTherapy 15D MMFU HIFU machine used at Brisbane HIFU Clinic</td></tr>
+      <tr><td>4</td><td>Before/after — face</td><td>HIFU face lift before and after — Brisbane client, 12 weeks post-treatment</td></tr>
+      <tr><td>5</td><td>Before/after — jawline</td><td>HIFU jawline tightening before and after — Brisbane HIFU Clinic client result</td></tr>
+      <tr><td>6</td><td>Before/after — eye/brow</td><td>HIFU eye lift before and after — non-surgical brow lift Brisbane</td></tr>
+      <tr><td>7</td><td>Treatment room / clinic interior</td><td>Brisbane HIFU Clinic treatment room — private, luxury, Hamilton location</td></tr>
+      <tr><td>8</td><td>Kim Klein photo</td><td>Kim Klein, founder and HIFU Master at Brisbane HIFU Clinic</td></tr>
+      <tr><td>9</td><td>Luci photo</td><td>Luci, HIFU Master Practitioner at Brisbane HIFU Clinic</td></tr>
+      <tr><td>10</td><td>HIFU for men image</td><td>HIFU treatment for men — jawline and neck firming at Brisbane HIFU Clinic</td></tr>
+      <tr><td>11</td><td>Body treatment image</td><td>HIFU body treatment — non-surgical stomach and waist tightening Brisbane</td></tr>
+      <tr><td>12</td><td>Ultimate Package promo</td><td>Ultimate HIFU Package — full body face neck arms thighs stomach Brisbane HIFU Clinic</td></tr>
+      <tr><td>13</td><td>Testimonial / review thumbnail</td><td>5-star Google review for Brisbane HIFU Clinic — client testimonial</td></tr>
+      <tr><td>14</td><td>Afterpay / Zip logos</td><td>Afterpay and Zip pay-later options accepted at Brisbane HIFU Clinic</td></tr>
+      <tr><td>15</td><td>Google reviews badge</td><td>Brisbane HIFU Clinic — 5.0 star rating from 132 Google reviews</td></tr>
+      <tr><td>16</td><td>"800+ happy clients" graphic</td><td>800+ happy HIFU clients treated at Brisbane HIFU Clinic in Hamilton</td></tr>
+      <tr><td>17</td><td>Contact / book now CTA</td><td>Book HIFU treatment Brisbane — phone, email or online booking at Brisbane HIFU Clinic</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nova-box">
+    <strong>Pattern for other pages:</strong> use the same formula. For reviews page (14/72 missing), each photo alt should reference the reviewer's treatment type + Brisbane. For FAQ (22/24 missing), each image should reference the question topic. Don't stress over the 50+ already-alt'd images on the reviews page unless the existing alt is empty or just a filename.
+  </div>
+</section>
+
+<!-- ============ 8. META FIX ============ -->
+<section id="metafix">
+  <h2>8. Title + meta rewrites — existing pages <span class="pill p0">P0 · 20 min</span></h2>
+  <div class="lead">Hostinger: Pages → click page → Page Settings → SEO → paste each title and description. Update Save / Publish.</div>
+
+  <table>
+    <thead><tr><th>Page</th><th>Current title (length)</th><th>NEW title (paste)</th><th>NEW meta description (paste)</th></tr></thead>
+    <tbody>
+      <tr class="crit">
+        <td><strong>Home</strong><br><code>/</code></td>
+        <td>"Non-surgical facelift. Brisbane's BEST HIFU Treatment - results guaranteed! | Brisbane HIFU Clinic" <strong>(98 chars ❌)</strong></td>
+        <td><strong>Brisbane HIFU Clinic | Non-Surgical Face &amp; Body Lift</strong> (53 chars ✅)</td>
+        <td>Brisbane's #1 HIFU clinic. 5★ from 132 clients. Non-surgical face &amp; body lift in Hamilton. From $300. Results in 8–12 weeks. Book a consult. (146 chars ✅)</td>
+      </tr>
+      <tr class="crit">
+        <td><strong>FAQ</strong><br><code>/hifu-faq-non-surgical-face-lift</code></td>
+        <td>"Frequently Asked Questions about HIFU non-surgical face lifting" <strong>(88 chars ❌)</strong></td>
+        <td><strong>HIFU Brisbane FAQ — Non-Surgical Facelift Questions</strong> (54 chars ✅)</td>
+        <td>Honest answers to the 10 questions Brisbane clients ask before booking HIFU. Pain, downtime, cost, results, areas treated — by HIFU Masters Kim &amp; Luci.</td>
+      </tr>
+      <tr class="ok">
+        <td><strong>Deals</strong><br><code>/hifu-deals</code></td>
+        <td>"Book HIFU what is the cost | Brisbane HIFU Clinic" (49 chars ✅ — keep but improve)</td>
+        <td><strong>HIFU Deals Brisbane | Face, Body Packages from $300</strong> (53 chars ✅)</td>
+        <td>HIFU deals in Brisbane — face packs, body combos, group offers &amp; Ultimate Makeover. From $300. Afterpay &amp; Zip. Daily specials Mon–Sat.</td>
+      </tr>
+      <tr class="crit">
+        <td><strong>Reviews</strong><br><code>/client-reviews</code></td>
+        <td>"Client Reviews | Brisbane HIFU Clinic" (37 chars ✅)</td>
+        <td><strong>Brisbane HIFU Reviews — 5★ from 132 Google Clients</strong> (53 chars ✅)</td>
+        <td>Real 5-star Google reviews from 132 Brisbane HIFU clients. See before &amp; after stories from face lift, body, eye lift and men's HIFU.</td>
+      </tr>
+      <tr class="warn">
+        <td><strong>About</strong><br><code>/about-us</code></td>
+        <td>"Practitioner-Hifu-specialists | Brisbane HIFU Clinic" (53 chars ✅ but slug-style)</td>
+        <td><strong>About Brisbane HIFU Clinic — Kim &amp; Luci, HIFU Masters</strong> (55 chars ✅)</td>
+        <td>Meet Kim Klein, founder of Brisbane HIFU Clinic, and Luci, our HIFU Master. Family-run, 800+ clients, 700+ five-star reviews. Hamilton, Brisbane.</td>
+      </tr>
+      <tr class="warn">
+        <td><strong>Win a Face Lift</strong><br><code>/win-a-face-lift</code></td>
+        <td>(not audited — likely default builder title)</td>
+        <td><strong>Win a Free HIFU Face Lift — Brisbane HIFU Clinic</strong> (49 chars ✅)</td>
+        <td>Enter to win a free HIFU face &amp; neck lift at Brisbane HIFU Clinic. $500 value. Drawn monthly. Brisbane residents — Hamilton clinic.</td>
+      </tr>
+      <tr class="warn">
+        <td><strong>Blog index</strong><br><code>/hifu-blog</code></td>
+        <td>(unknown — needs audit)</td>
+        <td><strong>HIFU Blog — Treatment Guides &amp; Brisbane Tips</strong> (47 chars ✅)</td>
+        <td>HIFU treatment guides, before &amp; after stories, and skin-tightening advice from Brisbane HIFU Clinic's Masters Kim &amp; Luci.</td>
+      </tr>
+      <tr class="warn">
+        <td><strong>Contact</strong><br><code>/contact-us</code></td>
+        <td>(unknown)</td>
+        <td><strong>Contact Brisbane HIFU Clinic | Hamilton QLD 4007</strong> (49 chars ✅)</td>
+        <td>Book a HIFU consult at Brisbane HIFU Clinic. 88 Allen St, Hamilton QLD 4007. Phone 0416 248 639. Open Mon–Sat.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Blog post title fixes (apply pattern to all)</h3>
+  <table>
+    <thead><tr><th>URL</th><th>Current H1</th><th>NEW H1</th><th>NEW meta description</th></tr></thead>
+    <tbody>
+      <tr class="warn">
+        <td><code>/what-exactly-is-hifu</code></td>
+        <td>"What Exactly is HIFU?"</td>
+        <td>What is HIFU? Brisbane HIFU Master's Complete Guide</td>
+        <td>What HIFU is, how it works, what it treats, what it costs in Brisbane and how it compares to surgery. By HIFU Master Kim Klein.</td>
+      </tr>
+      <tr class="warn">
+        <td><code>/5-reasons-why-hifu-is-better-than-injectables</code><br>→ redirect to <code>/hifu-vs-injectables-brisbane</code></td>
+        <td>"5 reasons why HIFU is better than Injectables!"</td>
+        <td>HIFU vs Botox &amp; Fillers — Honest Brisbane Comparison</td>
+        <td>HIFU vs Botox, fillers and thread lifts compared by Brisbane HIFU Masters. Cost, results, downtime, risk — unbiased.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 9. CONTENT CALENDAR ============ -->
+<section id="content">
+  <h2>9. 12-week content calendar <span class="pill p2">P2</span></h2>
+  <div class="lead">3 channels each week: blog post (1) · GBP post (1) · Instagram/Facebook post (1–2). Compounding traffic effect kicks in around week 8–10.</div>
+
+  <table>
+    <thead><tr><th>Wk</th><th>Blog post (1,200+ words)</th><th>GBP post</th><th>Social (IG/FB) theme</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Skip — focus on shipping landing pages 1+2 &amp; schema</td><td>"Schema markup live — Google now shows our 5-star rating in search results 🎉"</td><td>Before/after carousel — face lift</td></tr>
+      <tr><td>2</td><td>Skip — ship landing pages 3-5</td><td>Mid-week HIFU Hump Day promo</td><td>Kim/Luci behind-the-scenes reel</td></tr>
+      <tr><td>3</td><td><strong>"HIFU vs CoolSculpting — what Brisbane should know in 2026"</strong></td><td>Before/after — body contouring</td><td>Client testimonial (with permission)</td></tr>
+      <tr><td>4</td><td><strong>"How much does HIFU cost in Brisbane in 2026?"</strong> (deep dive — links to /hifu-cost-brisbane)</td><td>Group deal — Bring a Friend 4 Free</td><td>HIFU machine close-up + tech explainer</td></tr>
+      <tr><td>5</td><td><strong>"Alternatives to a tummy tuck — non-surgical options for Brisbane mums"</strong></td><td>Saturday Stomach Day promo</td><td>Before/after — stomach &amp; waist</td></tr>
+      <tr><td>6</td><td><strong>"HIFU recovery: what to do (and not do) in the 48 hours after"</strong></td><td>Educational — 3 things to know before HIFU</td><td>Q&amp;A reel — top 5 HIFU questions</td></tr>
+      <tr><td>7</td><td><strong>"How does HIFU actually stimulate collagen? The science in plain English"</strong></td><td>Mid-week Hump Day</td><td>Client review highlight</td></tr>
+      <tr><td>8</td><td><strong>"HIFU for hooded eyes &amp; brow droop — non-surgical alternatives in Brisbane"</strong> (supports /hifu-eye-lift-brisbane)</td><td>Eye lift before/after</td><td>Eye area education reel</td></tr>
+      <tr><td>9</td><td><strong>"Men's HIFU Brisbane — what guys want to know before their first Monday Man-Day"</strong></td><td>Monday Man-Day promo</td><td>Men's before/after — jawline</td></tr>
+      <tr><td>10</td><td><strong>"HIFU vs Ultherapy vs Ultraformer — what's the difference and which is best?"</strong></td><td>HIFU technology spotlight — UltraTherapy 15D</td><td>Founder story — Kim's HIFU journey</td></tr>
+      <tr><td>11</td><td><strong>"HIFU double chin — does it really work? Brisbane HIFU Master's honest answer"</strong> (supports /hifu-double-chin-brisbane)</td><td>Double chin before/after</td><td>Jawline transformation reel</td></tr>
+      <tr><td>12</td><td><strong>"The complete Brisbane HIFU FAQ — 25 questions in one place"</strong> (mega-post — links everywhere)</td><td>Review milestone post (e.g. 150 reviews)</td><td>Year-in-review montage</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict">
+    <strong>Compounding effect:</strong> by week 12 you have 10 new keyword-rich blog posts + 8 service landing pages + 12 GBP posts + 24+ social posts, all internally linked. Search Console should show 25–40% lift in impressions on Brisbane HIFU keywords by week 16, with click lift trailing 2–3 weeks behind. <strong>Don't expect linear progress — SEO compounds.</strong>
+  </div>
+</section>
+
+<!-- ============ 10. GROWTH ============ -->
+<section id="growth">
+  <h2>10. Beyond SEO — 10 ways to grow Brisbane HIFU <span class="pill p3">Strategic</span></h2>
+  <div class="lead">Most of these convert better than ads. Pick 2–3 that excite you and ignore the rest.</div>
+
+  <div class="grid-2">
+    <div class="lp-card">
+      <h3>① Email capture + nurture sequence</h3>
+      <p style="font-size: 13.5px;">Add an exit-intent popup on /hifu-deals: <em>"Get our HIFU candidate self-assessment — find out in 60 seconds if HIFU is right for your skin."</em> 8-question quiz → email-gated PDF result. Drop them into a 10-day nurture series (1 email/day for 4 days, then weekly).</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Tool:</strong> MailerLite (free up to 1000 contacts) · <strong>Effort:</strong> 1 day setup, then evergreen · <strong>ROI:</strong> 5–15% of organic visitors convert to email; 8–12% of those book within 30 days.</p>
+    </div>
+    <div class="lp-card">
+      <h3>② TikTok testimonial channel</h3>
+      <p style="font-size: 13.5px;">Aesthetic clinics absolutely dominate TikTok in 2026. Even 1 viral video = 10,000 in-market views. Get client consent → post 60s reel of treatment + 30-day result. Don't filter, don't over-produce. Authentic wins.</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Cadence:</strong> 3×/week · <strong>Tool:</strong> phone + CapCut · <strong>ROI:</strong> first viral hit usually within 30–60 days of consistent posting.</p>
+    </div>
+    <div class="lp-card">
+      <h3>③ Pinterest for before/after</h3>
+      <p style="font-size: 13.5px;">Pinterest is an evergreen search engine that ages well. Each pinned before/after with descriptive alt text + linked landing page can drive traffic for years. Massive untapped channel for AU aesthetic clinics.</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Tool:</strong> Pinterest Business (free) · <strong>Effort:</strong> 10 min/week to pin · <strong>ROI:</strong> 6-month ramp, then sustained referral traffic.</p>
+    </div>
+    <div class="lp-card">
+      <h3>④ Refer-a-friend program (formalised)</h3>
+      <p style="font-size: 13.5px;">You already do "Bring a Friend 4 Free" as a promotion. Formalise it as a year-round referral program: existing client gets $50 credit when their referral books their first treatment. Both names tracked in BAT.ai.</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Tool:</strong> BAT.ai contact tags + manual tracking (until automation built) · <strong>ROI:</strong> referred clients book 3× more often and stay loyal 2× longer (industry avg).</p>
+    </div>
+    <div class="lp-card">
+      <h3>⑤ Wedding partner program</h3>
+      <p style="font-size: 13.5px;">Partner with 5 Brisbane wedding planners + 5 wedding photographers for a "12-week pre-wedding glow" referral. Cross-promote each other's pages. Email outreach: "Hey, would you like a referral bonus for sending brides for a non-surgical face lift?"</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Effort:</strong> 5 hours outreach week 1, then evergreen · <strong>ROI:</strong> brides are willing to spend pre-wedding.</p>
+    </div>
+    <div class="lp-card">
+      <h3>⑥ B2B feeder for HIFU Machines Sales</h3>
+      <p style="font-size: 13.5px;">Your /start-a-clinic page exists but is buried. Build a proper /start-a-hifu-clinic-australia landing page targeting beauty therapists who want to add HIFU. Convert curious clients into machine buyers. Brisbane HIFU as "the proof clinic" is your strongest credential.</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Note:</strong> this is a HIFU Machines Sales play; cross-link with brisbanehifu.com to leverage trust.</p>
+    </div>
+    <div class="lp-card">
+      <h3>⑦ Local press: founder story angle</h3>
+      <p style="font-size: 13.5px;">"Brisbane mum quits tech career to bring non-surgical face lift to Hamilton" — pitch to Style magazine, Hello Bonita, Brisbane Times lifestyle, Urban List Brisbane. Founder stories with Family-Run + Women-Owned + Hyper-Local angles still get coverage.</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Tool:</strong> Source Bottle (AU equivalent of HARO) · <strong>Effort:</strong> 1 outreach blitz, ~5 hours · <strong>ROI:</strong> 1–2 placements = strong backlinks + brand authority.</p>
+    </div>
+    <div class="lp-card">
+      <h3>⑧ "HIFU at Home" content angle</h3>
+      <p style="font-size: 13.5px;">Counter-intuitive: write authoritatively about why at-home HIFU devices don't work (low energy, no targeting, no medical assessment). Search volume for "home HIFU" is huge in 2026. You'll rank for it AND convert sceptics by being the honest expert.</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Blog topic:</strong> "Do at-home HIFU devices actually work? A Brisbane HIFU Master's honest review."</p>
+    </div>
+    <div class="lp-card">
+      <h3>⑨ Webinar / IG live monthly</h3>
+      <p style="font-size: 13.5px;">Monthly "Ask Kim &amp; Luci anything about HIFU" Instagram Live, 30 min. Pre-collect questions via Stories. Highlight reel saves on profile. Drives consultation bookings + repeat visits to profile.</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Cadence:</strong> 1×/month, same day each month · <strong>ROI:</strong> 5–20 bookings per session typical.</p>
+    </div>
+    <div class="lp-card">
+      <h3>⑩ "Win a Face Lift" — gamify + amplify</h3>
+      <p style="font-size: 13.5px;">You have /win-a-face-lift already. Turbocharge it: monthly winner publicly drawn on IG Live, entry requires email + IG follow + tag-a-friend. Each draw cycle adds 200–500 emails to your list (low cost, high relevance).</p>
+      <p style="font-size: 12.5px; color: #64748b;"><strong>Cost:</strong> 1 free $500 treatment/month = $6k/yr · <strong>ROI:</strong> typically 50× ROI on monthly giveaway lists in this niche.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11. DIVISION ============ -->
+<section id="division">
+  <h2>11. What Nova did vs what needs Kim <span class="pill nova">Honest division of labour</span></h2>
+
+  <div class="grid-2">
+    <div>
+      <h3>✅ Nova has already done autonomously today</h3>
+      <ul class="checklist">
+        <li class="done"><strong>Re-audited the live site</strong><span class="why">Home + Deals + FAQ + About + Reviews</span></li>
+        <li class="done"><strong>Pulled all 10 FAQs verbatim and built FAQPage schema</strong></li>
+        <li class="done"><strong>Built BeautySalon site-wide schema</strong><span class="why">with NAP, hours, all 6 service prices, AggregateRating, areaServed for Brisbane suburbs</span></li>
+        <li class="done"><strong>Built Review schema with 5 reviewers</strong></li>
+        <li class="done"><strong>Built Person schema for Kim + Luci</strong></li>
+        <li class="done"><strong>Drafted 8 landing-page content briefs</strong><span class="why">title + meta + H1 + H2 outline + min word count + internal links + opening copy</span></li>
+        <li class="done"><strong>Drafted 17 directory submission URLs with submission process for each</strong></li>
+        <li class="done"><strong>Wrote 10 GBP Q&amp;A questions + answers ready to self-post</strong></li>
+        <li class="done"><strong>Wrote 17 alt-text rewrites for homepage</strong></li>
+        <li class="done"><strong>Drafted 7 page title + meta description rewrites</strong></li>
+        <li class="done"><strong>Built 12-week content calendar with 10 blog topics + 12 GBP themes</strong></li>
+        <li class="done"><strong>Identified 10 strategic growth angles beyond SEO</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3>⏳ Needs Kim (or Nova driving via Chrome MCP)</h3>
+      <ul class="checklist">
+        <li><strong>Paste 3–4 schema blocks into Hostinger</strong><span class="why">Custom Code area for site-wide; Embed elements per page. ~30 min. Nova can drive Chrome if you say "Nova, do Hostinger".</span></li>
+        <li><strong>Rewrite 7 page titles + metas in Hostinger Page Settings</strong><span class="why">~20 min — Nova can drive Chrome.</span></li>
+        <li><strong>Add 17 alt-texts on homepage images</strong><span class="why">Click-and-paste in Builder UI · 30 min · Nova can drive Chrome.</span></li>
+        <li><strong>Build 8 new landing pages in Hostinger</strong><span class="why">Visual builder doesn't accept full HTML paste — each needs to be built page-by-page using the content briefs. ~45 min/page = 6 hrs. Nova can drive but it's slow via Chrome MCP — better as a structured paste exercise.</span></li>
+        <li><strong>Submit to 17 directories</strong><span class="why">Each needs an account create + verify-by-email or phone. ~10 min each = 3 hrs. Nova CAN drive Chrome for the form-fills — needs Kim present for email/phone verifications.</span></li>
+        <li><strong>Upload 20+ photos to GBP</strong><span class="why">Kim only — needs phone access to her photo library + business.google.com</span></li>
+        <li><strong>Self-post 10 GBP Q&amp;A from secondary account</strong><span class="why">Needs Kim or Jeremy's Google account, but answers are written. ~30 min.</span></li>
+        <li><strong>Approve any plan upgrade if Hostinger Starter</strong><span class="why">Premium+ needed for site-wide Custom Code (schema). ~$5–10/mo extra. Likely already on Business plan.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="blocker-box info" style="margin-top: 24px;">
+    <h3>🚀 The "say go and Nova drives Hostinger" option</h3>
+    <p>If you want, Nova can drive Hostinger via Chrome MCP and do the following autonomously while you nap or work on something else:</p>
+    <ol>
+      <li>Paste the 3 site-wide schema blocks into Custom Code</li>
+      <li>Rewrite the 7 title tags + meta descriptions</li>
+      <li>Add the 17 homepage alt texts</li>
+      <li>Add the 22 FAQ alt texts + 14 reviews alt texts (same pattern)</li>
+      <li>Create the page shell for landing page ① (/hifu-brisbane) and paste in the opening copy + H2 structure (you'd still need to drop in images via your photo library)</li>
+    </ol>
+    <p style="margin-top: 8px;">Estimated time: 60–90 min via Chrome MCP if Hostinger UI is stable. <strong>What Nova needs from you to start:</strong> confirmation that the Hostinger tab is open + you're logged in. Reply <em>"Nova, drive Hostinger"</em> and I'll go.</p>
+  </div>
+
+  <div class="blocker-box warn" style="margin-top: 18px;">
+    <h3>⚠️ What Nova can't do without you</h3>
+    <ul>
+      <li>Photo uploads to GBP (your phone photo library)</li>
+      <li>Account creation on directories that need SMS verification to your phone</li>
+      <li>Plan upgrade decisions (Hostinger plan tier costs money)</li>
+      <li>Approving the final copy on each landing page (medical claims need owner sign-off)</li>
+      <li>Anything requiring filming, photography, or in-clinic content</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 12. MASTER PLAN PORTS-UP ============ -->
+<section id="masterplan-ports">
+  <h2>12. Master Plan ports-up — infrastructure built for Redlands HIFU that strengthens Brisbane HIFU&apos;s lead <span class="pill nova">Added 14 May 2026</span></h2>
+  <div class="lead">While building the Redlands HIFU client launch pack, Nova produced 5 pieces of infrastructure that aren&apos;t Redlands-specific — they&apos;re general best-practice infrastructure that should also be running on Brisbane HIFU. <strong>Brisbane HIFU stays the competitive flagship: it gets ALL of these AT FULL DEPTH, while Redlands HIFU only gets pared-back versions.</strong></div>
+
+  <div class="blocker-box info">
+    <h3>🛡️ Competitive separation rule (locked in memory)</h3>
+    <p>Brisbane HIFU = Kim&apos;s own clinic, enterprise top-tier. Redlands HIFU = Kim&apos;s client (Grace + Reid owners), &quot;good for Bayside catchment&quot; only. The 5 ports below are tools/infrastructure — applying them at Brisbane HIFU&apos;s full depth strengthens the moat. Redlands HIFU gets the pared-back version (see <a href="../../../redlands-hifu/01-seo-foundation-paste-pack.html">artefact 01 onwards</a>) deliberately.</p>
+  </div>
+
+  <h3>① Analytics &amp; tracking infrastructure <span class="pill p0">P0 · CRITICAL</span></h3>
+  <p>The single highest-impact item to port up. Brisbane HIFU runs $59/day ads (~$22k/yr) but its tracking layer isn&apos;t formalised — meaning conversion attribution is leaky and bid optimisation is sub-optimal. Fixing this lifts your existing ad ROI before you spend another dollar.</p>
+  <table>
+    <thead><tr><th>Component</th><th>What it does for Brisbane HIFU</th><th>From Redlands artefact</th></tr></thead>
+    <tbody>
+      <tr class="brand"><td><strong>GTM (Google Tag Manager) container</strong></td><td>Single snippet on brisbanehifu.com that hosts all pixels (GA4, Google Ads conversion, future Meta pixel, future LinkedIn). Means you can add/remove pixels without ever touching Hostinger again.</td><td><a href="../../../redlands-hifu/06-analytics-tracking-spec.html#gtm-setup">artefact 06 §2</a></td></tr>
+      <tr class="brand"><td><strong>GA4 property with 3 custom dimensions</strong></td><td>treatment_name (which page converts best), suburb_targeted (which Brisbane suburb drives bookings), utm_content (which ad creative). Right now Brisbane HIFU likely has GA4 default — missing 80% of the insight.</td><td><a href="../../../redlands-hifu/06-analytics-tracking-spec.html#ga4">artefact 06 §3</a></td></tr>
+      <tr class="brand"><td><strong>5 key events (call_click, email_click, book_click, book_completed, generate_lead)</strong></td><td>Every meaningful action on the site becomes a measurable conversion. Currently you&apos;re probably only tracking page views + form-submits.</td><td><a href="../../../redlands-hifu/06-analytics-tracking-spec.html#events">artefact 06 §4</a></td></tr>
+      <tr class="brand"><td><strong>Custom JS variable: page → treatment_name auto-map</strong></td><td>Every event auto-tags which treatment page the user was on. Direct insight into which landing page drives bookings.</td><td><a href="../../../redlands-hifu/06-analytics-tracking-spec.html#js-variable">artefact 06 §5</a></td></tr>
+      <tr class="brand"><td><strong>UTM tagging convention (locked, lowercase, kebab-case)</strong></td><td>End the attribution chaos. Brisbane HIFU&apos;s historical UTMs are inconsistent — &quot;Google&quot; vs &quot;google&quot;, &quot;CPC&quot; vs &quot;cpc&quot; create attribution gaps. Locked convention fixes this forever.</td><td><a href="../../../redlands-hifu/06-analytics-tracking-spec.html#utm">artefact 06 §6</a></td></tr>
+      <tr class="brand"><td><strong>GCLID passthrough snippet</strong></td><td>Persists ad GCLID from brisbanehifu.com all the way to BAT booking confirmation page. Closes the loop on every paid click → booking. <strong>This is the difference between "we got 200 calls" and "we got 47 bookings worth $23,500 from $1,770 ad spend".</strong></td><td><a href="../../../redlands-hifu/06-analytics-tracking-spec.html#gclid">artefact 06 §6.3</a></td></tr>
+    </tbody>
+  </table>
+  <div class="nova-box"><strong>Implementation:</strong> ~2 hours total (GTM container 20min + GA4 setup 20min + paste 5 GTM tags 30min + UTM cleanup retroactively on the AdWords side 20min + GCLID snippet 10min + smoke test 20min). Highest-ROI 2 hours in the whole plan if Brisbane HIFU is currently running ads without proper conversion tracking.</div>
+
+  <h3>② Photo &amp; Testimonial Release Form <span class="pill p0">P0 · LEGAL HYGIENE</span></h3>
+  <p>Brisbane HIFU has 132 reviews + dozens of before/after photos on Instagram and the website. Every published image and quoted testimonial should have a signed release on file. The plan&apos;s §4 (LP 5 before/after) already flagged this — but didn&apos;t provide a template. Now it does.</p>
+  <table>
+    <thead><tr><th>What it gives Brisbane HIFU</th><th>From Redlands artefact</th></tr></thead>
+    <tbody>
+      <tr class="brand"><td>Print-ready A4 PDF release form covering photos / video / before-after / testimonial / first-name use. Add to your client intake pack. Have every existing reviewer/B&amp;A subject sign retrospectively where you&apos;re still using their image. Plus optional minor/guardian section.</td><td><a href="../../../redlands-hifu/11-model-release-form.html">artefact 11</a></td></tr>
+    </tbody>
+  </table>
+  <div class="nova-box"><strong>The retroactive sign-back project:</strong> for the 132 reviewers Brisbane HIFU has, draft a friendly SMS / email: <em>&quot;Hi Sarah — quick housekeeping. We have your kind review on our website. Just confirming we have your consent to keep using it (we never sold this — just standard legal hygiene). Reply YES if all good. xx&quot;</em>. Anyone who doesn&apos;t respond YES gets removed from the published surface. ~1 hour to draft the message + send the batch. Bulletproof from future complaints/AHPRA inquiries.</div>
+
+  <h3>③ Higgsfield AI image+video workflow <span class="pill p1">P1 · CONTENT MULTIPLIER</span></h3>
+  <p>Brisbane HIFU&apos;s 12-week content calendar (§9 above) has 12 blog topics + 12 GBP themes + 24 social posts. The Higgsfield workflow I built for Redlands HIFU is industry-agnostic — same brand-mood templates, same machine-as-reference workflow (Brisbane HIFU also uses UltraTherapy 15D MMFU, just like the device featured in Kim&apos;s Canva &quot;Machine Images - no backgrounds&quot; library). <strong>Apply to Brisbane HIFU at full depth — all 18 prompts + the 7 machine-featured ones from §11.</strong></p>
+  <table>
+    <thead><tr><th>What it gives Brisbane HIFU</th><th>From Redlands artefact</th></tr></thead>
+    <tbody>
+      <tr class="brand"><td>System prompt locking brand aesthetic; 10 still-image prompts + 8 video prompts + 5 machine-featured stills + 3 machine-featured videos; brand-safety gate (no AI fake clients, no AI before/afters, no fabricated medical claims); production pipeline (Higgsfield → Canva → Meta Business Suite); file naming convention; weekly batch workflow.</td><td><a href="../../../redlands-hifu/12-higgsfield-image-video-workflow.html">artefact 12</a></td></tr>
+    </tbody>
+  </table>
+  <div class="nova-box"><strong>For Brisbane HIFU specifically:</strong> The brand-mood prompts need ZERO changes (HIFU industry-generic). The machine prompts can use the SAME Canva library (<a href="https://canva.link/bzv93dxtlc5o0nm">Machine Images - no backgrounds</a>) since both clinics use UltraTherapy 15D. Brand palette in the system prompt swaps from Redlands HIFU green+pink to whatever Brisbane HIFU&apos;s palette is (likely teal+purple based on the existing dashboard gradient — but confirm). Estimated: 30 min to adapt the prompts for Brisbane HIFU&apos;s palette, then plug into the 12-week calendar.</div>
+
+  <h3>④ Hashtag bank + Story Highlights spec + 30-day post drafts <span class="pill p2">P2 · CONTENT TEAM PRODUCTIVITY</span></h3>
+  <p>Brisbane HIFU&apos;s content calendar gives high-level themes (&quot;Before/after carousel — face lift&quot;). Redlands HIFU&apos;s social pack provides FULLY-WRITTEN captions + hashtag blocks + image briefs for 16 posts plus 5 evergreen IG Story Highlight covers. That format applied to Brisbane HIFU&apos;s 12 social weeks would 10× content-team productivity (same time to produce a finished post as it currently takes just to plan one).</p>
+  <table>
+    <thead><tr><th>What it gives Brisbane HIFU</th><th>From Redlands artefact</th></tr></thead>
+    <tbody>
+      <tr class="brand"><td>Hashtag bank (brand · local geo · service · audience pools), Story Highlights spec (6 highlights: About / HIFU 101 / Face / Body / Pricing / Reviews), full post drafts with caption + hashtags + image brief for every weekly slot, brand-voice rules, content-pillar mix.</td><td><a href="../../../redlands-hifu/05-social-channels-pack.html">artefact 05 §3.4, §5, §6, §7</a></td></tr>
+    </tbody>
+  </table>
+  <div class="nova-box"><strong>Adaptation for Brisbane HIFU:</strong> swap the geo hashtags (Bayside suburbs → Brisbane suburbs: <code>#brisbanehifu #hamiltonbrisbane #ascotbrisbane #newfarmbeauty #brisbanebeauty</code>). Keep the service/audience/outcome hashtag pools as-is (HIFU industry-generic). The 16 fully-drafted Redlands posts can be word-swapped for Brisbane HIFU in ~30 min and you&apos;re production-ready.</div>
+
+  <h3>⑤ Internal linking map (light formalisation) <span class="pill p3">P3 · NICE-TO-HAVE</span></h3>
+  <p>Brisbane HIFU plan §4 mentions &quot;each new landing page should link to /hifu-deals · /client-reviews · /hifu-faq · /about-us&quot; — that&apos;s good but informal. Redlands artefact 01 §9 has a table-formatted internal-link map (FROM page · TO page · in-prose anchor text) that ensures consistency across the team. Light add: turn the bullet into a table per landing page.</p>
+
+  <h3>⑥ Core Web Vitals checklist + Hostinger speed audit <span class="pill p3">P3</span></h3>
+  <p>Brisbane HIFU plan doesn&apos;t currently audit page-speed performance. Hostinger Website Builder defaults are usually OK but worth verifying. Redlands artefact 01 §10 has a 5-metric Core Web Vitals checklist that maps to Hostinger-specific fixes (image compression, lazy-load, etc.) — apply once.</p>
+
+  <h3>Suggested Brisbane HIFU implementation order (for these 6 ports-up)</h3>
+  <table>
+    <thead><tr><th>Order</th><th>Port</th><th>Effort</th><th>ROI</th></tr></thead>
+    <tbody>
+      <tr class="crit"><td>1</td><td>① Analytics infrastructure (GTM + GA4 + UTM + GCLID)</td><td>2 hrs</td><td>Highest — fixes current $22k/yr ad spend attribution</td></tr>
+      <tr class="warn"><td>2</td><td>② Photo/Testimonial Release retroactive sign-back</td><td>1 hr send + 1 wk wait</td><td>Legal hygiene + future-proof against complaints</td></tr>
+      <tr class="warn"><td>3</td><td>③ Higgsfield workflow (after analytics is live so you can measure content lift)</td><td>30 min adapt + 1 hr first batch</td><td>Content production 5-10× cost-efficient vs photographer/videographer</td></tr>
+      <tr class="warn"><td>4</td><td>④ Hashtag bank + Story Highlights + post drafts adapt</td><td>30 min</td><td>Productivity multiplier across the 12-week calendar</td></tr>
+      <tr><td>5</td><td>⑤ Internal linking map formalisation</td><td>15 min</td><td>Marginal SEO lift; mostly governance</td></tr>
+      <tr><td>6</td><td>⑥ Core Web Vitals audit</td><td>20 min</td><td>If fast already, nothing. If slow, big.</td></tr>
+    </tbody>
+  </table>
+  <div class="verdict">
+    <strong>Total time investment:</strong> ~5 hours across 1–2 sessions. <strong>Total competitive lift over Redlands HIFU:</strong> Brisbane HIFU keeps the analytics moat (Redlands doesn&apos;t get GTM until later, and never the full UTM/GCLID rigour), keeps the content-multiplier moat (Brisbane HIFU runs Higgsfield AT FULL DEPTH while Redlands gets the same prompts but lower production cadence), and keeps the legal-hygiene + speed lead.
+  </div>
+</section>
+
+<footer>
+  Built by Nova · 11 May 2026 · Updated 14 May 2026 with §12 Master Plan ports-up · Single source of truth for Brisbane HIFU SEO &amp; growth · Supersedes <code>Nova/Dashboard/seo-fastest-wins-brisbanehifu.html</code> (which captures 7 May audit + Google Ads work — still valid for that history).
+</footer>
+
+</div>
+</body>
+</html>
