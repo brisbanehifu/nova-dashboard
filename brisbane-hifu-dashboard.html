@@ -267,27 +267,41 @@
       <div class="num">443-403-6290</div>
       <div class="lbl">Customer ID</div>
     </div>
-    <div class="stat">
-      <div class="num">AW-11077673835</div>
-      <div class="lbl">Conversion ID</div>
+    <div class="stat good">
+      <div class="num">2 campaigns</div>
+      <div class="lbl">Active (post-cleanup 21 May)</div>
+      <div class="det">Website Home Page A$25/day + AI A$15/day = A$40/day total (~A$1,216/month, under your A$1,500 target)</div>
     </div>
     <div class="stat good">
-      <div class="num">"BAT Booking Click"</div>
-      <div class="lbl">Conversion (active)</div>
-      <div class="det">Fires on any Book Now click on brisbanehifu.com</div>
+      <div class="num">"Booking Confirmed (BAT)"</div>
+      <div class="lbl">Primary conversion (NEW 21 May)</div>
+      <div class="det">Purchase category. Fires on <code>/book-confirmed/[id]</code> after Stripe success. Smart Bidding optimises on REAL bookings, not Book-Now clicks. <code>AW-11077673835/nMiQCKHAo7AcEOvGn6Ip</code></div>
     </div>
-    <div class="stat warn">
-      <div class="num">Monthly review</div>
-      <div class="lbl">Scheduled task: brisbane-hifu-google-ads-monthly-review</div>
-      <div class="det"><code>C:\Users\kimkl\Documents\Claude\Scheduled\brisbane-hifu-google-ads-monthly-review\SKILL.md</code></div>
+    <div class="stat">
+      <div class="num">"BAT Booking Click"</div>
+      <div class="lbl">Secondary (DEMOTED 21 May)</div>
+      <div class="det">Fires on Book Now click. Kept for diagnostics. No longer drives bidding.</div>
     </div>
   </div>
+
+  <h3>Account hygiene fixes shipped 20–21 May 2026</h3>
+  <ul>
+    <li>✅ <b>Removed 5 dead campaigns</b>: Sales-Performance Max-1 (PMax), Draft Google Shopping (PMax), Look younger without surgery (Smart), Face & Body Plan campaign (Search), 25% off HIFU (Video). Account collapsed from 7 → 2 campaigns.</li>
+    <li>✅ <b>Display Network OFF</b> on both Website Home Page + AI Search campaigns. Was sending budget to low-intent banner placements — major bleed source.</li>
+    <li>✅ <b>Target CPA removed</b> from Website Home Page (was A$510, set from old click-conversion data — irrelevant now). AI campaign Target CPA A$124.48 retained (defensible).</li>
+    <li>✅ <b>Budget capped</b> at A$25/day Home Page + A$15/day AI = A$40/day (~A$1,216/month).</li>
+    <li>✅ <b>4 disapproved ads' Final URLs fixed</b> from <code>/promo-and-services</code>, <code>/vip-plan</code> → <code>/hifu-deals</code> (24–72hr Google re-review window).</li>
+    <li>✅ <b>BAT pixel registered</b> in tenant 1 Settings → Marketing Pixels (Connected status).</li>
+    <li>✅ <b>gclid passthrough snippet</b> installed in Lovable global head — functional test passed (gclid appended to Book Now href on click).</li>
+    <li>⏸ <b>5 broken sitelinks still need URL repointing</b> (4 sitelink fixes + 1 deletion). See morning brief.</li>
+  </ul>
 
   <h3>What's tracked + what to watch</h3>
   <ul>
     <li><b>Real keyword data</b> is pulled from the Brisbane HIFU Ads account directly (better than SEMrush) — see 7 May fastest-wins doc for the original method</li>
-    <li><b>GCLID passthrough</b> from brisbanehifu.com → BAT booking URL preserves paid attribution through the redirect (tested with <code>?gclid=test-cutover-morning</code>)</li>
-    <li><b>Conversion verification:</b> Open <code>https://brisbanehifu.com/?gclid=test-XXX</code>, click Book Now, confirm BAT URL preserves the gclid, then check Google Ads → Goals → Conversions → "BAT Booking Click" shows "Recording" within 1-2 hr</li>
+    <li><b>GCLID passthrough</b> from brisbanehifu.com → BAT booking URL preserves paid attribution through the redirect. Functional test: open <code>?gclid=test-X</code>, click Book Now, snippet rewrites href to include gclid → BAT stores it → conversion fires with gclid on <code>/book-confirmed/[id]</code></li>
+    <li><b>Conversion verification:</b> Wait 1-2 weeks. Compare "Booking Confirmed (BAT)" count in Google Ads to bookings WHERE gclid IS NOT NULL in BAT. If they match, the measurement loop is honest.</li>
+    <li><b>Monthly review:</b> <code>C:\Users\kimkl\Documents\Claude\Scheduled\brisbane-hifu-google-ads-monthly-review\SKILL.md</code></li>
   </ul>
 
   <div class="callout purple">
