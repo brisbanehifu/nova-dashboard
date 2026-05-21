@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Build 55 Resubmit Cheat-Sheet · 5 Steps</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
+    --accent:#00E8B4; --purple:#9B3DFF; --coral:#FF7A6E; --pink:#F040C8;
+    --red:#ff5a5a; --amber:#ffb340; --green:#3dd87f; --blue:#4aa3ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,'Plus Jakarta Sans','SF Pro Display',sans-serif;line-height:1.55;padding:32px;max-width:1100px;margin:0 auto}
+  h1{font-size:28px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#00FFCA 0%,#9B3DFF 55%,#FF7A6E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.4px}
+  h2{font-size:20px;font-weight:700;margin:28px 0 10px;color:var(--accent);letter-spacing:-0.2px}
+  h3{font-size:16px;font-weight:600;margin:12px 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:20px}
+  .step{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px 22px;margin:14px 0;border-left:4px solid var(--accent);position:relative}
+  .step .num{position:absolute;top:18px;right:22px;font-size:38px;font-weight:800;color:rgba(0,232,180,0.18);letter-spacing:-1px;line-height:1}
+  .step h2{margin-top:0}
+  .step.kim{border-left-color:var(--amber)}
+  .step.critical{border-left-color:var(--red)}
+  code{background:rgba(0,232,180,0.10);padding:2px 8px;border-radius:4px;color:var(--accent);font-family:'SF Mono','Menlo',monospace;font-size:13px}
+  pre{background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px;overflow-x:auto;font-size:13px;font-family:'SF Mono','Menlo',monospace;color:#cfe8ff;margin:10px 0;white-space:pre;line-height:1.5}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  ul,ol{padding-left:22px;margin:8px 0}
+  li{margin:5px 0}
+  .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;vertical-align:middle}
+  .pill-ok{background:rgba(0,232,180,0.18);color:var(--accent)}
+  .pill-warn{background:rgba(255,179,64,0.18);color:var(--amber)}
+  .pill-alert{background:rgba(255,90,90,0.18);color:var(--red)}
+  .creds{background:var(--card-alt);border:1px solid rgba(155,61,255,0.25);border-radius:10px;padding:14px 18px;margin:10px 0;font-family:'SF Mono','Menlo',monospace;font-size:13px}
+  .creds .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px;font-family:'Plus Jakarta Sans',sans-serif}
+  .creds .val{color:#fff;font-weight:600}
+  .checkbox{display:inline-block;width:18px;height:18px;border:2px solid var(--muted);border-radius:4px;margin-right:8px;vertical-align:middle}
+  .nav{margin-bottom:18px;font-size:13px}
+  .nav a{margin-right:14px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+  .quick-links{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+  .quick-links a{background:rgba(155,61,255,0.15);border:1px solid rgba(155,61,255,0.4);padding:9px 14px;border-radius:8px;font-size:13px;font-weight:600;color:#fff;text-decoration:none;transition:background 0.18s}
+  .quick-links a:hover{background:rgba(155,61,255,0.30);text-decoration:none}
+  .warn{background:rgba(255,179,64,0.10);border-left:3px solid var(--amber);padding:10px 14px;border-radius:4px;margin:10px 0;font-size:13px}
+  .copy-hint{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="./index.html">← Nova Dashboard</a>
+  <a href="./session-handover-20may2026-appstore-build54-pr463.html">Full session handover</a>
+  <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">APP HQ</a>
+</div>
+
+<h1>Build 55 Resubmit Cheat-Sheet</h1>
+<div class="sub">5 steps · ~30 minutes total · keep this open in a tab while you work</div>
+
+<div class="quick-links">
+  <a href="https://testflight.apple.com/" target="_blank">🛫 TestFlight (web)</a>
+  <a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/ios" target="_blank">📦 ASC Distribution</a>
+  <a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/reviewsubmissions/details/9f24d527-e328-4728-a74e-548dffbe7390" target="_blank">📋 Rejection thread</a>
+  <a href="https://github.com/brisbanehifu/booking-api/actions/runs/26198140900" target="_blank">🔨 Build 55 workflow</a>
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<div class="step kim">
+  <span class="num">1</span>
+  <h2>Install Build 55 + visually verify on iPad/iPhone</h2>
+  <p>Open TestFlight on iPad Air 11" (M3) or iPhone 17 Pro Max sim. Install the new build of <strong>BookATreatment Admin</strong>. Build number = <strong>55</strong> (CFBundleVersion). Verify these 4 iOS-gated changes manifest correctly inside the Capacitor binary:</p>
+
+  <table>
+    <thead><tr><th>Where</th><th>What to see</th><th>Guideline</th></tr></thead>
+    <tbody>
+      <tr><td>Auth screen (first launch)</td><td><span class="checkbox"></span>NO "Don't have an account? Start free trial" link below Sign in</td><td>3.1.1</td></tr>
+      <tr><td>Navigate to <code>/signup</code> (manually via URL bar in Safari, OR — the iOS app won't have a way to get there since the link is gone; you may need to open https://app.bookatreatment.ai/signup in a separate Safari tab to confirm it shows the early-return for iOS users)</td><td><span class="checkbox"></span>Shows "Sign in to your clinic" page with single "Go to sign in" button — NOT the business form</td><td>3.1.1</td></tr>
+      <tr><td>Sign in with a test account → Settings (bottom nav)</td><td><span class="checkbox"></span>NEW "Account" section visible with red "Delete my account" button + trash icon</td><td>5.1.1(v)</td></tr>
+      <tr><td>Same Settings screen</td><td><span class="checkbox"></span>NO "Account, billing, integrations" external link (was the orange/grey card at bottom)</td><td>3.1.1</td></tr>
+      <tr><td>Tap "Delete my account" → modal opens</td><td><span class="checkbox"></span>Modal asks you to type <code>DELETE</code> to confirm · red "Delete account" button stays disabled until exact match</td><td>5.1.1(v)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="warn">
+    <strong>If any check fails:</strong> STOP. Don't resubmit. The <code>isIOSNative()</code> gate may not be firing inside the Capacitor binary (would be a new bug, not a regression of the old tree-shake). Tell Nova and we'll investigate before submission #9.
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<div class="step kim critical">
+  <span class="num">2</span>
+  <h2>Record the account-deletion screen recording</h2>
+  <p>Apple's 5.1.1(v) <strong>explicitly requires</strong> a screen recording showing the full deletion flow. From their reviewer message:</p>
+  <pre>"Reply to this message with a screen recording captured on a physical device that demonstrates:
+- Creating a new account or signing in with the demo account
+- Navigating to the account deletion option
+- The complete account deletion flow from initiation to confirmation"</pre>
+
+  <div class="warn">
+    <strong>⚠ Important:</strong> Use a <strong>THROWAWAY account</strong> for the recording — NOT the reviewer demo creds (<code>demo@bookatreatment.ai</code>), because Apple's reviewer needs those creds to STILL WORK after you record. Suggestion: create <code>test.delete@bookatreatment.ai</code> via public signup, then record deleting it.
+  </div>
+
+  <ol>
+    <li>Sign out if signed in</li>
+    <li>Sign in with the throwaway account</li>
+    <li>iOS Control Center → start screen recording</li>
+    <li>Navigate to Settings → "Delete my account"</li>
+    <li>Type <code>DELETE</code> in the modal</li>
+    <li>Tap red "Delete account" button</li>
+    <li>Wait for sign-out + redirect to login</li>
+    <li>Stop recording</li>
+    <li>Trim if needed in Photos → save .mov</li>
+    <li>Upload to your preferred location (iCloud Drive, Google Drive, etc.) — you'll paste the link in step 5</li>
+  </ol>
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<div class="step kim">
+  <span class="num">3</span>
+  <h2>Seed the expired-subscription demo tenant in PROD MySQL</h2>
+  <p>Railway CLI on this machine is currently unauthed (Nova got "Please run railway login again" earlier). Open a terminal in <code>C:\Users\kimkl\Documents\Claude\booking-api</code>:</p>
+
+  <pre>railway login
+railway link
+# pick: booking-api project · production environment
+railway run -- node scripts/seed-appstore-review-expired.js --service web</pre>
+
+  <p>The seed is <strong>idempotent</strong> — safe to re-run, won't double-create. Output prints these creds:</p>
+
+  <div class="creds">
+    <div class="label">Email</div>
+    <div class="val">appstore.review.expired@bookatreatment.ai</div>
+  </div>
+  <div class="creds">
+    <div class="label">Password</div>
+    <div class="val">AppReview2026!Expired</div>
+  </div>
+  <div class="creds">
+    <div class="label">Tenant slug</div>
+    <div class="val">appstore-review-expired</div>
+  </div>
+  <div class="creds">
+    <div class="label">Status</div>
+    <div class="val">cancelled · trial_end_date = 2025-01-01 · trial_active = false</div>
+  </div>
+
+  <p>Verify by signing in once at <code>https://app.bookatreatment.ai/admin/login</code> with the expired creds — you should hit the trial-expired UI (TrialExpiredOverlay or similar).</p>
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<div class="step kim">
+  <span class="num">4</span>
+  <h2>Audit metadata on all 3 BAT app listings</h2>
+  <p>Apple's 3.1.3(c) flag was partly about enterprise services being sold to consumers without IAP. Apple's reviewer probably noticed your consumer-facing <strong>BookATreatment</strong> app listing while reviewing the Admin app. Check all three:</p>
+
+  <ol>
+    <li><a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/info" target="_blank">BookATreatment Admin — App Information</a> · description should read "for clinic owners and staff," not consumer-targeted</li>
+    <li><a href="https://appstoreconnect.apple.com/apps" target="_blank">BookATreatment Staff (Apps list → click Staff)</a> · same B2B language test</li>
+    <li><a href="https://appstoreconnect.apple.com/apps" target="_blank">BookATreatment (no suffix — consumer-facing, Apps list → click it)</a> · if this is currently positioned for consumers, that's the surface Apple is flagging. Either:
+      <ul>
+        <li>Strip consumer language and re-position as B2B too, OR</li>
+        <li>Decide whether this app needs IAP (StoreKit) — but Option α (B2B-only) was the locked choice</li>
+      </ul>
+    </li>
+  </ol>
+
+  <p>Look for: "book your treatment," "find a clinic near you," "compare prices," "consumer reviews," "personal use," etc.</p>
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<div class="step kim">
+  <span class="num">5</span>
+  <h2>Attach Build 55 in ASC + paste Review Notes + Resubmit</h2>
+
+  <p><strong>Path A — Edit the rejected submission directly:</strong></p>
+  <ol>
+    <li>Open <a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/reviewsubmissions/details/9f24d527-e328-4728-a74e-548dffbe7390" target="_blank">the rejection thread</a></li>
+    <li>Click <strong>Edit</strong> next to "iOS App 1.0 / 1.0 (53)"</li>
+    <li>In the "Build" picker, switch from Build 53 → <strong>Build 55</strong> (it should appear once TestFlight processing completes — usually 5-15 min after our 00:32Z upload, so should be ready)</li>
+    <li>Save · the resubmit page should now show <code>1.0 (55)</code></li>
+  </ol>
+
+  <p><strong>Path B — App Review Information (paste this whole block in the Notes field):</strong></p>
+
+  <div class="copy-hint">📋 Copy-paste this verbatim:</div>
+  <pre>Demo accounts:
+- Active (functional): demo@bookatreatment.ai / BATdemo2026!Reviewer
+  (tenant 3, slug "app-store-demo-clinic")
+- Expired subscription (per Apple 2.1): appstore.review.expired@bookatreatment.ai / AppReview2026!Expired
+  (tenant slug "appstore-review-expired", status=cancelled, trial_end_date=2025-01-01)
+
+Account deletion screen recording (per Apple 5.1.1(v)):
+&lt;PASTE_YOUR_RECORDING_URL_HERE&gt;
+
+Build 1.0 (55) addresses the 13 May 2026 rejection (submission 9f24d527-e328-4728-a74e-548dffbe7390):
+
+3.1.1 — Business Payments / In-App Purchase
+  Business account registration is no longer reachable on iOS.
+  - SignupPage routes (/signup, /register, /trial, /get-started)
+    render a "Sign in to your clinic" screen on iOS instead of the
+    business signup form
+  - AdminLoginPage "Start free trial" link is hidden on iOS
+  - AdminMobileSettings external "Account, billing, integrations"
+    link is hidden on iOS (Apple treats it as an external-purchase
+    mechanism)
+
+5.1.1(v) — Account Deletion
+  Users can now delete their account in-app.
+  - AdminMobileSettings has a new "Account" section with a red
+    "Delete my account" button
+  - Confirmation modal requires typing "DELETE" to enable the
+    destructive action
+  - DELETE /api/account endpoint hard-deletes the admin_users row
+    (cascade-deletes biometric_enrollments + password_reset_tokens
+    via existing FK constraints) and marks the tenant
+    status='closed' if no active owners remain
+  - Clinic-side bookings/contacts are retained for clients' health-
+    record and tax retention obligations (independent of the user's
+    own data)
+  - Screen recording attached above
+
+3.1.3(c) — Enterprise Services
+  Addressed transitively by the 3.1.1 fixes. With consumer
+  registration removed from iOS, services are now B2B-only on this
+  app. No In-App Purchase needed.
+
+2.1 — Information Needed (expired-subscription demo)
+  See the "Expired subscription" demo credentials above.
+  Signing in exercises the post-trial UI / paywall path.</pre>
+
+  <p><strong>Then press Resubmit.</strong></p>
+
+  <div class="warn">
+    <strong>Pre-flight before Resubmit:</strong>
+    <ul style="margin:6px 0 0 0;">
+      <li><span class="checkbox"></span>Build 55 attached to v1.0 (not Build 53 or 54)</li>
+      <li><span class="checkbox"></span>Both demo accounts in Notes</li>
+      <li><span class="checkbox"></span>Screen recording URL in Notes</li>
+      <li><span class="checkbox"></span>Steps 1-4 all checked</li>
+      <li><span class="checkbox"></span>You actually tested the deletion flow on the real device, not just by code review</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<h2 style="margin-top:36px;">After Resubmit</h2>
+<ul>
+  <li>Apple's reviewer ETA: 24-48h typically</li>
+  <li>If accepted → release to App Store via "Release" button in ASC (or schedule)</li>
+  <li>If rejected again → Nova will diagnose new surfaces and prep Build 56. The fix-rebuild cycle is well-rehearsed at this point.</li>
+</ul>
+
+<h2 style="margin-top:28px;">Reference</h2>
+<ul>
+  <li>PR <a href="https://github.com/brisbanehifu/booking-api/pull/463">#463</a> — App Store fix (merged as <code>3f8b8ac</code>)</li>
+  <li>PR <a href="https://github.com/brisbanehifu/booking-api/pull/471">#471</a> — P0 availability tenant isolation (also in Build 55)</li>
+  <li>Build 55 workflow run <a href="https://github.com/brisbanehifu/booking-api/actions/runs/26198140900">26198140900</a> on commit <code>04b94d5</code></li>
+  <li><a href="./session-handover-20may2026-appstore-build54-pr463.html">Full session handover with all context</a></li>
+  <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md §25</a> — full iOS pipeline reference</li>
+</ul>
+
+</body>
+</html>
