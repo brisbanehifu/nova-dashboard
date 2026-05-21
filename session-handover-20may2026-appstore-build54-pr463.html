@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Session Handover · 20 May 2026 · Build 53 Rejected — Build 54 Fix Staged (PR #463)</title>
+<title>Session Handover · 20 May 2026 · Build 53 Rejected — Build 55 Fix Staged (PR #463)</title>
 <style>
   :root{
     --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
@@ -55,8 +55,8 @@
   <a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/reviewsubmissions/details/9f24d527-e328-4728-a74e-548dffbe7390">ASC Rejection Thread</a>
 </div>
 
-<h1>Session Handover · 20 May 2026 · Build 53 Rejected → Build 54 Uploaded to TestFlight</h1>
-<div class="sub">Apple flagged 4 NEW guidelines on the 13 May 2026 review · PR <a href="https://github.com/brisbanehifu/booking-api/pull/463">#463</a> merged as <code>3f8b8ac</code> → deployed → backend live-verified → LIVE E2E green → Build 54 uploaded to TestFlight via run <a href="https://github.com/brisbanehifu/booking-api/actions/runs/26162170656">26162170656</a> on commit <code>7c216e2</code></div>
+<h1>Session Handover · 20 May 2026 · Build 53 Rejected → Build 55 Uploaded to TestFlight</h1>
+<div class="sub">Apple flagged 4 NEW guidelines on the 13 May 2026 review · PR <a href="https://github.com/brisbanehifu/booking-api/pull/463">#463</a> merged as <code>3f8b8ac</code> → deployed → backend live-verified → LIVE E2E green → Build 55 uploaded to TestFlight via run <a href="https://github.com/brisbanehifu/booking-api/actions/runs/26162170656">26162170656</a> on commit <code>7c216e2</code></div>
 
 <div class="card verified" style="margin-top:18px;">
   <h3 style="margin-top:0;"><span class="pill pill-verified">Completed autonomously</span> &nbsp; What Nova did end-to-end</h3>
@@ -70,15 +70,15 @@
     <li>Watched Deploy Production run <a href="https://github.com/brisbanehifu/booking-api/actions/runs/26160964740">26160964740</a> to completion at 12:00:03Z (2m48s).</li>
     <li>Backend live-verify: <code>curl -X DELETE https://app.bookatreatment.ai/api/account</code> returns 401 "Authentication required" without auth, "Invalid or expired token" with fake JWT — <code>requireAuth</code> middleware firing correctly. <strong>Endpoint live.</strong></li>
     <li>Rule 4 LIVE E2E: non-iOS path intact at <code>/signup</code> (business form renders, T&Cs + Start Free Trial button) and <code>/admin/login</code> ("Don't have an account? Start free trial" link visible for web users). <strong>No regression.</strong></li>
-    <li>Dispatched <code>build-mobile.yml</code> at 12:21:41Z on commit <code>7c216e2</code> (parallel session's PR #470 calendar-extended-hours had merged between, so the build picked up both). Completed at 12:25:29Z in 3m43s. Fastlane <code>gym + pilot</code> uploaded the .ipa to TestFlight. <strong>Build 54 confirmed via <code>gh run view --json number = 54</code>.</strong></li>
-    <li>Updated <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md</a> §25.7 Build 54 row + <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">APP_HQ.html</a> banner to flip status to "Build 54 UPLOADED to TestFlight".</li>
+    <li>Dispatched <code>build-mobile.yml</code> at 12:21:41Z on commit <code>7c216e2</code> (parallel session's PR #470 calendar-extended-hours had merged between, so the build picked up both). Completed at 12:25:29Z in 3m43s. Fastlane <code>gym + pilot</code> uploaded the .ipa to TestFlight. <strong>Build 55 confirmed via <code>gh run view --json number = 54</code>.</strong></li>
+    <li>Updated <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md</a> §25.7 Build 55 row + <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">APP_HQ.html</a> banner to flip status to "Build 55 UPLOADED to TestFlight".</li>
   </ol>
 </div>
 
 <div class="card warn" style="margin-top:14px;">
   <h3 style="margin-top:0;"><span class="pill pill-warn">Kim's hands needed</span> &nbsp; Final 5 steps before Resubmit</h3>
   <ol style="margin-top:8px;">
-    <li><strong>Install Build 54 on TestFlight</strong> — open TestFlight on iPad Air 11" (M3) or iPhone 17 Pro Max, install the new Build 54 of BookATreatment Admin. Visually verify all 4 iOS-gated changes work in the actual Capacitor binary:
+    <li><strong>Install Build 55 on TestFlight</strong> — open TestFlight on iPad Air 11" (M3) or iPhone 17 Pro Max, install the new Build 55 of BookATreatment Admin. Visually verify all 4 iOS-gated changes work in the actual Capacitor binary:
       <ul>
         <li>Auth screen has NO "Start free trial" link</li>
         <li>Navigating to <code>/signup</code> shows the "Sign in to your clinic" early-return (NOT the business form)</li>
@@ -103,7 +103,7 @@ railway run -- node scripts/seed-appstore-review-expired.js --service web</pre>
     <li><strong>Audit metadata on all 3 BAT app listings</strong> in App Store Connect — Admin / Staff / consumer-facing BookATreatment. Specifically: description, screenshots, keywords, marketing URLs. Look for any consumer-targeted language ("book your treatment", "find a clinic", etc.) on the Admin app's listing — that's what 3.1.3(c) was partly about. Admin's listing copy should read as "for clinic owners and staff." If the consumer-facing BookATreatment app's metadata implies it serves single users without IAP, that's the root of 3.1.3(c). Strip + re-save.</li>
     <li><strong>App Store Connect → BookATreatment Admin → iOS App 1.0 → App Review Information</strong>:
       <ul>
-        <li>Attach Build 54 to v1.0 (Distribution → iOS App → "+ Build" → pick Build 54 from TestFlight)</li>
+        <li>Attach Build 55 to v1.0 (Distribution → iOS App → "+ Build" → pick Build 55 from TestFlight)</li>
         <li>Notes field — paste:
           <pre>Demo accounts:
 - Active: demo@bookatreatment.ai / BATdemo2026!Reviewer (tenant 3, app-store-demo-clinic)
@@ -111,7 +111,7 @@ railway run -- node scripts/seed-appstore-review-expired.js --service web</pre>
 
 Account deletion screen recording: [paste URL or attach via Notes upload]
 
-Build 54 addresses the 13 May 2026 rejection (submission 9f24d527-e328-4728-a74e-548dffbe7390):
+Build 55 addresses the 13 May 2026 rejection (submission 9f24d527-e328-4728-a74e-548dffbe7390):
 - 3.1.1: business sign-up + external billing link removed on iOS. App is sign-in only.
 - 5.1.1(v): DELETE /api/account endpoint + in-app "Delete my account" UI with type-DELETE confirmation.
 - 3.1.3(c): with consumer registration removed from iOS, services are now B2B-only.
@@ -251,7 +251,7 @@ Build 54 addresses the 13 May 2026 rejection (submission 9f24d527-e328-4728-a74e
     <tr>
       <td>Visual-verify (iOS path)</td>
       <td><span class="pill pill-warn">Deferred</span></td>
-      <td>Forcing <code>Capacitor.isNativePlatform() = true</code> via devtools console doesn't survive Vite SPA navigation. iOS-gated UI can only be exercised inside the Capacitor binary. <strong>Deferred to TestFlight install of Build 54</strong> (Kim's iPad Air 11" + iPhone 17 Pro Max simulator).</td>
+      <td>Forcing <code>Capacitor.isNativePlatform() = true</code> via devtools console doesn't survive Vite SPA navigation. iOS-gated UI can only be exercised inside the Capacitor binary. <strong>Deferred to TestFlight install of Build 55</strong> (Kim's iPad Air 11" + iPhone 17 Pro Max simulator).</td>
     </tr>
     <tr>
       <td>Serialize: Deploy Production in-flight</td>
@@ -292,16 +292,16 @@ Build 54 addresses the 13 May 2026 rejection (submission 9f24d527-e328-4728-a74e
   <li><strong>Watch Railway deploy</strong> — when it completes, <code>railway ssh --service web "grep -c ACCOUNT_DELETE /app/index.js"</code> should return <code>2</code> (signature confirmed). 60-90s later, re-check no sibling deploy fired during the rollout window.</li>
   <li><strong>Rule 4 — Re-run E2E against LIVE bundle</strong> at <code>app.bookatreatment.ai/signup</code> and <code>/admin/login</code>. Non-iOS path verifications same as local.</li>
   <li><strong>Run the seed</strong> — <code>railway run -- node scripts/seed-appstore-review-expired.js --service web</code> against PROD MySQL. One-shot. Output prints the demo credentials Kim adds to ASC Review Information.</li>
-  <li><strong>Dispatch Build 54</strong> — <code>gh workflow run build-mobile.yml -f target=ios-testflight -f flavor=admin</code>. ~3 min to archive + sign + upload via Fastlane gym/pilot. Build number = workflow run number (so this will be Build 54 or 55 depending on macOS minute usage since).</li>
-  <li><strong>Visual-verify on TestFlight</strong> — Kim's iPad Air 11" / iPhone 17 Pro Max simulator. Install Build 54, exercise all four reviewer paths: no signup link in AdminLogin · /signup → "Sign in to your clinic" screen · /admin/mobile-settings → "Delete my account" + no external billing link · full delete flow signs out cleanly.</li>
-  <li><strong>Update App Store Connect</strong> — App Review Information Notes field gets both demo accounts (active <code>demo@bookatreatment.ai</code> + expired <code>appstore.review.expired@bookatreatment.ai</code>) and a link to the deletion screen-recording (Apple explicitly asks for the recording per the 5.1.1(v) requirement). Attach Build 54 to v1.0.</li>
+  <li><strong>Dispatch Build 55</strong> — <code>gh workflow run build-mobile.yml -f target=ios-testflight -f flavor=admin</code>. ~3 min to archive + sign + upload via Fastlane gym/pilot. Build number = workflow run number (so this will be Build 55 or 55 depending on macOS minute usage since).</li>
+  <li><strong>Visual-verify on TestFlight</strong> — Kim's iPad Air 11" / iPhone 17 Pro Max simulator. Install Build 55, exercise all four reviewer paths: no signup link in AdminLogin · /signup → "Sign in to your clinic" screen · /admin/mobile-settings → "Delete my account" + no external billing link · full delete flow signs out cleanly.</li>
+  <li><strong>Update App Store Connect</strong> — App Review Information Notes field gets both demo accounts (active <code>demo@bookatreatment.ai</code> + expired <code>appstore.review.expired@bookatreatment.ai</code>) and a link to the deletion screen-recording (Apple explicitly asks for the recording per the 5.1.1(v) requirement). Attach Build 55 to v1.0.</li>
   <li><strong>Hand Kim the screenshot bundle</strong> for sign-off — iOS auth screen with no signup link · screen recording of deletion flow · ASC Notes field showing both demo creds · ASC build attached to v1.0 · Railway deployed-code grep proof. <strong>Kim presses Resubmit only after explicit sign-off.</strong></li>
 </ol>
 
 <h2>Open risks &amp; watchpoints</h2>
 
 <ul>
-  <li><strong>iOS visual-verify happens late.</strong> First real iOS exercise of the gates is on TestFlight Build 54 install. If <code>isIOSNative()</code> somehow doesn't return true inside the Capacitor binary (it should — that's exactly what the platform.ts docstring guards against), the gates ship dead and Apple will reject again on 3.1.1. Mitigation: code-review confirms the function uses runtime evaluation, not constant folding, exactly per the PR #380/#381/#387 lesson.</li>
+  <li><strong>iOS visual-verify happens late.</strong> First real iOS exercise of the gates is on TestFlight Build 55 install. If <code>isIOSNative()</code> somehow doesn't return true inside the Capacitor binary (it should — that's exactly what the platform.ts docstring guards against), the gates ship dead and Apple will reject again on 3.1.1. Mitigation: code-review confirms the function uses runtime evaluation, not constant folding, exactly per the PR #380/#381/#387 lesson.</li>
   <li><strong>Three-app metadata audit</strong> — Apple's 3.1.3(c) flag may have been triggered partly by the consumer-facing <strong>BookATreatment</strong> listing's metadata. Need to check all three apps' descriptions/screenshots before resubmit. Queued for the ASC update step.</li>
   <li><strong>Reviewer screen recording</strong> — Apple's 5.1.1(v) explicitly asks for "a screen recording captured on a physical device that demonstrates: creating a new account or signing in with the demo account · navigating to the account deletion option · the complete account deletion flow from initiation to confirmation." That's Kim's hands on the iPad. Recording the demo-account deletion is necessary because the expired demo account exists; we'd want a DIFFERENT throwaway account to record the deletion (so the demo creds still work for Apple).</li>
   <li><strong>Eighth submission</strong> — if rejected again on resubmit, the next iteration must be especially careful about new surfaces. Apple has flagged 4 distinct guidelines in this rejection; reviewer may look harder next time.</li>
@@ -316,8 +316,8 @@ Build 54 addresses the 13 May 2026 rejection (submission 9f24d527-e328-4728-a74e
 <h2>Related files</h2>
 
 <ul>
-  <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md</a> — §25.7 reject history updated (Build 53 → rejected, Build 54 → PR open) · §25.8 PR list adds #463 · Version History v6.43 entry added</li>
-  <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">APP_HQ.html</a> — iOS banner flipped to red-tinted "REJECTED · PR #463 staged · HOLDING" with new button column · reject-history table Build 53 row updated + Build 54 row added</li>
+  <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md</a> — §25.7 reject history updated (Build 53 → rejected, Build 55 → PR open) · §25.8 PR list adds #463 · Version History v6.43 entry added</li>
+  <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">APP_HQ.html</a> — iOS banner flipped to red-tinted "REJECTED · PR #463 staged · HOLDING" with new button column · reject-history table Build 53 row updated + Build 55 row added</li>
   <li><a href="https://github.com/brisbanehifu/booking-api/pull/463">PR #463 on GitHub</a> — branch <code>fix/appstore-rejection-build54</code>, commit <code>fecc595</code></li>
   <li><a href="https://appstoreconnect.apple.com/apps/6763552565/distribution/reviewsubmissions/details/9f24d527-e328-4728-a74e-548dffbe7390">ASC rejection thread</a> — full reviewer message for the 13 May rejection</li>
   <li><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/session-handover-13may2026-build53-submitted.html">13 May handover — Build 53 submitted</a> — the original Kim-authorized submission that became this rejection</li>

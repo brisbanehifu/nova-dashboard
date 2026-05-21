@@ -149,18 +149,38 @@
   <table>
     <thead><tr><th>Service</th><th>ID / Value</th><th>Where used</th></tr></thead>
     <tbody>
-      <tr><td>GA4 — primary</td><td><code>G-6BBENL3GJN</code></td><td>All page views, every Lovable page</td></tr>
+      <tr><td>GA4 — primary</td><td><code>G-6BBENL3GJN</code></td><td>All page views, every Lovable page (via on-page gtag.js)</td></tr>
       <tr><td>GA4 — secondary</td><td><code>G-Q1WT3KSLTB</code></td><td>Backup measurement ID</td></tr>
       <tr><td>Google Ads tag</td><td><code>AW-11077673835</code></td><td>Site-wide remarketing + conversion attribution</td></tr>
-      <tr><td>Booking conversion send_to</td><td><code>AW-11077673835/q9fdCPmf9awcEOvGn6Ip</code></td><td>"BAT Booking Click" conversion (fires on any Book Now click)</td></tr>
+      <tr><td>Google Tag Manager container</td><td><code>GTM-MTQ6DCBF</code></td><td>Companion to on-page gtag.js. Version 5 live (21 May 2026) — Conversion Linker + Google tag fix. 4 Tags, 2 Triggers, 7 Variables.</td></tr>
+      <tr><td><b>Booking conversion (PRIMARY)</b> ✅ NEW</td><td><code>AW-11077673835/nMiQCKHAo7AcEOvGn6Ip</code></td><td><b>"Booking Confirmed (BAT)" Purchase conversion</b> — fires on <code>/book-confirmed/[id]</code> via BAT's TrackingPixels component. Created + registered in BAT tenant_pixels 21 May 2026. <b>Smart Bidding now optimises on real bookings.</b></td></tr>
+      <tr><td>Booking click conversion (DEMOTED → Secondary)</td><td><code>AW-11077673835/q9fdCPmf9awcEOvGn6Ip</code></td><td>"BAT Booking Click" — fires on any Book Now click on brisbanehifu.com. Demoted 21 May to stop Smart Bidding chasing the wrong signal. Kept for diagnostics.</td></tr>
+      <tr><td>Conversion Linker (GTM)</td><td>Live tag in GTM Version 5</td><td>Captures gclid + stores in first-party cookie for cross-page persistence. Companion to the on-page gclid passthrough snippet on Lovable.</td></tr>
       <tr><td>Google Site Verification</td><td><code>google-site-verification=bXJtkQbwQri47hjtEg8y9qfqxkYjU8Wdf-V-vzbPawg</code></td><td>TXT record in Hostinger DNS — do not delete</td></tr>
-      <tr><td>Google Ads Customer ID</td><td><code>443-403-6290</code></td><td>Brisbane HIFU Clinic account</td></tr>
-      <tr><td>GCLID passthrough</td><td>active</td><td>Paid attribution survives BAT booking redirect</td></tr>
+      <tr><td>Google Ads Customer ID</td><td><code>443-403-6290</code></td><td>Brisbane HIFU Clinic account · Login: brisbane.hifu.clinic@gmail.com</td></tr>
+      <tr><td>GCLID passthrough snippet</td><td>Live in Lovable global &lt;head&gt;</td><td>Captures gclid/utm/fbclid on landing → sessionStorage → rewrites <code>app.bookatreatment.ai/book/*</code> hrefs on click. Functional test PASSED 21 May.</td></tr>
     </tbody>
   </table>
 
   <div class="callout green">
-    <b>✅ Verification status:</b> All tracking active and verified live as of 15 May Lovable cutover. GCLID test was performed pre-cutover with a fresh <code>?gclid=test-cutover-morning</code> URL parameter.
+    <b>✅ Verification status (21 May 2026):</b> Full end-to-end conversion loop verified: gclid lands → captured → rewrites Book Now href → BAT stores on booking row → /book-confirmed fires gtag with new conversion label → Google Ads counts a real booking. Smart Bidding now optimises on real bookings, not Book-Now clicks.
+  </div>
+</section>
+
+<!-- ─────────────── 2B — CLOUDFLARE ACCOUNTS ─────────────── -->
+<section id="cloudflare">
+  <h2><span class="num">2B</span>Cloudflare account → domain mapping</h2>
+
+  <table>
+    <thead><tr><th>Domain</th><th>Cloudflare account (Google login)</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>brisbanehifu.com</b></td><td><code>Neoklien.consulting@gmail.com</code></td><td>Confirmed 21 May 2026 via live Cloudflare tab</td></tr>
+      <tr><td><b>bookatreatment.ai</b></td><td><code>gm.teamneo@gmail.com</code></td><td>Separate account — TeamNEO identity</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <b>⚠ Consolidation queue:</b> Two Cloudflare accounts is unnecessary friction. Plan to move <code>bookatreatment.ai</code> from <code>gm.teamneo@gmail.com</code> → <code>Neoklien.consulting@gmail.com</code> (the consulting identity is the keeper). Process: export BIND zone from source, "Add a site" in target, import BIND, get new nameservers, update at Hostinger registrar, wait 24-48hr for propagation, remove zone from source. <b>Downtime risk 0-4hr if TTLs low.</b> Do midweek, quiet hours, never before a tender deadline or campaign launch.
   </div>
 </section>
 
