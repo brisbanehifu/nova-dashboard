@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Session Handover · 26 May 2026 · Backlog Attack Plan</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --card:#1a1a1a; --card-alt:#221240; --text:#e8e8e8; --muted:#9b9b9b;
+    --accent:#00E8B4; --purple:#9B3DFF; --coral:#FF7A6E; --pink:#F040C8;
+    --red:#ff5a5a; --amber:#ffb340; --green:#3dd87f; --blue:#4aa3ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,'Plus Jakarta Sans','SF Pro Display',sans-serif;line-height:1.55;padding:32px;max-width:1180px;margin:0 auto}
+  h1{font-size:30px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#00FFCA 0%,#9B3DFF 55%,#FF7A6E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.4px}
+  h2{font-size:20px;font-weight:700;margin:32px 0 12px;color:var(--accent);letter-spacing:-0.2px}
+  h3{font-size:16px;font-weight:600;margin:16px 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 20px;margin:12px 0;transition:border-color 0.2s}
+  .ok{border-left:4px solid var(--accent)}
+  .warn{border-left:4px solid var(--amber)}
+  .alert{border-left:4px solid var(--red)}
+  .info{border-left:4px solid var(--blue)}
+  .verified{border-left:4px solid var(--green)}
+  .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;vertical-align:middle;margin-left:6px}
+  .pill-ok{background:rgba(0,232,180,0.18);color:var(--accent)}
+  .pill-warn{background:rgba(255,179,64,0.18);color:var(--amber)}
+  .pill-alert{background:rgba(255,90,90,0.18);color:var(--red)}
+  .pill-verified{background:rgba(61,216,127,0.18);color:var(--green)}
+  .pill-purple{background:rgba(155,61,255,0.18);color:var(--purple)}
+  .pill-blue{background:rgba(74,163,255,0.18);color:var(--blue)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+  code{background:rgba(0,232,180,0.08);padding:2px 6px;border-radius:4px;color:var(--accent);font-family:'SF Mono','Menlo',monospace;font-size:12.5px}
+  pre{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;overflow-x:auto;font-size:12.5px;font-family:'SF Mono','Menlo',monospace;color:#cfe8ff;margin:8px 0}
+  a{color:var(--accent)}
+  a:hover{text-decoration:underline}
+  ul,ol{padding-left:22px;margin:6px 0}
+  li{margin:4px 0}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:14px 0 18px}
+  .stat{background:var(--card-alt);border:1px solid rgba(155,61,255,0.18);border-radius:12px;padding:14px}
+  .stat .num{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-0.5px;line-height:1.2}
+  .stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px}
+  .nav{margin-bottom:18px;font-size:13px}
+  .nav a{margin-right:12px}
+  .strike{text-decoration:line-through;color:var(--muted)}
+  .resolved-tile{background:linear-gradient(135deg,rgba(61,216,127,0.10),rgba(0,232,180,0.06));border:1px solid rgba(61,216,127,0.30);border-radius:14px;padding:16px 20px;margin:12px 0}
+  .priority-tile{background:linear-gradient(135deg,rgba(255,90,90,0.10),rgba(255,179,64,0.06));border:1px solid rgba(255,90,90,0.35);border-radius:14px;padding:18px 22px;margin:14px 0}
+  .footer{margin-top:40px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.08);font-size:13px;color:var(--muted)}
+  .footer a{color:var(--accent)}
+  .toc{background:var(--card-alt);border:1px solid rgba(155,61,255,0.18);border-radius:12px;padding:14px 20px;margin:14px 0}
+  .toc a{display:inline-block;margin-right:14px;font-size:13px;font-weight:600}
+  .q-list{background:rgba(0,0,0,0.30);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:13px}
+  .q-list strong{color:var(--amber)}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="./index.html">← Nova Dashboard</a>
+  <a href="./session-handover-20may2026-rft0577-recruitment-buildout.html">Prev (20 May)</a>
+</div>
+
+<h1>Session Handover · 26 May 2026 · Backlog Attack Plan</h1>
+<div class="sub">
+  5 PRs shipped end-to-end via strict-protocol, zero PROD damage · Railway-API autonomous serialize-checks now live · Config guide v6.41 brings 28 PRs back in sync · 5 bugs queued for next session.
+  <br><br>
+  Trust signal: <em>"this has been a wrap-up of an incredibly good session"</em> · UAT confirmed across R1 / R2 / R3 (full reschedule loop incl. Google Calendar sync) / R9.
+</div>
+
+<div class="stat-grid">
+  <div class="stat"><div class="num">5</div><div class="lbl">PRs merged + UAT'd</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">PROD damage</div></div>
+  <div class="stat"><div class="num">28</div><div class="lbl">PRs synced into config guide</div></div>
+  <div class="stat"><div class="num">5</div><div class="lbl">Bugs queued for next session</div></div>
+  <div class="stat"><div class="num">15s</div><div class="lbl">R9 deploy time (record)</div></div>
+</div>
+
+<div class="toc">
+  <strong>Jump to:</strong>
+  <a href="#shipped">Today's wins</a>
+  <a href="#start-here">Start here next session</a>
+  <a href="#backlog">Backlog cards (R4–R8)</a>
+  <a href="#carryover">Carryover items</a>
+  <a href="#tools">Tools enabled</a>
+  <a href="#standing-rules">Standing rules</a>
+</div>
+
+<!-- ───────────────────────── SHIPPED ───────────────────────── -->
+<h2 id="shipped">✅ Shipped today — 5 PRs, all strict-protocol</h2>
+
+<table>
+  <thead><tr><th>R#</th><th>Bug</th><th>PR</th><th>UAT</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>R1</td>
+      <td>Bookings date filter ignored — clicking "23 May" still showed Dec/Oct/Sep entries</td>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/484">#484</a></td>
+      <td><span class="pill pill-verified">PASS</span></td>
+      <td>2-line fix in <code>DateRangePopover.tsx</code> Apply handler — default <code>draftTo</code> to <code>draftFrom</code> when single-day click. Deploy 150s.</td>
+    </tr>
+    <tr>
+      <td>R2</td>
+      <td>Favicon was dark-green wave instead of colourful BAT calendar+leaf brand</td>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/485">#485</a></td>
+      <td><span class="pill pill-verified">PASS</span></td>
+      <td>9 PNG icons regenerated from 512×512 source via new <code>scripts/generate-bat-favicons.js</code>; admin theme-color flipped to <code>#9B3DFF</code> (BAT purple); splash uses PNG now. iOS bookmarks need delete+re-add (OS icon cache).</td>
+    </tr>
+    <tr>
+      <td>R3</td>
+      <td><code>{{reschedule_link}}</code> missing from confirmation email workflow variable hint</td>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/486">#486</a></td>
+      <td><span class="pill pill-verified">PASS</span></td>
+      <td>1-line addition to <code>TEMPLATE_VARIABLES</code> in <code>WorkflowsPage.tsx</code>. Backend already substituted the variable correctly — only the displayed hint was missing it. Full reschedule loop UAT'd end-to-end incl. Google Calendar sync.</td>
+    </tr>
+    <tr>
+      <td>R9</td>
+      <td><strong>CRITICAL</strong> — recurring reschedule duplicate booking pattern (Rahnia Dreise May 26, Sanja Mirkovic May 11)</td>
+      <td><a href="https://github.com/brisbanehifu/booking-api/pull/487">#487</a></td>
+      <td><span class="pill pill-verified">PASS</span></td>
+      <td>Server-side dedup on public <code>POST /api/bookings</code>: phone-match against future bookings within 30d returns <code>needs_confirmation:true</code> + frontend modal lets customer Replace or Keep both. Silent cancel on Replace (no SMS — feels like a reschedule). Admin override skips dedup. <strong>Fail-open by design.</strong> Deploy in 15s — fastest of the day.</td>
+    </tr>
+    <tr>
+      <td>R10</td>
+      <td>Config guide audit + Nova dashboard sync</td>
+      <td>local docs</td>
+      <td><span class="pill pill-verified">DONE</span></td>
+      <td>Config guide bumped v6.40 → v6.41 with full backfill of PRs #460–#487. New "Next Session Priorities" callout at line 30. Artefacts library row updated.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ───────────────────────── START HERE ───────────────────────── -->
+<h2 id="start-here">🎯 Start here next session</h2>
+
+<div class="priority-tile">
+  <h3 style="margin-top:0">Recommended attack order</h3>
+  <ol>
+    <li>
+      <strong>R4 — Deposit enforcement</strong> <span class="pill pill-alert">REVENUE LEAK</span><br>
+      Open with the 3 scoping questions below — depends on Kim's product call. Investigation-heavy.
+    </li>
+    <li>
+      <strong>R5 — Mobile bottom nav sticky</strong> <span class="pill pill-ok">EASY</span><br>
+      Likely a 1-file CSS fix (<code>100dvh</code> + safe-area). Ship while R4 scoping is being resolved.
+    </li>
+    <li>
+      <strong>R7 — Plan naming sync + BHIFU limits</strong> <span class="pill pill-warn">BLOCKED ON WEBSITE</span><br>
+      Cross-system. Confirm with Kim whether Lovable website tiers are finalised before app changes.
+    </li>
+    <li>
+      <strong>R6 + R8 bundled — Waiver flow + Cancel button</strong> <span class="pill pill-purple">SLIDEOUT FIXES</span><br>
+      Both touch the booking detail slideout — single investigation pass. R6 splits into 3 sub-PRs (a, b, c).
+    </li>
+  </ol>
+  <p style="margin-top:10px;font-size:13px;color:var(--muted)">Rationale: open R4 first because revenue, but it needs Kim's product-call answers before code lands. R5 is the cleanest standalone win. R7 needs cross-system coordination. R6 + R8 share territory.</p>
+</div>
+
+<!-- ───────────────────────── BACKLOG CARDS ───────────────────────── -->
+<h2 id="backlog">📋 Backlog cards (R4–R8)</h2>
+
+<!-- R4 -->
+<div class="card alert">
+  <h3>R4 — Deposit enforcement on bookings <span class="pill pill-alert">REVENUE LEAK</span></h3>
+  <p><strong>Symptom:</strong> Some services let clients book without paying a deposit even when the service requires one.</p>
+  <p><strong>Example:</strong> Elisse Walker, FIRST visit, "35+ Face & Neck Lift – 1 Pack", 27/05/2026 — slideout shows <code>DEPOSIT TOTAL: $0.00 · Unpaid</code>. Should have been blocked at booking time.</p>
+  <p><strong>Recovery path also broken:</strong> "Send Deposit SMS (paused)" button is disabled because the Stripe Connect pipeline was paused on 9 May 2026 per the standing-rule memory <code>[stripe_pipeline_pause_9may2026]</code>. Re-enabling that pipeline is a prerequisite for R6c (re-inserting <code>{{waiver_link}}</code> in SMS) too.</p>
+
+  <div class="q-list">
+    <strong>🚧 Open scoping questions for Kim (need answers before coding):</strong>
+    <ol>
+      <li>Is deposit <em>meant</em> to be enforced on ALL services that have one configured, or only a subset (e.g. first-visits, $-threshold, specific service IDs, paid services only)?</li>
+      <li>Is the gap server-side (booking API accepts without deposit field) or front-end (public flow lets customer skip the payment step)?</li>
+      <li>Any known booking sources that bypass deposit by design (admin-created bookings, "AGAIN" rebookings, rescheduled bookings via the dedup flow)? Should those continue to bypass?</li>
+    </ol>
+  </div>
+
+  <p><strong>Files likely touched:</strong> <code>index.js</code> POST <code>/api/bookings</code> (deposit validation), <code>frontend/src/pages/booking/BookingPage.tsx</code> (payment step gating), service config schema in <code>event-types.js</code> for the per-service "deposit_required" flag.</p>
+  <p><strong>Coupled with R6c</strong> — Stripe pipeline status decision affects both.</p>
+</div>
+
+<!-- R5 -->
+<div class="card warn">
+  <h3>R5 — Mobile bottom nav not sticky on scroll <span class="pill pill-warn">UX</span></h3>
+  <p><strong>Symptom:</strong> On iOS Chrome (and possibly Android Chrome), the bottom tab bar (Services / Bookings / Contacts / Ask NEO / More) detaches from the viewport bottom and floats mid-page during scroll.</p>
+  <p><strong>Likely root cause:</strong> classic <code>position: fixed</code> + <code>100vh</code> interaction with iOS browser-chrome collapse. Visible viewport changes when the address bar hides, but <code>vh</code> is locked to the <em>large</em> viewport.</p>
+  <p><strong>Likely fix family:</strong></p>
+  <pre>position: fixed;
+bottom: 0;
+height: calc(100dvh - <var>--header</var>);     /* dvh not vh — dynamic viewport */
+padding-bottom: env(safe-area-inset-bottom);   /* iPhone notch / home indicator */
+-webkit-overflow-scrolling: touch;</pre>
+  <p><strong>Files likely touched:</strong> <code>frontend/src/components/lg/BottomTabBar.tsx</code> + its CSS / Tailwind classes.</p>
+  <div class="q-list">
+    <strong>🚧 Verify before claiming fixed:</strong>
+    <ul>
+      <li>iOS Chrome ✓ (Kim's reported scenario)</li>
+      <li>iOS Safari ✓ (same WebKit engine but different chrome behaviour)</li>
+      <li>Android Chrome ✓ (different rendering, may also be affected)</li>
+      <li>Desktop unchanged ✓</li>
+    </ul>
+  </div>
+</div>
+
+<!-- R6 -->
+<div class="card warn">
+  <h3>R6 — Waiver flow multi-part <span class="pill pill-warn">3 SUB-PRs</span></h3>
+  <p>Three stacked issues, ship in order:</p>
+
+  <h3 style="font-size:14px;margin-top:14px">R6a — "No active consent form" error</h3>
+  <p>Kim's TEST booking 28/05/2026 showed: <em>"Couldn't send waiver: No active consent form is attached to this service — Edit the service in Settings → Consent Forms and assign a form, or use the contact-card SMS flow with a manual template pick."</em></p>
+  <p><strong>Diagnose first.</strong> Could be config (form genuinely not linked in Settings → Consent Forms) or code (lookup broken — inactive flag, wrong service id, soft-deleted form, tenant mismatch). Backend logic at <code>consent-forms.js</code> + the resolver pattern in <code>notifications.js:475</code>.</p>
+
+  <h3 style="font-size:14px;margin-top:14px">R6b — Waiver page format broken</h3>
+  <p>Kim's words: <em>"the format was so very bad"</em> — needs visual redesign before customers should see it. Investigation needed: where is the waiver page rendered? <code>frontend/src/pages/sign/</code> likely.</p>
+
+  <h3 style="font-size:14px;margin-top:14px">R6c — Re-insert <code>{{waiver_link}}</code> in confirmation SMS</h3>
+  <p>The variable was REMOVED from the Booking Confirmation SMS template earlier (per R6b's bad-format complaint). Once R6b ships, drop <code>{{waiver_link}}</code> back into the template. Backend already substitutes it correctly (per R3's investigation — <code>notifications.js</code> mints short-URL <code>/s/&lt;slug&gt;</code> per booking).</p>
+
+  <p><strong>Note:</strong> R6 may also expose the Stripe pipeline pause situation. Coordinate with R4.</p>
+</div>
+
+<!-- R7 -->
+<div class="card info">
+  <h3>R7 — Plan naming sync + Brisbane HIFU plan limits <span class="pill pill-blue">CROSS-SYSTEM</span></h3>
+  <p><strong>Symptom 1 (naming):</strong> App labels Brisbane HIFU's plan <strong>"Duo"</strong> but the website pricing has tiers <strong>Starter / Growth / Pro / Enterprise</strong> — no "Duo" exists publicly. Source of truth = website. Kim is updating Lovable website pricing in parallel.</p>
+  <p><strong>Symptom 2 (limits):</strong> Brisbane HIFU needs limits bumped to <strong>600 SMS/mo + 2 locations</strong>. Currently <strong>500 SMS + 1 location</strong> (showing 420/500 = 84%, approaching limit). Doesn't cleanly fit any website tier as shown (Growth = 500/1, Pro = 1000/5).</p>
+
+  <div class="q-list">
+    <strong>🚧 Open clarifying questions for Kim:</strong>
+    <ol>
+      <li>Is "Duo" being <strong>renamed</strong> to one of the website tiers, or <strong>retired entirely</strong> with BHIFU migrated onto a new tier?</li>
+      <li>BHIFU at 600 SMS + 2 locations doesn't fit any website tier — is BHIFU going on a <strong>custom/grandfathered</strong> plan, or do the website tiers themselves need to change?</li>
+      <li>Sequencing — should the Lovable website update land <strong>before</strong> app changes (app mirrors final names), or app limit-bumps for BHIFU now + naming sync later?</li>
+    </ol>
+  </div>
+
+  <p><strong>Files likely touched:</strong> <code>plan-tiers.js</code>, <code>plan-limits.js</code>, possibly DB migration to update the BHIFU tenant's <code>plan_tier</code> value.</p>
+</div>
+
+<!-- R8 -->
+<div class="card info">
+  <h3>R8 — Cancel Booking button missing from slideout <span class="pill pill-purple">SLIDEOUT</span></h3>
+  <p><strong>Symptom:</strong> Same booking slideout shows the Cancel button on some bookings (e.g. Kim Klein TEST 28/05/2026) but NOT on others (e.g. "Xx f F g" · HIFU Model Face & Neck Lift · 23/05/2026).</p>
+  <p><strong>Handler exists:</strong> <code>handleCancelBooking</code> at <code>BookingsPage.tsx:611</code>. Something is conditionally hiding the button render.</p>
+  <p><strong>Leading theory:</strong> past-date guard (23 May &lt; today 26 May = past). The slideout may treat past bookings as "can't cancel, already happened" — sometimes right (no-show, completed) but wrong when Kim wants to retroactively mark a no-show or close a forgotten booking.</p>
+  <p><strong>Recommended bundle with R6</strong> — both are slideout-area fixes, single investigation pass.</p>
+</div>
+
+<!-- ───────────────────────── CARRYOVER ───────────────────────── -->
+<h2 id="carryover">➕ Carryover items (not in this session's sweep)</h2>
+
+<div class="card info">
+  <h3>R9 ongoing observation</h3>
+  <p>R9 (#487) shipped and verified, BUT it only catches duplicates created via the public booking flow. Watch the next 1-2 weeks for: (a) any new duplicate bookings that slip through (indicates a path we missed), (b) any "Keep both" choices that turn out to be legitimate (validates Decision 1B phone-only matching), (c) any false-positive complaints from customers who got the modal but shouldn't have.</p>
+  <p>If issues arise, hooks for tweaks:</p>
+  <ul>
+    <li>Time window: currently 30 days, can narrow to 14 or widen to 60 if false-positive rate is off</li>
+    <li>Phone normalisation: currently last-9-digits, can broaden if customers re-type numbers differently across bookings</li>
+    <li>Status filter: currently excludes cancelled/completed/no-show — verify on Rahnia Dreise's actual rows that the filter is right</li>
+  </ul>
+</div>
+
+<div class="card info">
+  <h3>TEST booking visual separation</h3>
+  <p>Discussed during the "Xx f F g" / Rahnia Dreise investigation. Add a visual chip/tag to bookings on the "TEST" service so they're distinct from real bookings in the admin Bookings list. Reduces confusion when Kim is reviewing her actual schedule vs. test artefacts.</p>
+  <p>Small UI PR — probably 1 file. Defer until R4–R8 are settled.</p>
+</div>
+
+<div class="card warn">
+  <h3>CI Integration Tests timeout <span class="pill pill-warn">INFRA DEBT</span></h3>
+  <p>The "Integration Tests" CI job hits its 15-min runner timeout on every PR — the "Run database migrations" step alone exceeds the wall-clock budget. Team has been bypassing via admin-merge (all 5 of today's PRs included). Root cause: suspected DB migration script that doesn't parallelise. Worth a dedicated investigation session — fixing this gets us full test signal back, not just the 4 fast checks.</p>
+</div>
+
+<div class="card warn">
+  <h3>gh CI trigger flakiness <span class="pill pill-warn">INFRA DEBT</span></h3>
+  <p>R9 (#487) needed <strong>3 push attempts</strong> before CI would fire on the branch:</p>
+  <ol>
+    <li>Initial push → CI didn't trigger (status: 0 runs)</li>
+    <li>Empty commit retrigger + close/reopen PR → CI still didn't trigger</li>
+    <li>Real file change → CI finally fired</li>
+  </ol>
+  <p>Symptom of some GitHub Actions trigger optimization that skips empty-payload pushes. Workaround banked: if CI doesn't fire on the first push, make a real file change rather than wasting time on empty commits / close-reopen.</p>
+</div>
+
+<!-- ───────────────────────── TOOLS ───────────────────────── -->
+<h2 id="tools">🛠 Tools enabled this session</h2>
+
+<div class="card ok">
+  <h3>🤖 Autonomous Railway-API serialize-check</h3>
+  <p>Kim provisioned a project-scoped Railway API token (BAT-PROD project, environment=production). Saved at:</p>
+  <pre>C:\Users\kimkl\.railway-token</pre>
+  <p>Use pattern:</p>
+  <pre>export RAILWAY_TOKEN=$(cat /c/Users/kimkl/.railway-token)
+railway logs --deployment | tail -3   # confirms PROD serving traffic
+railway status                         # confirms project/env binding</pre>
+  <p>This replaces the prior "reply 'serialize clear'" handoff at the end of each PR. The token is project-scoped (cannot access other Railway projects) and non-expiring. <strong>Revoke via:</strong> Railway dashboard → BAT-PROD → Settings → Tokens.</p>
+  <p><strong>Limit:</strong> <code>railway list</code> doesn't work (needs account-level token); project token can only see BAT-PROD. That's fine for the use case.</p>
+</div>
+
+<div class="card ok">
+  <h3>📋 Strict-protocol checklist (re-confirmed every PR)</h3>
+  <ol>
+    <li><strong>Visual-verify BEFORE push</strong> — spin up Vite dev locally OR cognitive walkthrough for tiny changes; always <code>npm run build</code> + <code>npx eslint .</code> before commit</li>
+    <li><strong>Serialize check</strong> — autonomous via Railway logs now, no Kim handoff needed</li>
+    <li><strong>Merge → watch deploy → confirm hash flip</strong> — poll <code>curl https://app.bookatreatment.ai/ | grep -oE 'index-[A-Za-z0-9_-]+\.js'</code></li>
+    <li><strong>Re-run E2E against LIVE bundle</strong> — Kim runs the test plan with the new hash served</li>
+  </ol>
+  <p><strong>Note:</strong> Integration Tests CI job ignored (see infra debt above). 4 fast checks (Lint / Type / Unit / Build) gate merge.</p>
+</div>
+
+<!-- ───────────────────────── STANDING RULES ───────────────────────── -->
+<h2 id="standing-rules">📌 Standing rules banked / reinforced this session</h2>
+
+<table>
+  <thead><tr><th>Rule</th><th>Reason</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Fail-open on dedup checks</strong></td>
+      <td>R9's dedup branch wraps <code>findFutureDuplicates()</code> in try/catch and falls through to normal booking creation on any error. Missing a duplicate is recoverable; blocking a real booking is not.</td>
+    </tr>
+    <tr>
+      <td><strong>Empty commits don't trigger CI</strong></td>
+      <td>R9 trigger flakiness. If CI doesn't fire, make a real file change — don't waste time on <code>git commit --allow-empty</code> or close/reopen.</td>
+    </tr>
+    <tr>
+      <td><strong>Hash flip ≠ deploy complete for asset-only changes</strong></td>
+      <td>R2 favicon PR didn't change any JS — Vite produced same JS chunk hashes, so the hash poller never saw a flip. Future asset-only PRs: poll <code>Last-Modified</code> on <code>/manifest.json</code> or use Railway API to confirm deploy time.</td>
+    </tr>
+    <tr>
+      <td><strong>OS icon cache for bookmarks</strong></td>
+      <td>iOS/Chrome cache home-screen bookmark icons aggressively. After favicon updates, existing bookmarks keep the old icon until users delete + re-add. Not a code bug — set expectations.</td>
+    </tr>
+    <tr>
+      <td><strong>Test bookings should use the "TEST" service</strong></td>
+      <td>Kim's flagged this when investigating the "Xx f F g" booking — using real services for tests muddies the data + can fall into bug patterns (like R4 deposit enforcement) that confuse the investigation.</td>
+    </tr>
+    <tr>
+      <td><strong>Update "Next Session Priorities" callout at session close</strong></td>
+      <td>Built into the config guide's callout block. Items shipped → version log; new items → callout; priority order reflects current intent. Prevents next-session context loss.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ───────────────────────── QUICK REF ───────────────────────── -->
+<h2>🔧 Quick-reference for next session</h2>
+
+<div class="card info">
+  <h3>Repo + paths</h3>
+  <ul>
+    <li><strong>Booking API:</strong> <code>C:\Users\kimkl\Documents\Claude\booking-api</code> (main branch)</li>
+    <li><strong>Config guide:</strong> <code>BookATreatment-AI/Technical Documents/CONFIGURATION_GUIDE.md</code> — at v6.41</li>
+    <li><strong>Nova dashboard handovers:</strong> <code>nova-dashboard/session-handover-*.html</code> (this file lives here)</li>
+    <li><strong>Railway token:</strong> <code>C:\Users\kimkl\.railway-token</code></li>
+  </ul>
+</div>
+
+<div class="card info">
+  <h3>Key files for the backlog</h3>
+  <ul>
+    <li>R4 deposit — <code>index.js</code> (POST <code>/api/bookings</code>, line 1998), <code>event-types.js</code> (deposit config), <code>frontend/src/pages/booking/BookingPage.tsx</code></li>
+    <li>R5 sticky nav — <code>frontend/src/components/lg/BottomTabBar.tsx</code></li>
+    <li>R6 waiver — <code>consent-forms.js</code>, <code>notifications.js:475</code>, frontend sign page</li>
+    <li>R7 plan — <code>plan-tiers.js</code>, <code>plan-limits.js</code>, DB migration for tenant plan_tier</li>
+    <li>R8 cancel button — <code>BookingsPage.tsx:611</code> + the slideout render section (need to find conditional)</li>
+  </ul>
+</div>
+
+<div class="card info">
+  <h3>Recent commits (head of main, end of session)</h3>
+  <pre>11905ef  fix(bookings): detect duplicate bookings on public flow (R9 / Bug #9) (#487)
+0f21580  fix(workflows): expose {{reschedule_link}} in template variable hint (#486)
+fde9ab2  fix(branding): swap teal-wave icons for BAT colour brand icon (#485)
+510ce22  fix(bookings): single-click date in popover = single-day filter (#484)
+93c3cee  feat(services): admin can hide services from public booking page (#483)</pre>
+</div>
+
+<div class="footer">
+  <strong>Author:</strong> Claude (Opus 4.7) · <strong>Session date:</strong> 26 May 2026 · <strong>Closing trust:</strong> "I want to tackle the backlog" → backlog plan delivered<br>
+  <strong>Companion docs:</strong>
+  <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">CONFIGURATION_GUIDE.md (v6.41)</a> ·
+  <a href="./brisbane-hifu-dashboard.html">Brisbane HIFU master dashboard</a> ·
+  <a href="./teamneo-rft0577-panel-dashboard.html">RFT0577 panel dashboard</a>
+</div>
+
+</body>
+</html>
