@@ -1,7 +1,7 @@
 # HIFU MACHINE — SALE & VENDOR FINANCE AGREEMENT
 ### (Outright Purchase **or** Vendor-Financed Purchase with Profit-Share Repayment)
 
-**Seller:** **HIFU Machine Sales** (a registered business name of Neo-Klien Pty Ltd, ABN [___])
+**Seller:** **HIFU Machine Sales** (a registered business name of Neo-Klien Pty Ltd, ABN 34 104 291 830)
 **Address:** 76 Skyring Terrace, Newstead QLD 4006 · hifumachinesales.com · jk@clinicstarterkit.com
 **Buyer:** [Buyer legal name / Pty Ltd + ABN]
 **Effective Date:** ____ / ____ / 2026
@@ -82,7 +82,7 @@ All amounts are ex GST unless stated. GST is payable by the Buyer against a vali
 
 ## Execution
 
-**Seller — HIFU Machine Sales** (a registered business name of Neo-Klien Pty Ltd, ABN [___])
+**Seller — HIFU Machine Sales** (a registered business name of Neo-Klien Pty Ltd, ABN 34 104 291 830)
 Signature: ________________  Name: Kim Klein  Position: Director / Owner  Date: __ / __ / 2026
 
 **Buyer — [name / Pty Ltd]**
