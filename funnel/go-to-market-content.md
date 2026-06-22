@@ -12,7 +12,7 @@ Plan overview · email sequence copy · Facebook/Zeely promotion content.
 | 2 | **Land** | `/hifu-machines` page: packages, two buying options, demo CTA | Lovable | Live/building |
 | 3 | **Capture** | Lead form saves to `/admin/leads`; instant alert email | Lovable → `jk@startupbusiness4sale.com` | ✅ Fixed |
 | 4 | **Nurture** | 3-email automated sequence warms the lead and pushes the demo | MailerLite (`HMS-Email-Sequence`) | ✅ Rebuilt |
-| 5 | **Book** | Lead books a 15-min demo call | Calendly / phone | To wire |
+| 5 | **Book** | Lead books a demo | BookATreatment app (`/book/mpt-demo-1hr`) | ✅ live |
 | 6 | **Offer** | Demo call → send Canva proposal + the two options | Canva + Gmail | Proposal drafted |
 | 7 | **Close** | Pick Outright or Finance; sign the Sale & Vendor Finance agreement | e-sign | ✅ Agreement ready |
 | 8 | **Pay** | Deposit + GST upfront (finance) or staged (outright) | Stripe | To wire |

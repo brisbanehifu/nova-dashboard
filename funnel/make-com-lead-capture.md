@@ -1,6 +1,6 @@
 # Make.com — Lead-Capture Spine (build recipe)
 The automation that turns a Lovable form submission into a nurtured lead.
-**Flow:** Lovable form → **Webhook** → **MailerLite** (subscribe + trigger `HMS-Email-Sequence`) → **Email alert** to Kim → **Webhook response** (thank-you + Calendly link).
+**Flow:** Lovable form → **Webhook** → **MailerLite** (subscribe + trigger `HMS-Email-Sequence`) → **Email alert** to Kim → **Webhook response** (thank-you + BookATreatment demo link).
 
 > ⚠️ Built as a recipe because the Make API needs an approval the remote session can't grant. Either follow these steps in the Make UI (~15 min), or approve the Make connector and I'll build it via API.
 
@@ -37,22 +37,22 @@ The automation that turns a Lovable form submission into a nurtured lead.
 
 ## Module 4 — Webhook response (thank-you + booking)
 1. Add **Webhooks → Webhook response**.
-2. **Status:** 200. **Body:** return the Calendly link so the form shows the booking step:
+2. **Status:** 200. **Body:** return the BookATreatment demo link so the form shows the booking step:
 ```json
-{ "status": "ok", "calendly": "https://calendly.com/hifumachinesales/demo" }
+{ "status": "ok", "booking": "https://app.bookatreatment.ai/book/mpt-demo-1hr" }
 ```
-3. In Lovable, on success show: "Thanks {{first name}} — pick a demo time:" + embed the Calendly link.
+3. In Lovable, on success show: "Thanks {{first name}} — book your demo:" + a **Book a Demo** button → `https://app.bookatreatment.ai/book/mpt-demo-1hr`.
 
 ---
 
 ## Connections you'll need
 - **MailerLite** API key (free plan is fine).
 - **Email/Gmail** connection for the alert.
-- **Calendly** demo event — create a 15-min "HIFU Machine Demo" event type; paste its link into Module 4 and the Lovable form.
+- **BookATreatment** demo booking — already set up: `https://app.bookatreatment.ai/book/mpt-demo-1hr` (1-hr MPT demo). Paste into Module 4 and the Lovable form. No Calendly needed.
 
 ## Test checklist
 1. Submit a real test from the Lovable form.
-2. Confirm: lead appears in MailerLite (right group) → Email 1 arrives → alert hits `jk@startupbusiness4sale.com` → form shows the Calendly step.
+2. Confirm: lead appears in MailerLite (right group) → Email 1 arrives → alert hits `jk@startupbusiness4sale.com` → form shows the Book a Demo step.
 3. Turn the scenario **ON** and set scheduling to **Immediately** (run on each webhook).
 
 ## Optional add-ons (later)
