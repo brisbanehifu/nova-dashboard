@@ -1,6 +1,6 @@
 # HIFU Machine Sales — Go-to-Market Content Pack
 Plan overview · email sequence copy · Facebook/Zeely promotion content.
-**Seller:** HIFU Machine Sales (Neo-Klien Pty Ltd, ABN 34 104 291 830) · hifumachinesales.com
+**Seller:** HIFU Machine Sales · ABN 34 104 291 830 · hifumachinesales.com
 
 ---
 

@@ -1,7 +1,7 @@
 # Lovable Build Spec — `/hifu-machines` Landing Page
 **Goal:** a conversion page that sells HIFU machines to clinics, presents the two buying options (outright vs finance), and captures leads into the Make.com → Gmail → Notion pipeline.
 
-**Seller:** HIFU Machine Sales (a business name of Neo-Klien Pty Ltd, ABN 34 104 291 830) · hifumachinesales.com · jk@clinicstarterkit.com
+**Seller:** HIFU Machine Sales · ABN 34 104 291 830 · hifumachinesales.com · jk@clinicstarterkit.com
 
 ---
 
@@ -88,7 +88,7 @@ Then paste the copy from STEP 2. After the page is built, do STEP 3 to wire the 
 **Privacy line:** We'll only use your details to contact you about HIFU machines. No spam.
 
 ### Footer
-HIFU Machine Sales — a business name of Neo-Klien Pty Ltd · ABN 34 104 291 830 · hifumachinesales.com · jk@clinicstarterkit.com · 76 Skyring Terrace, Newstead QLD 4006
+HIFU Machine Sales · ABN 34 104 291 830 · hifumachinesales.com · jk@clinicstarterkit.com · 76 Skyring Terrace, Newstead QLD 4006
 
 ---
 
