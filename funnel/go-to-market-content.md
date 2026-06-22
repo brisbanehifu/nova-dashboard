@@ -73,6 +73,8 @@ You've got two ways in:
 
 Either way you get the same warranty, the same support, and the same loan-machine safety net.
 
+And the economics are strong: face treatments retail around **$450 per 30 minutes**, body around **$500** — while your cartridge cost is roughly **5 cents a shot** (about $40–50 a face treatment). The 15D and Clinic Starter Kit even include **2 full sets of cartridges**, estimated to generate around **$120,000** in treatment income.
+
 Most clinics treat their first paying client within a few weeks of training. The machine starts earning while you're still learning.
 
 **→ Book a 15-minute demo and I'll run your numbers** [button]

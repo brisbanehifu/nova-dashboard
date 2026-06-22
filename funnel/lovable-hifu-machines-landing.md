@@ -14,6 +14,8 @@ Then paste the copy from STEP 2. After the page is built, do STEP 3 to wire the 
 ---
 
 ## STEP 2 — Exact page copy
+> **Images:** use Kim's real assets only (see `brand-assets-manifest.md`). Hero = `brand-hero.jpg`; pricing cards = `machine-13d.png`; "why HIFU" = `clinic-interior.jpg`; ROI/numbers = `deals-results.jpg`; trust band = `training-smiling.jpg`. Never use AI-generated machines.
+
 
 ### Hero
 - **Eyebrow:** Australian-owned · 2-year warranty · onshore support
@@ -53,6 +55,13 @@ Then paste the copy from STEP 2. After the page is built, do STEP 3 to wire the 
 - Button: Book a demo
 
 *Small print under cards:* All prices ex GST. Ask about our ex-demo 13D unit at $12,000 (limited availability).
+
+### The numbers (ROI block — real figures from the proposal)
+**Heading:** The machine pays for itself faster than you'd think.
+- **Face treatments** retail around **$450 per 30 min**; **body** around **$500 per 30 min**.
+- Your cartridge cost per treatment is only about **$40–50 (face)** or **$25–35 (body)** — roughly **5 cents a shot**.
+- The **15D and Clinic Starter Kit** include **2 full sets of cartridges** — estimated to generate around **$120,000** in treatment income.
+*Caption:* Figures are indicative, not a guarantee — we'll walk through your exact numbers on the demo.
 
 ### Two ways to buy (comparison block)
 **Heading:** Buy outright, or let the machine pay for itself.
