@@ -105,6 +105,15 @@ HIFU Machine Sales · ABN 34 104 291 830 · hifumachinesales.com · jk@clinicsta
 
 > When the lead form is submitted, POST the form data as JSON to this webhook URL: **[PASTE MAKE.COM WEBHOOK URL HERE]**. On a successful response, hide the form and show: "Thanks {first name} — pick a time that suits you:" followed by an embedded Calendly inline widget for **[PASTE CALENDLY EVENT URL]**. On error, show "Something went wrong — email jk@clinicstarterkit.com and we'll sort it."
 
+**Payload to send** (matches the Make webhook contract in `make-com-lead-capture.md`):
+```json
+{ "name": "...", "email": "...", "phone": "...", "suburb": "...",
+  "package": "13D|15D|Clinic Starter Kit|Not sure",
+  "buy_preference": "Outright|Finance|Discuss",
+  "message": "...", "source": "hifu-machines-landing" }
+```
+
+
 *(I generate the Make.com webhook + the Calendly demo event in the next build step, then you paste both URLs here.)*
 
 ---
