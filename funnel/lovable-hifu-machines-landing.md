@@ -103,7 +103,7 @@ HIFU Machine Sales · ABN 34 104 291 830 · hifumachinesales.com · jk@clinicsta
 
 ## STEP 3 — Wire the form to the pipeline
 
-> When the lead form is submitted, POST the form data as JSON to this webhook URL: **[PASTE MAKE.COM WEBHOOK URL HERE]**. On a successful response, hide the form and show: "Thanks {first name} — pick a time that suits you:" followed by an embedded Calendly inline widget for **[PASTE CALENDLY EVENT URL]**. On error, show "Something went wrong — email jk@clinicstarterkit.com and we'll sort it."
+> When the lead form is submitted, POST the form data as JSON to this webhook URL: **[PASTE MAKE.COM WEBHOOK URL HERE]**. On a successful response, hide the form and show: "Thanks {first name} — book your demo:" with a prominent **Book a Demo** button linking to **https://app.bookatreatment.ai/book/mpt-demo-1hr** (opens in a new tab). On error, show "Something went wrong — email jk@clinicstarterkit.com and we'll sort it."
 
 **Payload to send** (matches the Make webhook contract in `make-com-lead-capture.md`):
 ```json
@@ -114,7 +114,7 @@ HIFU Machine Sales · ABN 34 104 291 830 · hifumachinesales.com · jk@clinicsta
 ```
 
 
-*(I generate the Make.com webhook + the Calendly demo event in the next build step, then you paste both URLs here.)*
+*(Paste the Make.com webhook URL once the scenario is built. The demo booking link is your BookATreatment app: https://app.bookatreatment.ai/book/mpt-demo-1hr — no Calendly.)*
 
 ---
 
