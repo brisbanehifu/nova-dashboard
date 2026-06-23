@@ -5,6 +5,11 @@ Paste the block below into Claude (or ask me directly). It rebuilds your Starter
 ---
 
 ```
+🔒 GOLDEN RULE — THE MACHINES: Never recreate, redraw, restyle, "improve", reinterpret or
+AI-generate the HIFU machines or clinic photos. Embed Kim's ACTUAL photo files exactly as-is
+(machine is always machine-13d.png / 7/8/9.jpg). Zero drift on the machine look. If a photo
+is missing, use a clearly-marked placeholder and ASK — never invent or substitute a machine.
+
 You are designing a premium B2B sales proposal for HIFU Machine Sales (a business of
 Neo-Klien Pty Ltd, ABN 34 104 291 830) that sells HIFU machines to Australian clinics.
 Output a SINGLE responsive HTML file (inline CSS, no external deps) that prints cleanly to

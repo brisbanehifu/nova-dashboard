@@ -1,5 +1,9 @@
 # HIFU Machine Sales — Brand Image Asset Manifest
-**Rule:** Never generate or substitute machine/clinic imagery. All proposals, the landing page, emails and ads use **only** these real assets. The machine is always `machine-13d.png` (or `7/8/9.jpg` clinic renders) — never an AI-generated machine.
+
+## 🔒 GOLDEN RULE — THE MACHINES
+**Never recreate, redraw, restyle, "improve", reinterpret, or AI-generate the HIFU machines or Kim's clinic photos.** Embed Kim's **actual photo files** exactly as-is — **zero drift on the machine look**. The machine is always the real file `machine-13d.png` (or `7/8/9.jpg`) — never a generated, traced, or "cleaned up" version. If a needed photo is missing, use a marked placeholder and **ASK Kim** — never invent or substitute. Kim's images + style ARE the brand.
+
+All proposals, the landing page, emails and ads use **only** the real assets below.
 
 **Source of truth:** `C:\Users\kimkl\Documents\Claude\HMS-Email-Sequence\images` (Kim's local). To use in remote builds, copy into `funnel/images/` in this repo (then each has a stable raw URL) or upload into Canva/Lovable/MailerLite directly.
 
