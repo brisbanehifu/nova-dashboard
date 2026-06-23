@@ -34,10 +34,10 @@ _Last verified: 2026-06-22._
 Source of truth: **`funnel/deals.md`**. Summary (all ex GST): **13D $19,995 · 15D $29,995 · Clinic Starter Kit $49,995 · ex-demo 13D $12,000.** All include 2-yr warranty, AU support (Mon–Sat 9–6), hot-swap loan machine.
 
 ## Hard rules (mistakes to never repeat)
-1. **Marketing shows "HIFU Machine Sales" only** — never "Neo-Klien" (the legal entity appears *only* in signed agreements).
-2. **Email = Google Workspace.** Titan is dead.
-3. **Booking = BookATreatment**, not Calendly.
-4. **Never generate machine/clinic imagery** — use Kim's real photos (`funnel/brand-assets-manifest.md`).
+1. 🔒 **GOLDEN RULE — THE MACHINES:** Never recreate, redraw, restyle, "improve", reinterpret, or AI-generate the HIFU machines or Kim's clinic photos. Always embed Kim's **actual photo files** (`machine-13d.png`, `7/8/9.jpg`, etc.) exactly as-is — **zero drift on the machine look**. If a photo is missing, use a marked placeholder and **ASK** — never invent or substitute a machine image. (AI repeatedly tries to "tidy" the machines; do not.)
+2. **Marketing shows "HIFU Machine Sales" only** — never "Neo-Klien" (the legal entity appears *only* in signed agreements).
+3. **Email = Google Workspace.** Titan is dead.
+4. **Booking = BookATreatment**, not Calendly.
 5. **Make.com** can't be built via API from remote web sessions.
 
 ## Repo map
