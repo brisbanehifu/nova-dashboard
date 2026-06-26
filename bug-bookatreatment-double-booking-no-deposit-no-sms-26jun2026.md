@@ -149,7 +149,13 @@ payment.
 
 ## C. No confirmation SMS (both bookings)
 
-### Most likely cause — carrier filtering of an unregistered sender
+> **UPDATE 26 Jun 2026 (Kim):** the **BRISHIFU ACMA alpha tag is now APPROVED & active.** That
+> removes the unregistered-sender cause below. The **most likely remaining cause is a wrong Railway
+> `CLICKSEND_USERNAME`** — see "Things to verify" #2, which is now the prime suspect. ClickSend can
+> silently rename the master `api_username`, which returns 401 on every send until the env var is
+> corrected and the `web` service is redeployed.
+
+### Previously-suspected cause (now resolved) — carrier filtering of an unregistered sender
 Per the **13 May 2026 ClickSend migration handover** (this repo), an SMS showing
 `notification_logs.status='sent'` (and even ClickSend `status_text="Message delivered to
 the handset"`) is **a claim, not a delivery**:

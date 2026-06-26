@@ -31,12 +31,16 @@ Copy-paste the prompt below to start it.
 > window; move the "confirmed" SMS/email to the payment-success transition. **Get Kim's answers to the
 > 5 product questions in spec §4 before coding B.**
 >
-> **C — No confirmation SMS.** ClickSend was sending from an unregistered numeric sender pool →
-> Telstra/Vodafone silently filter; `notification_logs.status='sent'` ≠ delivered. **Do ops checks
-> first:** confirm the BRISHIFU alpha tag is ACMA-approved and active in ClickSend; confirm Railway
-> `CLICKSEND_USERNAME` matches the live ClickSend username (a silent rename caused a 401 outage on
-> 13 May); pull the real DLR for Heather's number. Code: normalise recipient numbers to E.164 before
-> send and surface real DLR status in `notification_logs`.
+> **C — No confirmation SMS.** UPDATE 26 Jun (Kim): the **BRISHIFU ACMA alpha tag is now APPROVED**,
+> so the sender-registration cause is resolved — the most likely remaining cause is the **Railway
+> `CLICKSEND_USERNAME` env var being wrong**. On 13 May a silent ClickSend rename of the master
+> `api_username` (`Brisbane.HIFU.clinic@gmail.com` → `BrisbaneHifu`) made every send return **401**.
+> **Do this first:** in Railway (service `web`), confirm `CLICKSEND_USERNAME` matches the *current*
+> live ClickSend API username exactly; fix + redeploy if not (`railway variables --set
+> CLICKSEND_USERNAME=<correct> --service web` then `railway redeploy --service web --yes`). Then pull
+> the real DLR for Heather's number to confirm delivery (don't trust `status='sent'`). Code (lower
+> priority now): normalise recipient numbers to E.164 before send and surface real DLR status in
+> `notification_logs`.
 >
 > **Suggested order:** C (likely pure config, fastest) → A (contained code fix) → B (revenue fix,
 > needs product answers + Stripe un-pause). Work on a feature branch, commit, push, open a draft PR.
