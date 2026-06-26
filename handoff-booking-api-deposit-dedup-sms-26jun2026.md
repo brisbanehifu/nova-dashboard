@@ -25,11 +25,16 @@ Copy-paste the prompt below to start it.
 >
 > **B — Deposit revenue leak (R4).** `POST /api/bookings` inserts `confirmed/unpaid` with no server-
 > side deposit gate; `computeDeposit` (`jose-booking.js`) only charges when `event_types.deposit_required=1`
-> (default 0); Stripe Connect pipeline was PAUSED 9 May 2026. **Fix per the spec:** un-pause Stripe
-> first, then gate `POST /api/bookings` → create `status='pending_deposit'` + return Stripe Checkout
-> `payment_url` when a deposit is owed; confirm only on payment success; release the slot after a hold
-> window; move the "confirmed" SMS/email to the payment-success transition. **Get Kim's answers to the
-> 5 product questions in spec §4 before coding B.**
+> (default 0); Stripe Connect pipeline was PAUSED 9 May 2026. **Kim's product decisions are LOCKED
+> (spec §4):** (1) enforce only on services explicitly ticked `deposit_required` — no price
+> threshold; (2) charge exactly the configured amount, no fallback (a ticked $0 service charges $0);
+> (3) staff/admin rebookings & admin-created bookings bypass, enforce on public only; (4) **NO holds
+> — pay inline, first-in-best-dressed:** do NOT reserve a slot or create a `pending_deposit` row —
+> return a Stripe Checkout `payment_url` and create the `confirmed` booking ONLY on the payment-success
+> webhook (re-check slot free then); (5) ship to all clinics, no tenant flag. **Prerequisites:**
+> un-pause Stripe first, AND audit `event_types` so the services that should take a deposit are
+> actually ticked with a non-zero amount (spec §4.1) — otherwise the leak persists by config. Move
+> the "confirmed" SMS/email to the payment-success transition.
 >
 > **C — No confirmation SMS.** UPDATE 26 Jun (Kim): the **BRISHIFU ACMA alpha tag is now APPROVED**,
 > so the sender-registration cause is resolved — the most likely remaining cause is the **Railway

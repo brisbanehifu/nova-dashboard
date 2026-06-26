@@ -43,30 +43,37 @@ bookings show $0 deposit.
 **Conclusion: the gap is server-side.** `POST /api/bookings` has no enforcement step — it
 inserts `confirmed/unpaid` regardless of whether a deposit is owed.
 
-## 3. Proposed design
+## 3. Proposed design (pay-inline, NO holds — per Q4)
 
-### 3.1 New booking status
-Use the existing `pending_deposit` concept as a real booking lifecycle state:
+### 3.1 Flow — deposit paid inline, no slot reservation
+Per Q4 there is **no timed hold / `pending_deposit` reservation**. The deposit is collected
+**inline as part of completing the booking**, and the confirmed booking row is created **only on
+payment success**:
 
 ```
-(public submit, deposit owed) -> status='pending_deposit', payment_status='unpaid'
-        -> redirect customer to Stripe Checkout (deposit)
-        -> on payment success (webhook/reconcile): status='confirmed', payment_status='paid'/'deposit_paid'
-        -> on abandon/expiry (cron): stays 'pending_deposit'; slot released after N minutes
+(public submit, deposit owed)
+   -> create Stripe Checkout (deposit) and redirect customer to pay
+   -> NO booking row reserving the slot yet (first-in-best-dressed)
+   -> on payment success (Stripe webhook): create booking status='confirmed', payment_status='deposit_paid'
+   -> on abandon: nothing was created; slot stays open for whoever pays first
 ```
 
-A `pending_deposit` booking is **not** a confirmed slot-holder beyond a short hold window, so
-no-pay bookings can't silently occupy the calendar.
+Because nothing is reserved before payment, two people racing for the same slot resolve
+first-come — the first completed payment creates the booking; the second gets "slot no longer
+available" at the webhook/create step (guarded by the same active-slot check as fault A's race
+guard).
 
 ### 3.2 Server-side gate (the core fix)
-In `POST /api/bookings`, after resolving the service:
-1. `const { amount, charge } = computeDeposit(svc)` (extend to also honour the tenant
-   `deposit_required_threshold_aud` — see Q1).
-2. If `charge && amount > 0` **and** the booking source is not an approved bypass (Q3):
-   - create the row as `status='pending_deposit'`, return a `payment_url` (Stripe Checkout).
-   - do **not** emit the "confirmed" confirmation SMS/email yet (only a "complete your deposit"
-     message, if any).
-3. Else: behave as today (`confirmed`).
+1. On public submit, resolve the service and `const { amount, charge } = computeDeposit(svc)`
+   (keyed off the per-service `deposit_required` flag only — Q1; no threshold, no fallback — Q2).
+2. If `charge && amount > 0` **and** the source is not a staff/admin bypass (Q3):
+   - return a Stripe Checkout `payment_url`; **do not create a booking row yet.**
+   - create the `confirmed` booking row on the **Stripe success webhook**, re-checking the slot is
+     still free at that moment.
+3. Else (no deposit owed, or staff/admin bypass): create `confirmed` as today.
+
+> Note: this is authoritative server-side. The existing admin "Pending Deposit" chip still works
+> for any legacy/staff-created unpaid rows — it's just no longer the public enforcement mechanism.
 
 ### 3.3 Front-end gate (defence in depth)
 `BookingPage.tsx` payment step must not allow "skip" when a deposit is owed; on
@@ -77,43 +84,59 @@ the FE change is UX only.
 The confirmation SMS/email fires on the `pending_deposit -> confirmed` transition, not on row
 insert. (This also means a no-pay booking sends no false "you're confirmed" message.)
 
-## 4. OPEN PRODUCT QUESTIONS — need Kim's call (defaults proposed)
+## 4. PRODUCT DECISIONS (Kim, 26 Jun 2026) — LOCKED
 
-| # | Question | Recommended default |
-|---|----------|---------------------|
-| Q1 | Enforce on **all** services flagged `deposit_required`, or also auto-require when `price ≥ deposit_required_threshold_aud`? | **All `deposit_required` services**, AND auto-require when `price ≥ threshold` even if the per-service flag was never ticked (closes the "Elisse/Heather" hole where the flag was simply never set). |
-| Q2 | What's the deposit amount default when a required service has `deposit=0`? | Fall back to tenant default / a % of price (e.g. 20%), never $0. A "required" service with $0 deposit is a misconfiguration; treat as the tenant default rather than free. |
-| Q3 | Which sources keep **bypassing** deposit by design? | **Bypass:** admin-created bookings (`isAdminOverride`), staff "AGAIN" rebookings, and reschedules that carry an already-paid deposit. **Enforce:** all public self-service bookings. |
-| Q4 | Hold window for an unpaid `pending_deposit` slot before it's released? | **15 minutes**, then the slot frees and the row is flagged abandoned (chase-queue). |
-| Q5 | Go live behind a tenant flag first (Brisbane HIFU only), or all tenants? | **Brisbane HIFU first** behind a tenant setting, validate, then roll out. |
+| # | Question | **Kim's decision** | Build implication |
+|---|----------|--------------------|-------------------|
+| Q1 | Which services require a deposit? | **Only services explicitly ticked `deposit_required`.** No price-threshold auto-require. | Enforcement keys off the per-service flag only. ⚠️ **Operational follow-up:** any service that should take a deposit MUST be ticked, or it stays free. See §4.1. |
+| Q2 | Deposit amount when a required service has `deposit=0`? | **$0** — no auto-fallback. Charge exactly what's configured. | No % fallback logic. ⚠️ A ticked service with `deposit=0` charges nothing — treat as a config error to catch, not a code path. See §4.1. |
+| Q3 | Which sources bypass deposit by design? | **Staff / admin rebookings and admin-created bookings bypass.** | Skip the gate when `isAdminOverride` / staff-created. **Enforce only on public self-service bookings.** |
+| Q4 | Hold window for an unpaid slot before release? | **NO holds.** Holds were tried before and were problematic — removed. **First-in-best-dressed.** | **No `pending_deposit` slot-reservation/timed-release.** Deposit is paid **inline** during booking; the booking is only created/confirmed on payment success. No unpaid booking sits reserving a slot. Concurrent attempts on the same slot resolve first-come (first completed payment wins; the other gets "slot taken"). |
+| Q5 | Roll out Brisbane-first or all clinics? | **All clinics.** | No tenant feature-flag gating — ship to all tenants at once. |
+
+### 4.1 ⚠️ Consequence of Q1 + Q2 (read this)
+Because enforcement only bites on services that are **both ticked AND have a non-zero deposit
+amount**, the fix alone will NOT stop a $0 booking on a service that was never ticked — which may
+be exactly what happened with Heather. **Before/alongside the code fix, audit `event_types`:**
+make sure every service that should take a deposit has `deposit_required=1` AND a non-zero
+`deposit`. (`scripts/audit-stripe-wiring.js` already reports per-tenant deposit config.) Otherwise
+the revenue leak persists by configuration, not by code.
 
 ## 5. Dependencies & sequencing
 1. **Un-pause the Stripe Connect pipeline** (`stripe_pipeline_pause_9may2026`) — hard
    prerequisite; enforcement is meaningless without a working charge path. Confirm Connect
    accounts/keys are still valid.
 2. Fix fault C (SMS) in parallel so the post-payment confirmation actually reaches clients.
-3. Then ship the server gate (§3.2) behind the tenant flag (Q5).
+3. Audit service deposit config (§4.1).
+4. Then ship the server gate (§3.2) to **all clinics** (Q5 — no tenant flag).
 
 ## 6. Implementation checklist (booking-api)
-- [ ] `bookings.js` `POST /api/bookings`: insert `computeDeposit` gate → `pending_deposit` +
-      `payment_url`; respect bypass sources (Q3) and hold window (Q4).
-- [ ] `jose-booking.js` `computeDeposit`: honour tenant threshold (Q1) + non-zero fallback (Q2).
-- [ ] `src/lib/stripe.ts` / `pay-redirect.js`: ensure deposit Checkout returns a URL the public
-      flow can redirect to; verify success webhook flips `pending_deposit -> confirmed`.
-- [ ] `deposit-reconcile-cron.js`: release/abandon slots past the hold window.
-- [ ] `notifications.js`: move "confirmed" SMS/email to the payment-success transition.
-- [ ] `BookingPage.tsx`: redirect to `payment_url`; no skip when deposit owed.
-- [ ] Tenant flag to gate rollout (Q5).
+- [ ] **Config audit FIRST (§4.1):** ensure every deposit-taking service has `deposit_required=1`
+      AND a non-zero `deposit` (run `scripts/audit-stripe-wiring.js`). Without this the code fix
+      changes nothing for un-ticked services.
+- [ ] `bookings.js` `POST /api/bookings`: when `computeDeposit` says a deposit is owed and the
+      source isn't a staff/admin bypass (Q3) → return Stripe Checkout `payment_url`, do NOT create
+      a booking row yet (Q4: no holds).
+- [ ] `jose-booking.js` `computeDeposit`: keep keyed off `deposit_required` only (Q1); charge the
+      configured amount exactly, no fallback (Q2).
+- [ ] `src/lib/stripe.ts` / `pay-redirect.js`: deposit Checkout returns a `payment_url`; the
+      **success webhook creates the `confirmed` booking**, re-checking the slot is still free
+      (first-in-best-dressed) using the same active-slot guard as fault A.
+- [ ] `notifications.js`: emit the "confirmed" SMS/email on the payment-success/create transition.
+- [ ] `BookingPage.tsx`: redirect to `payment_url`; no "skip payment" path when a deposit is owed.
+- [ ] Ship to **all clinics** — no tenant feature flag (Q5).
+- [ ] **Prerequisite:** Stripe Connect pipeline un-paused (`stripe_pipeline_pause_9may2026`).
 
 ## 7. Test / UAT
-- Deposit-required service, public booking → cannot reach `confirmed` without paying; slot
-  released after the hold window if unpaid.
+- Deposit-required (ticked, non-zero) service, public booking → no booking is created until the
+  deposit is paid; abandoning payment leaves the slot open (no held/ghost booking — Q4).
 - Paid deposit → `confirmed` + confirmation SMS/email received (verify real DLR, not just
   `status='sent'`).
-- Admin-created booking → still bypasses (Q3).
-- Non-deposit service → unchanged.
-- Threshold-priced service with the flag *unticked* → still enforced (Q1) — this is the
-  Heather/Elisse case.
+- Two customers race the same slot → first completed payment wins; the second gets "slot taken".
+- Staff/admin-created or rebooking → still bypasses, no deposit required (Q3).
+- Non-deposit service (not ticked) → unchanged; **still books for $0** (Q1/Q2) — by design, so
+  confirm via §4.1 audit that the right services are actually ticked.
+- All clinics behave the same (Q5).
 
 _Spec by Claude · 2026-06-26 · branch `claude/book-treatment-double-booking-jjq53f`. Defaults in §4 are placeholders pending Kim's confirmation._
 </content>
