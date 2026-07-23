@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIFU Machine Sales — Exec Snapshot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2c2a26;--ink2:#3c3733;--cream:#faf6f0;--card:#fff;--sand:#efe7da;--line:#e6ddcd;
+    --gold:#c79a4b;--teal:#3c6e63;--red:#c0492f;--amber:#cf8a2b;--green:#3f9d6b;--rose:#9c5a6b;--blue:#3f6f9c;
+    --shadow:0 10px 30px rgba(44,42,38,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans','Segoe UI',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;padding-bottom:70px}
+  h1,h2,h3,h4,.serif{font-family:'Outfit','Segoe UI',sans-serif}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+  a{color:inherit}
+
+  header{background:linear-gradient(135deg,#2c2a26,#3c3733);color:var(--cream);padding:30px 0 26px;border-bottom:4px solid var(--gold)}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px}
+  .kick{letter-spacing:.32em;text-transform:uppercase;font-size:11px;color:var(--gold);margin-bottom:9px;font-weight:600}
+  header h1{font-size:32px;line-height:1.08;font-weight:800}
+  header p{margin-top:10px;color:#d8cdba;max-width:760px;font-size:14.5px}
+  .asat{text-align:right;font-size:12px;color:#b8ac98}
+  .asat .health{display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:rgba(63,157,107,.16);border:1px solid rgba(63,157,107,.45);color:#9fe0bb;padding:7px 14px;border-radius:30px;font-weight:600;font-size:12.5px}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .verified{display:inline-block;background:#dcefe5;color:var(--green);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.04em}
+
+  .deadline{background:linear-gradient(135deg,#3f9d6b,#2f7a51);color:#fff;border-radius:16px;padding:18px 24px;margin:22px 0 0;display:flex;align-items:center;gap:20px;flex-wrap:wrap;box-shadow:var(--shadow)}
+  .deadline .num{font-family:'Outfit',sans-serif;font-size:40px;font-weight:800;line-height:1}
+  .deadline .num small{display:block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin-top:2px}
+  .deadline .txt{flex:1;min-width:240px}
+  .deadline .txt b{font-size:16px;font-family:'Outfit',sans-serif;font-weight:700}
+  .deadline .txt p{font-size:13px;opacity:.94;margin-top:3px}
+  .deadline .warn{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.3);border-radius:11px;padding:10px 14px;font-size:12.5px;max-width:300px}
+
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:18px 0 6px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 15px;box-shadow:var(--shadow)}
+  .kpi .v{font-family:'Outfit',sans-serif;font-size:28px;font-weight:800;line-height:1}
+  .kpi .l{font-size:11.5px;color:#857c6d;margin-top:6px;line-height:1.35}
+  .kpi .tag{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:6px;display:inline-block;margin-top:8px}
+  .t-good{background:#dcefe5;color:var(--teal)}.t-warn{background:#f6e7c8;color:#9a6a16}.t-bad{background:#f6dcd3;color:var(--red)}
+
+  h2.cat{font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#a89579;margin:34px 2px 14px;font-weight:700}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .big{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .big .cap{padding:16px 20px;color:#fff;display:flex;align-items:center;gap:10px}
+  .big .cap .ic{font-size:20px}
+  .big .cap h3{font-size:17px;font-weight:700}
+  .big .cap .ct{margin-left:auto;font-size:12px;font-weight:600;opacity:.9}
+  .cap-win{background:linear-gradient(135deg,#3f9d6b,#2f7a51)}
+  .cap-gap{background:linear-gradient(135deg,#c0492f,#9c3a23)}
+  .cap-hi{background:linear-gradient(135deg,#c79a4b,#a87d2f)}
+  .big ul{list-style:none;padding:8px 6px 12px}
+  .big li{display:flex;gap:11px;padding:10px 16px;border-top:1px solid #f4eee2;font-size:13.5px;align-items:flex-start}
+  .big li:first-child{border-top:none}
+  .big li .m{flex:0 0 auto;font-size:15px;line-height:1.3}
+  .big li b{font-weight:700}
+  .big li small{display:block;color:#8a8170;font-size:12px;margin-top:2px}
+
+  .moves{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  .moves .mh{background:linear-gradient(135deg,#2c2a26,#3c3733);color:var(--cream);padding:16px 22px}
+  .moves .mh h3{font-size:18px;font-weight:700;color:#fff}
+  .moves .mh p{font-size:12.5px;color:#cabfac;margin-top:2px}
+  .move{display:flex;gap:16px;padding:15px 22px;border-top:1px solid #f2ebdd;align-items:flex-start}
+  .move .rank{flex:0 0 34px;height:34px;border-radius:10px;background:var(--ink);color:#fff;font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center}
+  .move .mc{flex:1}
+  .move .mc .mt{font-size:15px;font-weight:700;font-family:'Outfit',sans-serif}
+  .move .mc .md{font-size:13px;color:#7a7264;margin-top:3px}
+  .move .who{flex:0 0 auto;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+  .pill{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.03em}
+  .p-kim{background:#f3e3e8;color:var(--rose)}.p-nova{background:#e2ecf5;color:var(--blue)}.p-both{background:#ede7da;color:#7a6f57}
+  .p-now{background:#f6dcd3;color:var(--red)}.p-next{background:#f6e7c8;color:#9a6a16}
+
+  .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px}
+  .tool{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;box-shadow:var(--shadow)}
+  .tool .tn{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px}
+  .tool .ts{font-size:11.5px;color:#857c6d;margin-top:6px}
+  .tool .st{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:6px;margin-top:9px;display:inline-block}
+
+  .intel{background:#2c2a26;color:#e8ddca;border-radius:18px;padding:22px 26px;margin-top:16px;box-shadow:var(--shadow)}
+  .intel h3{color:var(--gold);font-size:16px;margin-bottom:8px}
+  .intel p{font-size:13.5px;color:#d8cdba;max-width:900px}
+  .intel .lev{margin-top:12px;background:rgba(207,154,75,.12);border:1px solid rgba(207,154,75,.35);border-radius:12px;padding:12px 16px;font-size:13px;color:#f0d9a8}
+  .intel .lev b{color:#fff}
+
+  .rhythm{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+  .flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+  .step{flex:1;min-width:170px;background:var(--cream);border:1px solid var(--line);border-radius:13px;padding:14px 16px;position:relative}
+  .step .sn{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+  .step h4{font-size:14.5px;margin:4px 0 5px}
+  .step p{font-size:12px;color:#7a7264}
+  .step .arr{position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:20px;z-index:2}
+  .seedbox{margin-top:16px;background:var(--cream);border:1px dashed var(--gold);border-radius:12px;padding:14px 18px}
+  .seedbox b{font-family:'Outfit',sans-serif;font-size:13px}
+  .seedbox code{background:#efe7da;border-radius:6px;padding:2px 7px;font-size:12px;margin:3px 4px 0 0;display:inline-block}
+
+  .auto{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .acard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);border-top:4px solid var(--blue)}
+  .acard h4{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:9px}
+  .acard .flow2{font-size:12px;color:#7a7264;margin:10px 0;line-height:1.7}
+  .acard .flow2 span{background:var(--cream);border:1px solid var(--line);border-radius:6px;padding:2px 7px;white-space:nowrap}
+  .acard .out{font-size:12.5px;color:var(--teal);font-weight:600;margin-top:6px}
+  .acard .st{font-size:10.5px;font-weight:700;text-transform:uppercase;padding:2px 9px;border-radius:6px;background:#f6e7c8;color:#9a6a16;display:inline-block;margin-top:10px}
+
+  .deeper{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+  .dl{display:block;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 17px;text-decoration:none;box-shadow:var(--shadow);transition:.18s}
+  .dl:hover{transform:translateY(-2px);border-color:var(--gold)}
+  .dl .dt{font-weight:700;font-size:14px;font-family:'Outfit',sans-serif}
+  .dl .dd{font-size:12px;color:#857c6d;margin-top:4px}
+  .dl .ar{color:var(--gold);font-weight:700;font-size:12px;margin-top:8px;display:inline-block}
+
+  footer{text-align:center;margin-top:34px;color:#a89c86;font-size:12px;padding-top:18px;border-top:1px solid var(--line)}
+
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.three,.auto{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="top">
+    <div>
+      <div class="kick">Exec Snapshot · B2B · Sells HIFU machines to new clinics</div>
+      <h1>HIFU Machine Sales</h1>
+      <p>The new site is <b>live</b> — cut over to Lovable 9 Jun. 12 pages, 10 blog articles with real images, calculator and schema all shipped. What's left is fast SEO hygiene, not building. Organic-only (no paid ads), by design.</p>
+    </div>
+    <div class="asat">
+      As at <b>22 Jun 2026</b> · <span class="verified">live-crawled</span><br>
+      <span class="health"><span class="dot" style="background:#3f9d6b"></span> Health: LIVE · SEO HYGIENE</span>
+    </div>
+  </div>
+
+  <div class="deadline">
+    <div class="num">LIVE<small>since 9 Jun</small></div>
+    <div class="txt">
+      <b>www.hifumachinesales.com is up on Lovable with valid SSL.</b>
+      <p>The "17-day rebuild scramble" is over — the site shipped. Remaining work is technical SEO hygiene + finishing the Hostinger exit (DNS) before the old host expires <b>2 Jul</b>.</p>
+    </div>
+    <div class="warn" style="background:rgba(255,255,255,.22)"><b>✅ Fixed 15 Jun (autopilot):</b> sitemap.xml + robots.txt now live &amp; verified (22 URLs). Google can now crawl all your pages + 10 articles.</div>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+  <!-- KPI STRIP -->
+  <div class="kpis">
+    <div class="kpi"><div class="v">LIVE</div><div class="l">Site on Lovable, www + SSL working</div><span class="tag t-good">Shipped 9 Jun</span></div>
+    <div class="kpi"><div class="v">10</div><div class="l">Blog articles live — real hero images, FAQ schema</div><span class="tag t-good">Indexed-ready</span></div>
+    <div class="kpi"><div class="v">12</div><div class="l">Pages live (incl. calculator + deals)</div><span class="tag t-good">Built</span></div>
+    <div class="kpi"><div class="v">GA4 ✓</div><div class="l">G-HSG2ZHPYRC firing site-wide</div><span class="tag t-good">Tracking</span></div>
+    <div class="kpi"><div class="v">✓ Live</div><div class="l">sitemap.xml + robots.txt shipped 15 Jun (22 URLs)</div><span class="tag t-good">Done today</span></div>
+  </div>
+
+  <!-- WINS / GAPS / HIGHLIGHTS -->
+  <h2 class="cat">Wins · Gaps · The leverage <span style="font-weight:500;text-transform:none;letter-spacing:0;color:#b3a890">(verified by live crawl, 15 Jun)</span></h2>
+  <div class="three">
+
+    <div class="big">
+      <div class="cap cap-win"><span class="ic">🟢</span><h3>Wins — banked</h3><span class="ct">9</span></div>
+      <ul>
+        <li><span class="m">🧲</span><div><b>Lead capture FIXED (22 Jun) — the big one</b><small>Forms were silently failing ("Email send failed") — every enquiry was being lost. Now every lead saves to a database first (admin list at /admin/leads) + emails from notify.hifumachinesales.com. No more invisible leaks.</small></div></li>
+        <li><span class="m">📧</span><div><b>3-email nurture sequence rebuilt &amp; ready</b><small>Kim's designed sequence moved off Hostinger → import-ready HTML for MailerLite (free). All 8 images rescued. Auto-drips Day 0 / 3 / 6 on enquiry.</small></div></li>
+        <li><span class="m">🚀</span><div><b>Site is LIVE on Lovable</b><small>www.hifumachinesales.com cut over 9 Jun with valid SSL. The deadline scramble is behind you.</small></div></li>
+        <li><span class="m">📝</span><div><b>10 blog articles live — with real images</b><small>All have proper hero images (the placeholder issue is fixed), unique titles/meta, LocalBusiness+FAQPage schema. Keyword-mapped.</small></div></li>
+        <li><span class="m">🧮</span><div><b>Break-even calculator embedded</b><small>Live at /clinic-break-even-calculator with inputs + lead-capture form. (Math worth a spot-check.)</small></div></li>
+        <li><span class="m">🗂️</span><div><b>12 pages built</b><small>Home, deals, instant-proposal, testimonials, before/afters, models, 15D, clinic-starter-kits, contact, privacy + blog.</small></div></li>
+        <li><span class="m">📊</span><div><b>GA4 firing site-wide</b><small>G-HSG2ZHPYRC verified live on the homepage and pages.</small></div></li>
+        <li><span class="m">🏷️</span><div><b>Schema present</b><small>LocalBusiness + FAQPage JSON-LD shipped — ahead of most competitors.</small></div></li>
+        <li><span class="m">✍️</span><div><b>Strong on-page copy</b><small>Unique, keyword-front titles &amp; meta on home + every blog post. The content work landed.</small></div></li>
+      </ul>
+    </div>
+
+    <div class="big">
+      <div class="cap cap-gap"><span class="ic">🔴</span><h3>Gaps — open</h3><span class="ct">3</span></div>
+      <ul>
+        <li><span class="m">🔗</span><div><b>www vs non-www not aligned</b><small>Root is now primary &amp; loads ✓. But blog canonicals + the sitemap still use www. Minor — Nova to align everything to the non-www root.</small></div></li>
+        <li><span class="m">🖼️</span><div><b>2 Zyro-hosted images on homepage</b><small>Still on assets.zyrosite.com — must re-host before the old host dies 2 Jul.</small></div></li>
+        <li><span class="m">🏷️</span><div><b>Google "Merchant listings" schema (minor)</b><small>Search Console flagged Product schema missing <b>image</b> (critical — blocks the rich result) + return/shipping policy (warnings only). Lovable prompt given; additive fix, then "Validate fix" in GSC. Not urgent.</small></div></li>
+      </ul>
+    </div>
+
+    <div class="big">
+      <div class="cap cap-hi"><span class="ic">✨</span><h3>Highlights — the leverage</h3><span class="ct">4</span></div>
+      <ul>
+        <li><span class="m">🎯</span><div><b>You're past the hard part</b><small>The site, content, calculator and schema are done. What's left is hygiene Nova can knock out fast.</small></div></li>
+        <li><span class="m">🗺️</span><div><b>Sitemap + robots + GSC = the unlock</b><small>One short session makes 22 well-written URLs fully discoverable to Google. Biggest lead-gen ROI on the page.</small></div></li>
+        <li><span class="m">📨</span><div><b>Close the lead loop</b><small>Confirm forms deliver + add instant alerts → buyer enquiries get chased fast. No silent leaks.</small></div></li>
+        <li><span class="m">💰</span><div><b>Buyer-intent content already ranks-ready</b><small>"buying guide", "is a HIFU clinic profitable", "HIFU vs injectables" — high-intent, just needs indexing + GSC.</small></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LEVERAGE / NEXT MOVES -->
+  <h2 class="cat">How to leverage — fastest path to indexed &amp; converting</h2>
+  <div class="moves">
+    <div class="mh"><h3>The site's built — make Google see it, then close the lead loop</h3><p>Ordered by SEO/lead ROI. Most are quick.</p></div>
+
+    <div class="move" style="opacity:.7">
+      <div class="rank" style="background:var(--green)">✓</div>
+      <div class="mc"><div class="mt" style="text-decoration:line-through">Add sitemap.xml + robots.txt</div><div class="md"><b style="color:var(--green)">DONE 15 Jun (autopilot)</b> — both live &amp; verified at /sitemap.xml (22 URLs) and /robots.txt. Next: submit the sitemap in Search Console (needs your Google login).</div></div>
+      <div class="who"><span class="pill" style="background:#dcefe5;color:var(--green)">Done</span></div>
+    </div>
+    <div class="move" style="opacity:.7">
+      <div class="rank" style="background:var(--green)">✓</div>
+      <div class="mc"><div class="mt" style="text-decoration:line-through">Fix the root domain</div><div class="md"><b style="color:var(--green)">DONE 15 Jun</b> — hifumachinesales.com now loads (set as primary). Verified live.</div></div>
+      <div class="who"><span class="pill" style="background:#dcefe5;color:var(--green)">Done</span></div>
+    </div>
+    <div class="move">
+      <div class="rank">3</div>
+      <div class="mc"><div class="mt">Make canonicals consistent (pick www)</div><div class="md">Set every page's canonical to the www host (or redirect www→root, one way) so Google sees one clean version. Fixes the home-vs-blog split.</div></div>
+      <div class="who"><span class="pill p-nova">Nova</span><span class="pill p-now">Now</span></div>
+    </div>
+    <div class="move" style="opacity:.7">
+      <div class="rank" style="background:var(--green)">✓</div>
+      <div class="mc"><div class="mt" style="text-decoration:line-through">Fix the lead leak</div><div class="md"><b style="color:var(--green)">DONE 22 Jun</b> — root cause was "Email send failed" (Lovable was sending via the Resend sandbox). Now leads save to a database first (/admin/leads) + email from notify.hifumachinesales.com (DNS verifying ≤48h). <b>Re-test the form once DNS is live.</b></div></div>
+      <div class="who"><span class="pill" style="background:#dcefe5;color:var(--green)">Done</span></div>
+    </div>
+    <div class="move">
+      <div class="rank">4</div>
+      <div class="mc"><div class="mt">Stand up the email follow-up in MailerLite</div><div class="md">Replace the Hostinger email subscription with free MailerLite. Import the 3 ready-made emails (HMS-Email-Sequence folder), re-upload the rescued images, connect the lead group → the Day 0/3/6 drip runs itself.</div></div>
+      <div class="who"><span class="pill p-both">Both</span><span class="pill p-next">Next</span></div>
+    </div>
+    <div class="move">
+      <div class="rank">5</div>
+      <div class="mc"><div class="mt"><span style="color:var(--green)">✓ GSC done.</span> Re-host 2 images; confirm DNS exit</div><div class="md"><b style="color:var(--green)">Search Console verified + sitemap submitted 15 Jun (Status: Success, 22 pages).</b> Still to do: re-host the 2 Zyro images; confirm Cloudflare DNS migration before Hostinger expires 2 Jul; turn domain auto-renew ON before 14 Oct.</div></div>
+      <div class="who"><span class="pill p-both">Both</span><span class="pill p-next">Next</span></div>
+    </div>
+  </div>
+
+  <!-- TOOLS MAP -->
+  <h2 class="cat">Tools in place — what's wired vs what isn't</h2>
+  <div class="tools">
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> Lovable site</div><div class="ts">Live on www + SSL since 9 Jun</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> GA4 Analytics</div><div class="ts">G-HSG2ZHPYRC firing</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> Schema (JSON-LD)</div><div class="ts">LocalBusiness + FAQPage</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> Calculator</div><div class="ts">Embedded + lead form</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> Sitemap.xml</div><div class="ts">Live — 22 URLs (shipped 15 Jun)</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> robots.txt</div><div class="ts">Live — points to sitemap</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> Root domain</div><div class="ts">hifumachinesales.com loads (primary) ✓</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> Search Console</div><div class="ts">Verified + sitemap submitted (22 pages) ✓</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> Lead capture</div><div class="ts">Saves to DB + /admin/leads + domain email (22 Jun)</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--amber)"></span> MailerLite (email drip)</div><div class="ts">3 emails rebuilt &amp; ready to import (free)</div><span class="st t-warn">Ready</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--green)"></span> Cloudflare DNS + Registrar</div><div class="ts">DNS migrated 15 Jun ✓ · registrar transfer submitted 17 Jun (pending release)</div><span class="st t-good">Live</span></div>
+    <div class="tool"><div class="tn"><span class="dot" style="background:var(--amber)"></span> Facebook / Instagram</div><div class="ts">Organic only (no ads) — not yet an engine</div><span class="st t-warn">Organic</span></div>
+  </div>
+
+  <div class="intel">
+    <h3>📡 Market intel — the "AI SEO" tool you flagged</h3>
+    <p>That orange "AI SEO" product (keyword×suburb page generation, auto-deploy to WordPress, rank/social/YouTube rank, "Built by Australians") is a <b>rival / reference</b>, not in your stack. It's a programmatic <em>doorway-page</em> generator — bulk near-duplicate pages are what Google's doorway-page policy penalises, so it's risky to buy.</p>
+    <div class="lev"><b>The leverage:</b> for HMS (national B2B), suburb pages matter less than buyer-intent depth — and you've already built the right thing: a buyer's guide, "is a HIFU clinic profitable", "HIFU vs injectables", spec breakdowns. The win isn't 100 thin pages; it's getting these <b>indexed</b> (sitemap + GSC, above) and feeding new buyer-intent topics from the monthly ATP loop. Replicate the value, skip the penalty.</div>
+  </div>
+
+  <!-- MONTHLY RHYTHM -->
+  <h2 class="cat">The monthly content rhythm — research once, publish weekly</h2>
+  <div class="rhythm">
+    <div class="flow">
+      <div class="step"><div class="sn">Step 1 · Kim</div><h4>Pull ATP data</h4><p>~20 min. Run HMS seeds in AnswerThePublic, export CSV.</p><span class="arr">→</span></div>
+      <div class="step"><div class="sn">Step 2 · Nova</div><h4>Cluster + rank</h4><p>Strip noise, group by theme, rank by buyer intent.</p><span class="arr">→</span></div>
+      <div class="step"><div class="sn">Step 3 · Nova</div><h4>Build calendar</h4><p>Map clusters → blog / page / social. 4 weeks planned.</p><span class="arr">→</span></div>
+      <div class="step"><div class="sn">Step 4 · Nova</div><h4>Draft the queue</h4><p>Write the content, tied to the HMS master prompt.</p><span class="arr">→</span></div>
+      <div class="step"><div class="sn">Step 5 · Kim</div><h4>Publish weekly</h4><p>Ship one piece a week from the ready queue.</p></div>
+    </div>
+    <div class="seedbox">
+      <b>HMS seeds (Google + Amazon — Amazon reveals buyer pain points):</b><br>
+      <code>HIFU machine</code><code>buy HIFU machine</code><code>HIFU machine price</code><code>best HIFU machine</code><code>HIFU vs [competitor tech]</code>
+      <div style="font-size:12px;color:#7a7264;margin-top:8px">Skew: comparison guides · buyer FAQs · spec breakdowns → high-intent lead gen. (Search volume/difficulty for paid decisions → Google Keyword Planner, not ATP.)</div>
+    </div>
+  </div>
+
+  <!-- AUTOMATION -->
+  <h2 class="cat">Automation we're wiring — kill the manual grind</h2>
+  <div class="auto">
+    <div class="acard">
+      <h4>🔁 ATP → content pipeline</h4>
+      <div class="flow2"><span>ATP export</span> → <span>auto-cluster</span> → <span>calendar</span> → <span>drafts</span></div>
+      <div class="out">→ Research-to-draft becomes hands-off; you just publish.</div>
+      <span class="st">Designing</span>
+    </div>
+    <div class="acard">
+      <h4>📨 Lead-capture alerts</h4>
+      <div class="flow2"><span>Form / demo request</span> → <span>Resend + Make.com</span> → <span>instant email/SMS</span></div>
+      <div class="out">→ No enquiry goes cold (after delivery is confirmed).</div>
+      <span class="st">Designing</span>
+    </div>
+    <div class="acard">
+      <h4>⭐ GBP review requests</h4>
+      <div class="flow2"><span>Closed sale</span> → <span>auto review-ask</span> → <span>GBP stars climb</span></div>
+      <div class="out">→ Builds local trust signals on autopilot.</div>
+      <span class="st">Designing</span>
+    </div>
+  </div>
+
+  <!-- GO DEEPER -->
+  <h2 class="cat">Go deeper — the detail, when you want it (not before)</h2>
+  <div class="deeper">
+    <a class="dl" href="../../Lovable-Builds/HMS-CSK-SEO-Build-Plan.html"><div class="dt">Build &amp; Capture Plan</div><div class="dd">Live task tracker, HMS + Clinic Starter Kit, per-task status.</div><span class="ar">Open →</span></a>
+    <a class="dl" href="../../Lovable-Builds/HMS-SEO-LeadGen-Dashboard.html"><div class="dt">SEO / Lead-Gen Dashboard</div><div class="dd">The 6-phase fix plan with directory checklist.</div><span class="ar">Open →</span></a>
+    <a class="dl" href="../../Lovable-Builds/HMS-Blog-SEO-Rewrites.md"><div class="dt">Blog Rewrites (now live)</div><div class="dd">The 11 articles, keyword-mapped — shipped to the site.</div><span class="ar">Open →</span></a>
+    <a class="dl" href="../../Lovable-Builds/HMS-Directory-Submission-Pack.md"><div class="dt">Directory Submission Pack</div><div class="dd">24 directories, copy-paste listing details.</div><span class="ar">Open →</span></a>
+    <a class="dl" href="../../Lovable-Builds/HMS-EXACT-BUILD-PACKAGE.md"><div class="dt">Exact Build Package</div><div class="dd">Section-by-section site copy spec.</div><span class="ar">Open →</span></a>
+    <a class="dl" href="../../Lovable-Builds/HIFU-Machine-Sales-Lovable-Spec.md"><div class="dt">Lovable Build Spec</div><div class="dd">The 10-prompt build series.</div><span class="ar">Open →</span></a>
+  </div>
+
+  <footer>
+    HIFU Machine Sales — Exec Snapshot · as at 22 Jun 2026 · live-crawled (www.hifumachinesales.com) + cross-checked against Nova memory.<br>
+    Site, blog images, calculator, schema and the sitemap/robots gaps verified live this session. ← <a href="index.html" style="color:var(--gold);font-weight:600">Back to Nova Command Center</a>
+  </footer>
+</div>
+
+</body>
+</html>

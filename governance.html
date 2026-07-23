@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Governance — Drift Kill-Switch</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#00E8B4; --coral:#FF7A6E; --purple:#9B3DFF; --pink:#F040C8;
+    --ink:#0F1218; --ink2:#1A1F2B; --mute:#6B7280; --line:#E5E7EB; --bg:#F9FAFB;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  .hero{background:linear-gradient(135deg,#9B3DFF 0%,#F040C8 60%,#FF7A6E 100%);color:#fff;padding:56px 32px}
+  .hero h1{margin:0 0 10px;font-size:38px;font-weight:800;letter-spacing:-0.025em}
+  .hero .sub{font-size:18px;opacity:0.95;max-width:820px;font-weight:500}
+  .hero .one-line{margin-top:22px;padding:18px 22px;background:rgba(255,255,255,0.13);border-left:4px solid #fff;border-radius:6px;font-size:16px;max-width:820px;backdrop-filter:blur(4px)}
+  .hero .meta{margin-top:18px;font-size:12px;opacity:0.85;font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:1320px;margin:0 auto;padding:32px}
+  h2{font-weight:700;font-size:24px;margin:40px 0 14px;letter-spacing:-0.015em}
+  h2 .small{font-size:13px;color:var(--mute);font-weight:500;margin-left:8px}
+  h3{font-weight:600;font-size:17px;margin:24px 0 8px;color:var(--ink2)}
+  p{margin:8px 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:16px 0}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+  .card .lbl{font-size:11px;font-weight:600;color:var(--mute);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px}
+  .card .num{font-size:36px;font-weight:800;letter-spacing:-0.025em;line-height:1.05}
+  .card .sub{font-size:12px;color:var(--mute);margin-top:8px;line-height:1.4}
+  .card.teal .num{color:var(--teal)}
+  .card.coral .num{color:var(--coral)}
+  .card.purple .num{color:var(--purple)}
+  .card.pink .num{color:var(--pink)}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px;margin:12px 0}
+  th{background:#F3F4F6;text-align:left;padding:11px 14px;font-weight:600;color:var(--ink2);font-size:11.5px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--line)}
+  td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr.tier-p0{background:#FFEEEC}
+  tr.tier-p1{background:#FFF6E6}
+  tr.tier-p2{background:#F8F2FF}
+  tr.tier-gate{background:#F4FFF9}
+  .pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:0.03em}
+  .pill.p0{background:#FFD1CB;color:#A02314}
+  .pill.p1{background:#FFE5B0;color:#7A5300}
+  .pill.p2{background:#E5D2FF;color:#5A1D9F}
+  .pill.gate{background:#C8F4E0;color:#005A40}
+  .pill.skip{background:#F3F4F6;color:#6B7280}
+  code{background:#F3F4F6;padding:2px 7px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#1A1F2B}
+  pre{background:#0F1218;color:#E5E7EB;padding:16px 18px;border-radius:10px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.6;margin:12px 0}
+  pre .k{color:#00E8B4}
+  pre .p{color:#9B3DFF}
+  pre .v{color:#FF7A6E}
+  pre .c{color:#6B7280;font-style:italic}
+  .gates-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:18px 0}
+  .gate-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;border-left:4px solid var(--teal)}
+  .gate-card .id{font-size:11px;font-weight:700;color:var(--teal);letter-spacing:0.08em}
+  .gate-card h4{margin:4px 0 8px;font-size:16px;font-weight:700}
+  .gate-card .why{font-size:12.5px;color:var(--mute);line-height:1.5}
+  .gate-card .why strong{color:var(--ink);font-weight:600}
+  .footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+  .callout{padding:18px 22px;border-radius:10px;margin:18px 0;font-size:14px;line-height:1.55}
+  .callout.bad{background:#FFEEEC;border-left:4px solid var(--coral)}
+  .callout.good{background:#F0FFF9;border-left:4px solid var(--teal)}
+  .callout.info{background:#F8F2FF;border-left:4px solid var(--purple)}
+  .callout strong{font-weight:700}
+  a{color:var(--purple);text-decoration:none;font-weight:500}
+  a:hover{text-decoration:underline}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 24px}
+  .toc a{display:inline-block;padding:6px 14px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:12.5px;color:var(--ink2);font-weight:600}
+  .toc a:hover{background:var(--purple);color:#fff;text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Governance — Drift Kill-Switch</h1>
+  <div class="sub">Phase 1 of the file-discipline + delivery-discipline lockdown. Built after the "horrendous few days" of 8–11 May 2026.</div>
+  <div class="one-line">A task is <strong>"done"</strong> only when every applicable gate has been verified with cited evidence. No evidence = not done.</div>
+  <div class="meta">11 May 2026 · governance.html · canonical rules at <code>Documents\Claude\Governance\DEFINITION_OF_DONE.md</code></div>
+</div>
+
+<div class="wrap">
+
+<div class="toc">
+  <a href="#why">Why this exists</a>
+  <a href="#stats">The numbers</a>
+  <a href="#gates">The 11 gates</a>
+  <a href="#claim">Done-claim template</a>
+  <a href="#signals">Drift signals</a>
+  <a href="#mapping">Incidents → gates</a>
+  <a href="#adoption">Adoption protocol</a>
+</div>
+
+<h2 id="why">Why this exists</h2>
+<div class="callout bad">
+  <strong>The "horrendous few days" — verbatim from MEMORY.md:</strong><br>
+  • 11 May: 13 PRs, 9 bugs closed, <strong>65-minute production outage</strong>, <strong>2 credential exposures</strong> (MYSQLPASSWORD + APNS_AUTH_KEY_B64 + Google service account).<br>
+  • 10 May: Brisbane HIFU bookings broken, multi-tenant data leak, PR #399 reverted post-deploy because clients couldn't book.<br>
+  • 9 April audit found memory claims about "what's built" wrong <strong>four times in 12 hours</strong>.<br>
+  • 8 May: 2 hours chasing a phantom auto-jump bug that was a stale-chunk 404.<br>
+  • 7 May: Marketing Pixels rollout sat on stale bundle for 30+ min despite "Deploy: success".<br>
+  • 6 May: 4th outage from drifted test assertions on a config default change.
+</div>
+
+<div class="callout good">
+  <strong>What this governance does:</strong> turns each of those incidents into a named gate with a verifiable check. The 11 gates are derived directly from incidents in the last 5 weeks — nothing speculative, nothing aspirational. If a gate is in this dashboard, it has already cost real time, money, or trust.
+</div>
+
+<h2 id="stats">The numbers <span class="small">grounded in MEMORY.md</span></h2>
+<div class="grid">
+  <div class="card coral"><div class="lbl">Gates</div><div class="num">11</div><div class="sub">each derived from a real incident in the last 5 weeks</div></div>
+  <div class="card purple"><div class="lbl">Drift signals</div><div class="num">9</div><div class="sub">3 × P0 · 4 × P1 · 2 × P2 — each with a defined response</div></div>
+  <div class="card pink"><div class="lbl">Credential exposures (11 May)</div><div class="num">2</div><div class="sub">→ G3 + P0 signal “rotation pending”</div></div>
+  <div class="card teal"><div class="lbl">Days since last drift incident</div><div class="num">0</div><div class="sub">today. The clock starts now.</div></div>
+</div>
+
+<h2 id="gates">The 11 gates <span class="small">full text in <a href="../../Governance/DEFINITION_OF_DONE.md">DEFINITION_OF_DONE.md</a></span></h2>
+
+<div class="gates-grid">
+  <div class="gate-card"><div class="id">G0 · SCOPE LOCKED</div><h4>One goal per PR</h4><div class="why"><strong>Why:</strong> bundled fixes hide misses. PR #309 → #317 → #319 hit the same sidebar dual-edit bug three times because each fix bundled unrelated diffs.</div></div>
+  <div class="gate-card"><div class="id">G1 · PARALLEL COLLISION</div><h4>Check open PRs before editing</h4><div class="why"><strong>Why:</strong> Kim runs multiple Nova sessions concurrently. Standing rule banked 3 May.</div></div>
+  <div class="gate-card"><div class="id">G2 · CODE CORRECTNESS</div><h4>Lint + tests + assertion sweep</h4><div class="why"><strong>Why:</strong> JWT TTL change on 6 May broke 2 test files asserting the old value. 24h auto-deploy stall.</div></div>
+  <div class="gate-card"><div class="id">G3 · SECURITY</div><h4>No credentials, no <code>railway variables</code>, JWT tenant scoping</h4><div class="why"><strong>Why:</strong> 2 credential leaks 11 May. 65-min outage. Multi-tenant data leak (PR #331) traced to <code>req.tenantId || 1</code>.</div></div>
+  <div class="gate-card"><div class="id">G4 · DEPLOY VERIFIED</div><h4>Bundle hash must flip on prod</h4><div class="why"><strong>Why:</strong> Railway <code>--detach</code> reports success on upload, not serve. Marketing Pixels stuck on stale bundle 30+ min, 7 May.</div></div>
+  <div class="gate-card"><div class="id">G5 · E2E SMOKE</div><h4>Golden path on live URL</h4><div class="why"><strong>Why:</strong> most "shipped" bugs were never exercised on prod. CI green ≠ behavior correct.</div></div>
+  <div class="gate-card"><div class="id">G6 · STALE-CHUNK</div><h4><code>vite:preloadError</code> handler intact</h4><div class="why"><strong>Why:</strong> 8 May — 2h chasing phantom auto-jump bug that was a stale-chunk 404. Every lazy route is affected.</div></div>
+  <div class="gate-card"><div class="id">G7 · TRUTH-SYNC</div><h4>IMPLEMENTATION_STATUS updated, claims cite file:line</h4><div class="why"><strong>Why:</strong> 9 April — memory wrong 4 times in 12 hours about what was built (bcrypt, RBAC, Stripe Connect, Marketing Hub).</div></div>
+  <div class="gate-card"><div class="id">G8 · iOS / BUILD</div><h4>No module-level <code>isNativePlatform()</code> consts</h4><div class="why"><strong>Why:</strong> Apple Build 51 rejected 3× because Vite tree-shook the IAP gate const to false. Discovered 10 May.</div></div>
+  <div class="gate-card"><div class="id">G9 · ROLLBACK READY</div><h4>Revert path known before merge</h4><div class="why"><strong>Why:</strong> PR #399 revert (#401) was clean because the path was known. The next one might not be.</div></div>
+  <div class="gate-card"><div class="id">G10 · EVIDENCE CITED</div><h4>Done-claim has PR + bundle + smoke + status</h4><div class="why"><strong>Why:</strong> meta-gate. The other 10 only matter if the done-claim cites them. This is the antidote to premature "done".</div></div>
+</div>
+
+<h2 id="claim">The done-claim template <span class="small">G10 enforcement</span></h2>
+
+<p>Every "task complete" / "shipped" / "done" message I post will follow this shape. Five lines, mandatory.</p>
+
+<pre><span class="k">✅ Done</span> — <span class="v">&lt;feature name&gt;</span>
+<span class="p">PR:</span>       <span class="v">&lt;gh-url&gt;</span>
+<span class="p">Bundle:</span>   <span class="v">&lt;before-hash&gt; → &lt;after-hash&gt;</span>
+<span class="p">Smoke:</span>    <span class="v">&lt;screenshot / curl output / scenario&gt;</span>
+<span class="p">Truth:</span>    IMPLEMENTATION_STATUS <span class="v">&lt;commit-sha&gt;</span>
+<span class="p">Gates:</span>    <span class="v">G0 G1 G2 G3 G4 G5 [G6] G7 [G8] G9 G10</span>  <span class="c"># brackets = N/A</span></pre>
+
+<div class="callout info"><strong>If I post a done-claim missing any of these five lines, treat it as untrusted.</strong> Tell me to re-verify. Don't accept "should work" or "I tested it" without evidence.</div>
+
+<h2 id="signals">Drift signals <span class="small">full text in <a href="../../Governance/DRIFT_SIGNALS.md">DRIFT_SIGNALS.md</a></span></h2>
+
+<table>
+<thead><tr><th style="width:8%">Tier</th><th style="width:28%">Signal</th><th style="width:28%">Cause</th><th>Response</th></tr></thead>
+<tbody>
+<tr class="tier-p0"><td><span class="pill p0">P0</span></td><td>About to run <code>railway variables</code> or anything that prints multi-line env values</td><td>Multi-line base64/JSON defeats substring filters — caused 2 leaks 11 May</td><td>ABORT. Use <code>railway status</code> / <code>railway variables get &lt;ONE_NAME&gt;</code> / ask Kim to read dashboard</td></tr>
+<tr class="tier-p0"><td><span class="pill p0">P0</span></td><td>Deploy reports success but bundle hash unchanged on prod</td><td>Railway <code>--detach</code> lies — reports on upload, not serve</td><td>Wait 2 min → push empty commit → re-verify hash. Escalate if still stale at 5 min total.</td></tr>
+<tr class="tier-p0"><td><span class="pill p0">P0</span></td><td>Tenant A user sees tenant B's record, or write lands at <code>tenant_id=1</code></td><td>Host-resolver fallback <code>req.tenantId || 1</code> still present in some routes (e.g. <code>staff.js</code> PUT)</td><td>Grep + patch every <code>req.tenantId || 1</code> to lead with <code>req.user?.tenantId</code>. Ship with G3+G5 evidence.</td></tr>
+<tr class="tier-p1"><td><span class="pill p1">P1</span></td><td>Memory cites file/function — <code>rg</code> returns zero</td><td>Renamed, removed, or never merged. Caused 9 Apr drift event.</td><td>STOP citing the memory. Find current truth via <code>git log -S</code>. Update or delete the stale entry.</td></tr>
+<tr class="tier-p1"><td><span class="pill p1">P1</span></td><td>Same bug class hit twice in 7 days</td><td>First fix didn't generalize; standing rule not written</td><td>Grep the antipattern. Fix everywhere in one PR. Bank a rule. Refine the gate.</td></tr>
+<tr class="tier-p1"><td><span class="pill p1">P1</span></td><td>2+ consecutive "Deploy: failure" on main</td><td>Usually test assertion drift after config default change (6 May incident)</td><td>Read failing test name → grep its assertion → check recent config commits → fix.</td></tr>
+<tr class="tier-p1"><td><span class="pill p1">P1</span></td><td>Platform / feature gate inert at runtime despite correct source</td><td>Vite tree-shook a module-level const (Build 51 incident)</td><td>Convert const to function. Verify in built bundle.</td></tr>
+<tr class="tier-p2"><td><span class="pill p2">P2</span></td><td>PR opened without DoD block in description</td><td>Process gap</td><td>Paste <code>PR_CHECKLIST.md</code> template, fill as I work.</td></tr>
+<tr class="tier-p2"><td><span class="pill p2">P2</span></td><td>About to write a working file to <code>OneDrive\</code></td><td>Yesterday's rule wasn't enforced; repeated 11 May</td><td>Redirect to <code>C:\Users\kimkl\Documents\Claude\</code> (hot) / <code>E:\Claude-Archive\</code> (cold post-Phase-3) / <code>C:\Temp\</code> (transient).</td></tr>
+</tbody>
+</table>
+
+<h2 id="mapping">Incidents → gates <span class="small">every gate is a debt repayment</span></h2>
+
+<table>
+<thead><tr><th style="width:14%">Date</th><th style="width:38%">Incident</th><th style="width:10%">Cost</th><th>Gate that catches it</th></tr></thead>
+<tbody>
+<tr><td>11 May 2026</td><td>MYSQLPASSWORD leak via <code>railway variables --kv</code></td><td>65-min outage</td><td><span class="pill gate">G3</span> + P0 signal</td></tr>
+<tr><td>11 May 2026</td><td>APNS_AUTH_KEY_B64 + Google service account leak</td><td>rotations pending</td><td><span class="pill gate">G3</span> + P0 signal</td></tr>
+<tr><td>10 May 2026</td><td>Multi-tenant data leak via host-resolver fallback</td><td>10 days of staff photo bug</td><td><span class="pill gate">G3</span> + P0 signal</td></tr>
+<tr><td>10 May 2026</td><td>Apple Build 51 IAP gate folded by Vite tree-shaking</td><td>3 App Store rejections</td><td><span class="pill gate">G8</span> + P1 signal</td></tr>
+<tr><td>8 May 2026</td><td>Stale-chunk 404 mistaken for feature bug (PR #366)</td><td>2h phantom debug</td><td><span class="pill gate">G6</span></td></tr>
+<tr><td>7 May 2026</td><td>Marketing Pixels rollout on stale bundle, "Deploy: success" lied</td><td>30+ min serving stale</td><td><span class="pill gate">G4</span> + P0 signal</td></tr>
+<tr><td>6 May 2026</td><td>JWT TTL change broke test assertions on old value (PR #312)</td><td>24h auto-deploy stall</td><td><span class="pill gate">G2</span> + P1 signal</td></tr>
+<tr><td>6 May 2026</td><td>Sidebar dual-edit miss (AdminLayoutLG) — 3× regression</td><td>3 fix-PR cycle</td><td><span class="pill gate">G0</span></td></tr>
+<tr><td>9 Apr 2026</td><td>Memory claimed bcrypt/RBAC/Stripe Connect/Marketing Hub "not built" while live</td><td>4 wrong claims / 12h</td><td><span class="pill gate">G7</span> + P1 signal</td></tr>
+</tbody>
+</table>
+
+<h2 id="adoption">Adoption protocol <span class="small">how this becomes real</span></h2>
+
+<h3>What Nova does, starting immediately</h3>
+<ol>
+  <li>Every PR I open gets the <code>PR_CHECKLIST.md</code> block in the body, with gates checked-off as I verify them.</li>
+  <li>Every "done" claim follows the G10 template — five lines, mandatory. If I can't produce one of the lines, the task isn't done.</li>
+  <li>Every drift signal I detect mid-task gets surfaced before I keep going — pause, run the response, then resume.</li>
+  <li>No memory entry without a <strong>Why:</strong> and <strong>How to apply:</strong> line.</li>
+  <li>No "X is built" claim without <code>file:line</code> evidence cited in the same message.</li>
+</ol>
+
+<h3>What Kim does (zero overhead)</h3>
+<ol>
+  <li>If a done-claim arrives missing any of the 5 G10 lines, reply <code>where's the evidence?</code> — I'll produce it or retract.</li>
+  <li>If you spot a new drift pattern, say <code>that's a drift signal</code> — I'll codify it.</li>
+  <li>This file (and the 3 markdown sources) supersede any conflicting memory entry until Kim updates them.</li>
+</ol>
+
+<h3>Proposed CLAUDE.md amendment</h3>
+<p>I won't edit CLAUDE.md without sign-off, but proposing this paragraph go at the top of the working-style section:</p>
+
+<pre><span class="c">## Governance (locked 11 May 2026)</span>
+
+Before claiming anything is <span class="v">"done"</span>, <span class="v">"shipped"</span>, or <span class="v">"complete"</span>:
+1. Run the applicable gates in <span class="k">Governance/DEFINITION_OF_DONE.md</span>.
+2. Post the G10 evidence template (PR · Bundle · Smoke · Truth · Gates).
+3. If any gate fails, do not claim done — surface the failure and ask.
+
+If a drift signal in <span class="k">Governance/DRIFT_SIGNALS.md</span> fires mid-task,
+pause and run the defined response before continuing.
+
+Memory is descriptive. Code is authoritative. When they disagree, code wins.</pre>
+
+<h2>Files in this governance set</h2>
+<table>
+<thead><tr><th style="width:42%">File</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>Governance/DEFINITION_OF_DONE.md</code></td><td>The 11 gates, each with WHAT/WHY/HOW. Canonical rules.</td></tr>
+<tr><td><code>Governance/PR_CHECKLIST.md</code></td><td>Copy-paste PR template. Maps directly to gates.</td></tr>
+<tr><td><code>Governance/DRIFT_SIGNALS.md</code></td><td>9 early-warning patterns with defined responses.</td></tr>
+<tr><td><code>Nova/Dashboard/governance.html</code></td><td>This file. The at-a-glance view.</td></tr>
+</tbody>
+</table>
+
+<div class="footer">
+  Generated 11 May 2026 · Phase 1 of file-discipline + delivery-discipline lockdown · Grounded in DORA / Google SRE Production Readiness Review / OWASP secure code review patterns · Adapted to Neo-Klien's actual incident history from MEMORY.md
+</div>
+
+</div>
+</body>
+</html>

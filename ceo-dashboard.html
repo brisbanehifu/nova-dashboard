@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEO Snapshot — Kim Klein</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6fb; --panel:#ffffff; --border:#e4e0f0;
+  --text:#1a1530; --text-dim:#5d5780; --text-faint:#8b86a3;
+  --teal-from:#00d2a8; --teal-to:#00866a;
+  --purple:#9B3DFF; --teal:#00E8B4; --hot-pink:#F040C8; --coral:#FF7A6E;
+  --red:#dc2626; --amber:#d97706; --green:#059669;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:#00866a;text-decoration:none;font-weight:500}
+a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:24px 20px 60px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--text-dim);margin-bottom:18px}
+.back:hover{color:var(--text)}
+.hero{background:linear-gradient(135deg,var(--teal-from) 0%,var(--teal-to) 100%);color:#fff;border-radius:20px;padding:32px 28px;margin-bottom:24px;box-shadow:0 8px 24px rgba(0,184,150,0.25)}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-0.5px;line-height:1.15;margin-bottom:6px}
+.hero p{font-size:15px;opacity:0.94;font-weight:500}
+.hero .meta{font-size:12px;opacity:0.88;margin-top:10px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.stat .label{font-size:11px;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.stat .num{font-size:24px;font-weight:800;line-height:1.05;color:var(--text)}
+.stat .sub{font-size:12px;color:var(--text-dim);margin-top:4px;line-height:1.35}
+.stat.green .num{color:var(--green)} .stat.amber .num{color:var(--amber)} .stat.red .num{color:var(--red)} .stat.teal .num{color:#00866a} .stat.purple .num{color:var(--purple)} .stat.pink .num{color:var(--hot-pink)}
+.section{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.section h2{font-size:18px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.section h2 .badge{font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;letter-spacing:0.04em;text-transform:uppercase}
+.section h2 .badge.red{background:rgba(220,38,38,0.10);color:var(--red)}
+.section h2 .badge.amber{background:rgba(217,119,6,0.10);color:var(--amber)}
+.section h2 .badge.green{background:rgba(5,150,105,0.10);color:var(--green)}
+.list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.list li{padding:10px 12px;background:#f7f6fb;border-radius:8px;font-size:14px;color:var(--text-dim);border-left:3px solid transparent;line-height:1.45}
+.list li.p0{border-left-color:var(--red)}
+.list li.p1{border-left-color:var(--amber)}
+.list li.p2{border-left-color:var(--text-faint)}
+.list li strong{color:var(--text);font-weight:600}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pill{display:inline-block;padding:7px 12px;background:#e6f9f3;border-radius:999px;font-size:13px;font-weight:600;color:#00866a;border:1px solid #c7eedf}
+.pill:hover{background:#d1f2e6;text-decoration:none}
+.biz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.biz{background:#f7f6fb;border:1px solid var(--border);border-radius:10px;padding:12px 14px;border-left:4px solid var(--purple)}
+.biz.bat{border-left-color:var(--hot-pink)}
+.biz.bh{border-left-color:#3b82f6}
+.biz.rh{border-left-color:#dc2626}
+.biz.tn{border-left-color:#10b981}
+.biz.hms{border-left-color:#f59e0b}
+.biz .name{font-weight:700;color:var(--text);font-size:14px}
+.biz .status{font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;font-weight:600}
+.biz .note{font-size:12px;color:var(--text-dim);margin-top:6px;line-height:1.4}
+@media (max-width:560px){
+  .wrap{padding:16px 12px 40px}
+  .hero{padding:22px 18px;border-radius:16px}
+  .hero h1{font-size:22px}
+  .hero p{font-size:13px}
+  .stat .num{font-size:20px}
+  .section{padding:14px 14px}
+  .section h2{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Back to Nova Dashboard</a>
+
+  <div class="hero">
+    <h1>CEO Snapshot</h1>
+    <p>Kim Klein · Founder &amp; CEO · Neo-Klien Pty Ltd</p>
+    <div class="meta">Live state · 6 May 2026</div>
+  </div>
+
+  <div class="grid">
+    <div class="stat pink">
+      <div class="label">BAT.AI customers</div>
+      <div class="num">4 + 1</div>
+      <div class="sub">Brisbane HIFU live · Redlands deploying · Hamptons + Toombul + Gold Coast in pipeline</div>
+    </div>
+    <div class="stat green">
+      <div class="label">Deploy status</div>
+      <div class="num">✅ Restored</div>
+      <div class="sub">RAILWAY_PROD_TOKEN fixed · CI green · PR #295 merged</div>
+    </div>
+    <div class="stat amber">
+      <div class="label">FBT FY26 deadline</div>
+      <div class="num">21 May</div>
+      <div class="sub">15 days · 3 questions open · Edge Navigators</div>
+    </div>
+    <div class="stat purple">
+      <div class="label">PwC tender</div>
+      <div class="num">3 of 3</div>
+      <div class="sub">Engineering · ICT · Project Mgmt — all shortlisted</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🚀 Five businesses — at a glance</h2>
+    <div class="biz-grid">
+      <div class="biz bat">
+        <div class="name">🌐 BookATreatment.AI</div>
+        <div class="status">THE BIG PLAY</div>
+        <div class="note">Multi-tenant SaaS live · 4 paying customers imminent · Brisbane HIFU is tenant_id=1 · App Store Build 42 in TestFlight review</div>
+      </div>
+      <div class="biz bh">
+        <div class="name">💆 Brisbane HIFU Clinic</div>
+        <div class="status">Active · BAT tenant #1</div>
+        <div class="note">Calendly→BAT cutover complete · 28 service prices restored · 56 services with waiver attached · 7 customer workflows live</div>
+      </div>
+      <div class="biz tn">
+        <div class="name">⚙️ TeamNEO.tech</div>
+        <div class="status">High focus · PwC tender</div>
+        <div class="note">PwC RFT0577 — 3 categories shortlisted · VDZ partnership (Bill Mallett) · awaiting next-stage instructions</div>
+      </div>
+      <div class="biz hms">
+        <div class="name">🔧 HIFU Machine Sales</div>
+        <div class="status">Mid-deployment</div>
+        <div class="note">Redlands HIFU machine delivery next week · Reid + Grace · 5 emails drafted (colours → contract → balance invoice)</div>
+      </div>
+      <div class="biz">
+        <div class="name">🎨 Art4Love</div>
+        <div class="status">Low priority</div>
+        <div class="note">No active focus this quarter</div>
+      </div>
+      <div class="biz">
+        <div class="name">👨‍👩‍👧 Safe Family Programs</div>
+        <div class="status">Low priority</div>
+        <div class="note">safefamily.com.au — website overhaul queued · email triage active</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📊 Financial pulse <span class="badge green">Y1 base · USD</span></h2>
+    <div class="grid" style="margin-bottom:0">
+      <div class="stat"><div class="label">EOY1 customers</div><div class="num">~199</div></div>
+      <div class="stat"><div class="label">Year 1 revenue</div><div class="num">~$56K</div></div>
+      <div class="stat"><div class="label">Exit MRR (M12)</div><div class="num">~$13.3K</div></div>
+      <div class="stat"><div class="label">Break-even</div><div class="num">M5</div><div class="sub">~27 customers</div></div>
+      <div class="stat"><div class="label">Gross margin</div><div class="num">97%</div></div>
+      <div class="stat"><div class="label">Closing cash</div><div class="num">~$41K</div></div>
+    </div>
+    <div class="row">
+      <a class="pill" href="investment.html">📈 Investment pack →</a>
+      <a class="pill" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/BookATreatment_Cashflow_Year1.xlsx">📊 Cashflow Y1 (xlsx)</a>
+      <a class="pill" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/Financial_Governance_Playbook.pdf">📕 Financial Governance</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🎯 Today's priorities <span class="badge red">P0 first</span></h2>
+    <ul class="list">
+      <li class="p0"><strong>✅ DONE — RAILWAY_PROD_TOKEN fixed</strong> — deploy outage cleared.</li>
+      <li class="p0"><strong>✅ DONE — PR #295 merged</strong> — Bookings sticky header live.</li>
+      <li class="p2"><strong>⏸ PARKED — FBT FY26 questionnaire</strong> — Kim parked a few days. Due 21 May. Draft sitting on neoklien.consulting Drafts.</li>
+      <li class="p1"><strong>Apple resubmission</strong> — awaiting feature releases → capture fresh screenshots → resubmit to App Store.</li>
+      <li class="p1"><strong>✅ DONE — Calendar click-to-book</strong> — Option A shipped: empty-cell click → AddBookingPage prefill with date/time/staff + new client picker.</li>
+      <li class="p2"><strong>Staff Data Consolidation</strong> — PRs #257–#260 still OPEN.</li>
+      <li class="p2"><strong>Lovable rebrand spot-check</strong> — verify "BAT.AI Software" replacement.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🛡️ Risk register — top 5</h2>
+    <ul class="list">
+      <li class="p0"><strong>Competitor ad-buy on brand keywords</strong> — Fresha/Timely could pull 40–70% of high-intent searches for $30/day. Defensive Google Ads card pending Kim spend approval.</li>
+      <li class="p1"><strong>G2 + Capterra squat</strong> — competitor could create lookalike listings. Free to claim, ~30 min. Listing copy staged.</li>
+      <li class="p1"><strong>FBT exposure</strong> — logbook validity question on both vehicles. Could be material if logbooks fail audit. Edge Navigators advising.</li>
+      <li class="p2"><strong>Investment Pack staleness</strong> — customer count (4 vs 0–1), TAM number conflict. Refresh queued, not urgent.</li>
+      <li class="p2"><strong>www.bookatreatment.ai 421</strong> — first-impression broken on www subdomain. ~5-min fix.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>👥 People &amp; partners</h2>
+    <ul class="list">
+      <li><strong>Jeremy Small</strong> — co-director · Sales Director HIFU Machine Sales · escalation backup (+61 410 550 232)</li>
+      <li><strong>Luci Marano</strong> — EA across all 5 businesses + Brisbane HIFU Wed/Sat (Kim's daughter, weekly invoiced)</li>
+      <li><strong>Bill Mallett (VDZ)</strong> — PwC tender partnership · $weekly</li>
+      <li><strong>Edge Navigators</strong> — Jason Propelier (accountant) + Carolay Cubides (offsider) · year-end + BAS + FBT</li>
+      <li><strong>Janice Mahon</strong> — independent bookkeeper · AMEX recon + transactional</li>
+    </ul>
+    <div class="row">
+      <a class="pill" href="org-chart.html">🗺 Full org chart</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📎 Deep-dive documents</h2>
+    <div class="row">
+      <a class="pill" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/CEO_Investment_Dashboard.pdf">📋 CEO Dashboard PDF</a>
+      <a class="pill" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/Daily_Operations_Dashboard.html">⚙️ Daily Ops Dashboard</a>
+      <a class="pill" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/GoToMarket_Plan.html">🚀 GTM Plan</a>
+      <a class="pill" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/Startup_Operations_Playbook.pdf">📘 Startup Ops Playbook</a>
+      <a class="pill" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/Legal_Compliance_Checklist.pdf">⚖️ Legal Compliance</a>
+      <a class="pill" href="app-hq.html">🛠 APP HQ</a>
+      <a class="pill" href="competitors.html">🎯 Competitors</a>
+      <a class="pill" href="marketing-command-centre.html">💌 Marketing</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

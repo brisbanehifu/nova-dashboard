@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BAT P0 Fires — 10 May 2026 (Multi-Tenant + Stripe + UAT)</title>
+<style>
+  :root {
+    --ink: #0c0a09;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #7a7a7a;
+    --line: #DBDFE3;
+    --line-soft: #EDF0F3;
+    --bg: #F6F7F9;
+    --primary: #0B2B5B;
+    --teal: #00857a;
+    --teal-soft: #E0F4F2;
+    --green: #16a34a;
+    --green-soft: #DCFCE7;
+    --amber: #d97706;
+    --amber-soft: #FEF3C7;
+    --red: #dc2626;
+    --red-soft: #FEE2E2;
+    --purple: #9B3DFF;
+    --purple-soft: #EFE4FF;
+    --coral: #FF7A6E;
+    --coral-soft: #FFE5E2;
+    --r: 12px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    margin: 0; padding: 24px 28px 60px;
+    background: var(--bg); color: var(--ink);
+    font-size: 15px; line-height: 1.55;
+  }
+  .page {
+    max-width: 1200px; margin: 0 auto;
+    background: white; border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    padding: 36px 40px 40px;
+  }
+  header.hero {
+    margin: -36px -40px 28px; padding: 36px 40px 28px;
+    background: linear-gradient(135deg, #0B2B5B 0%, #9B3DFF 60%, #FF7A6E 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+  }
+  .eyebrow {
+    text-transform: uppercase; font-size: 12px; font-weight: 700;
+    letter-spacing: 1.5px; opacity: 0.85; margin-bottom: 8px;
+  }
+  h1 { font-size: 30px; margin: 0 0 8px; font-weight: 800; letter-spacing: -0.5px; }
+  .sub { font-size: 16px; margin: 0; opacity: 0.92; max-width: 800px; }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 13px; opacity: 0.9; margin-top: 16px;
+  }
+  .meta-row span strong { font-weight: 700; }
+
+  h2 {
+    font-size: 22px; font-weight: 800; margin: 40px 0 16px;
+    letter-spacing: -0.2px;
+  }
+  h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; }
+
+  /* Big-stat hero grid */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px; margin: 18px 0 8px;
+  }
+  .stat {
+    background: white; border: 1px solid var(--line);
+    border-radius: var(--r); padding: 16px 18px;
+    transition: transform 0.15s;
+  }
+  .stat:hover { transform: translateY(-2px); }
+  .stat .label {
+    text-transform: uppercase; font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; color: var(--ink-faint); margin-bottom: 6px;
+  }
+  .stat .num {
+    font-size: 28px; font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+  .stat .hint {
+    font-size: 12px; color: var(--ink-faint); margin-top: 4px;
+  }
+  .stat.red .num { color: var(--red); }
+  .stat.amber .num { color: var(--amber); }
+  .stat.green .num { color: var(--green); }
+  .stat.purple .num { color: var(--purple); }
+
+  /* Issue cards */
+  .issue {
+    border: 1px solid var(--line); border-radius: var(--r);
+    margin: 14px 0; overflow: hidden;
+  }
+  .issue header.row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px; border-bottom: 1px solid var(--line-soft);
+    background: var(--line-soft);
+  }
+  .pill {
+    display: inline-flex; align-items: center; padding: 3px 10px;
+    border-radius: 999px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  .pill.p0 { background: var(--red-soft); color: var(--red); }
+  .pill.p1 { background: var(--amber-soft); color: var(--amber); }
+  .pill.p2 { background: var(--purple-soft); color: var(--purple); }
+  .pill.shipped { background: var(--green-soft); color: var(--green); }
+  .pill.cifight { background: var(--amber-soft); color: var(--amber); }
+  .pill.parked { background: var(--line-soft); color: var(--ink-faint); }
+  .issue h3 { margin: 0; font-size: 16px; font-weight: 700; flex: 1; }
+  .issue .body { padding: 16px 18px; }
+  .issue .body p { margin: 8px 0; }
+  .issue .impact {
+    background: var(--coral-soft); border-left: 3px solid var(--coral);
+    padding: 10px 14px; border-radius: 6px; margin: 10px 0;
+    font-size: 14px;
+  }
+  .issue .fix {
+    background: var(--green-soft); border-left: 3px solid var(--green);
+    padding: 10px 14px; border-radius: 6px; margin: 10px 0;
+    font-size: 14px;
+  }
+  .issue .test {
+    background: var(--purple-soft); border-left: 3px solid var(--purple);
+    padding: 10px 14px; border-radius: 6px; margin: 10px 0;
+    font-size: 14px;
+  }
+  code, .mono {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    background: var(--line-soft);
+    padding: 1px 6px; border-radius: 4px;
+  }
+  .pr-table {
+    width: 100%; border-collapse: collapse; margin: 12px 0;
+    font-size: 14px;
+  }
+  .pr-table th {
+    text-align: left; padding: 10px 12px;
+    background: var(--line-soft);
+    font-weight: 700; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--line);
+  }
+  .pr-table td {
+    padding: 12px; border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  .pr-table tr.tier-shipped td:first-child { border-left: 3px solid var(--green); }
+  .pr-table tr.tier-cifight td:first-child { border-left: 3px solid var(--amber); }
+  .pr-table tr.tier-parked td:first-child { border-left: 3px solid var(--ink-faint); opacity: 0.85; }
+  a { color: var(--purple); text-decoration: none; font-weight: 600; }
+  a:hover { text-decoration: underline; }
+
+  footer.bottom {
+    margin-top: 40px; padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--ink-faint);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+<header class="hero">
+  <div class="eyebrow">Brisbane HIFU + Redlands HIFU · BAT P0 fires</div>
+  <h1>10 May 2026 — Multi-Tenant Onboarding stress-test</h1>
+  <p class="sub">
+    Redlands HIFU was signed up as tenant 2 today. The first second tenant we have ever onboarded
+    immediately exposed two latent multi-tenant bugs <em>and</em> a Stripe Connect outage that had been masking
+    itself behind sample-size-of-one for weeks. Five PRs shipped, two more in CI. Brisbane HIFU's core flows
+    were impacted intermittently while fixes deployed; deposit-collection is currently paused on the public
+    booking page until Connect is verified end-to-end.
+  </p>
+  <div class="meta-row">
+    <span><strong>Active tenants:</strong> 2 (BH=1, Redlands=2)</span>
+    <span><strong>PRs shipped today:</strong> 7</span>
+    <span><strong>PROD deploys:</strong> 5</span>
+    <span><strong>Bundle hash:</strong> index-D8U_rpzk.js → +2 in flight</span>
+  </div>
+</header>
+
+<h2>At-a-glance</h2>
+<div class="stats">
+  <div class="stat red">
+    <div class="label">P0 fires</div>
+    <div class="num">5</div>
+    <div class="hint">Stripe deposits, duration, contact save, multi-tenant data leak, login lockout</div>
+  </div>
+  <div class="stat amber">
+    <div class="label">P1 / P2</div>
+    <div class="num">3</div>
+    <div class="hint">UI polish, logout button, cron error</div>
+  </div>
+  <div class="stat green">
+    <div class="label">PRs merged</div>
+    <div class="num">5</div>
+    <div class="hint">#386, #392, #393, #394 + #398-merging</div>
+  </div>
+  <div class="stat purple">
+    <div class="label">Tenant rules locked</div>
+    <div class="num">4</div>
+    <div class="hint">JWT-first, cross-tenant login, no browser mixing, email uniqueness queued</div>
+  </div>
+  <div class="stat">
+    <div class="label">Files swept (#397)</div>
+    <div class="num">25</div>
+    <div class="hint">205 <code>req.tenantId &#124;&#124; 1</code> occurrences flipped to JWT-first</div>
+  </div>
+  <div class="stat">
+    <div class="label">Public-page deposit</div>
+    <div class="num" style="font-size:18px;color:var(--amber)">PAUSED</div>
+    <div class="hint">Skip-deposit interim until #391 verified end-to-end</div>
+  </div>
+</div>
+
+<h2>Brisbane HIFU impact summary</h2>
+<p>
+  Today's fires hit BH as the founding live tenant. Each P0 either blocked revenue, blocked admin operations,
+  or threatened tenant isolation. None of these would have surfaced without the second-tenant signup forcing the
+  multi-tenant pathways into anger.
+</p>
+
+<table class="pr-table">
+  <thead>
+    <tr>
+      <th>Issue</th>
+      <th>BH revenue / ops impact</th>
+      <th>Resolution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Stripe Connect public-booking outage</strong> <span class="pill p0">P0</span></td>
+      <td>BH clients couldn't pay deposits. <code>"No such payment_intent"</code> on every public booking with a deposit. Bookings abandoned mid-flow, revenue lost.</td>
+      <td>PR #392 <span class="pill shipped">LIVE</span> — interim skip-deposit so clients can book without paying online (pay at clinic). PR #391 <span class="pill parked">PARKED</span> with the proper Connect-aware fix; revert one line + land #391 to re-enable.</td>
+    </tr>
+    <tr>
+      <td><strong>Booking durations rendered wrong</strong> <span class="pill p0">P0</span></td>
+      <td>Calendar blocked wrong amount of time per booking. Time slots looked unavailable when they were free; booking opportunities lost. SMS confirmations carried wrong durations.</td>
+      <td>PR #385 fixed CREATE-time. PR #396 <span class="pill cifight">CI</span> normalises duration + end_time at READ time too — so existing rows with stale snapshots render correctly without a risky DB backfill.</td>
+    </tr>
+    <tr>
+      <td><strong>Contact save silent-failure</strong> <span class="pill p0">P0</span></td>
+      <td>Emma Martin was added to BH contacts but never saved — Kim got no error feedback. Booking + workflow that depended on the contact also vanished.</td>
+      <td>PR #395 <span class="pill cifight">CI</span> — checks <code>res.ok</code>, surfaces real backend errors via <code>alert()</code>. <code>setEditing(false)</code> only on confirmed success. Next failure now diagnosable instead of phantom.</td>
+    </tr>
+    <tr>
+      <td><strong>Multi-tenant data leak</strong> <span class="pill p0">P0</span></td>
+      <td>Redlands UI showed BH services + contacts (split-brain). Some routes respected JWT (correctly Redlands), others fell back to host-resolution (wrongly BH). Tenant isolation breached visually for ~hours until detected.</td>
+      <td>PR #397 <span class="pill cifight">CI</span> sweeps <code>req.tenantId &#124;&#124; 1</code> → <code>req.user?.tenantId &#124;&#124; req.tenantId &#124;&#124; 1</code> across 25 backend files / 205 occurrences. JWT wins everywhere.</td>
+    </tr>
+    <tr>
+      <td><strong>Redlands login lockout</strong> <span class="pill p0">P0</span></td>
+      <td>Redlands owner locked out of admin. <code>app.bookatreatment.ai/admin/login</code> host-resolves to BH; lookup tenant-scoped to BH; Redlands email not in BH → "Invalid". Same wall every future trial would hit.</td>
+      <td>PR #398 <span class="pill cifight">CI</span> generalises the cross-tenant fallback that previously only worked for the App Store reviewer demo user. bcrypt still validates password; cross-tenant match is logged.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Issue detail (today's session)</h2>
+
+<div class="issue">
+  <header class="row">
+    <span class="pill p0">P0</span>
+    <h3>1. Stripe Connect — public booking deposits broken</h3>
+    <span class="pill shipped">PR #392 LIVE</span>
+  </header>
+  <div class="body">
+    <div class="impact">
+      <strong>BH impact:</strong> No client could pay a deposit on a service that required one. Browser console showed <code>No such payment_intent: pi_3TV6n…</code>. Multiple texts to Kim from confused clients.
+    </div>
+    <p><strong>Root cause:</strong> Backend routes payment intents directly to BH's connected Stripe sub-account via <code>{ stripeAccount }</code>. Frontend initialised Stripe.js with plain <code>loadStripe(publishableKey)</code> — no <code>stripeAccount</code> option — so JS asked the platform account for an intent that lives on the sub-account. <em>The Jose chat path always handled this correctly; the public BookingPage simply hadn't been updated when Connect was enabled.</em></p>
+    <div class="fix">
+      <strong>Interim (PR #392 LIVE):</strong> public booking page bypasses online deposit entirely. Clients book → confirmation → pay at clinic. Slot still held (status=tentative). Reverting is a one-line restore.
+      <br><br>
+      <strong>Proper fix (PR #391 parked):</strong> backend returns <code>stripeAccount</code>; frontend caches <code>loadStripe</code> per (key, account); reducer threads stripeAccount through BookingFlowState. Re-enable when verified end-to-end on PROD.
+    </div>
+    <p class="mono">Files: index.js (response shape) · frontend/src/lib/api.ts (return type) · frontend/src/types/index.ts (state) · frontend/src/pages/booking/BookingPage.tsx (cache + reducer + Elements mount)</p>
+  </div>
+</div>
+
+<div class="issue">
+  <header class="row">
+    <span class="pill p0">P0</span>
+    <h3>2. Booking durations wrong → calendar blocking wrong time</h3>
+    <span class="pill cifight">PR #396 in CI</span>
+  </header>
+  <div class="body">
+    <div class="impact">
+      <strong>BH impact:</strong> 30-min appointments rendered as 60-min on the calendar. Time slots looked unavailable. Clients told Kim they couldn't book; opportunities lost. Same wrong duration also went to clients via SMS confirmation.
+    </div>
+    <p><strong>Root cause:</strong> PR #385 fixed CREATE-time so new bookings get the canonical duration from <code>event_types</code>. But existing PROD rows still carry stale duration snapshots from before that shipped — and the UI reads those snapshots directly for display + calendar block height.</p>
+    <div class="fix">
+      <strong>PR #396:</strong> server-side normalisation at READ time. <code>getAllBookings</code> + <code>getBookingById</code> JOIN <code>event_types</code> and override <code>duration</code> + recompute <code>end_time</code> from canonical service config before returning. <strong>DB rows untouched</strong> (no risky mass-backfill — some non-canonical durations may be intentional), but every consumer (slideout, calendar, mobile, exports) sees correct values instantly.
+    </div>
+  </div>
+</div>
+
+<div class="issue">
+  <header class="row">
+    <span class="pill p0">P0</span>
+    <h3>3. Contact save silent-failure</h3>
+    <span class="pill cifight">PR #395 in CI</span>
+  </header>
+  <div class="body">
+    <div class="impact">
+      <strong>BH impact:</strong> Kim added Emma Martin via the desktop admin. Form looked like it saved (exited edit mode, no error). She wasn't in the contact list. Booking made for her also went missing. No SMS / email workflow fired because contact + booking both failed silently.
+    </div>
+    <p><strong>Root cause:</strong> <code>handleSave</code> in <code>ContactRecordPage.tsx</code> ran <code>setEditing(false)</code> regardless of HTTP status. <code>console.error</code> only fires on network errors — 4xx/5xx don't throw on <code>fetch</code>, they resolve. So no toast, no console error, no failed-state UI. Just a phantom save.</p>
+    <div class="fix">
+      Check <code>res.ok</code> before parsing. Throw on non-2xx with the server's message body. Throw if 201 came back without an id field. <code>setEditing(false)</code> ONLY on confirmed success. Surface failures via <code>window.alert()</code> — unmissable. Same shape applied to the PUT branch.
+    </div>
+    <p><strong>What this fix doesn't do:</strong> the original Emma Martin save 4xx/5xx'd for an unknown reason. With this in place, the next attempt will surface the actual error so we can diagnose root cause instead of chasing a phantom.</p>
+  </div>
+</div>
+
+<div class="issue">
+  <header class="row">
+    <span class="pill p0">P0</span>
+    <h3>4. Multi-tenant data leak — Redlands name with BH services + contacts</h3>
+    <span class="pill cifight">PR #397 in CI</span>
+  </header>
+  <div class="body">
+    <div class="impact">
+      <strong>BH impact:</strong> When Kim signed Redlands up in another browser tab, the same browser's BH JWT in localStorage created split-brain UI. Routes using JWT correctly returned Redlands data; routes using host-resolution returned BH data. Tenant isolation breached visually for ~hours before noticed.
+    </div>
+    <p><strong>Root cause:</strong> 205 occurrences of <code>req.tenantId || 1</code> across 25 backend files. The host resolver on <code>app.bookatreatment.ai</code> returns UNRESOLVED → defaults to tenant 1 (BH). PR #347 fixed 13 high-priority files; the other 25 stayed as-is and silently rotted into this exact bug at first second-tenant.</p>
+    <div class="fix">
+      Mechanical sweep: <code>req.tenantId || 1</code> → <code>req.user?.tenantId || req.tenantId || 1</code>. Same fallback chain, just JWT first. <code>node -c</code> passes. Same shape PR #347 used.
+      <br><br>
+      Files: index.js (102) · marketing.js (24) · pos.js (24) · subscriptions.js (7) · meta-ads.js (5) · locations.js (5) · 4 OAuth files (14) · 14 single-occurrence files.
+    </div>
+  </div>
+</div>
+
+<div class="issue">
+  <header class="row">
+    <span class="pill p0">P0</span>
+    <h3>5. Redlands owner locked out of login</h3>
+    <span class="pill cifight">PR #398 in CI</span>
+  </header>
+  <div class="body">
+    <div class="impact">
+      <strong>BH impact:</strong> Indirect — but every future trial signup would hit the same wall. The canonical login URL <code>app.bookatreatment.ai/admin/login</code> host-resolves to tenant 1 (BH); the login lookup is tenant-scoped → no match for the new tenant's email → "Invalid username or password" with correct credentials.
+    </div>
+    <p><strong>Root cause:</strong> <code>auth.js login()</code> had a cross-tenant fallback added in PR #381, but only for the App Store reviewer demo user (gated on a hardcoded username). PR #397 didn't help because login has no JWT yet (user not signed in).</p>
+    <div class="fix">
+      Generalise the cross-tenant fallback. When no match in the host-resolved tenant, search globally by email + <code>is_active=1</code>, take the most recently active match. <code>bcrypt.compare</code> still validates password (wrong creds still fail). Logged when fallback fires so unexpected bleed-through is auditable.
+    </div>
+    <div class="test">
+      <strong>Once #398 deploys:</strong> Redlands owner logs in at <code>app.bookatreatment.ai/admin/login</code> → JWT minted with <code>tenantId=2</code> → Redlands data only.
+    </div>
+  </div>
+</div>
+
+<h2>Smaller issues bundled today</h2>
+
+<table class="pr-table">
+  <thead>
+    <tr><th>#</th><th>Issue</th><th>Resolution</th></tr>
+  </thead>
+  <tbody>
+    <tr class="tier-shipped">
+      <td>6</td>
+      <td>Activity Log — add <strong>Booking Created</strong> column. Mobile Contacts had <strong>no Add Client button</strong>. View / Book pills <strong>unreadable</strong> (text colour matched background).</td>
+      <td>PR #386 <span class="pill shipped">LIVE</span></td>
+    </tr>
+    <tr class="tier-shipped">
+      <td>7</td>
+      <td>Public Review &amp; Pay step showed <code>18:00</code> instead of <code>6:00pm</code>. Stale "<em>per spec V8</em>" 24h directive — Kim flipped it.</td>
+      <td>PR #394 <span class="pill shipped">LIVE</span></td>
+    </tr>
+    <tr class="tier-cifight">
+      <td>8</td>
+      <td><strong>No visible logout button</strong>. Sidebar bottom-left was a 16px icon at the right end of the user pill — too easy to miss. Tapping the name navigated to settings rather than offering a logout choice.</td>
+      <td>PR #396 <span class="pill cifight">CI</span> — popover menu with Settings + Log out. Dual-edit on AdminLayout + AdminLayoutLG.</td>
+    </tr>
+    <tr class="tier-shipped">
+      <td>9</td>
+      <td><strong>Send Deposit + Send Waiver buttons</strong> — admin had no surface to chase a deposit or waiver from a booking. New buttons in slideout AND calendar booking panel. Texts <code>/pay/&lt;id&gt;</code> Stripe Checkout link (works correctly via hosted Checkout, no Connect issues).</td>
+      <td>PR #393 <span class="pill shipped">LIVE</span></td>
+    </tr>
+    <tr class="tier-parked">
+      <td>—</td>
+      <td>Cron error: <code>[unpaid-deposit-cron] Unknown column 'nl.tenant_id' in 'on clause'</code>. Auto-deposit reminders not firing.</td>
+      <td>P2 — queued. Not blocking; manual Send Deposit button covers it for now.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Standing rules locked today</h2>
+
+<ol>
+  <li><strong>JWT-first everywhere</strong> on authenticated backend routes. Canonical pattern: <code>req.user?.tenantId || req.tenantId || 1</code>. Never bare <code>req.tenantId || 1</code>.</li>
+  <li><strong>Login does cross-tenant lookup</strong> when host-resolved tenant has no email match. bcrypt still validates password.</li>
+  <li><strong>Don't mix tenants in the same browser profile.</strong> One browser/profile per tenant or use incognito for the second one. localStorage <code>auth_token</code> is shared across tabs.</li>
+  <li><strong>Email uniqueness across tenants</strong> at <code>register()</code> — TBD, hardening backlog. The cross-tenant login fallback picks most-recently-active match when collisions exist.</li>
+</ol>
+
+<h2>Hardening backlog — order of priority</h2>
+
+<ol>
+  <li>Email uniqueness enforcement at signup time.</li>
+  <li>Per-tenant subdomains (<code>redlands.bookatreatment.ai</code>) → host resolver always wins → fewer cross-tenant fallbacks needed.</li>
+  <li>ESLint rule banning bare <code>req.tenantId || 1</code> patterns. Lint-block on PR.</li>
+  <li>Integration test in CI: sign up a fresh tenant and assert (a) login works, (b) data isolation between two simulated tenants.</li>
+  <li>Re-enable online deposit on public booking page once PR #391 (Stripe Connect proper fix) is verified end-to-end.</li>
+  <li>Fix the unpaid-deposit-cron <code>nl.tenant_id</code> SQL error so auto-reminders resume.</li>
+</ol>
+
+<h2>References</h2>
+
+<ul>
+  <li>Memory topic: <code>memory/bat_multi_tenant_login_and_data_leak.md</code></li>
+  <li>Configuration Guide §24 Multi-Tenant Onboarding</li>
+  <li>Standing rule: <code>memory/bat_tenant_scoping_use_jwt_not_host.md</code></li>
+  <li>Auto-merge rule: <code>memory/auto_merge_after_approval.md</code></li>
+  <li>PRs: <a href="https://github.com/brisbanehifu/booking-api/pull/386">#386</a> · <a href="https://github.com/brisbanehifu/booking-api/pull/391">#391 (parked)</a> · <a href="https://github.com/brisbanehifu/booking-api/pull/392">#392</a> · <a href="https://github.com/brisbanehifu/booking-api/pull/393">#393</a> · <a href="https://github.com/brisbanehifu/booking-api/pull/394">#394</a> · <a href="https://github.com/brisbanehifu/booking-api/pull/395">#395</a> · <a href="https://github.com/brisbanehifu/booking-api/pull/396">#396</a> · <a href="https://github.com/brisbanehifu/booking-api/pull/397">#397</a> · <a href="https://github.com/brisbanehifu/booking-api/pull/398">#398</a></li>
+</ul>
+
+<footer class="bottom">
+  Generated 10 May 2026 · Brisbane HIFU = tenant 1 · Redlands HIFU = tenant 2 · Bundle <code>index-D8U_rpzk.js</code> (pre #395-#398 deploy)
+</footer>
+</div>
+</body>
+</html>

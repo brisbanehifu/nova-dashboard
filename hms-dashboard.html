@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIFU Machine Sales — Master Dashboard</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0c0a09; color: #f0ede8; font-size: 14px; }
+
+.topnav { background: #0f0e0d; border-bottom: 2px solid #c9a84c; padding: 14px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.topnav h1 { font-size: 17px; font-weight: 700; color: #fff; flex: 1; }
+.topnav h1 span { color: #c9a84c; }
+.topnav .updated { font-size: 11px; color: #555; }
+.nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav-tab { font-size: 11px; font-weight: 600; padding: 6px 14px; border-radius: 20px; cursor: pointer; border: 1px solid #2a2520; color: #999; background: transparent; transition: all 0.15s; text-decoration: none; }
+.nav-tab:hover, .nav-tab.active { background: #c9a84c; color: #0c0a09; border-color: #c9a84c; }
+
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+.section { margin-bottom: 28px; }
+.section-title { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #c9a84c; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #2a2018; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media(max-width:900px) { .grid-2,.grid-3,.grid-4 { grid-template-columns: 1fr 1fr; } }
+@media(max-width:600px) { .grid-2,.grid-3,.grid-4 { grid-template-columns: 1fr; } }
+
+.card { background: #181614; border: 1px solid #2a2724; border-radius: 10px; padding: 16px; }
+.card-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.card-value { font-size: 26px; font-weight: 700; color: #fff; }
+.card-value.gold { color: #c9a84c; }
+.card-sub { font-size: 11px; color: #666; margin-top: 3px; }
+
+.pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+.pill-live { background: #c9a84c20; color: #c9a84c; border: 1px solid #c9a84c40; }
+.pill-warn { background: #f39c1220; color: #f39c12; border: 1px solid #f39c1240; }
+.pill-off { background: #e74c3c20; color: #e74c3c; border: 1px solid #e74c3c40; }
+.pill-draft { background: #8e8e9320; color: #8e8e93; border: 1px solid #8e8e9340; }
+
+.info-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1e1c1a; }
+.info-row:last-child { border-bottom: none; }
+.info-label { color: #888; font-size: 12px; }
+.info-val { color: #fff; font-size: 12px; font-weight: 600; text-align: right; }
+
+.action-list { list-style: none; }
+.action-item { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid #1e1c1a; }
+.action-item:last-child { border-bottom: none; }
+.action-num { width: 22px; height: 22px; border-radius: 50%; background: #c9a84c20; color: #c9a84c; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.action-body { flex: 1; }
+.action-title { font-size: 13px; color: #fff; font-weight: 600; margin-bottom: 2px; }
+.action-detail { font-size: 11px; color: #888; line-height: 1.5; }
+.action-effort { font-size: 10px; font-weight: 700; color: #c9a84c; margin-top: 4px; }
+
+.checklist { list-style: none; }
+.check-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid #1a1816; font-size: 12px; color: #ccc; line-height: 1.5; }
+.check-item:last-child { border-bottom: none; }
+.check-icon { color: #c9a84c; flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+.check-icon.warn { color: #f39c12; }
+.check-icon.off { color: #555; }
+
+a { color: #c9a84c; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.notice { background: #c9a84c10; border: 1px solid #c9a84c30; border-radius: 8px; padding: 12px 16px; font-size: 12px; color: #ccc; margin-bottom: 16px; line-height: 1.6; }
+.notice strong { color: #c9a84c; }
+.notice.warn { background: #f39c1210; border-color: #f39c1230; }
+.notice.warn strong { color: #f39c12; }
+.notice.danger { background: #e74c3c10; border-color: #e74c3c30; }
+.notice.danger strong { color: #e74c3c; }
+
+.week-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.week-table th { text-align: left; color: #555; font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; padding: 0 12px 8px 0; }
+.week-table td { padding: 9px 12px 9px 0; border-top: 1px solid #1e1c1a; color: #ccc; vertical-align: top; }
+.week-table td:first-child { color: #888; white-space: nowrap; font-size: 11px; }
+.wk-tag { color: #c9a84c; font-weight: 700; }
+
+.roi-box { background: #1a1814; border: 1px solid #2a2418; border-radius: 8px; padding: 14px; }
+.roi-box .roi-label { font-size: 11px; color: #666; margin-bottom: 4px; }
+.roi-box .roi-num { font-size: 20px; font-weight: 700; color: #c9a84c; }
+.roi-box .roi-sub { font-size: 11px; color: #555; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <h1>HIFU Machine Sales — <span>Master Dashboard</span></h1>
+  <div class="nav-tabs">
+    <a href="#overview" class="nav-tab active">Overview</a>
+    <a href="#social" class="nav-tab">Social</a>
+    <a href="#leads" class="nav-tab">Lead Gen</a>
+    <a href="#site" class="nav-tab">Site &amp; SEO</a>
+    <a href="#actions" class="nav-tab">This Week</a>
+  </div>
+  <div class="updated">Updated 3 Jul 2026</div>
+</div>
+
+<div class="container">
+
+<!-- ===== OVERVIEW ===== -->
+<div id="overview" class="section" style="margin-top:20px;">
+  <div class="section-title">Live Status — HIFU Machine Sales</div>
+  <div class="grid-4">
+    <div class="card">
+      <div class="card-label">Site Status</div>
+      <div class="card-value gold">LIVE</div>
+      <div class="card-sub">hifumachinesales.com</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Instagram</div>
+      <div class="card-value">DORMANT</div>
+      <div class="card-sub">@hifu.machines · Fresh start Jul 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Lead Forms</div>
+      <div class="card-value gold">LIVE</div>
+      <div class="card-sub">Consultation + enquiry working</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Email Drip</div>
+      <div class="card-value" style="font-size:18px;">DRAFTED</div>
+      <div class="card-sub">Not wired to MailerLite yet</div>
+    </div>
+  </div>
+</div>
+
+<!-- TRACKING STATUS -->
+<div class="section">
+  <div class="section-title">Tracking &amp; Pixels — Verified Live</div>
+  <div class="grid-2">
+    <div class="card">
+      <ul class="checklist">
+        <li class="check-item"><span class="check-icon">✓</span><div><strong>Meta Pixel</strong> — live on hifumachinesales.com (verified)</div></li>
+        <li class="check-item"><span class="check-icon">✓</span><div><strong>GA4</strong> — live on hifumachinesales.com</div></li>
+        <li class="check-item"><span class="check-icon">✓</span><div><strong>Lead forms</strong> — enquiry + consultation forms working</div></li>
+        <li class="check-item"><span class="check-icon warn">!</span><div><strong>2 Zyro images broken</strong> on hifumachinesales.com (assets.zyrosite.com). Need re-hosting.</div></li>
+        <li class="check-item"><span class="check-icon off">✗</span><div><strong>Google Ads</strong> — not running for HMS yet</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">Windsor Connectors (HMS)</div>
+      <div class="info-row"><div class="info-label">Facebook (paid)</div><div class="info-val"><span class="pill pill-live">CONNECTED</span></div></div>
+      <div class="info-row"><div class="info-label">Facebook Organic</div><div class="info-val"><span class="pill pill-live">CONNECTED</span></div></div>
+      <div class="info-row"><div class="info-label">Instagram</div><div class="info-val"><span class="pill pill-live">CONNECTED</span></div></div>
+      <div class="info-row"><div class="info-label">Google Ads</div><div class="info-val"><span class="pill pill-off">NOT YET</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SOCIAL ===== -->
+<div id="social" class="section">
+  <div class="section-title">Social Media — @hifu.machines</div>
+  <div class="notice"><strong>Fresh start Jul 2026.</strong> Zero traction currently. Goal: leads from beauty therapists + aspiring clinic owners wanting to buy or lease an HMS machine. Talking-head reels to camera by Kim — no AI video needed.</div>
+  <div class="notice danger"><strong>Brand rule:</strong> Real photos of machines only. NO AI-generated machine imagery. Avoid: training-smiling.jpg, brand-hero.jpg, clinic-shot-8.jpg (flagged as inauthentic). Gold #d4af37 palette.</div>
+
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">Campaign 1 Status</div>
+      <div class="info-row"><div class="info-label">Scripts ready</div><div class="info-val">HMS-1 + HMS-2 — <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/hifu-machine-sales/Campaign%201/index.html">review page</a></div></div>
+      <div class="info-row"><div class="info-label">Videos filmed</div><div class="info-val">0 of 2</div></div>
+      <div class="info-row"><div class="info-label">First post date</div><div class="info-val">Tue 8 Jul 2026</div></div>
+      <div class="info-row"><div class="info-label">Cadence</div><div class="info-val">Tue + Thu · 8:00am Brisbane</div></div>
+      <div class="info-row"><div class="info-label">Auto-poster</div><div class="info-val"><span class="pill pill-warn">NEEDS META OAUTH</span></div></div>
+    </div>
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">ROI Model (for content)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+        <div class="roi-box"><div class="roi-label">Machine cost</div><div class="roi-num">$8k–20k</div></div>
+        <div class="roi-box"><div class="roi-label">Treatment price</div><div class="roi-num">$500–1,500</div></div>
+        <div class="roi-box"><div class="roi-label">Payback (20 clients)</div><div class="roi-num">6–8 wks</div></div>
+        <div class="roi-box"><div class="roi-label">Revenue uplift/hr</div><div class="roi-num">5–10×</div></div>
+      </div>
+      <div style="font-size:11px;color:#666;">This is your #1 content angle. Lead with the numbers — it's what converts beauty therapists.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="section-title" style="margin-bottom:12px;">4-Week Posting Plan — @hifu.machines · Tue + Thu · 8:00am</div>
+    <table class="week-table">
+      <tr><th>Date</th><th>Script</th><th>Pillar</th><th>Status</th></tr>
+      <tr><td>Tue 8 Jul</td><td><span class="wk-tag">HMS-1</span> Owner transformation — beauty therapist to clinic owner</td><td>Owner Story</td><td><span class="pill pill-draft">TO FILM</span></td></tr>
+      <tr><td>Thu 10 Jul</td><td><span class="wk-tag">HMS-2</span> ROI / business case — $8k machine, 20 clients, 6 weeks</td><td>Business Case</td><td><span class="pill pill-draft">TO FILM</span></td></tr>
+      <tr><td>Tue 15 Jul</td><td>Machine demo — what it looks like in action</td><td>Demo</td><td><span class="pill pill-off">UNWRITTEN</span></td></tr>
+      <tr><td>Thu 17 Jul</td><td>"5 things I wish I knew before opening a skin clinic"</td><td>Education</td><td><span class="pill pill-off">UNWRITTEN</span></td></tr>
+      <tr><td>Tue 22 Jul</td><td>Behind HMS — Kim's story, why she got into this</td><td>Behind HMS</td><td><span class="pill pill-off">UNWRITTEN</span></td></tr>
+      <tr><td>Thu 24 Jul</td><td>Client Q&amp;A: "What does it actually cost to start?"</td><td>Business Case</td><td><span class="pill pill-off">UNWRITTEN</span></td></tr>
+      <tr><td>Tue 29 Jul</td><td>Testimonial from clinic owner who bought</td><td>Owner Story</td><td><span class="pill pill-off">UNWRITTEN</span></td></tr>
+      <tr><td>Thu 31 Jul</td><td>"HIFU machine vs laser — ROI comparison"</td><td>Business Case</td><td><span class="pill pill-off">UNWRITTEN</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="section-title" style="margin-bottom:12px;">Content Strategy</div>
+    <div class="grid-3">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#c9a84c;margin-bottom:8px;">Audience</div>
+        <div style="font-size:12px;color:#999;line-height:1.7;">Beauty therapists. Aspiring clinic owners. Women wanting to add high-revenue modality to their business. NOT patients/consumers — that's BH.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#c9a84c;margin-bottom:8px;">Content pillars</div>
+        <div style="font-size:12px;color:#999;line-height:1.7;">Owner Story 40% · Business Case 30% · Demo 15% · Education 15%</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#c9a84c;margin-bottom:8px;">Brand rules</div>
+        <div style="font-size:12px;color:#999;line-height:1.7;">Real machine photos only. Gold palette #d4af37. Kim to camera — conversational, not scripted. Comment keywords (CLINIC, ROI) drive DM automations.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LEAD GEN ===== -->
+<div id="leads" class="section">
+  <div class="section-title">Lead Gen &amp; Sales Funnel</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">Funnel Status</div>
+      <ul class="checklist">
+        <li class="check-item"><span class="check-icon">✓</span>Consultation form — live, leads to hifu.machines@gmail.com</li>
+        <li class="check-item"><span class="check-icon">✓</span>Enquiry form — live</li>
+        <li class="check-item"><span class="check-icon">✓</span>Machine pricing page — live ($8k–$20k range)</li>
+        <li class="check-item"><span class="check-icon warn">!</span><strong>Email drip sequences</strong> — 3 sequences written, NOT wired to MailerLite. Say "wire mailer drip HMS" to start.</li>
+        <li class="check-item"><span class="check-icon warn">!</span><strong>ManyChat DM automation</strong> — comment keywords CLINIC + ROI set as triggers in scripts but not yet wired.</li>
+        <li class="check-item"><span class="check-icon off">✗</span>Google Ads — not running. Next step after organic social traction.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">Email Drip (Ready to Wire)</div>
+      <div class="info-row"><div class="info-label">Sequence 1</div><div class="info-val">Machine enquiry — 5 emails</div></div>
+      <div class="info-row"><div class="info-label">Sequence 2</div><div class="info-val">Business case nurture — 3 emails</div></div>
+      <div class="info-row"><div class="info-label">Sequence 3</div><div class="info-val">ROI follow-up — 3 emails</div></div>
+      <div class="info-row"><div class="info-label">Platform</div><div class="info-val">MailerLite (API key needed)</div></div>
+      <div class="info-row"><div class="info-label">Est time to wire</div><div class="info-val">~30 min</div></div>
+      <div style="margin-top:12px;font-size:12px;color:#888;">Say <strong style="color:#c9a84c;">"wire mailer drip HMS"</strong> and have your MailerLite API key ready.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SITE & SEO ===== -->
+<div id="site" class="section">
+  <div class="section-title">Site &amp; SEO — hifumachinesales.com</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">Site Status</div>
+      <ul class="checklist">
+        <li class="check-item"><span class="check-icon">✓</span>Site live — hifumachinesales.com</li>
+        <li class="check-item"><span class="check-icon">✓</span>Meta Pixel + GA4 live</li>
+        <li class="check-item"><span class="check-icon">✓</span>Machine detail pages live</li>
+        <li class="check-item"><span class="check-icon warn">!</span><strong>2 broken Zyro-hosted images</strong> (assets.zyrosite.com) need re-hosting. Say "fix zyro images" to start.</li>
+        <li class="check-item"><span class="check-icon off">✗</span>SEO landing pages — not built yet (no suburb/state pages)</li>
+        <li class="check-item"><span class="check-icon off">✗</span>Blog — not started</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">Funnel Pages</div>
+      <div class="info-row"><div class="info-label">Funnel (Lovable build)</div><div class="info-val"><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/hifu-machine-sales/funnel/">funnel/ folder</a></div></div>
+      <div class="info-row"><div class="info-label">Full site mirror</div><div class="info-val"><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/hifu-machine-sales/">HMS folder</a></div></div>
+      <div class="info-row"><div class="info-label">Brand Guidelines</div><div class="info-val"><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Brand%20Guidelines/index.html">Open guidelines</a></div></div>
+      <div class="info-row"><div class="info-label">Campaign 1 scripts</div><div class="info-val"><a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/hifu-machine-sales/Campaign%201/index.html">Review page</a></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== THIS WEEK ===== -->
+<div id="actions" class="section">
+  <div class="section-title">This Week — Priority Action List</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">Kim must do</div>
+      <ul class="action-list">
+        <li class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-body">
+            <div class="action-title">Film HMS-1 — Owner Transformation Story (~45 sec)</div>
+            <div class="action-detail">Script ready at <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/hifu-machine-sales/Campaign%201/index.html">Campaign 1 review page</a>. Talking head to camera. Film 3 versions of the first 3-second hook. Upload to Dropbox → ?dl=1 link.</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-body">
+            <div class="action-title">Film HMS-2 — ROI / Business Case (~42 sec)</div>
+            <div class="action-detail">Lead with the numbers: $8k machine, $700 treatment, 20 clients, 6 weeks. Walk through the maths confidently to camera.</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <div class="action-num">3</div>
+          <div class="action-body">
+            <div class="action-title">Re-auth Meta in Make.com</div>
+            <div class="action-detail">Same as BH — one re-auth covers both accounts. Make.com → Connections → Instagram → reconnect with instagram_content_publish scope.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="section-title" style="margin-bottom:12px;">I can do for you</div>
+      <ul class="action-list">
+        <li class="action-item">
+          <div class="action-num">A</div>
+          <div class="action-body">
+            <div class="action-title">Wire MailerLite email drip</div>
+            <div class="action-detail">3 sequences written and ready. Need your MailerLite API key.</div>
+            <div class="action-effort">"wire mailer drip HMS"</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <div class="action-num">B</div>
+          <div class="action-body">
+            <div class="action-title">Fix 2 broken Zyro images</div>
+            <div class="action-detail">Re-host broken machine images from assets.zyrosite.com. Upload to Cloudflare or Dropbox and update site HTML.</div>
+            <div class="action-effort">"fix zyro images HMS"</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <div class="action-num">C</div>
+          <div class="action-body">
+            <div class="action-title">Write Weeks 3–4 scripts (HMS-3 to HMS-8)</div>
+            <div class="action-detail">Machine demo, "5 things I wish I knew", behind HMS, Q&A, testimonial, HIFU vs laser. Calendar slots already set.</div>
+            <div class="action-effort">"write HMS week 3-4 scripts"</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <div class="action-num">D</div>
+          <div class="action-body">
+            <div class="action-title">Post a static image to @hifu.machines via Windsor</div>
+            <div class="action-detail">No Meta OAuth needed for images. Provide a public JPEG of a real HMS machine and I'll post it.</div>
+            <div class="action-effort">"post HMS image" + URL</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RESOURCE LINKS -->
+  <div class="card" style="margin-top:16px;">
+    <div class="section-title" style="margin-bottom:12px;">All Folders &amp; Resources</div>
+    <div class="grid-4">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#c9a84c;margin-bottom:8px;">Content</div>
+        <div style="line-height:2;font-size:12px;">
+          <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/hifu-machine-sales/Campaign%201/index.html">Campaign 1 Review</a><br>
+          <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Brand%20Guidelines/index.html">Brand Guidelines</a><br>
+          <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/hifu-machine-sales/">HMS Folder</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#c9a84c;margin-bottom:8px;">Site / Funnel</div>
+        <div style="line-height:2;font-size:12px;">
+          <a href="https://hifumachinesales.com">hifumachinesales.com</a><br>
+          <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/hifu-machine-sales/funnel/">Funnel pages</a><br>
+          <a href="https://business.facebook.com">Meta Business Suite</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#c9a84c;margin-bottom:8px;">Lead Gen</div>
+        <div style="line-height:2;font-size:12px;">
+          <a href="https://mailerlite.com">MailerLite</a><br>
+          <a href="https://manychat.com">ManyChat (DM auto)</a><br>
+          <a href="mailto:hifu.machines@gmail.com">hifu.machines@gmail.com</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#c9a84c;margin-bottom:8px;">Analytics</div>
+        <div style="line-height:2;font-size:12px;">
+          <a href="https://windsor.ai">Windsor AI</a><br>
+          <a href="https://analytics.google.com">Google Analytics</a><br>
+          <a href="https://business.facebook.com/adsmanager">Meta Ads Manager</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<title>First Light Civil, Action Plan</title>
+<style>
+  :root{
+    --ink:#171310;--ink2:#4a433d;--faint:#7a736e;--line:#e7e1d8;--soft:#f3ede2;--bg:#faf7f1;--card:#fff;
+    --flc:#1e3a5f;--flc-l:#eaf1f8;--flc-d:#16283f;
+    --green:#166534;--greenbg:#e8f6ec;--amber:#92400e;--amberbg:#fdf1de;--red:#991b1b;--redbg:#fbeaea;
+    --r:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--ink:#f2ede4;--ink2:#cfc7ba;--faint:#9b938a;--line:#3a352f;--soft:#221f1a;--bg:#17140f;--card:#1e1b16;
+      --flc:#7fb0e0;--flc-l:#1c2a3a;--flc-d:#a9cbec;
+      --green:#4ade80;--greenbg:#0f2a1a;--amber:#fbbf24;--amberbg:#2e2109;--red:#f87171;--redbg:#2e1414;}
+  }
+  :root[data-theme="dark"]{--ink:#f2ede4;--ink2:#cfc7ba;--faint:#9b938a;--line:#3a352f;--soft:#221f1a;--bg:#17140f;--card:#1e1b16;
+    --flc:#7fb0e0;--flc-l:#1c2a3a;--flc-d:#a9cbec;
+    --green:#4ade80;--greenbg:#0f2a1a;--amber:#fbbf24;--amberbg:#2e2109;--red:#f87171;--redbg:#2e1414;}
+  :root[data-theme="light"]{--ink:#171310;--ink2:#4a433d;--faint:#7a736e;--line:#e7e1d8;--soft:#f3ede2;--bg:#faf7f1;--card:#fff;
+    --flc:#1e3a5f;--flc-l:#eaf1f8;--flc-d:#16283f;
+    --green:#166534;--greenbg:#e8f6ec;--amber:#92400e;--amberbg:#fdf1de;--red:#991b1b;--redbg:#fbeaea;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:15.5px;padding-bottom:50px}
+  .wrap{max-width:800px;margin:0 auto;padding:0 20px}
+  header.hero{background:linear-gradient(135deg,var(--flc),var(--flc-d));color:#fff;padding:30px 0 26px}
+  .eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:700;opacity:.9}
+  h1{font-size:26px;font-weight:800;margin:6px 0 0;letter-spacing:-.4px}
+  header p{opacity:.95;font-size:14px;margin-top:8px;max-width:600px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:16px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  h2{font-size:18px;font-weight:800;display:flex;align-items:center;gap:9px;padding-bottom:9px;margin:0 0 12px;border-bottom:2px solid var(--soft)}
+  h3{font-size:14px;font-weight:800;margin:14px 0 6px;color:var(--flc)}
+  p{margin:6px 0}
+  a{color:var(--flc)}
+  ul,ol{margin:6px 0 8px 20px}li{margin:5px 0}
+  code{background:var(--soft);border-radius:5px;padding:1px 6px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+  .tablewrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;min-width:480px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--faint);font-weight:700}
+  .pill{display:inline-block;font-size:10px;font-weight:800;padding:2px 9px;border-radius:999px;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap}
+  .who-luci{background:var(--greenbg);color:var(--green)}
+  .who-web{background:var(--amberbg);color:var(--amber)}
+  .who-kim{background:var(--redbg);color:var(--red)}
+  .step{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:9px 0}
+  .step .head{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14.5px;margin-bottom:4px}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;border-radius:50%;background:var(--flc);color:#fff;font-size:12px;font-weight:800;flex-shrink:0}
+  .callout{border-radius:10px;padding:12px 15px;margin:10px 0;font-size:13.5px;border-left:4px solid var(--flc);background:var(--flc-l)}
+  .callout.amber{background:var(--amberbg);border-left-color:var(--amber)}
+  .callout.green{background:var(--greenbg);border-left-color:var(--green)}
+  .block{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin:7px 0;font-size:13.5px;white-space:pre-wrap}
+  .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--faint);margin:8px 0 2px}
+  .foot{text-align:center;color:var(--faint);font-size:12px;margin-top:24px}
+  .lead{color:var(--ink2)}
+  .key{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px;font-size:12px}
+  .key span{display:flex;align-items:center;gap:5px}
+</style>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">First Light Civil · Action Plan for Luci</div>
+  <h1>Get First Light Civil Found and Booked</h1>
+  <p>A step-by-step plan to build up First Light Civil's online presence so people searching for excavation and civil work in Brisbane and Moreton Bay actually find and choose it. Work through this roughly in order, Priority 1 first.</p>
+</div></header>
+
+<div class="wrap">
+
+<section>
+  <h2>📋 How to use this</h2>
+  <p class="lead">Each step has a <b>who</b> tag so you know what's yours to do directly, versus what needs someone else first.</p>
+  <div class="key">
+    <span><span class="pill who-luci">Luci</span> you can do this directly, including in Lovable (the website)</span>
+    <span><span class="pill who-kim">Check with Kim</span> needs a decision or approval first</span>
+  </div>
+  <div class="callout amber"><b>Guardrails to keep in mind:</b> only use facts that are actually true, the QBCC Licence No. 76041 and "12+ years hands-on experience" are the real, usable claims, don't add project counts or client numbers that aren't confirmed. Use real photos of real completed jobs only, never stock photos or AI-generated images. Keep copy plain and factual, no exaggerated "best" or "number 1" claims.</div>
+</section>
+
+<section>
+  <h2>🔎 The Snapshot (why this plan, in one look)</h2>
+  <div class="tablewrap"><table>
+    <tr><th>What</th><th>Where it stands</th></tr>
+    <tr><td>Website</td><td>firstlightcivil.com.au, 4 pages (Home/About/Services/Contact), no blog</td></tr>
+    <tr><td>Google Business Profile</td><td>Exists ("First Light Civil, Earth works company") but has <b>zero reviews</b> and is missing a lot of detail</td></tr>
+    <tr><td>Online visibility</td><td>Very low, the business name barely shows up in search yet, it's a fresh start</td></tr>
+    <tr><td>Competitors</td><td>Civwil, QLD Civil Solutions, AGS Civil, Digwright, Moreton Bay Civil Contractors, Nita Group, Al's Excavation, all much older with more reviews and bigger galleries</td></tr>
+  </table></div>
+  <div class="callout green"><b>The good news:</b> because most competitors are relying on being old and big rather than being polished online, First Light Civil can catch up fast with a handful of real Google reviews and a complete profile. This is a genuinely quick win compared to most SEO work.</div>
+</section>
+
+<section>
+  <h2>1️⃣ Priority 1: Complete the Google Business Profile</h2>
+  <p class="lead">This is the single biggest lever. A complete, detailed profile is what makes Google show the business to people searching nearby.</p>
+  <div class="step">
+    <div class="head"><span class="num">1</span>Add real photos <span class="pill who-luci">Luci</span></div>
+    <p>Photos of actual completed jobs, machinery on site, and the team at work. No stock photos, no AI-generated images. Even phone photos from recent jobs are exactly what's needed.</p>
+  </div>
+  <div class="step">
+    <div class="head"><span class="num">2</span>Add each service with a description <span class="pill who-luci">Luci</span></div>
+    <p>Add these as separate services in the profile, each with a short description:</p>
+    <ul>
+      <li><b>Excavation</b>, bulk and detailed excavation for residential and commercial sites</li>
+      <li><b>Pool Excavation</b></li>
+      <li><b>Site Cuts &amp; Pad Preparation</b>, preparing sites for new builds</li>
+      <li><b>Retaining Walls</b>, engineered retaining walls</li>
+    </ul>
+  </div>
+  <div class="step">
+    <div class="head"><span class="num">3</span>Update the business description <span class="pill who-luci">Luci</span></div>
+    <p>Paste this into the profile's description field:</p>
+    <div class="block">First Light Civil is a licensed civil construction and excavation business serving Brisbane and the Moreton Bay Region. We handle bulk and detailed excavation, pool excavation, site cuts and pad preparation, and engineered retaining walls for residential and commercial projects. QBCC Licence No. 76041. With 12+ years of hands-on experience, our approach is simple: show up, work hard, and leave every site better than we found it.</div>
+  </div>
+  <div class="step">
+    <div class="head"><span class="num">4</span>Confirm the category and details <span class="pill who-luci">Luci</span></div>
+    <p>Check the category is the closest match to "Excavating Contractor" or "Earthmoving Contractor" (it may currently say "Earth works company", that's fine if it's the closest option offered). Confirm service area covers Brisbane and Moreton Bay, and hours are set (Mon to Sun, 6am to 6pm).</p>
+  </div>
+</section>
+
+<section>
+  <h2>2️⃣ Priority 2: Get the First 5 to 10 Google Reviews</h2>
+  <p class="lead">Zero reviews is the biggest gap versus every competitor. A handful of genuine reviews will do more for ranking than almost anything else on this list.</p>
+  <div class="step">
+    <div class="head"><span class="num">1</span>Ask every recent and current client directly <span class="pill who-luci">Luci</span></div>
+    <p>Text or email clients shortly after a job finishes, while it's fresh. A simple, low-pressure message works best:</p>
+    <div class="block">Hi [Name], thanks again for choosing First Light Civil for your [excavation/site cut/retaining wall] job. If you have a couple of minutes, a quick Google review would really help us out: [Google review link]. Thanks so much!</div>
+  </div>
+  <div class="step">
+    <div class="head"><span class="num">2</span>Get the review link <span class="pill who-luci">Luci</span></div>
+    <p>In the Google Business Profile app or business.google.com, look for "Get more reviews" or "Ask for reviews" and copy the link it gives you, that's the one to send.</p>
+  </div>
+  <div class="callout"><b>Keep it simple:</b> one genuine ask per client, no incentives or discounts offered in exchange for a review (that breaches Google's rules). Just ask honestly and let the real experience speak.</div>
+</section>
+
+<section>
+  <h2>3️⃣ Priority 3: Citations (list the business in the right places)</h2>
+  <p class="lead">The same business details listed consistently across other sites builds trust with Google. Keep the name, phone, and details <b>identical</b> everywhere.</p>
+  <div class="lbl">Business details to use everywhere</div>
+  <div class="block">First Light Civil
+Phone: 0420 683 648
+Email: firstlightcivil@gmail.com
+Website: https://www.firstlightcivil.com.au
+Service area: Brisbane & Moreton Bay Region
+Category: Excavating Contractor / Earthmoving Contractor
+QBCC Licence No. 76041</div>
+  <div class="step">
+    <div class="head"><span class="num">1</span>List on these directories <span class="pill who-luci">Luci</span></div>
+    <ul>
+      <li>True Local</li>
+      <li>Yellow Pages</li>
+      <li>Hotfrog</li>
+      <li>Localsearch</li>
+      <li><b>hipages</b> and <b>Oneflare</b>, these are trade lead sites specifically worth a listing for this kind of business</li>
+    </ul>
+    <p>Use the exact same business details above on every listing.</p>
+  </div>
+  <div class="step">
+    <div class="head"><span class="num">2</span>Bing Places <span class="pill who-luci">Luci</span></div>
+    <p>Go to bingplaces.com, sign in (create a free Microsoft account if needed), and choose "Import from Google Business Profile", it pulls everything across automatically once the Google profile is complete.</p>
+  </div>
+  <div class="step">
+    <div class="head"><span class="num">3</span>Apple Business Connect <span class="pill who-luci">Luci</span></div>
+    <p>Go to businessconnect.apple.com, sign in with an Apple ID, and claim or add "First Light Civil". This gets the business into Apple Maps and Siri results too.</p>
+  </div>
+</section>
+
+<section>
+  <h2>4️⃣ Next: A Real Project Gallery &amp; Website Basics</h2>
+  <div class="step">
+    <div class="head"><span class="num">1</span>Collect project photos for the website <span class="pill who-luci">Luci</span></div>
+    <p>Gather real before/after photos from recent jobs with a short note (suburb + what was done), e.g. "Site cut and pad prep, Redcliffe". These go on the website's gallery and can also be used as Google Business Profile photos.</p>
+  </div>
+  <div class="step">
+    <div class="head"><span class="num">2</span>Add page titles, descriptions, and structured data <span class="pill who-luci">Luci, in Lovable</span></div>
+    <p>Each website page needs a unique title and description mentioning "Brisbane" and "Moreton Bay" plus the specific service, and the site should have LocalBusiness/GeneralContractor schema with the QBCC licence number. In Lovable, this is a prompt to the site's chat asking it to add/update the page title, meta description, and schema for each page.</p>
+  </div>
+  <div class="step">
+    <div class="head"><span class="num">3</span>A simple cost guide page <span class="pill who-luci">Luci, in Lovable</span> <span class="pill who-kim">Check with Kim</span></div>
+    <p>People search "how much does excavation cost in Brisbane" a lot. A simple, honest page explaining what affects the price (soil type, access, size of job) without giving exact quotes captures that search traffic. Get Kim's sign-off on what to publish, then build it as a new page in Lovable.</p>
+  </div>
+</section>
+
+<section>
+  <h2>✅ Quick Checklist</h2>
+  <ol>
+    <li>Add real photos to Google Business Profile</li>
+    <li>Add the 4 services with descriptions</li>
+    <li>Paste in the updated business description</li>
+    <li>Confirm category, service area, hours</li>
+    <li>Text/email recent clients asking for a Google review (aim for 5 to 10 to start)</li>
+    <li>List on True Local, Yellow Pages, Hotfrog, Localsearch, hipages, Oneflare</li>
+    <li>Set up Bing Places (import from Google)</li>
+    <li>Set up Apple Business Connect</li>
+    <li>Collect real project photos for a gallery</li>
+    <li>In Lovable: update page titles, descriptions, and schema; check with Kim, then build the cost-guide page</li>
+  </ol>
+</section>
+
+<div class="foot">First Light Civil, Action Plan · prepared 10 Jul 2026 by Nova, for Luci to execute.</div>
+
+</div>

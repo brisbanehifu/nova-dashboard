@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FBT Audit — Edge Navigators (Due 21 May 2026)</title>
+<style>
+  :root {
+    --ink:#0c0a09; --ink-soft:#4a4a4a; --ink-faint:#7a7a7a;
+    --line:#DBDFE3; --line-soft:#EDF0F3;
+    --bg:#F6F7F9; --panel:#fff;
+    --primary:#0B2B5B; --green:#16a34a; --amber:#d97706; --red:#dc2626;
+    --slate:#37474F;
+    --r:12px;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    margin:0;padding:24px 28px 60px;
+    background:var(--bg);color:var(--ink);
+    font-size:15px;line-height:1.55;
+  }
+  .page{max-width:1200px;margin:0 auto;background:#fff;border-radius:12px;
+    box-shadow:0 2px 16px rgba(0,0,0,0.06);padding:36px 40px 40px;}
+  header{margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--line)}
+  .eyebrow{text-transform:uppercase;font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--ink-faint);margin-bottom:8px}
+  h1{font-size:30px;margin:0 0 8px;font-weight:800;letter-spacing:-0.5px}
+  .sub{color:var(--ink-soft);font-size:16px;margin:0}
+  .meta-row{display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--ink-soft);margin-top:14px}
+  .meta-row span strong{color:var(--ink);font-weight:600}
+
+  h2{font-size:21px;font-weight:800;margin:36px 0 14px;letter-spacing:-0.2px;display:flex;align-items:center;gap:12px}
+  h2 .num{background:var(--ink);color:#fff;width:28px;height:28px;border-radius:50%;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+  h3{font-size:16px;font-weight:700;margin:22px 0 10px;color:var(--ink)}
+  h4{font-size:14px;font-weight:700;margin:14px 0 6px;color:var(--ink)}
+
+  .callouts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 22px}
+  .callout{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;background:#fff;border-left:4px solid var(--green)}
+  .callout.amber{border-left-color:var(--amber)} .callout.red{border-left-color:var(--red)} .callout.slate{border-left-color:var(--slate)}
+  .callout .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;color:var(--ink-faint);margin-bottom:6px}
+  .callout .number{font-size:22px;font-weight:800;color:var(--ink);line-height:1.1}
+  .callout .desc{font-size:13px;color:var(--ink-soft);margin-top:4px}
+
+  .red-box{background:linear-gradient(135deg,#FEF2F2 0%,#FEE2E2 100%);border:1px solid #FCA5A5;border-left:4px solid var(--red);border-radius:var(--r);padding:14px 18px;margin:12px 0;font-size:14px}
+  .red-box strong{color:#991B1B}
+  .red-box .lbl{display:inline-block;font-size:10px;font-weight:800;background:var(--red);color:#fff;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:0.5px;margin-right:8px;vertical-align:middle}
+
+  .green-box{background:linear-gradient(135deg,#F0FDF4 0%,#DCFCE7 100%);border:1px solid #86EFAC;border-left:4px solid var(--green);border-radius:var(--r);padding:14px 18px;margin:12px 0;font-size:14px}
+  .green-box strong{color:#14532D}
+
+  .amber-box{background:linear-gradient(135deg,#FFFBEB 0%,#FEF3C7 100%);border:1px solid #FCD34D;border-left:4px solid var(--amber);border-radius:var(--r);padding:14px 18px;margin:12px 0;font-size:14px}
+  .amber-box strong{color:#92400E}
+
+  ul.tight{padding-left:22px;margin:8px 0} ul.tight li{margin:6px 0}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:12px 0;font-size:13.5px}
+  th,td{padding:9px 14px;text-align:left;border-bottom:1px solid var(--line-soft);line-height:1.45;vertical-align:top}
+  th{background:var(--line-soft);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:0.5px;color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.lbl{font-weight:600;width:38%}
+  td.flag{font-style:italic;color:var(--amber);font-size:12.5px}
+
+  .qna{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:8px 0 18px;background:#fff}
+  .qna table{margin:0;border:none;border-radius:0}
+  .qna th{background:var(--primary);color:#fff;font-size:12px}
+  .qna td.q{width:60%}
+  .qna td.a{width:10%;text-align:center;font-weight:700}
+  .qna td.a.yes{color:var(--green)} .qna td.a.no{color:var(--ink-soft)} .qna td.a.tbc{color:var(--amber)}
+  .qna td.note{width:30%;font-size:12.5px;color:var(--ink-soft);font-style:italic}
+  .qna .section-row td{background:#f1f5fb;font-weight:700;font-size:13px;color:var(--primary);text-transform:uppercase;letter-spacing:0.4px}
+
+  .draft-box{background:#FAFBFC;border:2px dashed var(--line);border-radius:var(--r);padding:18px 22px;margin:12px 0;font-family:Georgia,serif;font-size:14.5px;line-height:1.6;color:#1a1a1a}
+  .draft-box .from-line{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:12.5px;color:var(--ink-faint);border-bottom:1px solid var(--line-soft);padding-bottom:10px;margin-bottom:14px}
+  .draft-box .from-line strong{color:var(--ink)}
+
+  a{color:var(--primary)} a:hover{color:var(--red)}
+
+  .links{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin:12px 0}
+  .link-card{background:#fff;border:1px solid var(--line);border-left:3px solid var(--primary);border-radius:var(--r);padding:10px 14px;font-size:13px;text-decoration:none;color:var(--ink);transition:all 0.15s}
+  .link-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.08);color:var(--ink)}
+  .link-card b{display:block;font-size:13.5px} .link-card .desc{font-size:12px;color:var(--ink-soft);margin-top:2px}
+
+  .footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--ink-faint)}
+
+  .print-btn{position:fixed;top:20px;right:20px;background:var(--primary);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(11,43,91,0.25);z-index:99}
+  .print-btn:hover{background:var(--ink)}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .page{box-shadow:none;padding:24px 32px;max-width:100%}
+    .print-btn,.no-print{display:none !important}
+    h2{page-break-after:avoid} table{page-break-inside:avoid}
+    .red-box,.green-box,.amber-box{page-break-inside:avoid}
+  }
+  @media (max-width:720px){.callouts{grid-template-columns:1fr}.qna td.q{width:55%}.qna td.note{display:none}}
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">🖨 Print / Save PDF</button>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Action Card · Edge Navigators · FBT FY26</div>
+    <h1>FBT Audit — first pass complete, awaiting Kim+Jeremy review</h1>
+    <p class="sub">Information Gathering Questionnaire 2026 (FBT year 1 Apr 2025 – 31 Mar 2026). Two company-owned vehicles in scope. Method recommendation, vehicle data, draft answers, draft email reply, internal decision notes — all on this one page.</p>
+    <div class="meta-row">
+      <span><strong>Due:</strong> 21 May 2026 (or 25 Jun if added to Edge's client list)</span>
+      <span><strong>Today:</strong> 4 May 2026 (~17 days)</span>
+      <span><strong>Originally received:</strong> 26 Mar 2026</span>
+      <span><strong>Recipients:</strong> Kim + Jeremy + cc Jason Popelier</span>
+    </div>
+  </header>
+
+  <div class="callouts">
+    <div class="callout">
+      <div class="label">Method Recommended</div>
+      <div class="number">Operating Cost (Logbook)</div>
+      <div class="desc">Both vehicles. 95% business use → ~5% taxable value vs 20% under Statutory.</div>
+    </div>
+    <div class="callout amber">
+      <div class="label">Open Questions</div>
+      <div class="number">2 critical</div>
+      <div class="desc">Logbook validity (both cars) · Navara payload (>1 tonne = potential FBT exemption). <strong style="color:#16a34a;">Auto X + employee contribution + running costs answered via Xero CLI 4 May.</strong></div>
+    </div>
+    <div class="callout amber">
+      <div class="label">Vehicles in Scope</div>
+      <div class="number">2 cars</div>
+      <div class="desc">Mercedes C200 (sedan, since Feb 2023) + Nissan Navara DC (ute, since May 2025)</div>
+    </div>
+  </div>
+
+  <h2><span class="num">1</span>The verdict (recommendation for Kim+Jeremy)</h2>
+
+  <div class="green-box">
+    <strong>Elect the Operating Cost (Logbook) Method for both vehicles.</strong> At 95% business use, taxable value is roughly <strong>5% of operating costs</strong> per vehicle vs <strong>20% of base value</strong> under the Statutory Formula. On the Mercedes alone (base value ~$89,900) that's the difference between an FBT taxable value of ~$17,980 and ~$1,500 — meaning ~$16,000 less FBT exposure on that car alone. Edge Navigators flagged this in the inbound email (point 1) — they are already pointing the same way.
+  </div>
+
+  <div class="red-box">
+    <span class="lbl">Critical</span>
+    <strong>BUT — the logbook election only works if a valid 12-week logbook exists for each vehicle.</strong> Without a logbook, the ATO defaults to the Statutory Formula no matter what we elect. <strong>Kim+Jeremy must confirm logbook status (see open questions §2) BEFORE we commit to this method in writing to Edge.</strong> If no logbook exists for FY26, Nova's recommendation flips to: start a 12-week logbook NOW so it covers the FY27 year, and accept Statutory Formula for FY26.
+  </div>
+
+  <h2><span class="num">2</span>Critical open questions for Kim + Jeremy (answer before sending)</h2>
+
+  <table>
+    <thead><tr><th style="width:5%">#</th><th style="width:50%">Question</th><th style="width:45%">Why it matters / what Nova needs</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Q1</strong></td>
+        <td><strong>Mercedes C200 — does a valid 12-week logbook exist?</strong> A logbook kept any time since Feb 2023 (acquisition) is still valid for FY26 (5-year validity).</td>
+        <td>If YES — operating cost method is on. If NO — Statutory Formula fallback for FY26, and start a logbook now for FY27. Need: business-use % from logbook, odometer at 1 Apr 2025 + 31 Mar 2026.</td>
+      </tr>
+      <tr>
+        <td><strong>Q2</strong></td>
+        <td><strong>Nissan Navara — does a valid 12-week logbook exist covering any 12 weeks since 23 May 2025 (delivery)?</strong></td>
+        <td>Vehicle was acquired mid-FBT-year, so logbook needs to cover a 12-week stretch within FY26. If NO → Statutory Formula for FY26 (calculated pro-rata for days held).</td>
+      </tr>
+      <tr>
+        <td><strong>Q3</strong></td>
+        <td><strong>Nissan Navara payload — is the GVM-minus-tare more than 1,000 kg on this specific spec (4x4 2.3 DSL Auto DC ST)?</strong></td>
+        <td>If payload > 1 tonne, the Navara may be a <em>commercial vehicle</em> not a "car" for FBT, AND if private use is "minor, infrequent and irregular" (ATO PCG 2018/3) it could be FBT-EXEMPT entirely. Edge Navigators best placed to confirm — flag in our reply.</td>
+      </tr>
+      <tr>
+        <td><strong>Q4</strong></td>
+        <td>Are both vehicles garaged at home? (Even one night is "available for private use" under FBT rules.)</td>
+        <td>Drives Q2.2 of the questionnaire. Nova's working assumption: YES (typical for working-director vehicles).</td>
+      </tr>
+      <tr>
+        <td><strong>Q5</strong></td>
+        <td>Did either vehicle have any days unavailable for private use in FY26? (Workshop, overseas, etc.)</td>
+        <td>Reduces FBT taxable days. Nova's working assumption: 0 days unavailable.</td>
+      </tr>
+      <tr>
+        <td><strong>Q6</strong></td>
+        <td>Did Kim or Jeremy contribute any after-tax amounts toward running costs of either vehicle? (Fuel paid personally, etc.)</td>
+        <td><strong style="color:#16a34a;">✓ ANSWERED via Xero (4 May 2026):</strong> YES — <strong>$3,802.85</strong> in FY26 (vs $4,160 prior year) under the "FBT Employee Contribution" account. Reduces FBT taxable value dollar-for-dollar. Edge Navigators already aware (consistent annual pattern).</td>
+      </tr>
+      <tr>
+        <td><strong>Q7</strong></td>
+        <td>Per-vehicle FY26 running costs (fuel · insurance · rego · service · repairs · interest on chattel mortgage) for Form 3.</td>
+        <td><strong>Now self-serve via Xero direct CLI</strong> — `<code>cd C:\xero-mcp && node src/cli.js account-tx --from 2025-04-01 --to 2026-03-31 --account-code &lt;vehicle-code&gt;</code>`. Janice no longer the bottleneck — once we know the vehicle expense account codes for Mercedes + Navara, Nova pulls the per-vehicle breakdown directly. (Janice still does the categorisation that makes those codes meaningful.)</td>
+      </tr>
+      <tr>
+        <td><strong>Q8</strong></td>
+        <td><strong>Mercedes Auto X Care Plan</strong> — is the subscription active + does it count toward FY26 Form 3 operating costs?</td>
+        <td><strong style="color:#16a34a;">✓ CONFIRMED NOT ACTIVATED (4 May 2026):</strong>
+          <ol style="margin:6px 0;padding-left:20px;font-size:12.5px;">
+            <li>Mercedes-Benz Financial chattel mortgage line item "<strong>Car Care Membership: $0.00</strong>" — was offered at sale (24 Feb 2023, LSH Auto Brisbane) but Kim/Jeremy chose <strong>$0 / not bundled</strong>. All 10 optional add-on lines on the chattel template (extended warranty, GAP, finance protection, wear & tear package, car care, wall box, service plan etc.) all set to $0.</li>
+            <li>Xero direct CLI <code>find-subscription "Mercedes Auto X"</code> + fallback <code>"Auto X"</code> + <code>"Auto X Car Care"</code> → <strong>zero hits across 24 months</strong> of bank-tx + bills + contacts. Confirms the chattel finding from another angle.</li>
+            <li>4 Mercedes-related charges in 24 months = one-off Mercedes Brisbane service/parts ($21.66 + $1,036.82 + $1,565.13 + $1,828.81 — last on 24 Mar 2026) — these <strong>DO</strong> belong in FY26 Form 3 as service/repairs.</li>
+          </ol>
+          <strong>FBT impact:</strong> exclude any "Mercedes Care Plan" line from Form 3 operating costs. None to include. The Mercedes Brisbane service charges go in normally.<br>
+          <em>Side note (not FBT-relevant):</em> if Kim wants the Auto X benefits now (rim repair etc), separate decision — see chattel-doc-check section in latest chat.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">3</span>Vehicle data — extracted and ready for Edge</h2>
+
+  <h3>Mercedes-Benz C200 W206 803MY MHEV 4D Sedan</h3>
+  <table>
+    <tbody>
+      <tr><td class="lbl">Owner</td><td>Neo-Klien Pty Ltd (ACN 104 291 830)</td></tr>
+      <tr><td class="lbl">Driver</td><td>Working director (Kim Klein)</td></tr>
+      <tr><td class="lbl">Registration</td><td>095GJ6</td></tr>
+      <tr><td class="lbl">Make / Model</td><td>Mercedes-Benz C200 W206 803MY (Sedan, blue)</td></tr>
+      <tr><td class="lbl">VIN / Engine</td><td>W1K2060422R014263 / 254915V0025432</td></tr>
+      <tr><td class="lbl">Compliance date</td><td>July 2022</td></tr>
+      <tr><td class="lbl">Odometer at acquisition</td><td>22 km (delivery)</td></tr>
+      <tr><td class="lbl">Date acquired</td><td>24 Feb 2023 (signed) / 25 Feb 2023 (lender accepted)</td></tr>
+      <tr><td class="lbl">Dealer</td><td>LSH Auto (Brisbane) Pty Ltd</td></tr>
+      <tr><td class="lbl">Finance type</td><td>Chattel Mortgage (Business Purposes only) — Mercedes-Benz Financial Services Australia (ABN 73 074 134 517) · Contract 574616 · 48 months · $1,636.13/month · Balloon $38,008.24</td></tr>
+      <tr><td class="lbl">Vehicle price (GST inclusive)</td><td class="num">$89,902.93</td></tr>
+      <tr><td class="lbl">Registration / TPI (excluded from base value)</td><td class="num">$3,576.20</td></tr>
+      <tr><td class="lbl">Dealer origination + documentation fees (finance, not vehicle)</td><td class="num">$1,480.00</td></tr>
+      <tr><td class="lbl"><strong>FBT base value (Form 4 method)</strong></td><td class="num"><strong>$89,902.93</strong></td></tr>
+      <tr><td class="lbl">Insurance (FY24/25 reference)</td><td class="num">$2,095.28 incl GST (premium $1,747.53 · GST $174.75 · stamp duty $173.00) — QBE via Mercedes-Benz Insurance, policy 82A812186MPA</td></tr>
+      <tr><td class="lbl flag" colspan="2">⚠ Edge to confirm: dealer delivery already inside the $89,902.93 vehicle price (per LSH invoice), or to be added separately.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Nissan Navara 4x4 2.3 DSL Auto DC ST (Demonstrator)</h3>
+  <table>
+    <tbody>
+      <tr><td class="lbl">Owner</td><td>Neo-Klien Pty Ltd (ABN 34 104 291 830)</td></tr>
+      <tr><td class="lbl">Driver</td><td>Working director (Jeremy Small)</td></tr>
+      <tr><td class="lbl">Registration</td><td>821KR8</td></tr>
+      <tr><td class="lbl">Make / Model</td><td>Nissan Navara 4x4 2.3 DSL Auto DC ST · Body: Utility · Solid White / Grey trim</td></tr>
+      <tr><td class="lbl">VIN / Engine</td><td>MNTCBND23A0038758 / YS23491775A · Stock N038758</td></tr>
+      <tr><td class="lbl">Build / Compliance</td><td>1 Feb 2024 / Apr 2024 · Sold as Demonstrator</td></tr>
+      <tr><td class="lbl">Date acquired</td><td>17 May 2025 (deal) · 23 May 2025 (delivery) · 26 May 2025 (final contract)</td></tr>
+      <tr><td class="lbl">Odometer at acquisition</td><td><span class="flag">⚠ TBC — Kim/Jeremy to provide</span></td></tr>
+      <tr><td class="lbl">Dealer</td><td>Eagers Nissan (Austral Pty Ltd ABN 89 009 662 202) · Salesperson: Leavi Dalton</td></tr>
+      <tr><td class="lbl">Finance type</td><td>$500 deposit + $55,390.80 finance via Nissan Financial Services</td></tr>
+      <tr><td class="lbl">Vehicle price (ex-GST, before discount)</td><td class="num">$56,257.27</td></tr>
+      <tr><td class="lbl">Towbar — Genuine Dealer Fitted (ex-GST)</td><td class="num">$1,238.00 <span style="background:#DCFCE7;color:#14532D;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">✓ EXCLUDED from base value — business-required (Kim 5 May 2026)</span></td></tr>
+      <tr><td class="lbl">Perfexion Ceramic Film — Aftermarket (ex-GST)</td><td class="num">$750.00</td></tr>
+      <tr><td class="lbl">Dealer Delivery (ex-GST)</td><td class="num">$1,990.00</td></tr>
+      <tr><td class="lbl">Discount applied</td><td class="num">−$10,861.36</td></tr>
+      <tr><td class="lbl">GST on above</td><td class="num">$4,937.39</td></tr>
+      <tr><td class="lbl">Transfer fees (excluded — registration cost)</td><td class="num">$31.50</td></tr>
+      <tr><td class="lbl">Stamp duty (excluded — calculated on $51,600)</td><td class="num">$1,548.00</td></tr>
+      <tr><td class="lbl"><strong>Total contract</strong></td><td class="num"><strong>$55,890.80</strong></td></tr>
+      <tr><td class="lbl"><strong>FBT base value (Form 4) — LOCKED</strong></td><td class="num"><strong style="color:#16a34a;">~$52,949 GST-incl</strong> (towbar excluded as business-required)<br><span style="font-size:11.5px;color:var(--ink-soft);">Rationale for Edge: Jeremy uses the Navara for HIFU Machine Sales after-sales support — towing trailers / equipment between client clinics + cartridge logistics. Towbar is not a private convenience.</span></td></tr>
+      <tr><td class="lbl flag" colspan="2">⚠ Critical: confirm payload (GVM minus tare) on this exact spec. If &gt; 1,000 kg, the FBT treatment may change to "commercial vehicle" with potential exemption under PCG 2018/3.</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="num">4</span>Filled questionnaire — draft answers (Nova's working assumptions)</h2>
+  <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px"><em>Reflects Edge Navigators' "Information Gathering Questionnaire 2026" — sections 1 to 16. <strong>YES / NO / TBC</strong> answers based on the vehicle data above and Nova's working assumptions; Kim+Jeremy to confirm before sending.</em></p>
+
+  <div class="qna">
+    <table>
+      <thead><tr><th style="width:5%">#</th><th class="q">Question</th><th class="a">Answer</th><th class="note">Note for Edge</th></tr></thead>
+      <tbody>
+        <tr class="section-row"><td colspan="4">§1 — Benefits Paid</td></tr>
+        <tr><td>1.1</td><td class="q">Provided any non-cash benefits during the year to employees?</td><td class="a yes">YES</td><td class="note">Two company-owned vehicles available to working directors.</td></tr>
+        <tr><td>1.2</td><td class="q">Was the benefit provided in respect of the employment of the employee?</td><td class="a yes">YES</td><td class="note">Both Kim and Jeremy are working directors of Neo-Klien Pty Ltd.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§2 — Car Benefits</td></tr>
+        <tr><td>2.1</td><td class="q">Provided cars to employees during the year?</td><td class="a yes">YES</td><td class="note">Mercedes C200 (sedan) + Nissan Navara DC ST (utility — confirm payload &lt; 1 tonne).</td></tr>
+        <tr><td>2.2</td><td class="q">Were the cars available for private use by any employee?</td><td class="a yes">YES</td><td class="note">Garaged at directors' home (working assumption — confirm).</td></tr>
+        <tr><td>2.3</td><td class="q">Were any of the cars provided shared or pooled?</td><td class="a no">NO</td><td class="note">Mercedes → Kim. Navara → Jeremy.</td></tr>
+        <tr><td>2.4</td><td class="q">Were any cars provided where you have not previously provided original purchase / lease details?</td><td class="a yes">YES</td><td class="note">Nissan Navara — acquired 23 May 2025 (this FBT year). Form 4 base value worksheet attached.</td></tr>
+        <tr><td>2.5</td><td class="q">Have you taken a record of the odometer reading on the date of purchase / first lease?</td><td class="a tbc">TBC</td><td class="note">Mercedes: 22 km at delivery (per chattel mortgage). Navara: TBC — Kim/Jeremy to provide.</td></tr>
+        <tr><td>2.6</td><td class="q">Were any car leases renewed, extended or paid out during the FBT year?</td><td class="a no">NO</td><td class="note">Both vehicles on existing chattel mortgage / hire purchase finance.</td></tr>
+        <tr><td>2.7</td><td class="q">Were any cars provided sold or scrapped, or did the lease expire, during FY26?</td><td class="a no">NO</td><td class="note">Both still on hand at 31 Mar 2026.</td></tr>
+        <tr><td>2.8</td><td class="q">Have you taken odometer readings at 31 March 2026 for each car?</td><td class="a tbc">TBC</td><td class="note">Kim/Jeremy to capture before sending. <strong>Critical for Operating Cost method.</strong></td></tr>
+        <tr><td>2.9</td><td class="q">Fleet of 20 or more cars (simplified method eligibility)?</td><td class="a no">NO</td><td class="note">Two vehicles only.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§3 — Loan Benefits</td></tr>
+        <tr><td>3.1</td><td class="q">Provided any loans to employees who are not shareholders?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+        <tr><td>3.2–3.5</td><td class="q">(Loan terms / rate / use)</td><td class="a no">N/A</td><td class="note">No loans.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§4 — Debt Waiver Benefits</td></tr>
+        <tr><td>4.1</td><td class="q">Released any employees from a debt previously owed to you?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§5 — Expense Payment Benefits</td></tr>
+        <tr><td>5.1</td><td class="q">Paid any expenses on behalf of employees?</td><td class="a tbc">TBC</td><td class="note">Confirm with Janice — directors' personal phone, home internet, etc. paid by company?</td></tr>
+        <tr><td>5.2</td><td class="q">Reimbursed employees for expenses paid by them?</td><td class="a tbc">TBC</td><td class="note">Standard business reimbursements (travel, work-related items) covered under "otherwise deductible" rule.</td></tr>
+        <tr><td>5.3</td><td class="q">Paid or reimbursed expenses for any employee's personal car (not company car)?</td><td class="a no">NO</td><td class="note">Both directors drive company vehicles.</td></tr>
+        <tr><td>5.4</td><td class="q">Paid or reimbursed casual car parking in a commercial car park?</td><td class="a no">NO</td><td class="note">N/A — Brisbane HIFU has on-site clinic parking; offices have free parking.</td></tr>
+        <tr><td>5.5</td><td class="q">Salary packaging arrangement entered into or materially altered?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§6 — Housing Benefits</td></tr>
+        <tr><td>6.1–6.3</td><td class="q">Right to use a dwelling / remote area / rent received?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§7 — Board Benefits</td></tr>
+        <tr><td>7.1</td><td class="q">Accommodation + 2+ meals/day under industrial award?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§8 — Living Away from Home Allowance</td></tr>
+        <tr><td>8.1</td><td class="q">Allowance for living away from usual residence?</td><td class="a no">NO</td><td class="note">Directors travel for business but do not relocate; standard travel rules apply.</td></tr>
+        <tr><td>8.2–8.4</td><td class="q">(FIFO / food limits / accommodation substantiation)</td><td class="a no">N/A</td><td class="note">No LAFHA.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§9 — Property Benefits</td></tr>
+        <tr><td>9.1</td><td class="q">Provided property/goods normally sold by the business at discount/free?</td><td class="a tbc">TBC</td><td class="note">Confirm: any HIFU treatments provided to staff at Brisbane HIFU? If yes, FBT may apply (in-house property benefit, $1,000 reduction available).</td></tr>
+        <tr><td>9.2</td><td class="q">Property/goods NOT normally sold by the business at discount/free?</td><td class="a no">NO</td><td class="note">N/A (assumed).</td></tr>
+        <tr><td>9.3</td><td class="q">Sold a car to an employee at less than market value?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+        <tr><td>9.4</td><td class="q">Property under salary packaging arrangement?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§10 — Car Parking</td></tr>
+        <tr><td>10.1</td><td class="q">Car parking facilities provided on premises you own/lease?</td><td class="a no">NO</td><td class="note">Brisbane HIFU has clinic parking but used primarily by clients; directors park briefly.</td></tr>
+        <tr><td>10.2</td><td class="q">Commercial all-day car park within 1 km charging &gt; $11.03/day at start of FBT year?</td><td class="a tbc">TBC</td><td class="note">Edge to assess for clinic location at 76 Skyring Tce Newstead.</td></tr>
+        <tr><td>10.3</td><td class="q">Leased a permanent parking space in a commercial car park for employees?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§11 — Entertainment</td></tr>
+        <tr><td>11.1</td><td class="q">Paid any entertainment expenses?</td><td class="a tbc">TBC</td><td class="note">Janice to pull entertainment-coded expenses from books for the FBT year. Form 1 schedule attached if material.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§12 — Residual Benefits</td></tr>
+        <tr><td>12.1</td><td class="q">Any other benefits to employees not above?</td><td class="a no">NO</td><td class="note">None identified.</td></tr>
+        <tr><td>12.2</td><td class="q">Were they normally sold as part of the business?</td><td class="a no">N/A</td><td class="note">—</td></tr>
+        <tr><td>12.3</td><td class="q">Motor vehicles other than cars (motorcycles / commercial vehicles)?</td><td class="a tbc">TBC</td><td class="note"><strong>Depends on Q3 above</strong> — if Navara payload &gt; 1 tonne, it sits in §12.3 as a commercial vehicle (residual benefit) NOT §2 (car). Different valuation rules.</td></tr>
+        <tr><td>12.4</td><td class="q">Salary packaging arrangement?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§13 — Exemptions</td></tr>
+        <tr><td>13.1.1</td><td class="q">Australian Traineeship Scheme food/accommodation?</td><td class="a no">NO</td><td class="note">N/A.</td></tr>
+        <tr><td>13.1.2</td><td class="q">Work-related items (laptop, phone, tools)?</td><td class="a yes">YES</td><td class="note">Standard business laptops + phones for directors and staff — claim exemption.</td></tr>
+        <tr><td>13.1.3–13.1.8</td><td class="q">(Compassionate / emergency / interview / awards / board / professional fees)</td><td class="a no">NO</td><td class="note">None claimed.</td></tr>
+        <tr><td>13.1.9</td><td class="q">Minor benefits &lt; $300, infrequent / irregular?</td><td class="a tbc">TBC</td><td class="note">Christmas gifts / occasional team meals if any. Janice to flag.</td></tr>
+        <tr><td>13.1.10–13.1.14</td><td class="q">(Newspapers / health / relocation / exchange / worker entitlement fund)</td><td class="a no">NO</td><td class="note">None claimed.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§14 — Record Keeping</td></tr>
+        <tr><td>14.1</td><td class="q">Reviewed cash book / financial statements to ensure all employee fringe benefits captured?</td><td class="a tbc">TBC</td><td class="note">Janice to confirm FY26 books are reconciled and all relevant transactions tagged.</td></tr>
+
+        <tr class="section-row"><td colspan="4">§15 — How can we help</td></tr>
+        <tr><td>15.1</td><td class="q">Salary packaging advice?</td><td class="a no">NO</td><td class="note">Not at this stage.</td></tr>
+        <tr><td>15.2</td><td class="q">Explain relevant FBT rulings for your business?</td><td class="a yes">YES</td><td class="note"><strong>Specifically: confirmation on Navara classification (car vs commercial vehicle) and PCG 2018/3 eligibility.</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>§16 — Additional comments (drafted for the form)</h3>
+  <div class="amber-box">
+    <em>"Two company-owned vehicles in scope: (1) Mercedes-Benz C200 sedan (acquired 24 Feb 2023, base value ~$89,902.93) — driven by Kim Klein. (2) Nissan Navara 4x4 DC ST utility (acquired 23 May 2025, base value ~$52,949 GST-incl, towbar treated as business-required and excluded — Jeremy uses the Navara for HIFU Machine Sales after-sales support, towing trailers and equipment between client clinics) — driven by Jeremy Small. Both vehicles are used approximately 95% for business purposes (Neo-Klien Pty Ltd trades across five active businesses including Brisbane HIFU Clinic, HIFU Machine Sales, TeamNEO.tech, Art4Love, and Safe Family Programs). We elect the Operating Cost (Logbook) Method under s10(1) FBTAA for both vehicles, subject to confirmation of valid 12-week logbooks. Please advise re: Nissan Navara classification — payload may exceed 1,000 kg, which could place it outside the FBT 'car' definition and into commercial-vehicle territory eligible for ATO PCG 2018/3 treatment. Janice Mahon (bookkeeper) will provide running cost data per vehicle for the FBT year. Please add Neo-Klien Pty Ltd to your client list with the ATO before 21 May 2026 to access the 25 June extended deadline."</em>
+  </div>
+
+  <h2><span class="num">5</span>Draft email reply to Edge Navigators</h2>
+
+  <div class="green-box">
+    <strong>Saved as Gmail draft on neoklien.consulting.</strong> Subject: "RE: FY26 Fringe Benefits Tax (FBT) Checklist — Neo-Klien Pty Ltd response". Open Gmail → Drafts to review and send. The reply asks Edge to add us to their client list (extension to 25 June), flags the Navara classification question, confirms our intent to elect Operating Cost method, and lists the 7 open items we are gathering before submitting the completed questionnaire.
+  </div>
+
+  <div class="draft-box">
+    <div class="from-line">
+      <strong>From:</strong> Kim Klein &lt;neoklien.consulting@gmail.com&gt;<br>
+      <strong>To:</strong> admin@edgenavigators.com.au, caro@edgenavigators.com.au<br>
+      <strong>Cc:</strong> Jason@edgenavigators.com.au, Jeremy Small &lt;jeremydavidsmall@gmail.com&gt;<br>
+      <strong>Subject:</strong> RE: FY26 Fringe Benefits Tax (FBT) Checklist — Neo-Klien Pty Ltd response
+    </div>
+
+    Hi Caro and Jason,<br><br>
+
+    Thanks for sending the FBT questionnaire — Jeremy and I are working through it now and want to make sure we hit the 25 June extended deadline rather than the 21 May date.<br><br>
+
+    <strong>Could you please add Neo-Klien Pty Ltd to your ATO client list before 21 May so the extension applies?</strong> We are happy to be added now if that's the simplest path.<br><br>
+
+    A few things to flag while we finalise the questionnaire:<br><br>
+
+    <strong>1. Method election — Operating Cost (Logbook).</strong> Both vehicles are used approximately 95% for business. We intend to elect the Operating Cost basis under s10(1) FBTAA for both, in line with your point in the original email. We are confirming logbook validity for each vehicle before locking this in.<br><br>
+
+    <strong>2. Vehicles in scope (2):</strong>
+    <ul style="margin:6px 0 10px 18px;padding-left:0">
+      <li><strong>Mercedes-Benz C200 W206 sedan</strong> · Reg 095GJ6 · Acquired 24 Feb 2023 (chattel mortgage via Mercedes-Benz Financial, contract 574616) · Driver: Kim Klein.</li>
+      <li><strong>Nissan Navara 4x4 2.3 DSL Auto DC ST utility</strong> · Reg 821KR8 · Acquired 23 May 2025 (this FBT year, demonstrator) · Finance via Nissan Financial Services · Driver: Jeremy Small.</li>
+    </ul>
+
+    <strong>3. Question we need your view on — Navara classification.</strong> The Navara is a dual-cab utility. Could you please confirm whether this specific spec (4x4 2.3 DSL Auto DC ST) has a payload that places it outside the FBT "car" definition (&gt; 1 tonne carrying capacity), and if so, whether ATO PCG 2018/3 (work-related travel of employees in eligible vehicles) could apply to reduce or remove FBT exposure given private use is minor?<br><br>
+
+    <strong>4. Running costs.</strong> Our bookkeeper Janice Mahon will provide the FY26 running costs per vehicle (fuel, insurance, registration, service/repairs, finance interest) for Form 3. We'll send these together with the completed questionnaire.<br><br>
+
+    <strong>5. Other benefits.</strong> Beyond the two cars, we don't anticipate any other reportable fringe benefits. Standard work-related items (laptops, phones for directors/staff) are exempt under s58X. We'll confirm there are no in-house property benefits (e.g. discounted HIFU treatments to staff) once Janice reviews the books.<br><br>
+
+    Original purchase contracts for both vehicles + Mercedes insurance schedule are with Janice and we can forward to you on request.<br><br>
+
+    Thanks — looking forward to your confirmation that we're on the client list for the 25 June extension.<br><br>
+
+    Kind regards,<br>
+    <strong>Kim</strong><br><br>
+
+    --<br>
+    Kim Klein · Managing Director<br>
+    Neo-Klien Pty Ltd trading as TeamNEO.tech<br>
+    M: +61 (0) 404 843 405<br>
+    E: neoklien.consulting@gmail.com<br>
+    W: TeamNEO.tech
+  </div>
+
+  <h2><span class="num">6</span>Internal notes for Jeremy &amp; Kim</h2>
+
+  <div class="amber-box">
+    <strong>What Nova needs from Jeremy:</strong>
+    <ul class="tight">
+      <li><strong>Navara odometer reading at acquisition (23 May 2025)</strong> — likely on the dealer invoice you received from Eagers Nissan, or first service record.</li>
+      <li><strong>Navara odometer reading at 31 March 2026</strong> — please capture and send back. (For the Mercedes, please also capture 31 Mar 2026 reading.)</li>
+      <li><strong>Logbook status — Navara:</strong> Have you kept a 12-week continuous logbook between 23 May 2025 and 31 Mar 2026? Yes / No / In progress.</li>
+      <li><strong>Logbook status — Mercedes:</strong> Is there a logbook on file from any time since Feb 2023? It's valid for 5 years.</li>
+      <li><strong>Navara payload spec:</strong> Compliance plate or owner's manual will state GVM and tare. Subtract → if payload &gt; 1,000 kg we have a much better FBT outcome to push.</li>
+    </ul>
+  </div>
+
+  <div class="amber-box">
+    <strong>What Nova needs from Kim:</strong>
+    <ul class="tight">
+      <li>Same: Mercedes odometer at 31 Mar 2026 (and confirm 22 km opening as per delivery records).</li>
+      <li>Approval to send the email draft (in Gmail Drafts on neoklien.consulting) — read it, edit if needed, hit send.</li>
+      <li>Confirm: any HIFU treatments provided free or discounted to Brisbane HIFU staff in FY26? If yes, that's a Q9.1 in-house property benefit — flag for Janice to compile.</li>
+      <li>Confirm: are you and Jeremy comfortable with the working assumption that both cars are garaged at home and no days were "unavailable" for private use in FY26?</li>
+    </ul>
+  </div>
+
+  <div class="amber-box">
+    <strong>What Nova will do next (after Kim+Jeremy reply on the open questions):</strong>
+    <ul class="tight">
+      <li>Draft a short ask to Janice for the per-vehicle running cost extract (1 Apr 2025 – 31 Mar 2026).</li>
+      <li>Update this card with confirmed answers, then generate a clean filled-in PDF of the questionnaire to send Edge with the email.</li>
+      <li>If logbooks are missing, draft a "start logbook now" guide so we capture FY27 properly from now (and possibly use it for the latter part of FY26).</li>
+    </ul>
+  </div>
+
+  <h2><span class="num">7</span>Other unactioned promises — quick first-pass scan</h2>
+  <p style="color:var(--ink-soft);font-size:13.5px;margin-top:-4px"><em>Kim asked for a 60-day inbox/sent-items pattern hunt. Nova has the FBT one above; the broader scan needs ~30–60 min and is queued. <strong>Surface will be a separate dashboard panel</strong> (per the no-md rule) — title: "Open Promises Tracker". Will sweep all 8 Gmail accounts (especially neoklien, mskim, brishifu, hifumach, jkstartup) for: (a) replies promised "I'll get back to you on X", (b) actions promised to suppliers/clients/contractors, (c) tax/compliance deadlines like this one. Expected output: ranked list with deadline, who's waiting, what was promised, current status. Estimated 12–25 items based on volume.</em></p>
+
+  <div class="footer">
+    Card built 4 May 2026 by Nova · per Kim's "no-md, dashboard-first" rule · canonical FBT working doc until questionnaire is sent to Edge Navigators.
+  </div>
+
+</div>
+</body>
+</html>

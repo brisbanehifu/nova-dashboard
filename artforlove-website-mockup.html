@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art For Love — NEW Website Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--pink:#ff1493;--pink-deep:#c2005e;--ink:#141414;--bg:#ffffff;--soft:#f6f6f6;--line:#e6e6e6}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;background:var(--pink);color:#fff;font-weight:700;padding:13px 26px;border-radius:40px;text-decoration:none;font-size:14px;border:none;cursor:pointer}
+  .btn.outline{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+  .btn.blk{background:var(--ink)}
+
+  /* MOCKUP CHROME */
+  .note{background:#141414;color:#ff9ed3;text-align:center;font-size:12px;padding:7px;letter-spacing:.04em}
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--line)}
+  .logo{font-family:'Playfair Display';font-weight:900;font-size:22px;letter-spacing:.02em}
+  .logo span{color:var(--pink)}
+  .navlinks{display:flex;gap:26px;font-size:14px;font-weight:600}
+  .navlinks a{text-decoration:none;color:var(--ink)}
+  .navr{display:flex;gap:16px;align-items:center;font-size:14px}
+
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:54px 0}
+  .hero h1{font-size:50px;line-height:1.04;font-weight:800}
+  .hero h1 em{color:var(--pink);font-style:italic}
+  .hero p{font-size:17px;color:#555;margin:18px 0 26px;max-width:480px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .pic{aspect-ratio:1/1;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(20,20,20,.18)}
+
+  /* TRUST STRIP */
+  .trust{background:var(--ink);color:#fff;padding:16px 0}
+  .trust .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:13px;font-weight:600}
+  .trust .row span b{color:var(--pink)}
+
+  /* THEMES */
+  .sec{padding:54px 0}
+  .sec h2{font-size:30px;font-weight:800;text-align:center}
+  .sec .sub{text-align:center;color:#777;margin:8px 0 30px;font-size:15px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .chip{border:1.5px solid var(--ink);border-radius:30px;padding:8px 18px;font-size:13px;font-weight:600}
+  .chip.on{background:var(--pink);border-color:var(--pink);color:#fff}
+
+  /* PRODUCT GRID */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:8px}
+  .prod{border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.15s;background:#fff}
+  .prod:hover{box-shadow:0 16px 36px rgba(20,20,20,.14);transform:translateY(-3px)}
+  .prod .ph{aspect-ratio:4/5;overflow:hidden;background:var(--soft)}
+  .prod .body{padding:12px 14px 16px}
+  .prod .t{font-weight:700;font-size:13.5px;line-height:1.3}
+  .prod .sub{font-size:11.5px;color:#999;margin-top:2px}
+  .prod .pr{margin-top:8px;font-weight:800;color:var(--ink);font-size:14px}
+  .prod .pr small{color:#999;font-weight:600}
+  .prod .add{margin-top:10px;width:100%;text-align:center;padding:9px;font-size:12.5px}
+
+  /* PRODUCT PAGE MODULE */
+  .pdp{background:var(--soft);padding:54px 0}
+  .pdp .card{background:#fff;border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 24px 60px rgba(20,20,20,.12)}
+  .pdp .img{aspect-ratio:1/1;overflow:hidden}
+  .pdp .info{padding:34px 36px}
+  .pdp .tagline{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink-deep);font-weight:700}
+  .pdp h3{font-size:30px;font-weight:800;margin:8px 0 4px}
+  .pdp .stars{color:var(--pink);font-size:14px;margin-bottom:14px}
+  .pdp .desc{font-size:14px;color:#555;margin-bottom:20px}
+  .buybox{border:1px solid var(--line);border-radius:14px;padding:18px}
+  .buybox .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#888;margin-bottom:8px}
+  .opt{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .opt .o{border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;flex:1;text-align:center;min-width:90px}
+  .opt .o.sel{border-color:var(--pink);background:#fff0f7;color:var(--pink-deep)}
+  .opt .o small{display:block;color:#999;font-weight:600;font-size:11px}
+  .price-now{font-family:'Playfair Display';font-size:30px;font-weight:800}
+  .buybox .btn{width:100%;text-align:center;margin-top:6px;padding:15px}
+  .instant{font-size:12px;color:#777;text-align:center;margin-top:10px}
+
+  /* BRAND BAND */
+  .brand{background:var(--ink);color:#fff;padding:56px 0}
+  .brand .row{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:center}
+  .brand h2{font-size:30px;font-weight:800;color:#fff}
+  .brand h2 em{color:var(--pink);font-style:italic}
+  .brand p{color:#cfcfcf;font-size:15px;margin-top:14px}
+  .brand .pic{aspect-ratio:4/3;border-radius:16px;overflow:hidden}
+  .pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .pills span{background:#262626;color:#ff9ed3;border-radius:30px;padding:6px 14px;font-size:12px;font-weight:600}
+
+  footer{background:#0d0d0d;color:#888;padding:34px 0;font-size:13px;text-align:center}
+  .badge-top{position:absolute;top:10px;left:10px;background:var(--pink);color:#fff;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
+  .ph{position:relative}
+  @media(max-width:900px){.hero,.pdp .card,.brand .row{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:38px}}
+</style>
+</head>
+<body>
+<div class="note">▲ DESIGN MOCKUP — proposed new Art For Love store (not live). Real artwork by Georgie Pinn. Prices shown in USD for global market.</div>
+
+<div class="wrap">
+  <nav>
+    <div class="logo">ART FOR <span>LOVE</span></div>
+    <div class="navlinks"><a href="#">Shop All</a><a href="#">Collections</a><a href="#">Canvas</a><a href="#">Custom</a><a href="#">About</a></div>
+    <div class="navr">🔍 &nbsp; 🛒 Cart (0)</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1>Art that celebrates <em>every kind</em> of love.</h1>
+      <p>Cinematic couple portraits by acclaimed digital artist Georgie Pinn. Buy the artwork instantly as a <b>digital download</b>, or order it as a <b>made-to-order canvas</b> — shipped worldwide.</p>
+      <div class="cta">
+        <a class="btn" href="#grid">Shop the artwork →</a>
+        <a class="btn outline" href="#pdp">See how it works</a>
+      </div>
+    </div>
+    <div class="pic"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=900,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_lesbian_queen_couple_facing_forward__a1d97cb8-819f-47be-b27c-83a5ebe127b3_2-mk3qD17gyJtDD9gw.png" alt="Featured couple portrait"></div>
+  </section>
+</div>
+
+<!-- TRUST -->
+<div class="trust"><div class="wrap"><div class="row">
+  <span>⬇️ <b>Instant</b> digital download</span>
+  <span>🖼️ Made-to-order <b>canvas</b></span>
+  <span>🌍 <b>Ships worldwide</b> (printed locally)</span>
+  <span>🏳️‍🌈 <b>Love in every form</b></span>
+  <span>⭐ By artist <b>Georgie Pinn</b></span>
+</div></div></div>
+
+<!-- THEMES -->
+<div class="wrap">
+  <section class="sec" style="padding-bottom:24px">
+    <h2>Shop by world</h2>
+    <div class="sub">Step into the love story that's yours — 11 cinematic worlds</div>
+    <div class="chips">
+      <span class="chip on">All</span><span class="chip">Tribal</span><span class="chip">Royale</span><span class="chip">Viking</span><span class="chip">Punk</span><span class="chip">Apocalyptic</span><span class="chip">Rockstar</span><span class="chip">Paris</span><span class="chip">Underwater</span><span class="chip">Cyberpunk</span><span class="chip">30s Gangster</span><span class="chip">Art House</span>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <section id="grid" style="padding-bottom:54px">
+    <div class="grid">
+      <div class="prod"><div class="ph"><span class="badge-top">Bestseller</span><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_gay_male_couple_facing_forward_at_th_ca36cd39-fa5f-45bb-bb82-b1ad33c75751_2-YBgepWqPGRcxWZoq.png"></div><div class="body"><div class="t">Two Grooms — Viking Warriors</div><div class="sub">Viking · gay couple</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+
+      <div class="prod"><div class="ph"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_indian_bengali_couple_facing_forward_bfb622c9-e334-48b9-b394-221725cc5085_2-AGBnGPpQqvu6EM1o.png"></div><div class="body"><div class="t">Bengali Royalty</div><div class="sub">Royale · South Asian couple</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+
+      <div class="prod"><div class="ph"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_beautiful_female_viking_lovers_facin_f04bc432-e1bd-45e8-9707-0d3ca09d2b2e_2-AwvDrqO3O9CDbJo6.png"></div><div class="body"><div class="t">Shieldmaiden Lovers</div><div class="sub">Viking · two women</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+
+      <div class="prod"><div class="ph"><span class="badge-top">New</span><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_gender_fluid_facing_forward_in_love_wi_6f7bc742-cbe2-4f01-8bb1-524cc705091b-A0x1NZk8jxFexDXw.png"></div><div class="body"><div class="t">Punk Hearts</div><div class="sub">Punk · gender-fluid couple</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+
+      <div class="prod"><div class="ph"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_woman_and_woman_facing_forward_in_love_ffab26cb-64d8-444e-a1ca-74af600ff6d8-dWxBlEPr1ySrvn3Y.png"></div><div class="body"><div class="t">Two Queens</div><div class="sub">Royale · two women</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+
+      <div class="prod"><div class="ph"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_darker_skinned_man_and_man_facing_forw_e8ce4427-d597-4b26-9e42-2d2739307b05-AE0apwVQN5i12V58.png"></div><div class="body"><div class="t">Forever, Us</div><div class="sub">Royale · gay couple</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+
+      <div class="prod"><div class="ph"><span class="badge-top">Loved</span><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_old_50_year_old_gay_male_warrior_cou_d72a4ddb-8777-4df4-aece-f0588bd43adb_1-AzG3rWRgzGf10jVN.png"></div><div class="body"><div class="t">A Lifetime of Love</div><div class="sub">Viking · mature gay couple</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+
+      <div class="prod"><div class="ph"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_old_50_year_old_lesbian_queen_couple_c3d850ea-2547-45c0-b64e-fb55eb600df8_1-m2Wa4eg81qtQjQeO.png"></div><div class="body"><div class="t">Queens, Always</div><div class="sub">Royale · mature lesbian couple</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+
+      <div class="prod"><div class="ph"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=500,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_full_body_wide_shot_of_loving_beautiful_couple_hol_bce1e9d7-a8e6-4a9f-924b-885a7e3f6213-YbNnPVJxaJcD2NBK.png"></div><div class="body"><div class="t">Hold On To Me</div><div class="sub">Art House · couple</div><div class="pr">$15 <small>download · canvas from $69</small></div><button class="btn pink add">Add to cart</button></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- PRODUCT PAGE MODULE -->
+<div class="pdp" id="pdp"><div class="wrap">
+  <p style="text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#999;margin-bottom:18px">↓ The product page — the fix: a clear price + buy box (this is what's missing today)</p>
+  <div class="card">
+    <div class="img"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=900,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_album_cover_lesbian_queen_couple_facing_forward__a1d97cb8-819f-47be-b27c-83a5ebe127b3_2-mk3qD17gyJtDD9gw.png"></div>
+    <div class="info">
+      <div class="tagline">Royale Collection · Two Queens</div>
+      <h3>Lesbian Couple — Regal Portrait</h3>
+      <div class="stars">★★★★★ <span style="color:#999;font-size:12px">(48)</span></div>
+      <div class="desc">A cinematic, golden portrait celebrating two women in love. Inclusive art for anniversaries, weddings, or just because. Buy it instantly to print at home, or as a gallery-grade canvas shipped to your door.</div>
+      <div class="buybox">
+        <div class="lbl">Choose format</div>
+        <div class="opt">
+          <div class="o sel">Digital Download<small>print it yourself</small></div>
+          <div class="o">Canvas<small>we print &amp; ship</small></div>
+        </div>
+        <div class="lbl">Canvas size (if canvas)</div>
+        <div class="opt">
+          <div class="o">Small<small>$69</small></div>
+          <div class="o sel">Medium<small>$119</small></div>
+          <div class="o">Large<small>$179</small></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:6px 0 4px">
+          <span class="lbl" style="margin:0">Digital download</span>
+          <span class="price-now">$15</span>
+        </div>
+        <button class="btn">Add to cart →</button>
+        <div class="instant">⬇️ Instant download after checkout · 🌍 canvas ships worldwide · 🔒 secure checkout</div>
+      </div>
+      <p style="font-size:12px;color:#999;margin-top:14px">✨ Want your own faces in this world? <a href="#" style="color:var(--pink-deep);font-weight:700">Order a personalised version →</a></p>
+    </div>
+  </div>
+</div></div>
+
+<!-- BRAND -->
+<div class="brand"><div class="wrap"><div class="row">
+  <div class="pic"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=700,fit=crop/Yan6WGarB6TpBQWw/georgie_pinn_full_body_wide_shot_of_loving_beautiful_lesbian__dcb4c573-f67a-4412-8104-c389657c60bd_3-YKbEJ05nazt1700n.png"></div>
+  <div>
+    <h2>Made by an artist who's <em>shown the world</em>.</h2>
+    <p>Every piece is created by Georgie Pinn — an acclaimed digital &amp; new-media artist whose work has appeared at the World Science Festival, ISEA, and major public installations worldwide. Art For Love brings that craft to your walls, celebrating love in every culture, body and identity.</p>
+    <div class="pills"><span>Same-sex couples</span><span>Culturally diverse</span><span>Non-binary &amp; gender-fluid</span><span>All ages</span><span>Every love story</span></div>
+  </div>
+</div></div></div>
+
+<footer>
+  ART FOR LOVE — design mockup · proposed rebuild · artwork © Georgie Pinn · prices in USD for global market<br>
+  <span style="color:#666">Mockup built by Nova · 18 Jun 2026</span>
+</footer>
+</body>
+</html>

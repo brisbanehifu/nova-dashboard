@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Calendly Import — Confidence Report (5 May 2026)</title>
+<style>
+  :root {
+    --teal: #00E8B4;
+    --coral: #FF7A6E;
+    --purple: #9B3DFF;
+    --pink: #F040C8;
+    --ink: #1a1330;
+    --ink-soft: #5d5780;
+    --bg: #fafbfc;
+    --card: #ffffff;
+    --line: #ece8f5;
+    --tier-exact: #d1fae5;
+    --tier-exact-text: #065f46;
+    --tier-high: #fef3c7;
+    --tier-high-text: #92400e;
+    --tier-email: #dbeafe;
+    --tier-email-text: #1e40af;
+    --tier-nomatch: #fee2e2;
+    --tier-nomatch-text: #991b1b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
+  .hero { background: linear-gradient(135deg, var(--purple) 0%, var(--teal) 100%); color: #fff; padding: 40px 32px; }
+  .hero .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; margin-bottom: 8px; }
+  .hero h1 { font-size: 32px; font-weight: 800; margin: 0 0 8px 0; letter-spacing: -0.5px; }
+  .hero p { margin: 0; font-size: 15px; opacity: 0.95; max-width: 720px; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 32px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; }
+  .stat .label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+  .stat .number { font-size: 36px; font-weight: 800; line-height: 1; color: var(--ink); margin-bottom: 6px; }
+  .stat .desc { font-size: 13px; color: var(--ink-soft); }
+  .stat.alert { background: linear-gradient(135deg, rgba(255,122,110,0.08), rgba(240,64,200,0.04)); border-color: rgba(255,122,110,0.3); }
+  .stat.alert .number { color: var(--coral); }
+  .stat.warn { background: linear-gradient(135deg, rgba(245,158,11,0.06), rgba(254,243,199,0.5)); border-color: rgba(245,158,11,0.3); }
+  .stat.ok { background: linear-gradient(135deg, rgba(0,232,180,0.05), rgba(155,61,255,0.03)); border-color: rgba(0,232,180,0.3); }
+  .stat.ok .number { color: var(--teal); }
+  h2 { font-size: 20px; font-weight: 800; margin: 32px 0 12px 0; letter-spacing: -0.2px; }
+  .findings { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+  .findings ul { margin: 0; padding-left: 20px; }
+  .findings li { margin: 8px 0; font-size: 14.5px; }
+  .findings strong { color: var(--ink); }
+  .findings .red { color: var(--coral); font-weight: 700; }
+  .findings .green { color: #059669; font-weight: 700; }
+  .findings .amber { color: #d97706; font-weight: 700; }
+  .pair-table { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+  .pair-table th { background: #f7f5fc; padding: 12px 14px; text-align: left; font-weight: 700; font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--ink-soft); border-bottom: 1px solid var(--line); }
+  .pair-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .pair-table tr:last-child td { border-bottom: none; }
+  .pair-table tr.tier-exact td:first-child { box-shadow: inset 4px 0 0 #ef4444; background: rgba(254, 226, 226, 0.4); }
+  .pair-table tr.tier-high td:first-child { box-shadow: inset 4px 0 0 #f59e0b; background: rgba(254, 243, 199, 0.4); }
+  .pair-table tr.tier-email td:first-child { box-shadow: inset 4px 0 0 #3b82f6; }
+  .pair-table tr.tier-low td:first-child { box-shadow: inset 4px 0 0 #94a3b8; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; }
+  .badge.exact { background: var(--tier-nomatch); color: var(--tier-nomatch-text); }
+  .badge.high { background: var(--tier-high); color: var(--tier-high-text); }
+  .badge.email { background: var(--tier-email); color: var(--tier-email-text); }
+  .badge.low { background: #e5e7eb; color: #4b5563; }
+  .badge.status-completed { background: var(--tier-exact); color: var(--tier-exact-text); }
+  .badge.status-confirmed { background: var(--tier-email); color: var(--tier-email-text); }
+  .badge.status-cancelled { background: var(--tier-nomatch); color: var(--tier-nomatch-text); }
+  .pair { display: flex; gap: 8px; align-items: center; }
+  .pair-row { display: flex; flex-direction: column; gap: 4px; }
+  .gap { font-weight: 800; color: var(--purple); padding: 2px 6px; background: rgba(155,61,255,0.08); border-radius: 4px; min-width: 36px; text-align: center; font-size: 11px; }
+  .verdict { font-size: 12px; color: var(--ink-soft); font-style: italic; }
+  .footer { margin-top: 32px; padding: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; font-size: 13px; color: var(--ink-soft); }
+  .footer code { background: #f5f3fa; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--ink); }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+  .ask { background: linear-gradient(135deg, rgba(155,61,255,0.06), rgba(0,232,180,0.04)); border: 1px solid rgba(155,61,255,0.25); border-radius: 16px; padding: 20px 22px; margin: 24px 0; }
+  .ask h3 { margin: 0 0 8px 0; font-size: 15px; color: var(--purple); font-weight: 800; }
+  .ask p { margin: 0 0 8px 0; font-size: 14px; }
+  .ask ol { margin: 8px 0 0 18px; padding: 0; font-size: 14px; }
+  .ask li { margin: 4px 0; }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="eyebrow">Migration Confidence Report · Brisbane HIFU · 5 May 2026 PM</div>
+    <h1>Calendly import audit — read-only diagnosis</h1>
+    <p>Kim's ask: zero confidence in the imported booking data after spotting reschedules appearing as second bookings. This report is fully read-only — no writes, no merges, nothing changed in the database. Here's what we found in 30 minutes of querying.</p>
+  </div>
+
+  <div class="container">
+    <h2>Headline numbers</h2>
+    <div class="stats">
+      <div class="stat ok">
+        <div class="label">Bookings in DB</div>
+        <div class="number">2,028</div>
+        <div class="desc">2,022 import + 6 web. 1,896 completed + 131 confirmed + 1 cancelled.</div>
+      </div>
+      <div class="stat ok">
+        <div class="label">Calendly CSV (5-5-26)</div>
+        <div class="number">2,131</div>
+        <div class="desc">Active-only export — no canceled events. CSV is 103 rows ahead of DB.</div>
+      </div>
+      <div class="stat alert">
+        <div class="label">Imports with null external_id</div>
+        <div class="number">1,983</div>
+        <div class="desc"><strong>This is the systemic issue.</strong> Only 39/2,022 imports have the Calendly Event UUID stored. No source-of-truth link → can't reliably dedupe by re-import.</div>
+      </div>
+      <div class="stat warn">
+        <div class="label">Same-customer pairs ≤14d apart</div>
+        <div class="number">53</div>
+        <div class="desc">Same email + same service within 14 days. <strong>Most are legit repeat visits</strong> — only ~10 look like real reschedule dupes (see table below).</div>
+      </div>
+      <div class="stat ok">
+        <div class="label">Exact-match dupes</div>
+        <div class="number">0</div>
+        <div class="desc">No two bookings share email + service + date + time. So at minimum the import didn't double-write the same row.</div>
+      </div>
+    </div>
+
+    <h2>Diagnosis</h2>
+    <div class="findings">
+      <ul>
+        <li><span class="red">Root cause confirmed:</span> The original Calendly import dropped the Event UUID. <strong>1,983 of 2,022 imported bookings have <code>external_id = NULL</code></strong>. Without that, neither the migration script nor the BAT reschedule UI can know whether a Calendly event already exists in BAT — every reschedule looks "new" to the system. This is exactly what the locked migration playbook (PR #2 in the queue: <em>"external_id REQUIRED — compute hash if missing"</em>) was designed to fix.</li>
+        <li><span class="amber">Reschedule signal is missing from the fresh CSV:</span> Calendly's "Active only" export filter strips out canceled events. So a reschedule appears in the CSV as <strong>two active rows for the same invitee</strong> — no <code>Cancellation reason: Rescheduled</code> flag, no link between them. We'd need a Calendly export with cancellations included to programmatically dedupe.</li>
+        <li><span class="green">No exact-match dupes:</span> 0 cases of (email + service + date + time) appearing twice. So the import worked at the row level — it's the <em>reschedule</em> case that's untracked, not raw duplication.</li>
+        <li><span class="amber">Most "same-customer ≤14 day" pairs look legit:</span> Of the 53 candidate pairs, 21 are internal clinic emails (<code>brisbane.hifu.clinic@gmail.com</code>, <code>hello@brisbanehifu.com</code>, <code>luci.hifu@gmail.com</code>, <code>mskimklein@gmail.com</code>) — admin testing or staff comp bookings, not customer dupes. Of the 32 customer pairs, most are 7-14 days apart with two <code>completed</code> statuses — these look like clients who came in, then booked again two weeks later (HIFU follow-up cadence). The <strong>same-day pairs (8) and the (confirmed + cancelled) pair on 2026-05-07</strong> are the suspicious ones worth manual review.</li>
+      </ul>
+    </div>
+
+    <div class="ask">
+      <h3>What I need from you to scope the real fix</h3>
+      <p>Before I touch <em>any</em> data (locked rule: preview-then-approve), I need 2-3 ground-truth examples from you:</p>
+      <ol>
+        <li>From the table below or your own list, pick <strong>2-3 specific pairs</strong> that you've already manually verified ARE duplicates (i.e. the same client did NOT come in twice).</li>
+        <li>Tell me which booking ID is the "keep" and which is the "remove" in each pair (or "merge into one — kept this date/time").</li>
+        <li>Once I have ground truth, I can score the remaining 32 customer pairs by similarity to your examples and propose a tight allow-list.</li>
+      </ol>
+      <p style="margin-top:12px;">Parallel track: I'll draft a re-import that <strong>back-fills <code>external_id</code></strong> on existing rows by matching (email + service + date + time) against the fresh CSV's Event UUID. Once external_id is populated for every existing row, future reschedules CAN be detected.</p>
+    </div>
+
+    <h2>32 customer pairs · same email + same service ≤14 days apart</h2>
+    <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px 0;">Sorted by gap (smallest first). 21 internal-clinic-email pairs hidden — they're admin testing rows, not customer dupes.</p>
+
+    <div class="legend">
+      <span><i style="background:#ef4444;"></i>Highly suspicious (same day or confirmed+cancelled)</span>
+      <span><i style="background:#f59e0b;"></i>Possible (1-3 days apart)</span>
+      <span><i style="background:#94a3b8;"></i>Likely legit follow-up (7-14 days)</span>
+    </div>
+
+    <table class="pair-table">
+      <thead>
+        <tr>
+          <th style="width:60px;">Tier</th>
+          <th>Customer</th>
+          <th>Service</th>
+          <th>Booking A</th>
+          <th>Booking B</th>
+          <th style="width:80px;">Gap</th>
+          <th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+
+    <div class="footer">
+      <strong>Source-of-truth files:</strong><br>
+      • Fresh CSV: <code>C:\Users\kimkl\Downloads\calendly - ALL BOOKINGS 5-5-26.csv</code> (2,131 rows, 39 cols)<br>
+      • DB: <code>railway ssh</code> → <code>booking-api</code> → table <code>bookings</code> (2,028 rows on tenant_id=1)<br>
+      • Pairs JSON snapshot: <code>C:\Users\kimkl\AppData\Local\Temp\dupes.json</code><br>
+      <br>
+      <strong>What did NOT happen:</strong> I have not run a single UPDATE / DELETE / INSERT against any table. No dedupe is scheduled. No data has moved. This is purely diagnostic.<br>
+      <br>
+      <strong>Pinned migration principle:</strong> "Migration is where we win or lose customers" — locked memory <code>bat_migration_is_where_we_win_or_lose.md</code> · 5 operational principles (4-tier match, audit log, broad scope, preview-then-approve, soft-cutover delta sync). Every step from here forward will follow them.
+    </div>
+  </div>
+
+<script>
+const pairs = [
+  {tier:'exact', email:'azevedo.aline@icloud.com', svc:'20+ Face & Neck Lift - 1 Pack', a:{d:'2026-04-16',t:'10:00',s:'completed'}, b:{d:'2026-04-16',t:'15:00',s:'completed'}, gap:0, verdict:'Same day, 5h apart — could be legit (split treatment) or dupe'},
+  {tier:'exact', email:'flowersjo@hotmail.com', svc:'HIFU Retouch Booking', a:{d:'2024-01-30',t:'17:30',s:'completed'}, b:{d:'2024-01-30',t:'16:30',s:'completed'}, gap:0, verdict:'Same day, 1h apart — likely a reschedule recorded twice'},
+  {tier:'exact', email:'georgiepinn@gmail.com', svc:'HIFU Model - Body Treatment', a:{d:'2025-09-24',t:'10:30',s:'completed'}, b:{d:'2025-09-24',t:'10:00',s:'completed'}, gap:0, verdict:'Same day, 30 min apart — almost certainly a dupe'},
+  {tier:'exact', email:'nengsash@gmail.com', svc:'FREE Skin Consultation', a:{d:'2025-07-03',t:'13:30',s:'completed'}, b:{d:'2025-07-03',t:'18:00',s:'completed'}, gap:0, verdict:'Same day, 4.5h apart — review needed'},
+  {tier:'exact', email:'scotty.72@hotmail.com', svc:"Men's Face & Neck - 1 Pack", a:{d:'2026-05-07',t:'15:00',s:'confirmed'}, b:{d:'2026-05-07',t:'15:30',s:'cancelled'}, gap:0, verdict:'Confirmed + cancelled on same day — classic reschedule pattern, likely a real dupe'},
+  {tier:'exact', email:'shobha_karenglu@yahoo.com', svc:'Face, Neck & Chest Lift - 3 Pack', a:{d:'2025-02-17',t:'15:00',s:'completed'}, b:{d:'2025-02-17',t:'11:00',s:'completed'}, gap:0, verdict:'Same day, 4h apart — review needed'},
+  {tier:'exact', email:'vivi__7@hotmail.it', svc:'20+ Face & Neck Lift - 1 Pack', a:{d:'2026-03-10',t:'16:30',s:'completed'}, b:{d:'2026-03-10',t:'09:30',s:'completed'}, gap:0, verdict:'Same day, 7h apart — split treatment? or dupe?'},
+  {tier:'exact', email:'zoe.dales@powerlink.com.au', svc:'20+ Face & Neck Lift - 1 Pack', a:{d:'2024-08-09',t:'18:00',s:'completed'}, b:{d:'2024-08-09',t:'18:30',s:'completed'}, gap:0, verdict:'Same day, 30 min apart — almost certainly a dupe'},
+  {tier:'high', email:'ash.nanhar95@gmail.com', svc:'FREE Skin Consultation', a:{d:'2025-09-11',t:'16:00',s:'completed'}, b:{d:'2025-09-12',t:'16:30',s:'completed'}, gap:1, verdict:'Next-day consult — possible reschedule'},
+  {tier:'high', email:'peppiolive777@gmail.com', svc:'Face, Neck & Chest Lift - 3 Pack', a:{d:'2025-08-23',t:'12:30',s:'completed'}, b:{d:'2025-08-21',t:'13:00',s:'completed'}, gap:2, verdict:'2 days apart — possible reschedule'},
+  {tier:'high', email:'shannontrappel@gmail.com', svc:'VIP Plan - Face, Neck, Chest & Body', a:{d:'2024-06-03',t:'18:00',s:'completed'}, b:{d:'2024-06-01',t:'14:00',s:'completed'}, gap:2, verdict:'2 days apart — possible reschedule'},
+  {tier:'high', email:'thebulls195@gmail.com', svc:'VIP Plan - Face, Neck, Chest & Body', a:{d:'2025-02-10',t:'11:00',s:'completed'}, b:{d:'2025-02-07',t:'12:00',s:'completed'}, gap:3, verdict:'3 days apart — possible reschedule'},
+  {tier:'low', email:'missvictoriaepowell@hotmail.com', svc:'20+ Face & Neck Lift - 1 Pack', a:{d:'2025-09-19',t:'11:00',s:'completed'}, b:{d:'2025-09-25',t:'14:00',s:'completed'}, gap:6, verdict:'Likely legit follow-up (1-pack often spaced ~1 week)'},
+  {tier:'low', email:'sana_kiani@hotmail.com', svc:'2 Pack - Face & Neck Lift', a:{d:'2023-07-04',t:'18:00',s:'completed'}, b:{d:'2023-06-28',t:'18:00',s:'completed'}, gap:6, verdict:'Likely legit 2-pack treatments'},
+  {tier:'low', email:'orlaith.mckenna97@gmail.com', svc:'20+ Face & Neck Lift - 1 Pack', a:{d:'2026-05-07',t:'17:00',s:'confirmed'}, b:{d:'2026-05-14',t:'17:00',s:'confirmed'}, gap:7, verdict:'Future bookings 1 week apart — could be legit OR a reschedule that re-confirmed both'},
+  {tier:'low', email:'salondepot@hotmail.com', svc:'2 Pack - Face & Neck Lift', a:{d:'2023-02-11',t:'10:00',s:'completed'}, b:{d:'2023-02-18',t:'09:30',s:'completed'}, gap:7, verdict:'Likely legit (2-pack)'},
+  {tier:'low', email:'serasuresh@gmail.com', svc:'35+ Face & Neck Lift - 3 Pack', a:{d:'2026-05-02',t:'12:00',s:'completed'}, b:{d:'2026-05-09',t:'12:00',s:'confirmed'}, gap:7, verdict:'Likely legit (3-pack cadence)'},
+  {tier:'low', email:'shelsdesk@gmail.com', svc:'Thighs & Knees Lift - 3 Pack', a:{d:'2024-10-18',t:'16:00',s:'completed'}, b:{d:'2024-10-11',t:'12:00',s:'completed'}, gap:7, verdict:'Likely legit (3-pack)'},
+  {tier:'low', email:'lilyatkinson111@gmail.com', svc:'20+ Face & Neck Lift - 1 Pack', a:{d:'2026-05-07',t:'13:30',s:'confirmed'}, b:{d:'2026-04-29',t:'14:00',s:'completed'}, gap:8, verdict:'Likely legit (1-pack spaced ~1 week)'},
+  {tier:'low', email:'suzanne.holden@nautechgroup.com.au', svc:'VIP Plan', a:{d:'2026-03-05',t:'16:30',s:'completed'}, b:{d:'2026-02-24',t:'16:00',s:'completed'}, gap:9, verdict:'Likely legit'},
+  {tier:'low', email:'assenethq@gmail.com', svc:'VIP Plan', a:{d:'2025-03-13',t:'14:30',s:'completed'}, b:{d:'2025-02-28',t:'15:00',s:'completed'}, gap:13, verdict:'Likely legit'},
+  {tier:'low', email:'kiamk@bigpond.com', svc:'Complimentary treatment', a:{d:'2026-01-22',t:'16:00',s:'completed'}, b:{d:'2026-02-04',t:'16:30',s:'completed'}, gap:13, verdict:'Likely legit'},
+  {tier:'low', email:'mcoleman@yourtown.com.au', svc:'HIFU Retouch Booking', a:{d:'2023-12-06',t:'17:00',s:'completed'}, b:{d:'2023-12-19',t:'14:00',s:'completed'}, gap:13, verdict:'Likely legit (retouch)'},
+  {tier:'low', email:'palejo73@gmail.com', svc:'1 Pack - Face, Neck & Chest Lift', a:{d:'2024-08-02',t:'12:00',s:'completed'}, b:{d:'2024-08-15',t:'17:00',s:'completed'}, gap:13, verdict:'Likely legit'},
+  {tier:'low', email:'bethsmeaton@hotmail.com', svc:'35+ Face & Neck Lift - 1 Pack', a:{d:'2026-05-15',t:'12:30',s:'confirmed'}, b:{d:'2026-05-01',t:'10:30',s:'completed'}, gap:14, verdict:'Likely legit'},
+  {tier:'low', email:'cmford112@gmail.com', svc:'VIP Plan', a:{d:'2024-06-14',t:'12:30',s:'completed'}, b:{d:'2024-05-31',t:'12:00',s:'completed'}, gap:14, verdict:'Likely legit'},
+  {tier:'low', email:'cmford112@gmail.com', svc:'VIP Plan', a:{d:'2024-06-14',t:'12:30',s:'completed'}, b:{d:'2024-06-28',t:'12:30',s:'completed'}, gap:14, verdict:'Likely legit'},
+  {tier:'low', email:'lianamarasigan24@gmail.com', svc:'20+ Face & Neck Lift - 1 Pack', a:{d:'2025-04-11',t:'16:30',s:'completed'}, b:{d:'2025-03-28',t:'14:00',s:'completed'}, gap:14, verdict:'Likely legit'},
+  {tier:'low', email:'mcoleman@yourtown.com.au', svc:'HIFU Retouch Booking', a:{d:'2024-03-11',t:'14:00',s:'completed'}, b:{d:'2024-03-25',t:'16:00',s:'completed'}, gap:14, verdict:'Likely legit (retouch)'},
+  {tier:'low', email:'rimvirk@yahoo.com', svc:'Face, Neck & Chest Lift - 3 Pack', a:{d:'2024-08-20',t:'17:30',s:'completed'}, b:{d:'2024-09-03',t:'16:00',s:'completed'}, gap:14, verdict:'Likely legit (3-pack)'},
+  {tier:'low', email:'sjdarrow@iinet.net.au', svc:'Half Face Lift - 1 Pack', a:{d:'2026-05-13',t:'15:30',s:'confirmed'}, b:{d:'2026-04-29',t:'13:00',s:'completed'}, gap:14, verdict:'Likely legit'},
+  {tier:'low', email:'violetredpoll@gmail.com', svc:'2 Pack - Face & Neck Lift', a:{d:'2023-03-30',t:'10:00',s:'completed'}, b:{d:'2023-04-13',t:'11:00',s:'completed'}, gap:14, verdict:'Likely legit (2-pack)'},
+];
+const tierBadge = {exact:'<span class="badge exact">SUSP</span>', high:'<span class="badge high">POSS</span>', email:'<span class="badge email">LIKELY</span>', low:'<span class="badge low">LEGIT</span>'};
+const statusBadge = (s) => `<span class="badge status-${s}">${s}</span>`;
+const tbody = document.getElementById('rows');
+tbody.innerHTML = pairs.map(p => `
+  <tr class="tier-${p.tier}">
+    <td>${tierBadge[p.tier]}</td>
+    <td><code style="font-size:11.5px;">${p.email}</code></td>
+    <td>${p.svc}</td>
+    <td><div class="pair-row"><strong>${p.a.d} ${p.a.t}</strong>${statusBadge(p.a.s)}</div></td>
+    <td><div class="pair-row"><strong>${p.b.d} ${p.b.t}</strong>${statusBadge(p.b.s)}</div></td>
+    <td><span class="gap">${p.gap}d</span></td>
+    <td class="verdict">${p.verdict}</td>
+  </tr>
+`).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nova — 7am Briefing — Thu 7 May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --teal: #00E8B4;
+    --coral: #FF7A6E;
+    --purple: #9B3DFF;
+    --pink: #F040C8;
+    --bg: #0A0A0F;
+    --card: #14141C;
+    --card-2: #1B1B26;
+    --border: #2A2A38;
+    --text: #F5F5FA;
+    --muted: #9090A8;
+    --red: #FF5050;
+    --amber: #FFB347;
+    --green: #00E8B4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.55;
+    padding-bottom: 80px;
+  }
+  .hero {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 50%, var(--coral) 100%);
+    padding: 48px 32px 56px;
+    color: white;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; }
+  .hero .eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    opacity: 0.85; margin-bottom: 12px;
+  }
+  .hero h1 { font-size: 42px; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+  .hero .meta { font-size: 16px; opacity: 0.85; margin-bottom: 32px; }
+  .punch {
+    background: rgba(0,0,0,0.25); border-radius: 14px; padding: 24px 28px;
+    border-left: 4px solid var(--teal); max-width: 920px;
+  }
+  .punch-label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: var(--teal); margin-bottom: 8px; }
+  .punch-text { font-size: 18px; font-weight: 500; line-height: 1.5; }
+
+  main { max-width: 1200px; margin: -28px auto 0; padding: 0 32px; }
+
+  .stat-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    margin-bottom: 40px;
+  }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px 24px;
+  }
+  .stat-card .label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
+  .stat-card .value { font-size: 38px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+  .stat-card .sub { font-size: 13px; color: var(--muted); }
+  .stat-card.action .value { color: var(--coral); }
+  .stat-card.reply .value { color: var(--amber); }
+  .stat-card.cal .value { color: var(--purple); }
+  .stat-card.noise .value { color: var(--muted); }
+
+  section { margin-bottom: 40px; }
+  h2 {
+    font-size: 22px; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2 .pill { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: var(--card-2); color: var(--muted); letter-spacing: 1px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; margin-bottom: 12px; }
+  .card.action { border-left: 4px solid var(--coral); }
+  .card.reply { border-left: 4px solid var(--amber); }
+  .card.verify { border-left: 4px solid var(--purple); }
+  .card.cal { border-left: 4px solid var(--teal); }
+  .card.decision { border-left: 4px solid var(--pink); }
+  .card.flight { border-left: 4px solid var(--purple); }
+  .card.blocker { border-left: 4px solid var(--red); }
+
+  .card-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; margin-bottom: 8px; }
+  .card-title { font-weight: 700; font-size: 17px; }
+  .card-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 3px 9px; border-radius: 8px; background: var(--card-2); color: var(--muted); }
+  .card-from { font-size: 13px; color: var(--muted); }
+  .card-body { font-size: 15.5px; line-height: 1.55; color: #D8D8E0; }
+  .card-suggested { margin-top: 10px; padding: 10px 14px; background: rgba(0,232,180,0.08); border-radius: 8px; border-left: 2px solid var(--teal); font-size: 14px; color: #C8F5E5; }
+  .card-suggested b { color: var(--teal); }
+
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14.5px; }
+  th { background: var(--card-2); color: var(--muted); font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+  tr:last-child td { border-bottom: none; }
+  td.time { font-weight: 700; color: var(--teal); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  ol.actions { counter-reset: action; list-style: none; }
+  ol.actions li {
+    counter-increment: action;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 20px 16px 60px; margin-bottom: 10px; position: relative; font-size: 15.5px;
+  }
+  ol.actions li::before {
+    content: counter(action);
+    position: absolute; left: 16px; top: 16px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; font-weight: 800; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  ol.actions li b { color: var(--text); font-weight: 700; }
+
+  .news-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; }
+  .news-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .news-card .src { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .news-card p { font-size: 14.5px; color: #D8D8E0; line-height: 1.6; }
+  .news-card a { color: var(--teal); text-decoration: none; }
+  .news-card a:hover { text-decoration: underline; }
+
+  .footer { margin-top: 48px; padding: 24px 32px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+  ul.compact { list-style: none; }
+  ul.compact li { padding: 8px 0 8px 26px; position: relative; font-size: 15.5px; line-height: 1.55; border-bottom: 1px solid var(--border); }
+  ul.compact li:last-child { border-bottom: none; }
+  ul.compact li::before { content: '→'; position: absolute; left: 0; top: 8px; color: var(--teal); font-weight: 700; }
+
+  a.inline { color: var(--teal); text-decoration: none; }
+  a.inline:hover { text-decoration: underline; }
+
+  .yesno { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1px; background: var(--pink); color: white; margin-left: 8px; vertical-align: middle; }
+
+  @media (max-width: 720px) {
+    body { font-size: 16px; }
+    .hero { padding: 32px 20px 40px; }
+    .hero h1 { font-size: 30px; }
+    main { padding: 0 16px; }
+    .stat-card .value { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Nova · 7am Daily Briefing</div>
+    <h1>Thursday 7 May 2026</h1>
+    <div class="meta">Brisbane · 4 HIFU treatments today · 2 P0 actions · 1 deadline tomorrow</div>
+    <div class="punch">
+      <div class="punch-label">⚡ If you read nothing else</div>
+      <div class="punch-text">Annette (AAR) needs you to call <b>Mahmoud Gabr</b> before tomorrow (Fri 8 May) — he goes on leave until late June. Best free slot today is <b>11am between Fatima &amp; Rosalind</b>. Draft acknowledgement queued for Annette; calendar block set on gm.teamneo.</div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<div class="stat-grid">
+  <div class="stat-card cal">
+    <div class="label">HIFU Today</div>
+    <div class="value">4</div>
+    <div class="sub">10am · 12pm · 1:30pm · 4pm</div>
+  </div>
+  <div class="stat-card action">
+    <div class="label">Action items</div>
+    <div class="value">2</div>
+    <div class="sub">Mahmoud call · ATO BAS</div>
+  </div>
+  <div class="stat-card reply">
+    <div class="label">Drafts queued</div>
+    <div class="value">1</div>
+    <div class="sub">Annette / AAR</div>
+  </div>
+  <div class="stat-card noise">
+    <div class="label">Noise (48h)</div>
+    <div class="value">~30</div>
+    <div class="sub">Marketing · LinkedIn · receipts</div>
+  </div>
+</div>
+
+<section>
+  <h2>📥 Overnight <span class="pill">last 48h · gm.teamneo forward inbox</span></h2>
+
+  <div class="card action">
+    <div class="card-head">
+      <span class="card-title">🔴 Mahmoud Gabr — call before Fri 8 May</span>
+      <span class="card-tag">md@teamneo.tech</span>
+      <span class="card-from">Annette Law (AAR Recruitment) · 6 May 11:08am AEST</span>
+    </div>
+    <div class="card-body">
+      Annette is asking you to contact Mahmoud Gabr (cyber/IT candidate, Sydney-based) <b>before 8 May</b> as he's on leave until late June. She's framing it as a favour — he's interested in the NT roles but if there's nothing for him she needs to redirect him to other clients. Tender outcome still pending so this is a "park-or-release" call.
+      <div class="card-suggested">
+        <b>Nova queued:</b> Draft reply to Annette acknowledging + a calendar block on gm.teamneo for <b>11:00am today</b> (in the gap between your 10am Fatima and 12pm Rosalind). Move/decline if it doesn't fit. Mahmoud's number isn't in the thread — Annette's mobile is 0421 052 546 if you need it relayed.
+      </div>
+    </div>
+  </div>
+
+  <div class="card action">
+    <div class="card-head">
+      <span class="card-title">🔴 ATO BAS — activity statement now available</span>
+      <span class="card-tag">neoklien.consulting</span>
+      <span class="card-from">noreply@ato.gov.au · 6 May 5:16am AEST</span>
+    </div>
+    <div class="card-body">
+      ATO has issued the activity statement for NEO-KLIEN. Standard quarterly BAS — <b>Janice (bookkeeper) is the usual handler</b>, but worth confirming she's seen this. Due date inside the email itself; ATO never includes login links.
+      <div class="card-suggested">
+        <b>Suggested:</b> forward to Janice if she's not already cc'd. Decision waiting: do you want Nova to draft that handover note?
+      </div>
+    </div>
+  </div>
+
+  <div class="card verify">
+    <div class="card-head">
+      <span class="card-title">⚠️ ASIC — NK TALENT RECRUITMENT business name CANCELLED</span>
+      <span class="card-tag">neoklien.consulting</span>
+      <span class="card-from">ASIC.Transaction.No-reply@asic.gov.au · 6 May</span>
+    </div>
+    <div class="card-body">
+      ASIC says the business name <b>NK TALENT RECRUITMENT</b> has been cancelled — "cancellation final letter" attached. Not flagged in any prior memory as intentional. If this was Kim wind-down → fine. If unintentional (missed renewal) → register can be reinstated within 6 months.
+      <div class="card-suggested"><b>Decision needed:</b> intentional? Y/N.</div>
+    </div>
+  </div>
+
+  <div class="card verify">
+    <div class="card-head">
+      <span class="card-title">⚠️ Nova was added as admin AND team member at Brisbane HIFU on BAT</span>
+      <span class="card-tag">gm.teamneo</span>
+      <span class="card-from">no-reply@bookatreatment.ai · 6 May 14:36 + 15:20 AEST</span>
+    </div>
+    <div class="card-body">
+      Two welcome emails came through 44 minutes apart — Nova set up first as <b>admin</b> then again as <b>team member</b>. Aligns with yesterday's Brisbane HIFU service-account provisioning task (per memory: <a class="inline" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/nova_service_account_provisioning_7may2026.md">nova_service_account_provisioning_7may2026.md</a>). Two earlier invite tokens errored — looks like the second one finally went through. ✅ Provisioning now live.
+      <div class="card-suggested">No action — just confirming the bug Kim hit yesterday is resolved.</div>
+    </div>
+  </div>
+
+  <div class="card reply">
+    <div class="card-head">
+      <span class="card-title">🟡 Nim AI refund — fully resolved (no action)</span>
+      <span class="card-tag">gm.teamneo</span>
+      <span class="card-from">support@nim.video · 6 May 21:03 AEST</span>
+    </div>
+    <div class="card-body">
+      Nova accidentally signed up to Nim (thought it was Higgsfield), requested refund — Nim issued full refund + cancelled the plan. 5–10 days to hit the card. Receipts + refund records archived in Stripe email trail. <b>Lesson banked:</b> Nova should never click subscription confirmations without an explicit Kim approval. Standing rule already locked (Tier-3 spend = always Kim).
+    </div>
+  </div>
+
+  <div class="card flight">
+    <div class="card-head">
+      <span class="card-title">🟢 Routine confirms (no action)</span>
+    </div>
+    <div class="card-body" style="font-size: 14.5px;">
+      • <b>BAT AI SOFTWARE business name</b> — ABN Register has submitted Kim's application for "BAT AI SOFTWARE". Awaiting ASIC processing. Status: in flight.<br>
+      • <b>Lovable invite</b> — Kim invited Nova to the "Competitor Video 1 Mangamint" project (yesterday's competitor-video work).<br>
+      • <b>Zeller transaction account activated</b> for Jeremy on neoklien.consulting. Aligns with parent-co banking setup.<br>
+      • <b>Calendly</b> — Leanda Whatmore accepted Fri 29 May 10am · Lorenne Burwood updated Sat 27 Jun 1:30pm.<br>
+      • <b>Google Business Profile reports</b> for Apr — Neo-Klien (69 views), Thor Building Products (188), ThundaBall (52). All routine.<br>
+      • <b>Mercedes service feedback</b> request for the C200 service on 28 Apr.<br>
+      • <b>Mother's Day Sun 10 May</b> reminders — Penelope, Il Molo, Maya. No bookings made.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">🟢 Auto-archive candidates (~22)</span>
+    </div>
+    <div class="card-body" style="color: var(--muted); font-size: 14px;">
+      Notion newsletter, LinkedIn waiting-pings (3), HeyGen newsletter, Stayz holiday homes, Qantas Red Sale, Skin Kandy, Breeze Balm, Linkt $10k giveaway, Carnival Cruise terms (personal — Kim Sheree), Paramount+, Flight Centre, OT Store ×2, Fantastic Furniture survey, Fresha promo, Business Chamber QLD, Upwork update, Zapier nudge, K-Beauty Australia, Google Maps reviews ping, Google Analytics nudge.
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>📅 Today's calendar <span class="pill">Thu 7 May · Brisbane HIFU day</span></h2>
+  <table>
+    <thead>
+      <tr><th>Time (AEST)</th><th>What</th><th>Where / Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="time">10:00–10:30</td>
+        <td><b>Fatima Movahedi</b> — 35+ Face &amp; Neck 3-pack</td>
+        <td>88 Allen St Hamilton · $450 · ⚠ overlaps Thu yoga buffer (yoga ends 10:30)</td>
+      </tr>
+      <tr>
+        <td class="time">12:00–12:30</td>
+        <td><b>Rosalind Lemmey</b> — 35+ Face &amp; Neck 1-pack</td>
+        <td>$500 · $100 deposit paid</td>
+      </tr>
+      <tr>
+        <td class="time">13:30–14:00</td>
+        <td><b>Lily Atkinson</b> — 20+ Face &amp; Neck 1-pack</td>
+        <td>$350 · $100 deposit paid</td>
+      </tr>
+      <tr>
+        <td class="time">16:00–17:00</td>
+        <td><b>Saba Delfani + Fatima Nabavi</b> — 2-for-1 Face &amp; Neck</td>
+        <td>$550 · $100 deposit paid · 2 attendees</td>
+      </tr>
+      <tr>
+        <td class="time" style="color: var(--purple);">11:00–11:20</td>
+        <td>📞 [NOVA] Call Mahmoud Gabr (auto-block)</td>
+        <td>Sydney · before 8 May leave · move/decline if it doesn't suit</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="color: var(--muted); margin-top: 12px; font-size: 14px;">Free windows between treatments: 10:30–12:00 (90 min · partly used by Mahmoud call) · 12:30–13:30 (60 min) · 14:00–16:00 (120 min).</p>
+</section>
+
+<section>
+  <h2>🎯 Top 5 actions for Kim</h2>
+  <ol class="actions">
+    <li><b>Call Mahmoud Gabr today</b> — 11am block on gm.teamneo. Decision after the call: park or release. Annette draft already queued — only sends after you tweak/approve.</li>
+    <li><b>Confirm ASIC NK TALENT RECRUITMENT cancellation was intentional</b> <span class="yesno">Y/N</span> — if no, reinstatement window is 6 months.</li>
+    <li><b>Forward ATO BAS to Janice</b> (or tell Nova to draft the handover) — quarterly NEO-KLIEN activity statement is live.</li>
+    <li><b>Brisbane HIFU 10am Fatima starts during yoga buffer</b> — flagging only; reschedule yoga or accept the overlap.</li>
+    <li><b>Pricing-canon stale on website</b> — Lovable Prompt #4 in <a class="inline" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/website-audit-7may2026.html">website-audit-7may2026.html</a> still ready to paste (Solo $35 / Duo $49 / Multi $79 / Enterprise $149). Carries from yesterday.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>❓ Decisions Nova needs from Kim</h2>
+  <div class="card decision">
+    <ul class="compact">
+      <li><b>Mahmoud Gabr</b> — should Nova send the queued draft to Annette as-is once you've made the call? Y/N.</li>
+      <li><b>ASIC NK TALENT RECRUITMENT cancellation</b> — intentional?</li>
+      <li><b>ATO BAS handoff</b> — Nova drafts the email to Janice, or you handle direct?</li>
+      <li><b>Nim refund</b> — close-loop logged. No further action unless you want it surfaced in next AMEX rec.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>📰 Industry news <span class="pill">3 stories · ~3 sentences each</span></h2>
+
+  <div class="news-card">
+    <h3>🚨 Fresha quietly added paid tiers — narrative shift away from "free forever"</h3>
+    <div class="src">Source: Fresha vs Mindbody comparison · Pabau · The Salon Business · GetApp AU</div>
+    <p>Fresha's marketing has long leaned on "subscription-free", but 2026 product pages now show <b>two paid tiers — $19.95/mo individual, $14.95/mo per team-member Team</b> — alongside the existing 20% commission on new clients via the marketplace. This is a meaningful shift: the gravitational well of the salon-SaaS market is no longer purely a commission play, which closes part of BAT.AI's "no-commission, flat-fee" differentiation gap. <b>Implication for BAT.AI:</b> the no-commission line still wins on principle (Fresha's 20% on new clients is unchanged), but the "free vs paid" framing in the Investment Pack and competitor red-team needs a refresh — Fresha is now a paid+commission hybrid, not a free+commission play. Worth surfacing in the next COMPETITOR_RED_TEAM update. <a href="https://pabau.com/blog/best-beauty-salon-booking-software-in-the-us-2026/">Read more</a></p>
+  </div>
+
+  <div class="news-card">
+    <h3>📊 Shortcuts (AU competitor) leans into deposit-driven no-show reduction</h3>
+    <div class="src">Source: shortcutssoftware.com · Apr 2026 booking guide</div>
+    <p>Shortcuts' 2026 narrative push centres on their <b>"flexible booking deposit system can cut salon no-shows by up to 70%"</b> claim, paired with their own data point that 35% of clients prefer to book outside business hours (usually after dinner). Their entry-tier "Live" plan is $29/mo, Essentials starts at $85/mo — which sandwiches BAT.AI's pricing canon (Solo $35 / Duo $49 / Multi $79 / Enterprise $149) almost perfectly. <b>Implication:</b> BAT.AI's deposit-handling story needs to be at least as visible as Shortcuts'. Brisbane HIFU's $100 deposit + 24h cancel policy is real evidence; ought to be a marketing-site case-study, not buried in calendar descriptions. <a href="https://shortcutssoftware.com/salon-barbershop-online-booking-the-complete-2026-guide-to-growing-clients-and-revenue/">Read more</a></p>
+  </div>
+
+  <div class="news-card">
+    <h3>💉 HIFU 2026 trend: AI imaging + exosome synergy entering the conversation</h3>
+    <div class="src">Source: Fotromed · IAPAM 2025/26 trends</div>
+    <p>The 2026 HIFU narrative across industry pubs is converging on two themes: <b>AI/robotic skin scanning during treatment</b> (real-time feedback for energy depth) and <b>exosome co-administration</b> to accelerate healing and reduce side effects. Brisbane HIFU's 16D MMFU positioning still holds against the 7D-vs-15D-vs-16D conversation, but the marketing edge in 2026 is shifting from device specs toward outcome-stack stories (HIFU + exosomes + skincare protocol). Ultherapy remains the only formally FDA-cleared HIFU brand for facial indications — useful talking point against any "imported device" objection. <a href="https://fotromed.com/blog/emerging-hifu-innovations-transforming-aesthetics-in-2026/">Read more</a></p>
+  </div>
+</section>
+
+<section>
+  <h2>🛠 In flight (Nova working on)</h2>
+  <ul class="compact">
+    <li>Mahmoud draft + 11am calendar block (this briefing)</li>
+    <li>Carry-forward from yesterday: <a class="inline" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/pending_tenant_billing_credits_spec.md">pending_tenant_billing_credits_spec.md</a> — Brisbane HIFU as founding-comp tenant use case (you asked for spec, session ended before writing).</li>
+    <li>Investment Pack v2 refresh queued — full rebuild, not just price re-label.</li>
+    <li>15 admin app screenshots blocked on Nova service-account login (now resolved per BAT welcome emails — can re-attempt this morning).</li>
+    <li>FBT FY26 still due 21 May (14 days, 3 Q's open).</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🚧 Blockers</h2>
+  <div class="card blocker">
+    <ul class="compact">
+      <li><b>SMS preview channel still pending</b> — ClickSend wiring not yet active per Nova/CLAUDE.md daily rhythm spec.</li>
+      <li><b>Nova has reader-only access to most calendars</b> — can only auto-block to gm.teamneo (the only owner-access calendar). Mode B "primary write surface = neoklien.consulting" not yet possible from this MCP setup. Today's Mahmoud block is on gm.teamneo as a workaround.</li>
+      <li><b>MEMORY.md is 83.1KB vs 24.4KB limit</b> — index entries are too long; only part loaded at session start. Recommend a consolidation pass (skill: <code>anthropic-skills:consolidate-memory</code>) — not urgent but compounding.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>🌅 Tomorrow setup (Fri 8 May)</h2>
+  <ul class="compact">
+    <li>Friday is a HIFU treatment day — same block pattern likely.</li>
+    <li>If Mahmoud call doesn't happen today, Friday is the absolute last chance before his leave (late June return).</li>
+    <li>Mother's Day is Sun 10 May — no booking made yet across reminders received.</li>
+    <li>FBT FY26 deadline 21 May (T–13 days) — 3 questions outstanding.</li>
+  </ul>
+</section>
+
+<section style="margin-top: 48px;">
+  <h2>🌙 EOD wrap <span class="pill">5pm scheduled task · appended 22:15 AEST</span></h2>
+
+  <div class="stat-grid">
+    <div class="stat-card cal">
+      <div class="label">Done today</div>
+      <div class="value" style="color: var(--teal);">14+</div>
+      <div class="sub">5 PRs merged · 1 in CI · timesheet sent · ASIC reg ✓</div>
+    </div>
+    <div class="stat-card action">
+      <div class="label">Slipped</div>
+      <div class="value">4</div>
+      <div class="sub">Mahmoud · ATO BAS · ASIC Y/N · Lovable #4</div>
+    </div>
+    <div class="stat-card reply">
+      <div class="label">Late inbox</div>
+      <div class="value">16</div>
+      <div class="sub">3 🔴 Railway fails · Apple cert revoke · invoice · waiver</div>
+    </div>
+    <div class="stat-card noise" style="--accent: var(--red);">
+      <div class="label">P0 for tomorrow</div>
+      <div class="value" style="color: var(--red);">2</div>
+      <div class="sub">Railway PROD build · Mahmoud last chance</div>
+    </div>
+  </div>
+
+  <h2 style="font-size: 18px; margin-top: 24px;">✅ Done today</h2>
+  <div class="card flight">
+    <div class="card-body">
+      <b>BAT.ai 6-PR PM sprint</b> — 5 merged + 1 in CI: <a class="inline" href="https://github.com/brisbanehifu/booking-api/pull/349">#349</a> encoding fix (1,545 nbsp + 94 amp → 0 on Brisbane HIFU public booking page · PROD verified asset hash <code>index-CQpr0_pL.js</code> → <code>index-C0lc8tIK.js</code>) · <a class="inline" href="https://github.com/brisbanehifu/booking-api/pull/350">#350</a> multi-currency foundation (<code>tenants.default_currency</code> + <code>bookings.currency</code> + <code>formatMoney</code> helper) · <a class="inline" href="https://github.com/brisbanehifu/booking-api/pull/351">#351</a> shareable <code>/book-confirmed/:id</code> URL (unblocks SMS/email receipt deep-links + Google Ads pixel firing) · <a class="inline" href="https://github.com/brisbanehifu/booking-api/pull/353">#353</a> Forecast 7d/30d toggle + bounded fetch fix · <a class="inline" href="https://github.com/brisbanehifu/booking-api/pull/356">#356</a> AdminDashboard <code>formatMoney</code> + tenant currency · <a class="inline" href="https://github.com/brisbanehifu/booking-api/pull/355">#355</a> Google Ads Phase 1 (CI running at session-end — see ⚠️ flag below).<br /><br />
+      <b>Mid-day Nova ops</b> — Website audit shipped (13 issues · 8 Lovable prompts) · 5 dashboard hub pages built (app-hq · marketing-command-centre · competitors · investment · ceo-dashboard) · Investment Pack v2 scoping doc · Tenant Billing Credits engineering spec.<br /><br />
+      <b>Kim's outbound</b> — NT Water Resources weekly invoice <code>INV-0759-BM</code> sent to Zoe Dales at VDZ for Bill Mallett + Sai Rohith week ending 8 May (09:15 UTC). That's the recurring Thursday 8pm AEST cadence Luci handles — done.<br /><br />
+      <b>Closed loops</b> — ✅ ASIC: <b>BAT AI SOFTWARE</b> business name registration confirmed (transaction 1-Z5WCPVX, welcome letter + ASIC key in neoklien inbox). Carry-from-morning resolved.
+    </div>
+  </div>
+
+  <h2 style="font-size: 18px; margin-top: 24px;">❌ Slipped — carries to tomorrow</h2>
+  <div class="card action">
+    <ul class="compact" style="margin: 0;">
+      <li><b>Mahmoud Gabr call</b> — no sent email confirms the call happened (Annette draft still in gm.teamneo Drafts since 6 May 18:37). <b>Friday 8 May is the absolute last chance</b> before his late-June leave. Either Kim phoned and didn't update Annette yet, or the slot got eaten by HIFU run + PM PR sprint. Surface first thing tomorrow.</li>
+      <li><b>ATO BAS forward to Janice</b> — no sent email today on neoklien.consulting. Quarterly NEO-KLIEN activity statement still sitting unforwarded.</li>
+      <li><b>ASIC NK TALENT RECRUITMENT cancellation Y/N</b> — no decision recorded. Reinstatement window is 6 months if unintentional.</li>
+      <li><b>Pricing-canon Lovable Prompt #4</b> — Solo $35 / Duo $49 / Multi $79 / Enterprise $149 USD overhaul on marketing site. Prompt sitting ready in <a class="inline" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/website-audit-7may2026.html">website-audit-7may2026.html</a>. Carries 2 days now.</li>
+    </ul>
+  </div>
+
+  <h2 style="font-size: 18px; margin-top: 24px;">📥 Late inbox <span class="pill">since 12:30pm</span></h2>
+
+  <div class="card blocker">
+    <div class="card-head">
+      <span class="card-title">🔴 Railway: BUILD FAILED across BAT-PROD, BAT-DEV, BAT-DEMO</span>
+      <span class="card-tag">brisbane.hifu.clinic</span>
+      <span class="card-from">Railway · 22:07–22:14 AEST</span>
+    </div>
+    <div class="card-body">
+      All <b>three</b> Railway projects threw build-failure notifications within 7 minutes of each other tonight. Timing aligns with <a class="inline" href="https://github.com/brisbanehifu/booking-api/pull/355">PR #355</a> Google Ads Phase 1 force-push + CI run. The PM-late session handover noted #355 as "CI running" — these failures are most likely the same CI cycle.
+      <div class="card-suggested"><b>P0 morning action:</b> open Railway dashboard + check #355 CI status. If PROD is wedged, it's a Tier-3 deploy issue — wait for Kim live before rolling back. Brisbane HIFU public booking page (the encoding-fix PROD verify) was confirmed clean on <code>index-C0lc8tIK.js</code> at 11:43 UTC, so the failures are likely post-merge attempts of #355 only — not customer-facing yet. <b>Verify before alarming.</b></div>
+    </div>
+  </div>
+
+  <div class="card verify">
+    <div class="card-head">
+      <span class="card-title">⚠️ Apple Developer Certificate REVOKED — expected</span>
+      <span class="card-tag">brisbane.hifu.clinic</span>
+      <span class="card-from">Apple Developer · 21:35 AEST</span>
+    </div>
+    <div class="card-body">
+      "Distribution Team Name: Neo-Klien Pty Ltd" cert revoked. Memory note from this morning's iOS Build 42→46 work explicitly says "Apple cert revoke email is expected" — this is the expected one from yesterday's regen, not a surprise. ✅ No action.
+    </div>
+  </div>
+
+  <div class="card reply">
+    <div class="card-head">
+      <span class="card-title">🟡 Bill Mallett — invoice INV-0977 $4,400 AUD due 29 May</span>
+      <span class="card-tag">neoklien.consulting</span>
+      <span class="card-from">Mallit Solutions via Xero · 22:02 AEST</span>
+    </div>
+    <div class="card-body">
+      Bill's incoming invoice for his work — same Bill on the NT Water timesheet you sent today. Routine. Janice should pick up via Xero. No action needed unless you want it flagged in next AMEX rec.
+    </div>
+  </div>
+
+  <div class="card cal">
+    <div class="card-head">
+      <span class="card-title">🟢 New HIFU waiver — Julia Koomans</span>
+      <span class="card-tag">brisbane.hifu.clinic</span>
+      <span class="card-from">julia2567@yahoo.com · 19:49 AEST</span>
+    </div>
+    <div class="card-body">
+      Waiver submitted. No matching booking in this week's calendar — likely a pending walk-in or future booking. Worth checking if she has a confirmed slot or needs follow-up.
+    </div>
+  </div>
+
+  <div class="card cal">
+    <div class="card-head">
+      <span class="card-title">🟢 Hostinger website message — Brisbane HIFU</span>
+      <span class="card-tag">brisbane.hifu.clinic</span>
+      <span class="card-from">Hostinger notify · 19:44 AEST</span>
+    </div>
+    <div class="card-body">
+      "You have a new message on your website" — contact form lead via brisbanehifu.com Hostinger Builder. Body not in the email; needs login to read. Worth a 60-second check tomorrow morning.
+    </div>
+  </div>
+
+  <div class="card flight">
+    <div class="card-head">
+      <span class="card-title">📸 Kim sent 3 image-only emails to gm.teamneo (21:38 / 21:42 / 22:05 AEST)</span>
+      <span class="card-tag">mskimklein → gm.teamneo</span>
+    </div>
+    <div class="card-body">
+      Subjects empty + empty / "Calendar quick menu". Bodies empty (image attachments only). Likely UI/UX feedback on today's calendar work — pick up at start of tomorrow's session and decide if there's an action.
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--muted);">
+    <div class="card-head">
+      <span class="card-title">🟢 Routine noise (auto-archive candidates)</span>
+    </div>
+    <div class="card-body" style="font-size: 14px; color: var(--muted);">
+      LinkedIn add-suggestion (Aviraal Prasad) · JB Hi-Fi order confirm + Perks promo · Linkt monthly statement · Amazon Bluetooth mouse confirm (kim@safefamily) · OT Store · Breeze Balm Mother's Day · Vodafone promo · Beauty Amora · AWO Wellbeing Packs · Supplement Mart · AI For Leaders newsletter · Business Chamber QLD bulletin · ABN Register confirm.
+    </div>
+  </div>
+
+  <h2 style="font-size: 18px; margin-top: 24px;">🌅 Tomorrow setup (Fri 8 May)</h2>
+  <div class="card cal">
+    <div class="card-body">
+      <b>HIFU treatment day</b> — same block pattern likely. <b>Friday's the absolute last chance</b> for the Mahmoud Gabr call before his late-June leave.<br /><br />
+      <b>P0 morning order:</b><br />
+      1. <b>Open Railway + verify #355 CI / PROD build state</b> — three failure emails tonight need eyes before any new deploy fires.<br />
+      2. <b>Mahmoud call</b> if it didn't happen today — Annette draft pre-queued in gm.teamneo Drafts, just needs Kim to make the call then approve send.<br />
+      3. <b>ATO BAS handoff to Janice</b> + <b>ASIC Y/N decision</b> — both 30-second wins from yesterday's queue.<br /><br />
+      <b>Other carry:</b> Lovable Prompt #4 paste · Hostinger website message read · Julia Koomans waiver follow-up · 2 stacked PRs queued (Currency picker UI + SMS receipt URL rewrites — both ~30min–2h).<br /><br />
+      <b>Standing deadlines:</b> FBT FY26 due 21 May (T–13 days, 3 Q's open) · Mother's Day Sun 10 May (no booking made yet).
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="footer">
+  Generated by Nova · 7am + 5pm scheduled tasks · Thu 7 May 2026 Brisbane time<br />
+  Sources: gm.teamneo + neoklien + brishifu + mskim Gmail · GitHub PRs (brisbanehifu/booking-api) · Nova session handovers (mid-day + PM-late) · WebSearch · Nova MEMORY · CLAUDE.md<br />
+  Per Kim's locked rule (4 May 2026): briefings live in the dashboard, not in `.md` files. <a class="inline" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/index.html">← Back to Nova Dashboard</a>
+</div>
+
+</body>
+</html>

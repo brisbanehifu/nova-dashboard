@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Email Preview — Staff Welcome (PR #245)</title>
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;margin:0;padding:24px;background:#f6f7f9;color:#0c0a09;line-height:1.55;}
+  .container{max-width:1100px;margin:0 auto;}
+  h1{font-size:26px;font-weight:800;margin:0 0 6px;}
+  .sub{color:#5d5780;margin:0 0 24px;font-size:15px;}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0;}
+  @media (max-width:900px){.row{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid #DBDFE3;border-radius:12px;padding:0;overflow:hidden;}
+  .panel-hdr{padding:14px 18px;border-bottom:1px solid #EDF0F3;font-weight:700;font-size:13px;color:#0c0a09;background:#FAFBFC;display:flex;justify-content:space-between;align-items:center;}
+  .panel-hdr .meta{font-size:11px;color:#7a7a7a;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
+  .preview-frame{padding:18px;background:#f4f4f7;}
+  .render-mock{background:#fff;border-radius:8px;padding:0;}
+  .desc{color:#5d5780;font-size:14px;background:#FFFBEB;border-left:3px solid #d97706;padding:14px 18px;margin:18px 0;border-radius:8px;}
+  .desc strong{color:#92400E;}
+  ul.tight{margin:8px 0;padding-left:22px;} ul.tight li{margin:5px 0;font-size:14px;}
+  table.spec{width:100%;border-collapse:collapse;margin:8px 0;font-size:13.5px;}
+  table.spec th,table.spec td{padding:8px 12px;text-align:left;border-bottom:1px solid #EDF0F3;vertical-align:top;}
+  table.spec th{background:#f1f5fb;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:#0B2B5B;}
+  .ph{display:inline-block;background:repeating-linear-gradient(45deg,#EDF0F3,#EDF0F3 10px,#fff 10px,#fff 20px);border:2px dashed #999;color:#666;padding:24px;text-align:center;font-size:13px;width:100%;border-radius:8px;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Email design — what we have today, what we'd add with your Canva header</h1>
+<p class="sub">PR #245 (staff welcome email) renders the LEFT preview. RIGHT shows what the same email looks like once a Canva header is wired in.</p>
+
+<div class="desc">
+<strong>Reality check:</strong> There's no approved brand design system for emails yet. The staff welcome email uses solid <code>CLINIC_BRAND_COLOR</code> as a header bar, system fonts, no logo, no header image. It works (deliverable + readable) but it's plain. Same is true for the booking confirmation emails already in production via <code>notifications.js</code> — they use the same colour-bar pattern.
+</div>
+
+<div class="row">
+
+  <!-- LEFT: current state -->
+  <div class="panel">
+    <div class="panel-hdr">
+      Current — PR #245 as built
+      <span class="meta">solid colour header, no logo</span>
+    </div>
+    <div class="preview-frame">
+
+<!-- Live render of the staff welcome email -->
+<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#1a1a1a;line-height:1.55;">
+  <div style="background:#7c3aed;padding:28px 32px;color:#ffffff;">
+    <div style="font-size:13px;opacity:0.85;letter-spacing:0.5px;text-transform:uppercase;">Brisbane HIFU Clinic</div>
+    <h1 style="margin:8px 0 0;font-size:26px;font-weight:800;letter-spacing:-0.3px;">You're on the team! 🎉</h1>
+  </div>
+  <div style="padding:28px 32px;">
+    <p style="font-size:17px;margin:0 0 16px;">Hi Luci,</p>
+    <p style="font-size:16px;margin:0 0 16px;">Kim has just set you up on <strong>Brisbane HIFU Clinic</strong>'s booking system as a <strong>therapist</strong>. We're excited to have you!</p>
+    <p style="font-size:16px;margin:0 0 24px;">Tap the button below to set your password and start managing your bookings, calendar, and clients — it takes about 30 seconds.</p>
+    <div style="text-align:center;margin:0 0 28px;">
+      <a href="#" style="display:inline-block;padding:14px 32px;background:#7c3aed;color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;border-radius:10px;">Set up your account →</a>
+    </div>
+    <p style="font-size:14px;color:#5d5780;margin:0 0 6px;">Or copy this link into your browser:</p>
+    <p style="font-size:13px;color:#5d5780;word-break:break-all;margin:0 0 24px;"><a href="#" style="color:#7c3aed;">https://app.bookatreatment.ai/staff-invite?token=...</a></p>
+    <hr style="border:none;border-top:1px solid #ECEAF3;margin:24px 0;">
+    <p style="font-size:14px;color:#5d5780;margin:0 0 6px;"><strong>What you can do once you're in:</strong></p>
+    <ul style="font-size:14px;color:#5d5780;margin:0 0 16px;padding-left:20px;">
+      <li style="margin:4px 0;">View and manage your appointment calendar</li>
+      <li style="margin:4px 0;">See client records and treatment notes</li>
+      <li style="margin:4px 0;">Check in clients and process payments at the front desk</li>
+      <li style="margin:4px 0;">Download the Staff App for iOS / Android</li>
+    </ul>
+    <p style="font-size:14px;color:#5d5780;margin:0;">Stuck? Just reply to this email and we'll help you out.</p>
+  </div>
+  <div style="background:#FAFBFC;padding:18px 32px;text-align:center;font-size:12px;color:#8b86a3;">
+    Sent by Brisbane HIFU Clinic via BookATreatment.AI · This invite link expires in 14 days for security.
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <!-- RIGHT: with Canva header -->
+  <div class="panel">
+    <div class="panel-hdr">
+      Future — same email, with a Canva header image
+      <span class="meta">drop-in image at top</span>
+    </div>
+    <div class="preview-frame">
+
+<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#1a1a1a;line-height:1.55;">
+  <!-- Where the Canva PNG goes -->
+  <div class="ph">
+    Canva-designed header image<br>
+    <span style="font-weight:400;font-size:11px;">600 × 200 px PNG · clinic logo · brand colours · "Welcome to Brisbane HIFU" or unbranded for reuse across emails</span>
+  </div>
+  <div style="padding:28px 32px;">
+    <p style="font-size:17px;margin:0 0 16px;">Hi Luci,</p>
+    <p style="font-size:16px;margin:0 0 16px;">Kim has just set you up on <strong>Brisbane HIFU Clinic</strong>'s booking system as a <strong>therapist</strong>. We're excited to have you!</p>
+    <p style="font-size:16px;margin:0 0 24px;">Tap the button below to set your password and start managing your bookings, calendar, and clients — it takes about 30 seconds.</p>
+    <div style="text-align:center;margin:0 0 28px;">
+      <a href="#" style="display:inline-block;padding:14px 32px;background:#7c3aed;color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;border-radius:10px;">Set up your account →</a>
+    </div>
+    <p style="font-size:14px;color:#5d5780;margin:0 0 6px;">Or copy this link into your browser:</p>
+    <p style="font-size:13px;color:#5d5780;word-break:break-all;margin:0 0 24px;"><a href="#" style="color:#7c3aed;">https://app.bookatreatment.ai/staff-invite?token=...</a></p>
+    <hr style="border:none;border-top:1px solid #ECEAF3;margin:24px 0;">
+    <p style="font-size:14px;color:#5d5780;margin:0 0 6px;"><strong>What you can do once you're in:</strong></p>
+    <ul style="font-size:14px;color:#5d5780;margin:0 0 16px;padding-left:20px;">
+      <li style="margin:4px 0;">View and manage your appointment calendar</li>
+      <li style="margin:4px 0;">See client records and treatment notes</li>
+      <li style="margin:4px 0;">Check in clients and process payments at the front desk</li>
+      <li style="margin:4px 0;">Download the Staff App for iOS / Android</li>
+    </ul>
+    <p style="font-size:14px;color:#5d5780;margin:0;">Stuck? Just reply to this email and we'll help you out.</p>
+  </div>
+  <div style="background:#FAFBFC;padding:18px 32px;text-align:center;font-size:12px;color:#8b86a3;">
+    Sent by Brisbane HIFU Clinic via BookATreatment.AI · This invite link expires in 14 days for security.
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<h2 style="margin-top:36px;">Path C — what's been designed vs not</h2>
+
+<table class="spec">
+  <thead><tr><th style="width:25%">Email</th><th style="width:15%">Spec design?</th><th style="width:15%">Visual design?</th><th>What's defined / what's missing</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Staff welcome</strong> (this PR #245)</td><td>—</td><td>⚠ Plain solid-colour header, no logo</td><td>Body content done. Visual = same colour-bar pattern as booking confirmations. Header image slot ready.</td></tr>
+    <tr><td><strong>Tenant signup welcome</strong> (P0 next)</td><td>✓ EMAIL_NURTURE_SEQUENCE_SPEC §02 + EMAIL_TEMPLATE_WELCOME.html (referenced in spec)</td><td>❌ None</td><td>Spec defines what to say, ship target, and ship-order. Does not define visual design / header / branding.</td></tr>
+    <tr><td><strong>Trial-ending + trial-ended</strong></td><td>✓ Triggers + content principles (§03 event-driven)</td><td>❌ None</td><td>"Don't be desperate" tone defined. No layout.</td></tr>
+    <tr><td><strong>Day-30 check-in</strong></td><td>✓ §02 — short, single CTA, "How's it going?"</td><td>❌ None</td><td>—</td></tr>
+    <tr><td><strong>Monthly newsletter</strong></td><td>✓ §02 — 1st of month 9 AM Brisbane, 3 blocks (shipped / customer win / ops tip), ~150 words</td><td>❌ None</td><td>Strict cadence rule defined. Layout TBD.</td></tr>
+    <tr><td><strong>Event-driven</strong> (failed payment / plan-limit)</td><td>✓ §03 list of triggers + tone</td><td>❌ None</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<h2>What I need from you (Canva)</h2>
+
+<div class="desc">
+<strong>If you're up for designing a header:</strong>
+<ul class="tight">
+  <li><strong>Size:</strong> 600 × 200 px PNG (most email clients cap at 600 wide)</li>
+  <li><strong>One per "brand":</strong> Brisbane HIFU has its own; BookATreatment.AI (for tenant signup + nurture series) has its own. Or one generic that works for both — your call.</li>
+  <li><strong>Content:</strong> Logo + clinic name + maybe a tagline. Keep type large enough to read on mobile (no fine print — mobile email clients shrink images).</li>
+  <li><strong>Format:</strong> PNG with white or transparent background, &lt; 100 KB so it loads instantly. JPEG is fine for photo-heavy designs.</li>
+  <li><strong>Hosting:</strong> Send me the file → I host on the same GitHub Pages repo as the migration checklist (free, instant, HTTPS) → I wire the URL into the email template once.</li>
+  <li><strong>Reusable:</strong> Same image goes on staff welcome + all Path C emails. Saves duplicating design work.</li>
+</ul>
+</div>
+
+<p>Once you send me the PNG (or two — one for clinics, one for BAT), I add it to the template and every email built from this point forward picks it up automatically. <strong>No additional dev cost per email.</strong></p>
+
+<p style="color:#7a7a7a;font-size:13px;margin-top:32px;border-top:1px solid #DBDFE3;padding-top:16px;">Built 4 May 2026 by Nova · linked from PR #245 + Path C planning</p>
+
+</div>
+</body>
+</html>

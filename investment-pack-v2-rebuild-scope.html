@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Investment Pack v2 — Rebuild Scope · BAT.AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-dark:    #1A0A2E;
+    --brand-deep:    #2C1A50;
+    --brand-teal:    #00E8B4;
+    --brand-coral:   #FF7A6E;
+    --brand-purple:  #9B3DFF;
+    --brand-pink:    #F040C8;
+    --green:  #16a34a;
+    --blue:   #0891b2;
+    --amber:  #d97706;
+    --red:    #dc2626;
+    --purple: #7c3aed;
+    --ink:    #1a1a1a;
+    --muted:  #6b6b6b;
+    --line:   #e9e6f0;
+    --bg:     #faf9fc;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .hero {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-deep) 100%);
+    color: #fff;
+    padding: 36px 28px 32px;
+  }
+  .hero-inner { max-width: 1180px; margin: 0 auto; }
+  .hero h1 { margin: 0 0 6px; font-size: 26px; font-weight: 800; letter-spacing: -0.3px; }
+  .hero .meta { color: #c7b8e6; font-size: 12px; letter-spacing: 0.3px; }
+  .hero .meta a { color: #ffd9f3; text-decoration: none; border-bottom: 1px dotted #ffd9f3; }
+  .hero .badge-row { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    display: inline-block; padding: 4px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+    background: rgba(255,255,255,0.12); color: #fff;
+  }
+  .pill.teal   { background: rgba(0,232,180,0.18); color: #2ff7c7; }
+  .pill.coral  { background: rgba(255,122,110,0.18); color: #ffb6ad; }
+  .pill.purple { background: rgba(155,61,255,0.22); color: #d4b5ff; }
+  .pill.amber  { background: rgba(217,119,6,0.22); color: #ffd9a0; }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 24px 22px 60px; }
+
+  h2 { font-size: 18px; font-weight: 700; margin: 28px 0 12px; }
+  h3 { font-size: 14px; font-weight: 700; margin: 0 0 8px; color: var(--ink); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: -22px;
+    margin-bottom: 18px;
+  }
+  .stat {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid var(--line);
+  }
+  .stat .num {
+    font-size: 28px; font-weight: 800; line-height: 1; margin: 0;
+  }
+  .stat .lbl {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: #7a7a7a; margin-top: 6px;
+  }
+  .stat .delta {
+    font-size: 11px; font-weight: 600; margin-top: 4px;
+  }
+  .stat.green  .num { color: var(--green); }
+  .stat.blue   .num { color: var(--blue); }
+  .stat.amber  .num { color: var(--amber); }
+  .stat.red    .num { color: var(--red); }
+  .stat.purple .num { color: var(--purple); }
+
+  .legend {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 22px;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+  }
+  .legend strong { color: var(--ink); }
+  .chip { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 600; font-size: 11px; }
+  .chip.green  { background: rgba(22,163,74,0.10);  color: var(--green); }
+  .chip.amber  { background: rgba(217,119,6,0.10);  color: var(--amber); }
+  .chip.red    { background: rgba(220,38,38,0.10);  color: var(--red); }
+  .chip.purple { background: rgba(124,58,237,0.10); color: var(--purple); }
+  .chip.blue   { background: rgba(8,145,178,0.10);  color: var(--blue); }
+
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    background: #fff; border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--line);
+    margin-bottom: 14px;
+  }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: #f6f3fb; font-weight: 700; color: var(--ink); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+  tr:last-child td { border-bottom: none; }
+  tr.tier-1 td { background: rgba(220,38,38,0.04); }   /* red — must change */
+  tr.tier-2 td { background: rgba(217,119,6,0.04); }   /* amber — likely change */
+  tr.tier-3 td { background: rgba(8,145,178,0.04); }   /* blue — confirm */
+  tr.tier-4 td { background: rgba(22,163,74,0.04); }   /* green — keep */
+  td .meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  code { background: #f4eef9; padding: 2px 5px; border-radius: 4px; font-size: 12px; color: var(--brand-deep); }
+  s { color: var(--red); opacity: 0.7; }
+  .new { color: var(--green); font-weight: 700; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .card.tinted-green  { background: rgba(22,163,74,0.04); border-color: rgba(22,163,74,0.2); }
+  .card.tinted-amber  { background: rgba(217,119,6,0.04); border-color: rgba(217,119,6,0.2); }
+  .card.tinted-purple { background: rgba(124,58,237,0.04); border-color: rgba(124,58,237,0.2); }
+  .card.tinted-red    { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.2); }
+
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 10px 0 18px;
+  }
+  @media (max-width: 700px) { .compare { grid-template-columns: 1fr; } }
+  .compare .col {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .compare .col.old {
+    background: rgba(220,38,38,0.03);
+    border-color: rgba(220,38,38,0.2);
+  }
+  .compare .col.new {
+    background: rgba(22,163,74,0.04);
+    border-color: rgba(22,163,74,0.25);
+  }
+  .compare .col h4 { margin: 0 0 8px; font-size: 13px; font-weight: 700; }
+  .compare .col.old h4 { color: var(--red); }
+  .compare .col.new h4 { color: var(--green); }
+
+  ol, ul { margin: 4px 0 6px 18px; padding: 0; }
+  li { margin: 4px 0; }
+
+  .question {
+    border-left: 3px solid var(--brand-purple);
+    background: rgba(155,61,255,0.04);
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    margin: 10px 0;
+  }
+  .question .q { font-weight: 700; }
+  .question .default { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 40px;
+    padding-top: 18px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  footer a { color: var(--brand-purple); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <h1>📈 Investment Pack v2 — rebuild scope</h1>
+    <div class="meta">
+      Created 7 May 2026 · Author: Nova Klein · Owner: Kim Klein ·
+      Source files: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/">Investment Pack/</a>
+    </div>
+    <div class="badge-row">
+      <span class="pill amber">All major files stale</span>
+      <span class="pill purple">Currency flip AUD→USD</span>
+      <span class="pill teal">4 customers (1 live, 3 pre-launch)</span>
+      <span class="pill coral">5 open Qs for Kim</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ── BIG STAT CARDS ────────────────────────────────────────────────── -->
+<section class="stats">
+  <div class="stat red">
+    <p class="num">11</p>
+    <div class="lbl">Stale claims found</div>
+    <div class="delta" style="color:var(--red)">all need updating</div>
+  </div>
+  <div class="stat amber">
+    <p class="num">21</p>
+    <div class="lbl">Files in pack</div>
+    <div class="delta" style="color:var(--amber)">3 P0 / 4 P1 / 14 P2</div>
+  </div>
+  <div class="stat green">
+    <p class="num">$78</p>
+    <div class="lbl">New blended ARPU (USD)</div>
+    <div class="delta" style="color:var(--green)">↑ from $67 AUD</div>
+  </div>
+  <div class="stat blue">
+    <p class="num">4</p>
+    <div class="lbl">Customers (was 1)</div>
+    <div class="delta" style="color:var(--blue)">1 LIVE + 3 pre-launch</div>
+  </div>
+  <div class="stat purple">
+    <p class="num">5</p>
+    <div class="lbl">New stories to weave in</div>
+    <div class="delta" style="color:var(--purple)">land-and-expand · comps · etc.</div>
+  </div>
+  <div class="stat green">
+    <p class="num">$186K</p>
+    <div class="lbl">New Y1 ARR (was $160K AUD)</div>
+    <div class="delta" style="color:var(--green)">at 199 customers exit</div>
+  </div>
+</section>
+
+<div class="legend">
+  <strong>Legend:</strong>
+  <span class="chip red">P0 · must change before share</span>
+  <span class="chip amber">P1 · likely change</span>
+  <span class="chip blue">P2 · confirm or refresh</span>
+  <span class="chip green">P3 · keep / unchanged</span>
+</div>
+
+<!-- ── WHY ─────────────────────────────────────────────────────────── -->
+<h2>1. Why a v2 (not just a re-label)</h2>
+<div class="card">
+  <p style="margin:0 0 8px;">Five things changed since v1 was built (29 March 2026) that compound — currency, tier names, prices, customer count, and the addition of a comp/credits feature. Each alone would warrant a touch-up. Together they make every Y1 projection, every ARPU number, every "competitive advantage" bullet, and every customer-traction stat stale at the same time. <strong>Re-labelling currency in place will leave wrong maths underneath.</strong> v2 = full rebuild with locked numbers + the new traction stories Kim has earned in the 6 weeks since v1.</p>
+</div>
+
+<!-- ── PRICING REWRITE ─────────────────────────────────────────────── -->
+<h2>2. Pricing rewrite — the heart of the change</h2>
+<div class="compare">
+  <div class="col old">
+    <h4>❌ OLD (v1, dead per pricing canon 7 May)</h4>
+    <table style="margin:0;background:transparent;border:none;">
+      <tr><td><s>Starter</s></td><td><s>$29 AUD</s></td></tr>
+      <tr><td><s>Growth</s></td><td><s>$79 AUD</s></td></tr>
+      <tr><td><s>Pro</s></td><td><s>$149 AUD</s></td></tr>
+      <tr><td><s>Enterprise</s></td><td><s>$199 AUD</s></td></tr>
+    </table>
+    <p style="margin:8px 0 0;font-size:12px;color:var(--muted);">Currency: AUD · GST inclusive · "From $29/mo" hero copy</p>
+  </div>
+  <div class="col new">
+    <h4>✅ NEW (v2, locked per <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/bat_pricing_canon_7may2026.md">pricing canon</a>)</h4>
+    <table style="margin:0;background:transparent;border:none;">
+      <tr><td><span class="new">Free Trial</span></td><td><span class="new">$0 / 14 days</span></td></tr>
+      <tr><td><span class="new">Solo</span></td><td><span class="new">$35 USD</span></td></tr>
+      <tr><td><span class="new">Duo (POPULAR)</span></td><td><span class="new">$49 USD</span></td></tr>
+      <tr><td><span class="new">Multi</span></td><td><span class="new">$79 USD</span></td></tr>
+      <tr><td><span class="new">Enterprise</span></td><td><span class="new">$149 USD</span></td></tr>
+    </table>
+    <p style="margin:8px 0 0;font-size:12px;color:var(--muted);">Currency: USD · No-contract, cancel-anytime · "From $35/mo" hero copy</p>
+  </div>
+</div>
+
+<!-- ── ARPU MATHS ──────────────────────────────────────────────────── -->
+<h2>3. ARPU + MRR maths — the new spine</h2>
+<table>
+  <thead>
+    <tr><th>Mix assumption</th><th>v1 number</th><th>v2 number</th><th>Math</th></tr>
+  </thead>
+  <tbody>
+    <tr class="tier-3">
+      <td><strong>Mix shape</strong> (% of customers per tier)</td>
+      <td>~25% Starter · 35% Growth · 25% Pro · 15% Ent</td>
+      <td>~20% Solo · 40% Duo · 25% Multi · 15% Ent</td>
+      <td>Duo gets the POPULAR badge → tilt mix toward it</td>
+    </tr>
+    <tr class="tier-1">
+      <td><strong>Blended ARPU</strong></td>
+      <td>$67 AUD/mo</td>
+      <td><span class="new">$77.55 USD/mo</span></td>
+      <td>0.20×35 + 0.40×49 + 0.25×79 + 0.15×149 = $77.55</td>
+    </tr>
+    <tr class="tier-1">
+      <td><strong>Y1 customer count</strong> (exit)</td>
+      <td>199</td>
+      <td>199 (unchanged)</td>
+      <td>Acquisition assumptions don't depend on tier names</td>
+    </tr>
+    <tr class="tier-1">
+      <td><strong>Exit MRR</strong> (Month 12)</td>
+      <td>$13,333 AUD</td>
+      <td><span class="new">$15,432 USD</span></td>
+      <td>199 × $77.55</td>
+    </tr>
+    <tr class="tier-1">
+      <td><strong>Annualised Run Rate</strong></td>
+      <td>$160K AUD</td>
+      <td><span class="new">$185K USD</span></td>
+      <td>$15,432 × 12</td>
+    </tr>
+    <tr class="tier-1">
+      <td><strong>Y1 total revenue</strong> (ramp)</td>
+      <td>$56,280 AUD</td>
+      <td><span class="new">~$65K USD</span></td>
+      <td>Same ramp shape, scaled to new ARPU</td>
+    </tr>
+    <tr class="tier-2">
+      <td><strong>Break-even</strong> customer count</td>
+      <td>27 (Month 5)</td>
+      <td>~24 (Month 4–5)</td>
+      <td>Higher ARPU → fewer customers needed to cover fixed cost</td>
+    </tr>
+    <tr class="tier-2">
+      <td><strong>Comp count</strong> (Brisbane HIFU)</td>
+      <td>not modelled</td>
+      <td><span class="new">1 (excluded from MRR)</span></td>
+      <td>Per <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/BILLING_CREDITS_SPEC.md">BILLING_CREDITS_SPEC</a> — gross/net/comp split</td>
+    </tr>
+  </tbody>
+</table>
+<p style="font-size:12px;color:var(--muted);margin:0 0 16px;">⚠ The mix percentages above are Nova's best estimate based on the POPULAR badge being on Duo. Kim — confirm or adjust. The blended ARPU recalculates automatically once you lock the mix.</p>
+
+<!-- ── CUSTOMER TRACTION REWRITE ───────────────────────────────────── -->
+<h2>4. Customer traction rewrite — the strongest new story</h2>
+<div class="card tinted-green">
+  <h3>v1 said: "First tenant operational: Brisbane HIFU Clinic" (1 customer)</h3>
+  <h3 style="margin-top:14px;">v2 says: 1 LIVE + 3 pre-launch + cross-business synergy</h3>
+  <table style="margin-top:10px;">
+    <thead>
+      <tr><th>#</th><th>Tenant</th><th>Status</th><th>Cross-business angle</th></tr>
+    </thead>
+    <tbody>
+      <tr class="tier-4">
+        <td>1</td>
+        <td><strong>Brisbane HIFU</strong></td>
+        <td><span class="chip green">🟢 LIVE</span> (Founding Clinic, comped)</td>
+        <td>Dogfooding — proves the platform on Kim's own clinic</td>
+      </tr>
+      <tr class="tier-4">
+        <td>2</td>
+        <td><strong>Redlands HIFU</strong></td>
+        <td><span class="chip amber">🟡 Pre-launch</span></td>
+        <td><strong>$43,995 HIFU machine + SaaS subscription</strong> — land-and-expand proof</td>
+      </tr>
+      <tr class="tier-4">
+        <td>3</td>
+        <td><strong>Gold Coast HIFU</strong></td>
+        <td><span class="chip amber">🟡 Pre-launch</span></td>
+        <td>(Details outstanding — Kim to confirm)</td>
+      </tr>
+      <tr class="tier-4">
+        <td>4</td>
+        <td><strong>Hamptons Body Lounge</strong></td>
+        <td><span class="chip purple">🟡 Pre-launch · Fresha switch</span></td>
+        <td><strong>Competitor switch from Fresha</strong> + HMS hardware = dual-business win</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin:12px 0 0;font-size:13px;">
+    <strong>Investor framing:</strong> "We have 4 customers in 6 weeks, including 2 dual-business wins (machine + SaaS) and 1 competitive switch. The cross-business model lets us land hardware customers and expand into recurring SaaS revenue with negative friction."
+  </p>
+</div>
+
+<!-- ── ALL STALE CLAIMS REDLINE ────────────────────────────────────── -->
+<h2>5. Every stale claim found — full redline</h2>
+<table>
+  <thead>
+    <tr><th style="width:24%">File</th><th style="width:22%">Stale claim</th><th>Replace with</th><th style="width:8%">Pri</th></tr>
+  </thead>
+  <tbody>
+    <tr class="tier-1">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · line 4</td>
+      <td>"March 2026"</td>
+      <td>"May 2026" (or month of next investor share)</td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-1">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · §Solution table</td>
+      <td>"AI Image Cost to Serve · ~$0.02–0.08/image" + "Image Margin at Starter (25 imgs) · ~$0.50–$2.00 cost vs $29 plan"</td>
+      <td>Update tier name to Solo + price to $35 USD; recheck cost-to-serve math in USD</td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-1">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · §Business Model table</td>
+      <td>4 rows of Starter/Growth/Pro/Enterprise at AUD prices</td>
+      <td>5 rows including Free Trial; Solo/Duo/Multi/Enterprise at USD prices; per-tier feature copy from <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/bat_pricing_canon_7may2026.md">canon</a></td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-1">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · §Business Model</td>
+      <td>"Blended ARPU: ~$67/mo"</td>
+      <td>"Blended ARPU: ~$77.55 USD/mo (mix-weighted)"</td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-1">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · §Traction</td>
+      <td>"First tenant operational: Brisbane HIFU Clinic"</td>
+      <td>"1 LIVE customer + 3 pre-launch (incl. 2 cross-business HIFU machine wins + 1 Fresha competitive switch)"</td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-1">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · §Y1 Projections</td>
+      <td>All AUD figures (revenue $56,280 / MRR $13,333 / ARR $160K / EBITDA $35,922 / Cash $40,902)</td>
+      <td>USD-denominated rebuild from new ARPU. See §3 above.</td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-2">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · §Competitive Advantage</td>
+      <td>"Every feature at every price · from $29/mo"</td>
+      <td>"Every feature at every price · from $35 USD/mo"</td>
+      <td><span class="chip amber">P1</span></td>
+    </tr>
+    <tr class="tier-2">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · §Competitive Advantage #7</td>
+      <td>"Ad management revenue upside — 10% fee on Meta/Google ad spend"</td>
+      <td>Confirm: still 10% or has this shifted to 8% per BAT.AI revenue model rule? (CLAUDE.md says <strong>opt-in 8%</strong>)</td>
+      <td><span class="chip amber">P1</span></td>
+    </tr>
+    <tr class="tier-2">
+      <td><code>INVESTMENT_ONE_PAGER.md</code> · §Use of Funds</td>
+      <td>"$150K Seed" with AUD-flavoured allocations</td>
+      <td>Confirm: still $150K, but now USD or kept AUD? Allocations re-priced for USD inputs.</td>
+      <td><span class="chip amber">P1</span></td>
+    </tr>
+    <tr class="tier-1">
+      <td><code>BookATreatment_Master_Investment_Pack.html</code></td>
+      <td>Same tier names + AUD figures as above (full pack version)</td>
+      <td>Mirror every change in the one-pager + add the credits feature story + 4-customer traction grid</td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-1">
+      <td><code>BookATreatment-BusinessPlan-v6-updated.pdf</code></td>
+      <td>Likely full set of stale figures (PDF — needs regeneration from source .md or .html)</td>
+      <td>Re-export from the master HTML once master is rebuilt</td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-1">
+      <td><code>BookATreatment_Cashflow_Year1.xlsx</code></td>
+      <td>AUD cashflow with old tier prices baked into formulas</td>
+      <td>Rebuild in USD — new pricing rows in the SaaS revenue tab; recalculate downstream cash + EBITDA</td>
+      <td><span class="chip red">P0</span></td>
+    </tr>
+    <tr class="tier-2">
+      <td><code>Investment_One_Pager.pdf</code></td>
+      <td>Stale PDF rendering of the one-pager .md</td>
+      <td>Regenerate from rebuilt .md</td>
+      <td><span class="chip amber">P1</span></td>
+    </tr>
+    <tr class="tier-2">
+      <td><code>CEO_Investment_Dashboard.pdf</code></td>
+      <td>Likely stale</td>
+      <td>Re-render after the .md + xlsx are rebuilt</td>
+      <td><span class="chip amber">P1</span></td>
+    </tr>
+    <tr class="tier-3">
+      <td><code>INVESTMENT_DASHBOARD.md</code></td>
+      <td>Audit pending — likely stale</td>
+      <td>Read + redline as part of v2</td>
+      <td><span class="chip blue">P2</span></td>
+    </tr>
+    <tr class="tier-3">
+      <td><code>FEATURES_AND_BENEFITS.md</code></td>
+      <td>Likely accurate but worth confirming feature count</td>
+      <td>Cross-check vs <code>IMPLEMENTATION_STATUS.md</code></td>
+      <td><span class="chip blue">P2</span></td>
+    </tr>
+    <tr class="tier-3">
+      <td><code>GoToMarket_Plan.html</code></td>
+      <td>Pricing references — same Starter/Growth/Pro language likely throughout</td>
+      <td>Sweep + replace tier names + currency</td>
+      <td><span class="chip blue">P2</span></td>
+    </tr>
+    <tr class="tier-3">
+      <td><code>Competitor_Intelligence_Report.html</code></td>
+      <td>Competitor pricing snapshots from March</td>
+      <td>Confirm Fresha + Timely + Mindbody current pricing; refresh the table</td>
+      <td><span class="chip blue">P2</span></td>
+    </tr>
+    <tr class="tier-4">
+      <td>Playbooks (Cyber, Financial, Legal, Security, Startup Ops, AI Workforce)</td>
+      <td>Generic frameworks — rarely tier/currency dependent</td>
+      <td>Spot-check; likely keep unchanged</td>
+      <td><span class="chip green">P3</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── NEW STORIES TO ADD ──────────────────────────────────────────── -->
+<h2>6. Five new stories to weave in (didn't exist in v1)</h2>
+<div class="grid">
+  <div class="card tinted-purple">
+    <h3>① Land-and-expand (HIFU machine → SaaS)</h3>
+    <p style="margin:0;">Redlands HIFU and Hamptons Body Lounge both bought $40K+ machines from HIFU Machine Sales AND signed up for BookATreatment.AI SaaS. The two-business model means hardware sales feed the SaaS pipeline with negative CAC. <strong>Investor narrative</strong>: "We have a unique acquisition channel competitors can't match."</p>
+  </div>
+  <div class="card tinted-purple">
+    <h3>② Competitive switch from Fresha</h3>
+    <p style="margin:0;">Hamptons Body Lounge is leaving Fresha to come to BAT.AI. First documented competitive win, validates the "no commission · every feature included" positioning. <strong>Investor narrative</strong>: "We're already winning Fresha customers without a sales team."</p>
+  </div>
+  <div class="card tinted-purple">
+    <h3>③ Multi-tenant infra fully shipped</h3>
+    <p style="margin:0;">v1 talked about "first customer". v2 can talk about Phase 1 (tenants table + scoping middleware) and Phase 2 (self-service signup) shipped April 21–22, with Phase 3 (per-tenant subdomains) in progress. <strong>Investor narrative</strong>: "Capital-efficient infrastructure already in place to scale to thousands of tenants."</p>
+  </div>
+  <div class="card tinted-purple">
+    <h3>④ Tenant credits / comp model (NEW)</h3>
+    <p style="margin:0;">Per <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/billing-credits-spec.html">today's billing-credits spec</a>, BAT.AI now has a credit-ledger feature that supports founding-customer comps, beta partners, and AppSumo-lifetime deals — all with audit trail and a gross/net/comp MRR split for honest investor reporting. <strong>Investor narrative</strong>: "Our reporting tells you the truth — net MRR strips comps automatically."</p>
+  </div>
+  <div class="card tinted-purple">
+    <h3>⑤ HeyGen / KiMMi marketing pipeline</h3>
+    <p style="margin:0;">Per the 19 April scripts lock — AI-generated video content is wired through HeyGen with a CGI ambassador (KiMMi) targeting clinic owners. Ties to the "AI-first" competitive advantage. <strong>Investor narrative</strong>: "Marketing scales without proportional spend — AI does the on-camera work."</p>
+  </div>
+  <div class="card tinted-purple">
+    <h3>(Optional) ⑥ PwC tender shortlist (TeamNEO)</h3>
+    <p style="margin:0;">Use carefully — depends on investor. Founder credibility signal: Kim's other business (TeamNEO.tech) is shortlisted in 3 categories of a PwC government tender. Says "the founder ships and wins" without diluting the BAT.AI pitch.</p>
+  </div>
+</div>
+
+<!-- ── REBUILD PLAN ────────────────────────────────────────────────── -->
+<h2>7. Rebuild plan — order of operations</h2>
+<table>
+  <thead>
+    <tr><th style="width:6%">#</th><th style="width:24%">Step</th><th>What happens</th><th style="width:14%">Output</th></tr>
+  </thead>
+  <tbody>
+    <tr class="tier-1">
+      <td>1</td>
+      <td><strong>Kim answers 5 open Qs</strong> (below)</td>
+      <td>Locks the assumptions Nova needs to draft v2</td>
+      <td>Inline replies on this dashboard or in chat</td>
+    </tr>
+    <tr class="tier-1">
+      <td>2</td>
+      <td><strong>Nova rebuilds <code>INVESTMENT_ONE_PAGER.md</code></strong></td>
+      <td>New tier table · new ARPU · new Y1 projections · new traction · 5 new stories woven in</td>
+      <td>Source .md + redline file</td>
+    </tr>
+    <tr class="tier-1">
+      <td>3</td>
+      <td><strong>Nova rebuilds <code>BookATreatment_Master_Investment_Pack.html</code></strong></td>
+      <td>Mirrors all changes from one-pager · brand-locked colours · Plus Jakarta Sans</td>
+      <td>HTML file</td>
+    </tr>
+    <tr class="tier-1">
+      <td>4</td>
+      <td><strong>Nova rebuilds <code>BookATreatment_Cashflow_Year1.xlsx</code></strong></td>
+      <td>USD pricing in revenue tab · downstream EBITDA + cash recalculated · per <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/MEMORY.md">xlsx skill</a></td>
+      <td>Refreshed .xlsx</td>
+    </tr>
+    <tr class="tier-2">
+      <td>5</td>
+      <td><strong>Kim reviews redline</strong></td>
+      <td>Marks: approve / change-this / cut-this / add-this</td>
+      <td>Inline edits</td>
+    </tr>
+    <tr class="tier-2">
+      <td>6</td>
+      <td><strong>Nova regenerates PDFs</strong></td>
+      <td>Re-export Investment_One_Pager.pdf, BusinessPlan-v7.pdf, CEO_Investment_Dashboard.pdf</td>
+      <td>PDFs · old v6 files moved to <code>_archive/</code></td>
+    </tr>
+    <tr class="tier-2">
+      <td>7</td>
+      <td><strong>Sweep secondary files</strong></td>
+      <td>GoToMarket_Plan.html · Competitor_Intelligence_Report.html · INVESTMENT_DASHBOARD.md · FEATURES_AND_BENEFITS.md</td>
+      <td>Updated files</td>
+    </tr>
+    <tr class="tier-3">
+      <td>8</td>
+      <td><strong>Final sign-off + version stamp</strong></td>
+      <td>Kim confirms v2 is share-ready · Nova stamps every file with "v2 · 8 May 2026"</td>
+      <td>Locked pack</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── OPEN QS ─────────────────────────────────────────────────────── -->
+<h2>8. 5 open Qs for Kim — answer before rebuild kicks off</h2>
+
+<div class="question">
+  <div class="q">Q1 · Mix shape — confirm or adjust</div>
+  <div>Nova's estimate: 20% Solo · 40% Duo · 25% Multi · 15% Ent (Duo gets POPULAR weighting). Acceptable?</div>
+  <div class="default"><strong>If yes:</strong> Blended ARPU = $77.55 USD/mo · Exit MRR (199 customers) = $15,432 USD · Y1 ARR = $185K USD</div>
+</div>
+
+<div class="question">
+  <div class="q">Q2 · Use-of-funds — keep at $150K or scale?</div>
+  <div>v1 said "$150K seed" without specifying currency. v2 should be explicit. Keep at $150K USD (slight increase from AUD), or raise the ask?</div>
+  <div class="default"><strong>Default:</strong> $150K USD with allocations re-priced for USD inputs</div>
+</div>
+
+<div class="question">
+  <div class="q">Q3 · Ad-management fee — 8% or 10%?</div>
+  <div>v1 says "10% fee on Meta/Google ad spend". CLAUDE.md says "opt-in 8% on managed ads". Which is right for v2?</div>
+  <div class="default"><strong>Per CLAUDE.md:</strong> 8% (matches the no-commission flat-fee positioning better)</div>
+</div>
+
+<div class="question">
+  <div class="q">Q4 · Brisbane HIFU as comp — show or hide in pack?</div>
+  <div>Investor honesty argues for "1 paying + 1 founding-comp + 3 pre-launch". Marketing simplicity argues for "4 customers". Which?</div>
+  <div class="default"><strong>Default:</strong> show as Founding Comp — the credits feature itself becomes a story (story #4 above)</div>
+</div>
+
+<div class="question">
+  <div class="q">Q5 · Investor audience — who's seeing v2?</div>
+  <div>Affects the depth + tone. Solo angel · seed VC · accelerator? Drives whether to lean on PwC/TeamNEO credibility (story #6) or pure SaaS framing.</div>
+  <div class="default"><strong>If unknown:</strong> default to accelerator-friendly tone (lean SaaS narrative, story #6 omitted)</div>
+</div>
+
+<!-- ── HARD RULES (FROM EXISTING REFRESH DOC) ─────────────────────── -->
+<h2>9. Hard rules (carry over from existing refresh doc)</h2>
+<div class="card tinted-red">
+  <ul style="margin:0;">
+    <li><strong>Never invent or extrapolate metrics.</strong> Cite the source for every number.</li>
+    <li><strong>Never publish or share the updated pack.</strong> Kim sends to investors directly.</li>
+    <li><strong>Treat the pack as commercially sensitive</strong> — no copy-paste into chat or public-facing files.</li>
+    <li><strong>No commission language anywhere</strong> — flag immediately if found. BAT.AI = flat fee + opt-in ad-spend %, never commission.</li>
+    <li><strong>Don't claim what isn't shipped</strong> — every build claim cross-checked against <code>IMPLEMENTATION_STATUS.md</code>.</li>
+    <li><strong>Old files don't get deleted</strong> — moved to <code>_archive/</code> with date suffix so the audit trail of what investors saw at each stage stays intact.</li>
+  </ul>
+</div>
+
+<footer>
+  <p>
+    🔗 Existing refresh scoping doc: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/BAT-AI/INVESTMENT_PACK_REFRESH.md">Nova/BAT-AI/INVESTMENT_PACK_REFRESH.md</a><br>
+    🔗 Pricing canon: <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/bat_pricing_canon_7may2026.md">memory/bat_pricing_canon_7may2026.md</a><br>
+    🔗 Customers: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/BAT-AI/CUSTOMERS.md">Nova/BAT-AI/CUSTOMERS.md</a><br>
+    🔗 Implementation status: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/IMPLEMENTATION_STATUS.md">Technical Documents/IMPLEMENTATION_STATUS.md</a><br>
+    🔗 Today's billing-credits spec: <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/billing-credits-spec.html">Nova/Dashboard/billing-credits-spec.html</a>
+  </p>
+  <p style="margin-top:10px;">No source files have been modified yet — this is a scoping doc only. Rebuild begins when Kim answers the 5 Qs above.</p>
+</footer>
+
+</main>
+</body>
+</html>

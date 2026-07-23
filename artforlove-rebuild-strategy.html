@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art For Love — Rebuild Strategy &amp; Handover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#141414;--wine:#c2005e;--rose:#ff7ec2;--gold:#ff1493;--gold-soft:#ff5fa9;
+    --cream:#ffffff;--card:#ffffff;--line:#e6e6e6;--ink:#141414;
+    --red:#141414;--amber:#c2005e;--green:#d6006e;--blue:#ff1493;
+    --grad:linear-gradient(135deg,#ff1493,#b3005e);
+    --shadow:0 10px 28px rgba(20,20,20,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans','Segoe UI',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.55;padding-bottom:70px}
+  h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  a{color:inherit}
+
+  header{background:radial-gradient(120% 140% at 80% -10%,#ff1493 0%,#141414 60%);color:#fff;padding:34px 0 30px;border-bottom:4px solid var(--gold)}
+  .kick{letter-spacing:.34em;text-transform:uppercase;font-size:11px;color:var(--gold-soft);margin-bottom:10px;font-weight:600;font-family:'DM Sans'}
+  header h1{font-size:38px;line-height:1.05;font-weight:800;color:#fff}
+  header .tag{font-style:italic;color:#e8c9d3;font-family:'Playfair Display';font-size:16px;margin-top:6px}
+  header p{margin-top:12px;color:#e3cdd6;max-width:840px;font-size:14.5px}
+  .asat{font-size:12px;color:#caa9b6;margin-top:12px}
+
+  h2.cat{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#9c7d8a;margin:34px 2px 14px;font-weight:700;font-family:'DM Sans'}
+
+  .pivot{background:var(--grad);color:#fff;border-radius:18px;padding:20px 26px;margin-top:22px;box-shadow:var(--shadow)}
+  .pivot b{font-family:'Playfair Display';font-size:18px}
+  .pivot p{font-size:13.5px;opacity:.95;margin-top:4px}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow)}
+  .card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+  .card h4{font-size:15px;font-weight:700;margin-bottom:6px}
+  .card p,.card li{font-size:13.5px;color:#5b4b53}
+  .card ul{list-style:none;margin-top:6px}
+  .card li{padding:5px 0 5px 20px;position:relative;border-top:1px solid #f4ecef}
+  .card li:first-child{border-top:none}
+  .card li:before{content:"";position:absolute;left:2px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+  .card.bad{border-top:4px solid var(--red)}.card.good{border-top:4px solid var(--green)}.card.win{border-top:4px solid var(--gold)}
+
+  .diag{background:#fff5f2;border:1px solid #f3c9bd;border-left:4px solid var(--red);border-radius:14px;padding:14px 18px;font-size:13.5px}
+  .diag b{color:var(--red)}
+
+  .model{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .model .top{padding:16px 20px;color:#fff;font-family:'Playfair Display';font-weight:700;font-size:18px;display:flex;align-items:center;gap:10px}
+  .m-a .top{background:linear-gradient(135deg,#ff1493,#ff5fa9)}
+  .m-b .top{background:linear-gradient(135deg,#141414,#3a3a3a)}
+  .m-c .top{background:linear-gradient(135deg,#c2005e,#ff1493)}
+  .model .bd{padding:16px 20px;font-size:13.5px;color:#5b4b53}
+  .model .price{font-family:'Playfair Display';font-size:22px;font-weight:800;color:var(--wine);margin:6px 0}
+  .model .price small{font-size:12px;color:#9c7d8a;font-weight:500;font-family:'DM Sans'}
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:6px;background:#ffe0ef;color:#c2005e}
+
+  .seo{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow);font-size:13.5px;color:#5b4b53}
+  .seo code{background:#f3e9ee;border-radius:6px;padding:2px 8px;font-size:12.5px;color:var(--wine);display:inline-block;margin:3px 4px 0 0}
+  .seo .hi{background:#fff0f7;border:1px dashed var(--gold);border-radius:12px;padding:12px 16px;margin-top:12px}
+
+  .stack table{width:100%;border-collapse:collapse;font-size:13px}
+  .stack td{padding:8px 10px;border-top:1px solid #f4ecef;vertical-align:top}
+  .stack td:first-child{font-weight:700;white-space:nowrap;color:var(--wine)}
+
+  .phase{display:flex;gap:14px;padding:13px 0;border-top:1px solid #f0e6ea}
+  .phase:first-child{border-top:none}
+  .phase .n{flex:0 0 30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display'}
+  .phase .b{flex:1}
+  .phase .b .t{font-weight:700;font-size:14.5px;font-family:'Playfair Display'}
+  .phase .b .d{font-size:13px;color:#6b5a62;margin-top:2px}
+  .pill{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px}
+  .p-now{background:#ffe0ef;color:#c2005e}.p-next{background:#f1f1f1;color:#141414}.p-later{background:#fbe6f1;color:#c2005e}
+
+  .decide{background:var(--plum);color:#f0dfe6;border-radius:16px;padding:20px 24px;box-shadow:var(--shadow);font-size:13.5px}
+  .decide h3{color:var(--gold-soft);font-size:17px;margin-bottom:8px}
+  .decide li{margin:8px 0}
+  .decide b{color:#fff}
+
+  .stat{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .stat .s{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:var(--shadow);text-align:center}
+  .stat .v{font-family:'Playfair Display';font-size:26px;font-weight:800;color:var(--wine)}
+  .stat .l{font-size:11.5px;color:#9c7d8a;margin-top:4px}
+
+  footer{text-align:center;margin-top:36px;color:#9c7d8a;font-size:12px;padding-top:18px;border-top:1px solid var(--line)}
+  @media(max-width:900px){.grid3,.grid2,.stat{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="kick">Nova Deep-Dive · Handover &amp; Strategy</div>
+  <h1>Art For Love</h1>
+  <div class="tag">Complete rebuild — from dormant brochure to a shop that actually sells</div>
+  <p>The artwork is exceptional (479 pieces by acclaimed digital artist Georgie Pinn). The site isn't the problem's the <em>art</em> — it's that the current site doesn't let people <em>buy</em>. This is the rethink: turn the gallery into a frictionless store selling <b>instant digital downloads</b> and <b>made-to-order canvas prints</b>.</p>
+  <div class="asat">As at 18 Jun 2026 · live-crawled artforlove.shop · supersedes the 4-Jun Reignite tracker (folded in below)</div>
+</div></header>
+
+<div class="wrap">
+
+  <div class="pivot">
+    <b>The pivot in one line:</b>
+    <p>Stop asking visitors to commission a bespoke portrait (slow, high-commitment, no prices shown). Start letting them <b>buy the beautiful art that already exists</b> — download it in seconds, or order it as a canvas — with personalised commissions kept as a premium upsell.</p>
+  </div>
+
+  <!-- DIAGNOSIS -->
+  <h2 class="cat">Why it isn't selling — diagnosis (from the live site)</h2>
+  <div class="grid3">
+    <div class="card bad"><h3>🚫 No prices, no cart</h3><p>The homepage shows <b>zero prices</b> and <b>no buy / add-to-cart button</b>. It reads as a brochure, not a shop. Shoppers who can't see a price or a way to buy simply leave.</p></div>
+    <div class="card bad"><h3>🐢 High-friction model</h3><p>The only path is a <b>bespoke commission</b> — "upload your photo → we transform it → proof → print → ship." That's a big, slow commitment with no instant gratification and no impulse buy.</p></div>
+    <div class="card bad"><h3>🧱 Weak platform</h3><p>Built on <b>Zyro</b> (Hostinger's basic builder) — limited commerce, checkout, SEO and speed. And the hosting <b>dies 2 Jul 2026</b>, forcing the move anyway.</p></div>
+  </div>
+  <div class="diag" style="margin-top:14px"><b>Net:</b> a stunning catalogue of 479 artworks is sitting behind a wall with no price tag and no checkout. The fix isn't more art or more traffic first — it's making what's already there <b>instantly buyable</b>.</div>
+
+  <!-- THE MODEL -->
+  <h2 class="cat">The new model — three ways to buy (low friction → premium)</h2>
+  <div class="grid3">
+    <div class="model m-a">
+      <div class="top">⬇️ Instant Digital Download</div>
+      <div class="bd">
+        <span class="badge">Impulse buy · 80% of volume</span>
+        <div class="price">A$18–49 <small>download (near-100% margin)</small></div>
+        Buy a high-res file, delivered instantly to print at home or a local printer. Zero fulfilment, pure margin, instant gratification. This is the conversion engine.
+      </div>
+    </div>
+    <div class="model m-b">
+      <div class="top">🖼️ Made-to-order Canvas</div>
+      <div class="bd">
+        <span class="badge">Core revenue · ~65–72% margin</span>
+        <div class="price">A$89 / 139 / 199 <small>sm / med / lg</small></div>
+        Pick any artwork → choose a size → we print &amp; ship via a print-on-demand partner (no stock, no handling). Custom sizes supported. The premium physical product.
+      </div>
+    </div>
+    <div class="model m-c">
+      <div class="top">✨ Personalised Commission</div>
+      <div class="bd">
+        <span class="badge">Premium upsell</span>
+        <div class="price">A$129–199+ <small>+$30–50/extra subject</small></div>
+        The original "your faces in a fantasy world" offer — kept, but as a high-value option for those who want it, not the only door. Proof-approval gate before print.
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;color:#9c7d8a;margin-top:8px">Prices are indicative starting points — lock with a quick competitive/print-cost check (a decision below).</p>
+
+  <!-- WHY THIS WORKS -->
+  <h2 class="cat">Why this fixes conversion</h2>
+  <div class="grid2">
+    <div class="card good"><h4>Friction removed</h4><ul>
+      <li>Price visible on every artwork — no "request a quote" wall</li>
+      <li>Buy in seconds (download) — impulse-friendly, giftable</li>
+      <li>No upload/proof needed for ready-made art = instant checkout</li>
+      <li>Canvas = print-on-demand → no stock, ships worldwide</li>
+    </ul></div>
+    <div class="card win"><h4>The hidden asset: 479 artworks = an SEO machine</h4><ul>
+      <li>Each artwork becomes its own indexable product page</li>
+      <li>11 themes → collection pages (Tribal, Viking, Punk, Royale…)</li>
+      <li>Inclusivity built-in (LGBTQ+, culturally diverse couples) = underserved, high-intent search niches</li>
+      <li>Occasion landing pages (anniversary, wedding, Valentine's) → gift buyers</li>
+    </ul></div>
+  </div>
+
+  <!-- GLOBAL -->
+  <h2 class="cat">🌍 Going global — what changes (and why it's a win)</h2>
+  <div class="grid2">
+    <div class="card good"><h4>Why global fits this model perfectly</h4><ul>
+      <li><b>Digital downloads are already global</b> — instant, no shipping, no customs. The world's art buyers (US/EU/UK) dwarf AU. This is your main global engine.</li>
+      <li><b>Gelato prints canvases LOCALLY in 30+ countries</b> — a US order prints in the US, EU in the EU. Fast, cheap, customs-free shipping worldwide at <b>no extra cost to you</b>. (Your "go global" Q just confirmed Gelato over a single AU lab.)</li>
+      <li>Inclusivity niche (LGBTQ+, diverse couples) is <b>globally underserved</b> — bigger audience, same differentiator.</li>
+    </ul></div>
+    <div class="card win"><h4>What you actually change</h4><ul>
+      <li><b>Price in USD</b>, not AUD — US is the biggest art market &amp; sustains higher prices (bands below).</li>
+      <li><b>Tax = the one real new thing.</b> Selling digital goods into EU/UK/US has VAT/sales-tax rules. Cleanest fix: run <b>digital downloads through a Merchant-of-Record</b> (Lemon Squeezy or Payhip) — they collect &amp; remit ALL global tax for you (~5% fee), zero paperwork. Canvas tax stays simple.</li>
+      <li><b>Multi-currency:</b> Shopify Markets shows shoppers local prices automatically (built-in, ~no extra cost).</li>
+      <li><b>New channel:</b> <b>Etsy</b> — a huge built-in global audience for digital art, handles tax; great for instant sales while your own SEO builds.</li>
+    </ul></div>
+  </div>
+  <div class="seo" style="margin-top:14px;background:#fff0f7;border:1px dashed var(--gold)">
+    <b>Global pricing (USD) &amp; cost impact:</b> Digital <b>US$15 generic / US$39 personalised</b> · Canvas <b>US$69 / 119 / 179</b> (sm/med/lg) · Commission <b>US$99–179+</b>. <b>Cost impact is minimal:</b> Shopify ~A$45/mo and Gelato are unchanged (Gelato global = no added cost); the only new cost is ~5% on digital sales <em>if</em> you use a Merchant-of-Record for tax (worth it — removes compliance risk), plus slightly higher international card fees. <b>Same build, same platform — just USD pricing + a tax-handling layer for digital + optional Etsy channel.</b>
+  </div>
+
+  <!-- SEO -->
+  <h2 class="cat">SEO &amp; content strategy</h2>
+  <div class="seo">
+    <b>Structure:</b> Home → 11 Theme collections → individual Artwork product pages (the 479) → Occasion landing pages → Blog. Each artwork page: unique title/meta, alt text, Product + Offer schema, "download or canvas" buy box, related artworks.
+    <div style="margin-top:10px"><b>Seed keyword angles</b> (run through the monthly ATP loop):</div>
+    <code>same-sex couple wall art</code><code>LGBTQ+ love portrait</code><code>personalised couple canvas</code><code>fantasy couple art print</code><code>anniversary gift art download</code><code>two brides wall art</code><code>viking couple print</code><code>digital art download couple</code>
+    <div class="hi"><b>The leverage:</b> this is the legitimate version of "programmatic SEO" — 479 genuinely-unique artworks × theme × occasion = hundreds of real, indexable pages with real product intent. No doorway-page risk, because every page sells a distinct piece of art. This is exactly what the rival "AI SEO" tool fakes — you have the real thing.</div>
+  </div>
+
+  <!-- TECH STACK -->
+  <h2 class="cat">Recommended build &amp; fulfilment stack</h2>
+  <div class="card stack">
+    <table>
+      <tr><td>Site / store ✅</td><td><b>Shopify Basic (~A$45/mo)</b> — recommended for a non-technical owner: cart, checkout, tax, orders, digital-download app + POD app all built-in &amp; supported, no code to maintain. (Lovable+Stripe = no monthly but you'd build/maintain cart, checkout, delivery, tax yourself — only wins on pure fixed cost.)</td></tr>
+      <tr><td>Payments</td><td><b>Shopify Payments</b> = no extra transaction fee (just 1.75%+30c card). Add Afterpay/Zip for canvases.</td></tr>
+      <tr><td>Digital delivery</td><td>Shopify's official <b>Digital Downloads app (FREE)</b> for instant delivery. (Or <b>Payhip</b> — free→2% — if you want built-in image-watermark + PDF-stamping + auto-VAT.) Upload a watermarked low-res preview; clean high-res delivered on purchase.</td></tr>
+      <tr><td>Canvas print-on-demand ✅</td><td><b>Gelato</b> (recommended) — genuine custom sizes + <b>local AU printing</b> + free Shopify app + open API; auto-prints &amp; ships to the customer, no stock. Add a premium <b>Prodigi</b> giclée line for gallery-quality. Both free to join, no minimums.</td></tr>
+      <tr><td>❌ Not Canva</td><td>Canva can't fulfil store orders (Canva Print = your own one-offs only). Keep Canva for <b>mockups + social/marketing content</b> (and Bulk Create) — design tool, not the order engine.</td></tr>
+      <tr><td>DNS / domain</td><td>artforlove.shop → Cloudflare (DNS + registrar). .shop is Cloudflare-supported. Point to the new Shopify store before Hostinger dies 2 Jul.</td></tr>
+      <tr><td>Marketing automation</td><td>Reuse the HIFU <b>Make.com</b> auto-poster for IG/FB; re-engage the old email list; Canva Bulk Create for mockups.</td></tr>
+    </table>
+  </div>
+
+  <!-- COSTS & PRICING -->
+  <h2 class="cat">💰 Costs &amp; pricing — researched 18 Jun 2026 (AUD)</h2>
+  <div class="grid2">
+    <div class="card win"><h4>What it costs to run (Shopify path)</h4><ul>
+      <li><b>Shopify Basic ~A$45/mo</b> (annual + GST) — the only fixed cost</li>
+      <li><b>Digital Downloads app: FREE</b> · <b>Gelato/Prodigi POD app: FREE</b> (pay only print cost per order)</li>
+      <li><b>Shopify Payments 1.75% + 30c</b> per sale (no extra gateway fee)</li>
+      <li>Canvas print cost (~A$25/45/70 sm/med/lg) comes out of each sale, not overhead</li>
+      <li><b>≈ A$45/mo all-in at zero sales</b> — pays for itself in ~1 canvas/mo</li>
+    </ul>
+    <p style="margin-top:8px;font-size:12.5px;color:#9c7d8a">Lean alt: <b>Payhip</b> (free→2%) for digital-only with built-in watermarking, no monthly — but no canvas POD, so Shopify wins for the full model.</p>
+    </div>
+    <div class="card"><h4>Recommended retail bands &amp; margin</h4>
+      <table class="stack"><tbody>
+        <tr><td>Digital — generic</td><td>A$18 (A$12–25)</td></tr>
+        <tr><td>Digital — personalised file</td><td>A$49 (A$35–75)</td></tr>
+        <tr><td>Canvas — small ~30×40</td><td>A$89 <span style="color:#9c7d8a">(~A$25 cost)</span></td></tr>
+        <tr><td>Canvas — medium ~50×70</td><td>A$139 <span style="color:#9c7d8a">(~A$45 cost)</span></td></tr>
+        <tr><td>Canvas — large ~60×90</td><td>A$199 <span style="color:#9c7d8a">(~A$70 cost)</span></td></tr>
+        <tr><td>Commission — digital</td><td>A$129–149</td></tr>
+        <tr><td>Commission — printed/framed</td><td>A$199+</td></tr>
+      </tbody></table>
+      <p style="margin-top:8px;font-size:12.5px;color:#9c7d8a">Digital = near-100% margin (funnel entry). Canvas keystone ~2.5–3.6× POD cost = 65–72% gross (room for ~free AU shipping + reprints). Stay above ~A$60/canvas to protect brand perception. Ladder: download A$18 → canvas A$89–199 → commission A$129+.</p>
+    </div>
+  </div>
+
+  <!-- ASSETS -->
+  <h2 class="cat">Artwork archive — captured before the store dies</h2>
+  <div class="stat">
+    <div class="s"><div class="v" id="imgCount">479</div><div class="l">Unique images scraped</div></div>
+    <div class="s"><div class="v">11</div><div class="l">Theme collections</div></div>
+    <div class="s"><div class="v">full-res</div><div class="l">Originals (Zyro resize stripped)</div></div>
+    <div class="s"><div class="v">✓ Safe</div><div class="l">On your laptop, not lost 2 Jul</div></div>
+  </div>
+  <p style="font-size:13px;color:#5b4b53;margin-top:12px"><b style="color:var(--green)">✓ Complete — 479 files, 823 MB.</b> All artwork downloaded to <code style="background:#f3e9ee;padding:2px 8px;border-radius:6px;color:var(--wine)">ArtForLove-Rebuild/source-images/</code> with a per-theme manifest in <code style="background:#f3e9ee;padding:2px 8px;border-radius:6px;color:var(--wine)">ArtForLove-Rebuild/manifest/</code>. Includes the catalogue artworks + Georgie's portfolio/About images. Next: cull to the sellable hero pieces, name them, and tag by theme for the product pages.</p>
+
+  <!-- BUILD PLAN -->
+  <h2 class="cat">Build plan (folds in the 4-Jun Reignite phases)</h2>
+  <div class="card">
+    <div class="phase"><div class="n">1</div><div class="b"><div class="t">Capture &amp; curate</div><div class="d">✅ All 479 images scraped. Next: cull to the best sellable pieces per theme, rename, tag, pick hero images + mockups.</div></div><span class="pill p-now">Now</span></div>
+    <div class="phase"><div class="n">2</div><div class="b"><div class="t">Lock the offer &amp; pricing</div><div class="d">Confirm download vs canvas vs commission pricing; choose canvas sizes; pick print-on-demand partner (Prodigi/Gelato) + digital-delivery method.</div></div><span class="pill p-now">Now</span></div>
+    <div class="phase"><div class="n">3</div><div class="b"><div class="t">Build on Lovable + Stripe</div><div class="d">Theme collections, artwork product pages (download + canvas buy box), cart/checkout, instant digital delivery, SEO baked in (titles/meta/schema/sitemap from day one).</div></div><span class="pill p-next">Next</span></div>
+    <div class="phase"><div class="n">4</div><div class="b"><div class="t">Brand &amp; story</div><div class="d">Georgie Pinn's credibility + story, inclusivity front-and-centre, occasion pages, gallery, mockups in-room.</div></div><span class="pill p-next">Next</span></div>
+    <div class="phase"><div class="n">5</div><div class="b"><div class="t">Domain + go live</div><div class="d">artforlove.shop DNS → Cloudflare, point to Lovable, kill Zyro store before 2 Jul, verify checkout + a test download + a test canvas order.</div></div><span class="pill p-next">Next</span></div>
+    <div class="phase"><div class="n">6</div><div class="b"><div class="t">Reignite marketing</div><div class="d">Re-engage old email list, Make.com social auto-poster, occasion campaigns, ATP-driven content, test paid + influencer/UGC.</div></div><span class="pill p-later">Later</span></div>
+  </div>
+
+  <!-- DECISIONS -->
+  <h2 class="cat">Decisions to move forward</h2>
+  <div class="decide">
+    <p style="font-size:14px"><b style="color:var(--gold-soft)">✅ Decided 18 Jun:</b> Lead with download + canvas, commission as premium upsell · artwork is Georgie Pinn's own (full rights) · pricing bands locked (above) · fulfilment = <b>Gelato</b> (+ Prodigi premium) · Canva ruled out for fulfilment.</p>
+    <h3 style="margin-top:12px">One call left → then we build</h3>
+    <ol>
+      <li><b>Platform: Shopify Basic (~A$45/mo) — recommended</b> (easiest, everything built-in, supported; pays for itself fast). Confirm Shopify, or do you still want the leaner Lovable+Stripe (no monthly, but more to build/maintain)?</li>
+    </ol>
+    <p style="margin-top:10px;font-size:13px">Once you confirm the platform, next steps: cull the 479 → sellable hero set per theme, set up the Shopify store + Gelato + digital downloads, build the theme collections &amp; product pages with SEO baked in, point artforlove.shop, go live before 2 Jul.</p>
+  </div>
+
+  <footer>
+    Art For Love — Rebuild Strategy &amp; Handover · 18 Jun 2026 · deep-dive by Nova.<br>
+    Artwork archived to ArtForLove-Rebuild/. Hosting dies 2 Jul 2026. ← <a href="index.html" style="color:var(--wine);font-weight:700">Back to Nova Command Center</a>
+  </footer>
+</div>
+
+</body>
+</html>

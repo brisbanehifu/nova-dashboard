@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dedupe Report — Phase 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#00E8B4; --coral:#FF7A6E; --purple:#9B3DFF; --pink:#F040C8;
+    --ink:#0F1218; --ink2:#1A1F2B; --mute:#6B7280; --line:#E5E7EB; --bg:#F9FAFB;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  .hero{background:linear-gradient(135deg,#9B3DFF 0%,#F040C8 60%,#FF7A6E 100%);color:#fff;padding:48px 32px}
+  .hero h1{margin:0 0 8px;font-size:36px;font-weight:800;letter-spacing:-0.025em}
+  .hero .sub{font-size:17px;opacity:0.95;max-width:820px}
+  .hero .meta{margin-top:18px;font-size:12px;opacity:0.85;font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:1320px;margin:0 auto;padding:32px}
+  h2{font-weight:700;font-size:24px;margin:40px 0 14px;letter-spacing:-0.015em}
+  h2 .small{font-size:13px;color:var(--mute);font-weight:500;margin-left:8px}
+  h3{font-weight:600;font-size:17px;margin:24px 0 8px;color:var(--ink2)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:16px 0}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+  .card .lbl{font-size:11px;font-weight:600;color:var(--mute);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px}
+  .card .num{font-size:36px;font-weight:800;letter-spacing:-0.025em;line-height:1.05}
+  .card .sub{font-size:12px;color:var(--mute);margin-top:8px;line-height:1.4}
+  .card.teal .num{color:var(--teal)}
+  .card.coral .num{color:var(--coral)}
+  .card.purple .num{color:var(--purple)}
+  .card.pink .num{color:var(--pink)}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px;margin:12px 0}
+  th{background:#F3F4F6;text-align:left;padding:11px 14px;font-weight:600;color:var(--ink2);font-size:11.5px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--line)}
+  td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr.tier-safe{background:#F0FFF9}
+  tr.tier-decide{background:#FFF6E6}
+  tr.tier-known{background:#F8F2FF}
+  .pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:0.03em}
+  .pill.safe{background:#C8F4E0;color:#005A40}
+  .pill.decide{background:#FFE5B0;color:#7A5300}
+  .pill.known{background:#E5D2FF;color:#5A1D9F}
+  .pill.skip{background:#F3F4F6;color:#6B7280}
+  code{background:#F3F4F6;padding:2px 7px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#1A1F2B}
+  pre{background:#0F1218;color:#E5E7EB;padding:16px 18px;border-radius:10px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.6;margin:12px 0}
+  .bucket{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;margin:14px 0;border-left:5px solid var(--teal)}
+  .bucket.decide{border-left-color:#FFB020}
+  .bucket.known{border-left-color:var(--purple)}
+  .bucket h3{margin-top:0;display:flex;align-items:baseline;gap:12px;font-size:18px}
+  .bucket .save{font-size:14px;color:var(--teal);font-weight:700;margin-left:auto;font-family:'JetBrains Mono',monospace}
+  .bucket.decide .save{color:#B07000}
+  .bucket.known .save{color:var(--purple)}
+  .bucket .what{font-size:14px;color:var(--ink2);margin:8px 0 4px}
+  .bucket .action{font-size:13.5px;line-height:1.6;background:#F9FAFB;padding:10px 14px;border-radius:8px;margin-top:10px}
+  .bucket .action strong{color:var(--teal);font-weight:700}
+  .bucket.decide .action strong{color:#B07000}
+  .bucket .approval{margin-top:12px;font-size:13px;font-weight:600;color:var(--ink2)}
+  .bucket .approval code{background:#FFF6E6;color:#7A5300}
+  .footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+  .callout{padding:16px 22px;border-radius:10px;margin:16px 0;font-size:14px}
+  .callout.good{background:#F0FFF9;border-left:4px solid var(--teal)}
+  .callout.info{background:#F8F2FF;border-left:4px solid var(--purple)}
+  .callout.warn{background:#FFF6E6;border-left:4px solid #FFB020}
+  a{color:var(--purple);text-decoration:none;font-weight:500}
+  a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Dedupe Report — Phase 2</h1>
+  <div class="sub">Hash-based scan across all Claude roots (excluding <code>.git</code>, <code>node_modules</code>, build artifacts, and the known booking-api dupe). Run took 43 seconds. Output: <code>C:\Temp\phase2_dedupe_results.json</code>.</div>
+  <div class="meta">11 May 2026 · MD5 hash of 2,591 candidate files · 522 duplicate groups found</div>
+</div>
+
+<div class="wrap">
+
+<h2>The headline</h2>
+<div class="grid">
+  <div class="card pink"><div class="lbl">Combined cleanup potential</div><div class="num">~2.1 GB</div><div class="sub">Phase 0 + Phase 2 findings combined</div></div>
+  <div class="card teal"><div class="lbl">Phase 2 dupes found</div><div class="num">123.5 MB</div><div class="sub">522 groups · 1,452 duplicate files</div></div>
+  <div class="card purple"><div class="lbl">Already-known (Phase 0)</div><div class="num">2.0 GB</div><div class="sub">booking-api OneDrive dupe (1.4 GB) + orphan worktree (611 MB)</div></div>
+  <div class="card coral"><div class="lbl">Biggest single bucket</div><div class="num">75.5 MB</div><div class="sub">NT Tender resume sprawl — 129 dupe groups, 4× duplication</div></div>
+</div>
+
+<div class="callout good"><strong>Translation:</strong> The "horrendous" file confusion has a name — <strong>parallel folder structures</strong>. NT Tender exists in 3 sibling folders that mirror each other. FirstLightCivil contains a nested copy of itself. <code>tmp_docx*</code> exists 3 times. Once we consolidate, all references in Nova / scripts / dashboards become unambiguous.</div>
+
+<h2>Action buckets <span class="small">tick to approve, then I execute in Phase 3</span></h2>
+
+<div class="bucket">
+  <h3>
+    <span class="pill safe">SAFE</span>
+    Bucket A — Triple-nested <code>tmp_docx*</code>
+    <span class="save">−20.5 MB</span>
+  </h3>
+  <div class="what">39 duplicate groups across 3 transient unpack folders from 10 April. Original docx was already extracted; the unpacked content is also present in <code>BookATreatment-AI\MarketingAndContent\Archive\</code>.</div>
+  <div class="action"><strong>Action:</strong> delete all three directories:
+    <ul>
+      <li><code>OneDrive\…\Claude\tmp_docx\</code></li>
+      <li><code>OneDrive\…\Claude\tmp_docx_unpacked\</code></li>
+      <li><code>OneDrive\…\Claude\tmp_docx_images\</code></li>
+    </ul>
+  </div>
+  <div class="approval">Approval phrase: <code>delete bucket A</code> (or <code>delete A,B,C…</code> to batch)</div>
+</div>
+
+<div class="bucket">
+  <h3>
+    <span class="pill safe">SAFE</span>
+    Bucket B — FirstLightCivil nested self-copy
+    <span class="save">−5.2 MB</span>
+  </h3>
+  <div class="what">Folder <code>FirstLightCivil\FirstLightCivil\</code> is a copy of its parent — likely a drag-and-drop accident. Plus one rename leftover: <code>FirstLlogo.png</code> and <code>flc-logo.png</code> are the same file (rename without delete).</div>
+  <div class="action"><strong>Action:</strong>
+    <ul>
+      <li>Delete inner folder <code>FirstLightCivil\FirstLightCivil\</code> entirely</li>
+      <li>Delete legacy filename <code>FirstLightCivil\FirstLlogo.png</code> (the typo version)</li>
+    </ul>
+  </div>
+  <div class="approval">Approval phrase: <code>delete bucket B</code></div>
+</div>
+
+<div class="bucket decide">
+  <h3>
+    <span class="pill decide">DECIDE</span>
+    Bucket C — NT Tender resume sprawl (the big one)
+    <span class="save">−75.5 MB</span>
+  </h3>
+  <div class="what">129 duplicate groups. Same resumes filed 4× across:
+    <ol>
+      <li><code>NT Tender\Engineering\Resumes\</code></li>
+      <li><code>NT Tender\Recruitment\Resumes\</code></li>
+      <li><code>NT Tender - Engineering\</code> (parallel top-level folder)</li>
+      <li><code>Recruitment\Resumes\</code> (cross-business top-level)</li>
+    </ol>
+    Plus <code>NT Tender - ICT\</code> mirrors <code>NT Tender\ICT\</code> (71 + 61 dupe files).
+  </div>
+  <div class="action"><strong>Proposed canonical structure:</strong> keep <code>NT Tender\</code> as master with sub-categories <code>Engineering\</code>, <code>ICT\</code>, <code>Recruitment\</code>, <code>Project Management\</code>. Delete the parallel sibling folders.
+    <ul>
+      <li>❌ DELETE <code>NT Tender - Engineering\</code> (entire folder, parallel structure)</li>
+      <li>❌ DELETE <code>NT Tender - ICT\</code> (entire folder, parallel structure)</li>
+      <li>❌ DELETE <code>NT Tender - Project Management\</code> (entire folder, parallel structure)</li>
+      <li>⚠️ KEEP <code>Recruitment\</code> if it has cross-business candidates (not just NT Tender); otherwise also delete</li>
+    </ul>
+  </div>
+  <div class="callout warn" style="margin-top:12px"><strong>Need Kim's confirm before I touch any of this.</strong> Specifically: is the top-level <code>Recruitment\</code> folder for cross-business HR (TeamNEO, BHC, HMS) or only for the NT Tender? CLAUDE.md lists "Recruitment" as a separate workspace subfolder, suggesting cross-business — in which case keep it but dedup the NT-specific resumes from it.</div>
+  <div class="approval">Approval phrases:<br>
+    <code>nt tender canonical = master</code> → delete the 3 parallel folders<br>
+    <code>recruitment is cross-business</code> → keep Recruitment, dedup NT-specific entries from it<br>
+    <code>recruitment is nt tender only</code> → delete Recruitment too
+  </div>
+</div>
+
+<div class="bucket">
+  <h3>
+    <span class="pill safe">SAFE</span>
+    Bucket D — Logo asset duplication
+    <span class="save">−4.6 MB</span>
+  </h3>
+  <div class="what">7 brand-asset dupe groups. <code>Transparent BookATreatment Logo icon.png</code> lives at 4 paths. Per memory rule the canonical brand assets live in <code>BookATreatment-AI\Logos and Branding\</code>.</div>
+  <div class="action"><strong>Action:</strong> keep <code>BookATreatment-AI\Logos and Branding\</code> versions only. Delete copies at:
+    <ul>
+      <li><code>BookATreatment-AI\</code> (root level, redundant)</li>
+      <li><code>booking-api-external-eftpos\frontend\public\brand\</code> (this folder is queued for delete anyway in Phase 3)</li>
+    </ul>
+  </div>
+  <div class="approval">Approval phrase: <code>delete bucket D</code></div>
+</div>
+
+<div class="bucket known">
+  <h3>
+    <span class="pill known">PHASE 0</span>
+    Bucket E — Stale booking-api directories
+    <span class="save">−2.0 GB</span>
+  </h3>
+  <div class="what">From Phase 0 audit, not re-detected by hash scan because they were excluded. Confirmed identical by git HEAD comparison.</div>
+  <div class="action"><strong>Action (after <code>git worktree prune</code> on the C:\repos master):</strong>
+    <ul>
+      <li>Delete <code>OneDrive\…\Claude\booking-api\</code> (1.4 GB — same HEAD as <code>C:\repos\booking-api</code>)</li>
+      <li>Delete <code>OneDrive\…\Claude\booking-api-fix-ci\</code> (611 MB — broken worktree)</li>
+      <li>Delete <code>OneDrive\…\Claude\booking-api-external-eftpos\</code> (3 MB — feature snapshot)</li>
+      <li>Delete <code>OneDrive\…\Claude\booking-api-bookings-ui\</code> (empty husk)</li>
+      <li>Delete <code>OneDrive\…\Claude\booking-api-jose-pr10\</code> (empty husk)</li>
+      <li>Delete <code>OneDrive\…\Claude\booking-api-welcome-email\</code> (empty husk)</li>
+    </ul>
+  </div>
+  <div class="approval">Approval phrase: <code>delete bucket E</code> (or <code>delete A,B,D,E</code> to batch all safe ones)</div>
+</div>
+
+<div class="bucket">
+  <h3>
+    <span class="pill safe">SAFE</span>
+    Bucket F — Stray 0-byte stubs + lock files
+    <span class="save">−0 MB (cleanup only)</span>
+  </h3>
+  <div class="what">~30 empty <code>.js</code> files at OneDrive\Claude root (staff.js, leads.js, accounting-xero.js, marketing-pixels.js, etc. — failed extractions from 10 May), 5 stale Excel lock files (<code>.~lock.*.xlsx#</code>), empty <code>.mcp.json</code>, empty <code>CLAUDE.md</code> at OneDrive root.</div>
+  <div class="action"><strong>Action:</strong> delete all (zero-byte means zero risk).</div>
+  <div class="approval">Approval phrase: <code>delete bucket F</code></div>
+</div>
+
+<h2>Top 15 individual dupes <span class="small">spot-check sample from the 522 groups</span></h2>
+
+<table>
+<thead><tr><th style="width:48%">File</th><th>Copies</th><th>Size each</th><th>Wasted</th></tr></thead>
+<tbody>
+<tr><td><code>Sarita Moktan - Environmental & Geoscience - 3+ yrs.pdf</code></td><td>4</td><td>4.0 MB</td><td>12.2 MB</td></tr>
+<tr><td><code>Myat Noe Pwint - Structural Design Engineer - 6+ yrs.pdf</code></td><td>4</td><td>1.6 MB</td><td>5.0 MB</td></tr>
+<tr><td><code>Taranjot Singh - Civil Engineer - 7+ yrs.pdf</code></td><td>4</td><td>1.2 MB</td><td>3.5 MB</td></tr>
+<tr><td><code>Hasnain_Haider_Portfolio_v4_1.pdf</code></td><td>4</td><td>1.1 MB</td><td>3.3 MB</td></tr>
+<tr><td><code>image1.png</code> (BAT marketing + 3 tmp_docx copies)</td><td>4</td><td>1.0 MB</td><td>3.1 MB</td></tr>
+<tr><td><code>image3.png</code> (same pattern)</td><td>4</td><td>1.0 MB</td><td>2.9 MB</td></tr>
+<tr><td><code>TeamNEO Capability - Project Managers & Rates (2).pdf</code></td><td>4</td><td>1.0 MB</td><td>2.9 MB</td></tr>
+<tr><td><code>M Nawaz.pdf</code></td><td>4</td><td>1.0 MB</td><td>2.9 MB</td></tr>
+<tr><td><code>FirstLlogo.png</code> + rename twin <code>flc-logo.png</code></td><td>3</td><td>1.2 MB</td><td>2.4 MB</td></tr>
+<tr><td><code>services-hero.png</code></td><td>2</td><td>2.0 MB</td><td>2.0 MB</td></tr>
+<tr><td><code>Ranjan Adhikari - Civil Engineer - 7 yrs.pdf</code></td><td>4</td><td>0.6 MB</td><td>1.9 MB</td></tr>
+<tr><td><code>Muhammad Uzair - Mechanical Engineer - 4+ yrs.pdf</code></td><td>4</td><td>0.6 MB</td><td>1.8 MB</td></tr>
+<tr><td><code>hero-excavator.png</code></td><td>2</td><td>1.8 MB</td><td>1.8 MB</td></tr>
+<tr><td><code>Dr_Raaf'ai_Anwr_CV_FULL_SIMPLE.pdf</code></td><td>4</td><td>0.6 MB</td><td>1.7 MB</td></tr>
+<tr><td><code>Transparent BookATreatment Logo icon.png</code></td><td>4</td><td>0.5 MB</td><td>1.5 MB</td></tr>
+</tbody>
+</table>
+
+<h2>What the scan deliberately skipped <span class="small">and why</span></h2>
+<table>
+<thead><tr><th style="width:30%">Excluded</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td><code>.git</code> directories</td><td>Reproducible from remote. Diffs by definition.</td></tr>
+<tr><td><code>node_modules</code></td><td>Reproducible from <code>package-lock.json</code>. Always full of dupes.</td></tr>
+<tr><td><code>dist</code>, <code>build</code>, <code>.next</code>, <code>.vite</code>, <code>coverage</code></td><td>Build artifacts. Reproducible.</td></tr>
+<tr><td><code>OneDrive\…\booking-api\</code> + <code>booking-api-fix-ci\</code></td><td>Already confirmed full dupes of <code>C:\repos\booking-api</code> by git HEAD comparison (Phase 0). Hashing 86k files of known dupes wastes time.</td></tr>
+<tr><td><code>C:\Users\kimkl\.claude\projects\</code></td><td>Claude Code's path-keyed session cache. Not user content. Pinned to C: regardless.</td></tr>
+<tr><td><code>C:\repos\</code></td><td>Active git repos, authoritative source. Phase 3 doesn't touch them.</td></tr>
+<tr><td><code>C:\xero-mcp\</code></td><td>Paid Xero CLI install. Pinned.</td></tr>
+</tbody>
+</table>
+
+<h2>Phase 3 execution plan <span class="small">if all buckets approved</span></h2>
+
+<table>
+<thead><tr><th>Chunk</th><th>What</th><th>Size impact</th><th>Reversible?</th></tr></thead>
+<tbody>
+<tr><td>3.1</td><td>Delete buckets A, B, D, F (safe, no-judgement)</td><td>−30 MB</td><td>Yes — Recycle Bin</td></tr>
+<tr><td>3.2</td><td><code>git worktree prune</code> on <code>C:\repos\booking-api</code> + delete bucket E</td><td>−2.0 GB</td><td>Yes — but reclone if needed</td></tr>
+<tr><td>3.3</td><td>Delete bucket C (NT Tender consolidation, after Kim's confirm on Recruitment scope)</td><td>−75 MB</td><td>Yes — Recycle Bin</td></tr>
+<tr><td>3.4</td><td>Cold archive: move <code>BookATreatment-AI\MarketingAndContent\</code> + <code>Marketing Hub\</code> + completed projects to <code>E:\Claude-Archive\</code></td><td>−1.0 GB off C:/OneDrive</td><td>Yes — verify hash after each chunk</td></tr>
+<tr><td>3.5</td><td>Hot relocate: move <code>Nova\</code>, <code>NT Tender\</code> (after dedup), <code>Specs\</code>, <code>Technical Documents\</code>, etc. from OneDrive → <code>C:\Users\kimkl\Documents\Claude\</code></td><td>Net 0 (OneDrive drained)</td><td>Yes — hash verified per file</td></tr>
+<tr><td>3.6</td><td>Final cleanup: empty OneDrive\Documents\Claude\ shell</td><td>OneDrive emptied</td><td>OneDrive Recycle Bin retains 30 days</td></tr>
+</tbody>
+</table>
+
+<div class="callout info"><strong>Safety protocol throughout Phase 3:</strong>
+  <ul style="margin-top:8px">
+    <li>All deletes use <code>Move-Item</code> to Recycle Bin, not <code>Remove-Item -Force</code>. Recoverable.</li>
+    <li>All E:\ moves use <code>Robocopy</code> with hash verification, then delete source only after destination hash matches.</li>
+    <li>Each chunk completes before the next starts. Dashboard updates between chunks.</li>
+    <li>If anything looks wrong mid-chunk, the chunk pauses — I surface the anomaly before continuing.</li>
+  </ul>
+</div>
+
+<h2>What I need from Kim before Phase 3</h2>
+<ol>
+  <li><strong>Approval list:</strong> tell me which buckets to delete. E.g. <code>delete A,B,D,E,F — bucket C wait</code> for a safer rollout, or <code>delete all, recruitment is cross-business</code> for full speed.</li>
+  <li><strong>Recruitment scope:</strong> is <code>Recruitment\</code> top-level for cross-business hiring (TeamNEO, BHC, HMS) or only NT Tender? Determines whether we keep or delete it.</li>
+  <li><strong>FirstLightCivil <code>FirstLlogo.png</code> vs <code>flc-logo.png</code>:</strong> which filename do you want canonical?</li>
+</ol>
+
+<div class="footer">
+  Generated 11 May 2026 · MD5 hash scan via <code>C:\Temp\phase2_dedupe_scan.ps1</code> · Raw JSON: <code>C:\Temp\phase2_dedupe_results.json</code> · Scan duration 42.9s · 2,591 files scanned · 1,492 candidates hashed · 522 dupe groups identified
+</div>
+
+</div>
+</body>
+</html>

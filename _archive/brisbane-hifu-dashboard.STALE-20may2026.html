@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Brisbane HIFU — Master Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c0a09;--ink-soft:#4a4a4a;--ink-faint:#7a7a7a;
+    --line:#DBDFE3;--line-soft:#EDF0F3;--bg:#F6F7F9;
+    --teal:#00B894;--teal-light:#00E8B4;--purple:#9B3DFF;--purple-deep:#6B21A8;
+    --blue:#0B2B5B;--gold:#C9A76B;
+    --green:#16a34a;--amber:#d97706;--red:#dc2626;
+    --r:14px;
+  }
+  *{box-sizing:border-box}
+  body{font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;margin:0;padding:24px 28px 80px;background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.55}
+  .page{max-width:1320px;margin:0 auto}
+  header.hero{background:linear-gradient(135deg,#00B894 0%,#00E8B4 50%,#9B3DFF 100%);color:#fff;border-radius:var(--r);padding:34px 38px;margin-bottom:22px;box-shadow:0 8px 24px rgba(0,184,148,.22)}
+  .eyebrow{text-transform:uppercase;font-size:11.5px;letter-spacing:1.8px;opacity:.92;margin-bottom:8px;font-weight:700}
+  header.hero h1{margin:0 0 8px;font-size:32px;font-weight:800;letter-spacing:-.5px}
+  header.hero p{margin:0;opacity:.97;font-size:15px;max-width:980px}
+  .meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:13px}
+  .meta span{background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px}
+  section{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px 28px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  section h2{margin:0 0 14px;font-size:20px;font-weight:800;letter-spacing:-.2px;color:var(--blue);display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid var(--line-soft)}
+  section h2 .num{background:var(--teal);color:#fff;width:30px;height:30px;border-radius:50%;font-size:14px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  section h2 .num.purple{background:var(--purple)}
+  section h2 .num.gold{background:var(--gold)}
+  h3{font-size:14.5px;font-weight:800;margin:18px 0 8px;color:var(--ink)}
+  h4{font-size:13px;font-weight:700;margin:12px 0 6px;color:var(--purple-deep);text-transform:uppercase;letter-spacing:.4px}
+  a{color:var(--blue);font-weight:600}
+  a.btn{display:inline-block;background:var(--blue);color:#fff!important;text-decoration:none;padding:8px 14px;border-radius:8px;font-weight:700;font-size:13px;margin:4px 6px 4px 0}
+  a.btn.teal{background:var(--teal)}
+  a.btn.purple{background:var(--purple)}
+  a.btn.green{background:var(--green)}
+  a.btn.amber{background:var(--amber)}
+  a.btn.gold{background:var(--gold)}
+  a.btn:hover{opacity:.92}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0}
+  th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  th{background:var(--line-soft);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--blue)}
+  code{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace;font-size:12.3px;background:#F4F5F7;padding:1px 6px;border-radius:4px}
+  .callout{border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13.5px;border-left:4px solid var(--gold);background:#FBF7EE}
+  .callout.green{background:#F0FDF4;border-left-color:var(--green)}
+  .callout.red{background:#FEF2F2;border-left-color:var(--red)}
+  .callout.blue{background:#EFF6FF;border-left-color:var(--blue)}
+  .callout.purple{background:#FAF5FF;border-left-color:var(--purple)}
+  .callout.teal{background:#ECFDF5;border-left-color:var(--teal)}
+  .callout.amber{background:#FFFBEB;border-left-color:var(--amber)}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:10px 0 6px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;border-left:4px solid var(--teal)}
+  .stat.brand{border-left-color:var(--purple)}.stat.gold{border-left-color:var(--gold)}.stat.good{border-left-color:var(--green)}.stat.warn{border-left-color:var(--amber)}.stat.bad{border-left-color:var(--red)}
+  .stat .num{font-size:24px;font-weight:800;line-height:1;margin-bottom:4px;color:var(--ink)}
+  .stat .lbl{font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+  .stat .det{font-size:11.5px;color:var(--ink-faint);margin-top:6px}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+  .p-current{background:#DCFCE7;color:#14532D}
+  .p-supers{background:#E5E7EB;color:#4B5563}
+  .p-historical{background:#DBEAFE;color:#1E3A8A}
+  .p-live{background:#DCFCE7;color:#14532D}
+  .p-paused{background:#FEE2E2;color:#7F1D1D}
+  .p-queue{background:#FEF3C7;color:#854D0E}
+  .doc-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;border-left:4px solid var(--teal)}
+  .doc-card.current{border-left-color:var(--green);background:linear-gradient(to right,#F0FDF4 0%,#fff 60%)}
+  .doc-card.superseded{border-left-color:var(--ink-faint);background:#FAFAFA;opacity:.92}
+  .doc-card.historical{border-left-color:var(--blue)}
+  .doc-card h3{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:8px}
+  .doc-card .doc-meta{font-size:12px;color:var(--ink-faint);margin-bottom:10px}
+  .doc-card p{margin:6px 0 10px;font-size:13.5px;color:var(--ink-soft)}
+  .footer{text-align:center;color:var(--ink-faint);font-size:11.5px;margin-top:24px;padding:14px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:900px){.two-col{grid-template-columns:1fr}}
+  .nav{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 0;margin-bottom:18px;z-index:5;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px}
+  .nav a{color:var(--blue);text-decoration:none;font-weight:700;padding:4px 8px;border-radius:6px}
+  .nav a:hover{background:var(--line-soft)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="hero">
+  <div class="eyebrow">Brisbane HIFU · Master Dashboard</div>
+  <h1>Brisbane HIFU — Website · SEO · Google Ads · Strategy Hub</h1>
+  <p>Single hub for everything Brisbane HIFU. Website is on <b>Lovable</b> since 15 May 2026 cutover (NOT Hostinger). All strategy docs, tracking IDs, current state, and live URLs in one place.</p>
+  <div class="meta">
+    <span>Last updated 20 May 2026</span>
+    <span>Site host: Lovable</span>
+    <span>DNS: Hostinger (records only)</span>
+    <span>1st live BAT tenant (tenant_id=1)</span>
+    <span>5.0★ GBP · 132 reviews</span>
+  </div>
+</header>
+
+<div class="nav">
+  <a href="#phase-exec" style="background:var(--teal);color:#fff;padding:4px 10px">🎯 Phase Execution</a>
+  <a href="#urls">Live URLs</a>
+  <a href="#tracking">Tracking IDs</a>
+  <a href="#docs">Strategy docs</a>
+  <a href="#state">Current state</a>
+  <a href="#ads">Google Ads</a>
+  <a href="#seo">SEO snapshot</a>
+  <a href="#queue">Queue</a>
+  <a href="#rules">Standing rules</a>
+</div>
+
+<!-- ─────────────── 1 — LIVE URLS ─────────────── -->
+<section id="urls">
+  <h2><span class="num">1</span>Live URLs &amp; access</h2>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="num"><a href="https://brisbanehifu.com" target="_blank" style="color:var(--ink);text-decoration:none">brisbanehifu.com</a></div>
+      <div class="lbl">Production site (Lovable)</div>
+      <div class="det">SSL active · 9 pages · 28 verbatim reviews</div>
+    </div>
+    <div class="stat brand">
+      <div class="num"><a href="https://brisbane-hifu.lovable.app" target="_blank" style="color:var(--ink);text-decoration:none">brisbane-hifu.lovable.app</a></div>
+      <div class="lbl">Lovable production URL</div>
+      <div class="det">Direct Lovable deploy target</div>
+    </div>
+    <div class="stat gold">
+      <div class="num"><a href="https://app.bookatreatment.ai/book/brisbane-hifu-clinic" target="_blank" style="color:var(--ink);text-decoration:none">app.bookatreatment.ai/book</a></div>
+      <div class="lbl">Booking flow (BAT, tenant 1)</div>
+      <div class="det">⚠ Currently affected by Railway+GCP outage 20 May — see Nova dashboard</div>
+    </div>
+    <div class="stat good">
+      <div class="num">brisbane.hifu.clinic@gmail.com</div>
+      <div class="lbl">Google account (Ads/GSC/GA4 owner)</div>
+      <div class="det">Single account for all Google services</div>
+    </div>
+  </div>
+
+  <h3>Quick access</h3>
+  <a class="btn teal" href="https://lovable.dev" target="_blank">🎨 Lovable editor</a>
+  <a class="btn purple" href="https://search.google.com/search-console" target="_blank">📊 Google Search Console</a>
+  <a class="btn gold" href="https://ads.google.com" target="_blank">💰 Google Ads (443-403-6290)</a>
+  <a class="btn green" href="https://analytics.google.com" target="_blank">📈 Google Analytics 4</a>
+  <a class="btn" href="https://business.google.com" target="_blank">🏢 Google Business Profile</a>
+  <a class="btn amber" href="https://hpanel.hostinger.com/domain/brisbanehifu.com/dns?tab=dns_records" target="_blank">🔧 Hostinger DNS (DNS only — not website)</a>
+</section>
+
+<!-- ─────────────── 2 — TRACKING IDS ─────────────── -->
+<section id="tracking">
+  <h2><span class="num">2</span>Tracking IDs (verified installed in Lovable)</h2>
+
+  <table>
+    <thead><tr><th>Service</th><th>ID / Value</th><th>Where used</th></tr></thead>
+    <tbody>
+      <tr><td>GA4 — primary</td><td><code>G-6BBENL3GJN</code></td><td>All page views, every Lovable page (via on-page gtag.js)</td></tr>
+      <tr><td>GA4 — secondary</td><td><code>G-Q1WT3KSLTB</code></td><td>Backup measurement ID</td></tr>
+      <tr><td>Google Ads tag</td><td><code>AW-11077673835</code></td><td>Site-wide remarketing + conversion attribution</td></tr>
+      <tr><td>Google Tag Manager container</td><td><code>GTM-MTQ6DCBF</code></td><td>Companion to on-page gtag.js. Version 5 live (21 May 2026) — Conversion Linker + Google tag fix. 4 Tags, 2 Triggers, 7 Variables.</td></tr>
+      <tr><td><b>Booking conversion (PRIMARY)</b> ✅ NEW</td><td><code>AW-11077673835/nMiQCKHAo7AcEOvGn6Ip</code></td><td><b>"Booking Confirmed (BAT)" Purchase conversion</b> — fires on <code>/book-confirmed/[id]</code> via BAT's TrackingPixels component. Created + registered in BAT tenant_pixels 21 May 2026. <b>Smart Bidding now optimises on real bookings.</b></td></tr>
+      <tr><td>Booking click conversion (DEMOTED → Secondary)</td><td><code>AW-11077673835/q9fdCPmf9awcEOvGn6Ip</code></td><td>"BAT Booking Click" — fires on any Book Now click on brisbanehifu.com. Demoted 21 May to stop Smart Bidding chasing the wrong signal. Kept for diagnostics.</td></tr>
+      <tr><td>Conversion Linker (GTM)</td><td>Live tag in GTM Version 5</td><td>Captures gclid + stores in first-party cookie for cross-page persistence. Companion to the on-page gclid passthrough snippet on Lovable.</td></tr>
+      <tr><td>Google Site Verification</td><td><code>google-site-verification=bXJtkQbwQri47hjtEg8y9qfqxkYjU8Wdf-V-vzbPawg</code></td><td>TXT record in Hostinger DNS — do not delete</td></tr>
+      <tr><td>Google Ads Customer ID</td><td><code>443-403-6290</code></td><td>Brisbane HIFU Clinic account · Login: brisbane.hifu.clinic@gmail.com</td></tr>
+      <tr><td>GCLID passthrough snippet</td><td>Live in Lovable global &lt;head&gt;</td><td>Captures gclid/utm/fbclid on landing → sessionStorage → rewrites <code>app.bookatreatment.ai/book/*</code> hrefs on click. Functional test PASSED 21 May.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout green">
+    <b>✅ Verification status (21 May 2026):</b> Full end-to-end conversion loop verified: gclid lands → captured → rewrites Book Now href → BAT stores on booking row → /book-confirmed fires gtag with new conversion label → Google Ads counts a real booking. Smart Bidding now optimises on real bookings, not Book-Now clicks.
+  </div>
+</section>
+
+<!-- ─────────────── 2B — CLOUDFLARE ACCOUNTS ─────────────── -->
+<section id="cloudflare">
+  <h2><span class="num">2B</span>Cloudflare account → domain mapping</h2>
+
+  <table>
+    <thead><tr><th>Domain</th><th>Cloudflare account (Google login)</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>brisbanehifu.com</b></td><td><code>Neoklien.consulting@gmail.com</code></td><td>Confirmed 21 May 2026 via live Cloudflare tab</td></tr>
+      <tr><td><b>bookatreatment.ai</b></td><td><code>gm.teamneo@gmail.com</code></td><td>Separate account — TeamNEO identity</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <b>⚠ Consolidation queue:</b> Two Cloudflare accounts is unnecessary friction. Plan to move <code>bookatreatment.ai</code> from <code>gm.teamneo@gmail.com</code> → <code>Neoklien.consulting@gmail.com</code> (the consulting identity is the keeper). Process: export BIND zone from source, "Add a site" in target, import BIND, get new nameservers, update at Hostinger registrar, wait 24-48hr for propagation, remove zone from source. <b>Downtime risk 0-4hr if TTLs low.</b> Do midweek, quiet hours, never before a tender deadline or campaign launch.
+  </div>
+</section>
+
+<!-- ─────────────── 3 — STRATEGY DOCS ─────────────── -->
+<section id="docs">
+  <h2><span class="num purple">3</span>Strategy docs (chronological — most current first)</h2>
+
+  <div class="doc-card current" style="border-left:4px solid #2BD2C2">
+    <h3>📱 12-Week Social Content Plan <span class="pill p-current">NEW · 27 MAY</span></h3>
+    <div class="doc-meta">27 May 2026 · companion to SEO master plan · IG + FB + TikTok 12-week cadence</div>
+    <p><b>What it is:</b> 6 hero deals from brisbanehifu.com/hifu-deals anchor a 12-week social content engine across Instagram (<a href="https://www.instagram.com/brisbanehifu/" target="_blank">@brisbanehifu</a>), Facebook (<a href="https://www.facebook.com/brisbanehifuclinic" target="_blank">@brisbanehifuclinic</a>), and TikTok (<a href="https://www.tiktok.com/@brisbanehifu" target="_blank">@brisbanehifu</a>). ~36 AI reels (Higgsfield + Kling) + 24 static carousels over 12 weeks, all cross-posted. ~3 hrs/wk production.</p>
+    <p><b>Includes:</b> full 12-week calendar grid · per-deal creative briefs · 16 paste-ready Higgsfield + Kling prompts · brand visual standards · production workflow · KPIs · Week 1 kickoff checklist.</p>
+    <a class="btn green" href="./brisbane-hifu/02-social-content-12week-plan-27may2026.html" target="_blank">📖 Open full doc</a>
+    <a class="btn" href="https://brisbanehifu.com/hifu-deals" target="_blank">🔗 View live deals page</a>
+  </div>
+
+  <div class="doc-card current">
+    <h3>📋 SEO Uplift Master Plan <span class="pill p-current">CURRENT</span></h3>
+    <div class="doc-meta">20 May 2026 · 1043 lines · post-Lovable cutover master plan · supersedes earlier docs</div>
+    <p><b>What it is:</b> Multi-phase SEO uplift to make Brisbane HIFU the dominant HIFU search authority across Greater Brisbane. 7 phases / 12-week execution arc / ~140 hours Kim-time. Beats corporate chains (Laser Clinics Australia, Australian Skin Clinics, SILK Laser) for high-intent commercial queries via 20-suburb × 8-treatment programmatic matrix layered over a pillar-and-cluster content engine.</p>
+    <p><b>Four superiority axes:</b> technical foundation → local pack domination → pillar+cluster content (40+ pieces) → suburb/treatment matrix → authority backlinks via digital PR → CRO → ongoing maintenance.</p>
+    <a class="btn green" href="./brisbane-hifu/01-seo-uplift-master-plan-20may2026.html" target="_blank">📖 Open full doc</a>
+  </div>
+
+  <div class="doc-card superseded">
+    <h3>📋 SEO Action Plan <span class="pill p-supers">SUPERSEDED 20 MAY</span></h3>
+    <div class="doc-meta">11 May 2026 · 1342 lines · pre-Lovable cutover · references Hostinger Website Builder (now obsolete)</div>
+    <p><b>What it is:</b> 8 paste-ready landing-page briefs, 3 JSON-LD schema blocks, 17-directory submission blitz, alt-text rewrites for the 17 homepage images, 12-week content calendar, Hot-5 daily priorities. Contains "Lovable Rebuild State" section (added 15 May post-cutover).</p>
+    <p><b>Why superseded:</b> Built for Hostinger Website Builder paste-flow. Lovable cutover changed the editor + many of the specific landing-page mechanics. Use the 20 May master plan for the strategic direction; mine this doc for the SCHEMA BLOCKS and CONTENT CALENDAR if useful (still applicable, just delivery mechanism changed).</p>
+    <a class="btn" href="./brisbane-hifu/seo-action-plan-11may2026.html" target="_blank">📖 Open (reference only)</a>
+  </div>
+
+  <div class="doc-card historical">
+    <h3>📋 SEO Fastest Wins <span class="pill p-historical">HISTORICAL</span></h3>
+    <div class="doc-meta">7 May 2026 · 1192 lines · original audit · first GSC setup + first .com/.com.au duplicate-content discovery</div>
+    <p><b>What it is:</b> First live on-page SEO audit. Found the .com vs .com.au duplicate-content issue (silently halving SEO). Established Google Search Console for the first time + pulled real keyword data from Brisbane HIFU's own Google Ads account (better than SEMrush). 4 pages audited live.</p>
+    <p><b>Why kept:</b> Historical reference for "where we started". The audit findings drove the 11 May plan, which drove the 20 May plan. Most action items now done or superseded — read it to understand the chain of decisions.</p>
+    <a class="btn" href="./seo-fastest-wins-brisbanehifu.html" target="_blank">📖 Open (reference only)</a>
+  </div>
+
+  <h3 style="margin-top:18px">Supporting markdown files (not HTML but referenced by the docs above)</h3>
+  <ul>
+    <li><code>Brisbane HIFU/bat-service-urls-14may2026.md</code> — BAT booking URL slugs for every Brisbane HIFU service</li>
+    <li><code>Brisbane HIFU/bat-services-14may2026.csv</code> + <code>.json</code> — full service catalogue with prices + durations</li>
+    <li><code>Brisbane HIFU/bat-services-reference-14may2026.md</code> — quick-reference for service mapping</li>
+    <li><code>Brisbane HIFU/hifu-deals-remap-14may2026.md</code> — deals-page URL remapping after BAT service updates</li>
+    <li><code>Brisbane HIFU/lovable-seo-landing-pages-prompts.md</code> — paste-ready Lovable prompts for SEO landing pages</li>
+  </ul>
+</section>
+
+<!-- ─────────────── 4 — CURRENT STATE ─────────────── -->
+<section id="state">
+  <h2><span class="num">4</span>Current state — what's done since the 15 May Lovable cutover</h2>
+
+  <div class="two-col">
+    <div>
+      <h4>✅ Done / Live</h4>
+      <ul style="margin:6px 0 0 18px">
+        <li>9 pages built (home, deals, reviews, FAQ, about, blog with 12 posts, contact, win-a-face-lift, start-a-clinic)</li>
+        <li>27 deal cards with correct prices + BAT booking URLs</li>
+        <li>5 hero Pexels videos correctly wired</li>
+        <li>28 verbatim text reviews</li>
+        <li>4 JSON-LD schema blocks (BeautySalon, FAQPage, Reviews+Aggregate, Person)</li>
+        <li>All tracking IDs installed (GA4 × 2, Ads, conversion, GSC)</li>
+        <li>GCLID passthrough so paid attribution survives BAT redirect</li>
+        <li>www + root SSL active</li>
+        <li>Old Zyro permanently deleted from Hostinger</li>
+        <li>GSC verified + sitemap submitted (41 pages discovered)</li>
+        <li>BAT Booking Click conversion in Google Ads</li>
+      </ul>
+    </div>
+    <div>
+      <h4>🟡 In progress / next session</h4>
+      <ul style="margin:6px 0 0 18px">
+        <li>Phase 1: Technical SEO foundation (CWV verification, schema graph expansion, internal linking architecture, sitemap segmentation)</li>
+        <li>Phase 2: Local SEO domination (Greater Brisbane)</li>
+        <li>Phase 3: Pillar + cluster content engine (40+ pieces)</li>
+        <li>Phase 4: 20-suburb × 8-treatment programmatic matrix</li>
+        <li>Phase 5: Authority backlinks + digital PR</li>
+        <li>Phase 6: CRO + conversion optimisation</li>
+        <li>Phase 7: Ongoing maintenance + reporting</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 5 — GOOGLE ADS ─────────────── -->
+<section id="ads">
+  <h2><span class="num gold">5</span>Google Ads — Brisbane HIFU Clinic</h2>
+
+  <div class="stat-grid">
+    <div class="stat gold">
+      <div class="num">443-403-6290</div>
+      <div class="lbl">Customer ID</div>
+    </div>
+    <div class="stat good">
+      <div class="num">2 campaigns</div>
+      <div class="lbl">Active (post-cleanup 21 May)</div>
+      <div class="det">Website Home Page A$25/day + AI A$15/day = A$40/day total (~A$1,216/month, under your A$1,500 target)</div>
+    </div>
+    <div class="stat good">
+      <div class="num">"Booking Confirmed (BAT)"</div>
+      <div class="lbl">Primary conversion (NEW 21 May)</div>
+      <div class="det">Purchase category. Fires on <code>/book-confirmed/[id]</code> after Stripe success. Smart Bidding optimises on REAL bookings, not Book-Now clicks. <code>AW-11077673835/nMiQCKHAo7AcEOvGn6Ip</code></div>
+    </div>
+    <div class="stat">
+      <div class="num">"BAT Booking Click"</div>
+      <div class="lbl">Secondary (DEMOTED 21 May)</div>
+      <div class="det">Fires on Book Now click. Kept for diagnostics. No longer drives bidding.</div>
+    </div>
+  </div>
+
+  <h3>Account hygiene fixes shipped 20–21 May 2026</h3>
+  <ul>
+    <li>✅ <b>Removed 5 dead campaigns</b>: Sales-Performance Max-1 (PMax), Draft Google Shopping (PMax), Look younger without surgery (Smart), Face & Body Plan campaign (Search), 25% off HIFU (Video). Account collapsed from 7 → 2 campaigns.</li>
+    <li>✅ <b>Display Network OFF</b> on both Website Home Page + AI Search campaigns. Was sending budget to low-intent banner placements — major bleed source.</li>
+    <li>✅ <b>Target CPA removed</b> from Website Home Page (was A$510, set from old click-conversion data — irrelevant now). AI campaign Target CPA A$124.48 retained (defensible).</li>
+    <li>✅ <b>Budget capped</b> at A$25/day Home Page + A$15/day AI = A$40/day (~A$1,216/month).</li>
+    <li>✅ <b>4 disapproved ads' Final URLs fixed</b> from <code>/promo-and-services</code>, <code>/vip-plan</code> → <code>/hifu-deals</code> (24–72hr Google re-review window).</li>
+    <li>✅ <b>BAT pixel registered</b> in tenant 1 Settings → Marketing Pixels (Connected status).</li>
+    <li>✅ <b>gclid passthrough snippet</b> installed in Lovable global head — functional test passed (gclid appended to Book Now href on click).</li>
+    <li>✅ <b>5 broken sitelinks repointed</b> at account-level Asset Library: <code>/promo-and-services</code> + <code>/hifu-chin-lift</code> → <code>/hifu-deals</code>; <code>/before-and-after</code> → <code>/client-reviews</code>; <code>/referral-program</code> → <code>/win-a-face-lift</code>; <code>/page-zo5nWK</code> → <code>/hifu-blog</code>. All 25 sitelinks now point to live pages. Zero 404s.</li>
+  </ul>
+
+  <h3>What's tracked + what to watch</h3>
+  <ul>
+    <li><b>Real keyword data</b> is pulled from the Brisbane HIFU Ads account directly (better than SEMrush) — see 7 May fastest-wins doc for the original method</li>
+    <li><b>GCLID passthrough</b> from brisbanehifu.com → BAT booking URL preserves paid attribution through the redirect. Functional test: open <code>?gclid=test-X</code>, click Book Now, snippet rewrites href to include gclid → BAT stores it → conversion fires with gclid on <code>/book-confirmed/[id]</code></li>
+    <li><b>Conversion verification:</b> Wait 1-2 weeks. Compare "Booking Confirmed (BAT)" count in Google Ads to bookings WHERE gclid IS NOT NULL in BAT. If they match, the measurement loop is honest.</li>
+    <li><b>Monthly review:</b> <code>C:\Users\kimkl\Documents\Claude\Scheduled\brisbane-hifu-google-ads-monthly-review\SKILL.md</code></li>
+  </ul>
+
+  <div class="callout purple">
+    <b>🏆 Competitive separation rule:</b> Brisbane HIFU is Kim's own clinic. Redlands HIFU is a client. Never replicate Brisbane HIFU's specific keyword lists, ad strategies, bid tactics, or audience layers into Redlands HIFU. Quality delta intentional: Brisbane HIFU = enterprise top-tier; Redlands HIFU = good for Bayside catchment only.
+  </div>
+</section>
+
+<!-- ─────────────── 6 — SEO SNAPSHOT ─────────────── -->
+<section id="seo">
+  <h2><span class="num">6</span>SEO snapshot — pre-uplift baseline</h2>
+
+  <div class="stat-grid">
+    <div class="stat brand">
+      <div class="num">41 pages</div>
+      <div class="lbl">Discovered by GSC (7 May)</div>
+      <div class="det">via DNS-verified Domain property</div>
+    </div>
+    <div class="stat">
+      <div class="num">127 keywords</div>
+      <div class="lbl">Ranking on SEMrush (7 May)</div>
+      <div class="det">~400 monthly visits</div>
+    </div>
+    <div class="stat good">
+      <div class="num">+9.43%</div>
+      <div class="lbl">Non-branded traffic trend</div>
+      <div class="det">vs prior month, as of 7 May</div>
+    </div>
+    <div class="stat warn">
+      <div class="num">5.0★ · 132 reviews</div>
+      <div class="lbl">Google Business Profile</div>
+      <div class="det">Strong local-pack signal</div>
+    </div>
+  </div>
+
+  <h3>Schema currently deployed</h3>
+  <ol>
+    <li><b>BeautySalon</b> (LocalBusiness child) — name, address, phone, opening hours, geo, rating aggregate · <em>was MedicalBusiness, changed per "not medical" brand rule</em></li>
+    <li><b>FAQPage</b> — clinic FAQ entities</li>
+    <li><b>Reviews + AggregateRating</b> — 28 verbatim reviews + 5.0★ rating</li>
+    <li><b>Person</b> — Kim Klein owner schema</li>
+  </ol>
+
+  <h3>Schema queued in 20 May master plan (Phase 1)</h3>
+  <ol>
+    <li>Organization → LocalBusiness → 8 Service nodes (one per treatment) → VideoObject for 10 reviews → expanded FAQPage → BreadcrumbList</li>
+    <li>Internal linking architecture across pillar/cluster pages</li>
+    <li>Sitemap segmentation</li>
+  </ol>
+</section>
+
+<!-- ─────────────── 7 — QUEUE ─────────────── -->
+<section id="queue">
+  <h2><span class="num">7</span>Next-action queue (priority order)</h2>
+
+  <table>
+    <thead><tr><th>#</th><th>Phase</th><th>Action</th><th>Effort</th><th>State</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Phase 1</td><td>Core Web Vitals verification on every page (mobile + desktop)</td><td>~2 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>2</td><td>Phase 1</td><td>Expand schema graph (8 Service nodes + VideoObject + Breadcrumb)</td><td>~4 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>3</td><td>Phase 1</td><td>Internal linking architecture (pillar → cluster pages)</td><td>~3 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>4</td><td>Phase 1</td><td>Sitemap segmentation by page type</td><td>~1 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>5</td><td>Phase 2</td><td>GBP optimisation (services, attributes, photos, weekly posts)</td><td>~3 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>6</td><td>Phase 2</td><td>30 AU citation submissions (consistent NAP)</td><td>~3 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>7</td><td>Phase 3</td><td>Pillar page #1 (e.g. "Complete Guide to Non-Surgical Facelift in Brisbane")</td><td>~6 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+      <tr><td>8+</td><td>Phase 3-7</td><td>40+ pillar/cluster pieces, 20×8 matrix, backlinks, CRO, reporting</td><td>~120 hr</td><td><span class="pill p-queue">QUEUED</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ─────────────── 8 — RULES ─────────────── -->
+<section id="rules">
+  <h2><span class="num">8</span>Standing rules — read before editing</h2>
+
+  <div class="callout red">
+    <b>🚨 Brisbane HIFU is on LOVABLE, not Hostinger.</b> Hostinger is DNS-only since 15 May 2026 cutover. Banners / new pages / copy edits / SEO meta → Lovable editor. NEVER advise editing the website via Hostinger's website builder (it's empty — Zyro was deleted). DNS records (A/CNAME/TXT) DO still live in Hostinger DNS panel.
+  </div>
+
+  <div class="callout amber">
+    <b>⚖ ACL + brand rules:</b><br>
+    1. Never invent regulatory claims (TGA-registered, FDA-cleared, medical-grade, clinically proven) unless Kim has confirmed it's true for the SPECIFIC device.<br>
+    2. Never write "Patient" — always "Client" (cosmetic context, not medical).<br>
+    3. Schema is <code>BeautySalon</code>, not <code>MedicalBusiness</code> — locked per non-medical positioning.<br>
+    4. Never use anchor pricing like "$1,700 normally $3,400" — ACL s.29 risk (already cleaned up).<br>
+    5. Never write "results guaranteed" or similar express warranty — ACL s.29 risk.
+  </div>
+
+  <div class="callout purple">
+    <b>🏆 Brisbane vs Redlands competitive separation:</b> Brisbane HIFU's keyword lists, ad strategies, bid tactics, and audience layers are NEVER replicated into Redlands HIFU. Quality delta intentional. For policy appeals, draft generic AU-practitioner justifications — never cite Brisbane HIFU as precedent.
+  </div>
+
+  <div class="callout teal">
+    <b>📷 Media substitution rule:</b> When prompting Lovable / AI builders for media, NEVER allow them to substitute their own Pexels/stock/AI media when extraction fails. Spec says "if extraction fails, leave the slot blank, label EXTRACTION FAILED, ask me what to do."
+  </div>
+
+  <div class="callout blue">
+    <b>🔍 Verification rule:</b> For Lovable page rebuilds, verify page structure with Claude-in-Chrome MCP, NOT WebFetch alone. WebFetch has confabulated structure twice on Brisbane HIFU rebuilds (deals page count, blog index emptiness).
+  </div>
+</section>
+
+<!-- ─────────────── 9 — PHASE EXECUTION (NEW) ─────────────── -->
+<style>
+  /* Phase Execution tab styles */
+  .pe-progress{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:10px 0 14px}
+  .pe-progress .bar{flex:1;min-width:200px;height:8px;background:var(--line-soft);border-radius:99px;overflow:hidden;position:relative}
+  .pe-progress .bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--purple));transition:width .3s ease;width:0%}
+  .pe-progress .count{font-weight:800;color:var(--blue);font-size:14px;white-space:nowrap}
+  .pe-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;border-bottom:2px solid var(--line)}
+  .pe-tabs button{background:transparent;border:none;padding:10px 14px;font-weight:700;font-size:13px;color:var(--ink-faint);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit}
+  .pe-tabs button:hover{color:var(--blue)}
+  .pe-tabs button.active{color:var(--blue);border-bottom-color:var(--teal)}
+  .pe-panel{display:none}
+  .pe-panel.active{display:block}
+  .pe-phase-head{background:linear-gradient(135deg,var(--blue) 0%,var(--purple-deep) 100%);color:#fff;padding:14px 18px;border-radius:10px;margin-bottom:12px}
+  .pe-phase-head h3{margin:0 0 4px;font-size:17px;color:#fff}
+  .pe-phase-head p{margin:0;font-size:13px;opacity:.92}
+  .step{background:#fff;border:1px solid var(--line);border-radius:10px;margin:8px 0;overflow:hidden}
+  .step.done{border-left:4px solid var(--green);background:#F0FDF4}
+  .step-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;flex-wrap:wrap}
+  .step-head:hover{background:var(--line-soft)}
+  .step.done .step-head:hover{background:#DCFCE7}
+  .step-check{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+  .step-title{flex:1;min-width:200px;font-weight:700;font-size:14px;color:var(--blue)}
+  .step.done .step-title{color:var(--green);text-decoration:line-through;text-decoration-thickness:1px}
+  .step-time{font-size:11px;background:var(--line-soft);color:var(--ink-faint);padding:2px 8px;border-radius:99px;font-weight:700}
+  .step-toggle{font-size:14px;color:var(--ink-faint);font-weight:700;width:20px;text-align:center}
+  .step-body{padding:0 14px 14px;border-top:1px solid var(--line-soft);display:none}
+  .step.open .step-body{display:block}
+  .step.open .step-toggle{transform:rotate(180deg)}
+  .step-body h5{margin:14px 0 6px;font-size:11px;color:var(--purple-deep);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+  .step-body p{margin:6px 0;font-size:13.5px;color:var(--ink-soft)}
+  .prompt-box{background:#0c0a09;color:#e8e6e3;padding:12px 14px;border-radius:8px;font-family:ui-monospace,Consolas,monospace;font-size:12px;line-height:1.55;overflow-x:auto;margin:6px 0;white-space:pre-wrap}
+  .step-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .step-actions button{background:var(--teal);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:inherit}
+  .step-actions button.done-btn{background:var(--green)}
+  .step.done .step-actions button.done-btn{background:var(--ink-faint)}
+  .step-actions button.copy-btn{background:var(--blue)}
+  .step-actions button:hover{opacity:.9}
+  .verify-box{background:#FBF7EE;border-left:3px solid var(--gold);padding:8px 12px;border-radius:0 6px 6px 0;font-size:12.5px;color:var(--ink-soft);margin-top:8px}
+  .verify-box b{color:var(--purple-deep)}
+  .pe-sync-output{display:none;background:#0c0a09;color:#e8e6e3;padding:14px;border-radius:10px;margin-top:10px;font-family:ui-monospace,Consolas,monospace;font-size:12px;white-space:pre-wrap;max-height:300px;overflow-y:auto}
+  .pe-sync-output.show{display:block}
+</style>
+
+<section id="phase-exec">
+  <h2><span class="num purple">9</span>🎯 Phase Execution — step-by-step work</h2>
+
+  <p style="font-size:14px;color:var(--ink-soft);margin:0 0 10px">Copy-paste prompts for the 20 May SEO Uplift Master Plan. Click a step to expand. <b>Mark Done</b> stays on this device (localStorage). When you're ready for me to verify your progress, click <b>Sync to Nova</b> — it copies a paste-ready status block you drop into our chat.</p>
+
+  <div class="pe-progress">
+    <span class="count" id="pe-count">0 / 41 done</span>
+    <div class="bar"><div class="bar-fill" id="pe-bar"></div></div>
+    <button class="btn teal" style="background:var(--teal);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit" onclick="peSync()">📋 Sync to Nova</button>
+    <button style="background:transparent;border:1px solid var(--line);color:var(--ink-faint);padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;font-size:12px" onclick="peReset()">↻ Reset all</button>
+  </div>
+
+  <div id="pe-sync-output" class="pe-sync-output"></div>
+
+  <div class="pe-tabs">
+    <button class="active" data-phase="p1">P1 · Technical (Wk 1–2)</button>
+    <button data-phase="p2">P2 · Local (Wk 2–3)</button>
+    <button data-phase="p3">P3 · Content (Wk 3–8)</button>
+    <button data-phase="p4">P4 · Matrix (Wk 5–10)</button>
+    <button data-phase="p5">P5 · Authority (Wk 6–12)</button>
+    <button data-phase="p6">P6 · CRO (Wk 8–12)</button>
+    <button data-phase="p7">P7 · Ongoing (Wk 12+)</button>
+  </div>
+
+  <!-- ════ PHASE 1 ════ -->
+  <div class="pe-panel active" data-phase="p1">
+    <div class="pe-phase-head">
+      <h3>Phase 1 — Technical SEO foundation</h3>
+      <p>Week 1–2 · ~18 hr · 7 steps · Load-bearing layer — every later phase amplifies whatever technical signal we send Google.</p>
+    </div>
+
+    <div class="step" data-step="1.1">
+      <div class="step-head" onclick="peToggle('1.1')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">1.1 Core Web Vitals audit + fixes</span>
+        <span class="step-time">2 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Run PageSpeed Insights on all 9 pages, fix any &gt;200KB images, audit hero videos, lazy-load below-fold, re-run.</p>
+        <h5>What to do (5 sub-steps)</h5>
+        <ol style="font-size:13.5px;color:var(--ink-soft);padding-left:20px">
+          <li>Run PSI mobile + desktop on all 9 pages — record LCP / CLS / INP / Performance / SEO / Accessibility / Best Practices per URL in a sheet.</li>
+          <li>In Lovable's asset library, find any image &gt;200KB. Convert to WebP via squoosh.app. Re-upload with explicit width + height to lock CLS.</li>
+          <li>Audit 5 hero Pexels videos — each must have <code>preload="metadata"</code> and a <code>poster</code> attribute so LCP isn't blocked.</li>
+          <li>Verify deals page (27 cards) has <code>loading="lazy"</code> on below-fold images.</li>
+          <li>Re-run PSI. Targets: mobile Performance ≥ 80, LCP ≤ 2.5s, CLS ≤ 0.1, INP ≤ 200ms.</li>
+        </ol>
+        <h5>Quick links</h5>
+        <a class="btn teal" href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fbrisbanehifu.com&form_factor=mobile" target="_blank">PSI mobile</a>
+        <a class="btn teal" href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fbrisbanehifu.com&form_factor=desktop" target="_blank">PSI desktop</a>
+        <a class="btn" href="https://squoosh.app" target="_blank">squoosh.app</a>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll run PSI on all 9 pages, grade you against the targets, flag any URLs still failing.</div>
+        <div class="step-actions"><button class="done-btn" onclick="peDone('1.1')">✓ Mark done</button></div>
+      </div>
+    </div>
+
+    <div class="step" data-step="1.2">
+      <div class="step-head" onclick="peToggle('1.2')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">1.2 Schema graph expansion — 9-node Organization @graph</span>
+        <span class="step-time">4 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Replace the current 4 standalone JSON-LD blocks with a single cross-referenced <code>@graph</code> — modern best practice for entity SEO. 12 node types total (Organization, BeautySalon, WebSite, WebPage, BreadcrumbList, 8 Services, 10 VideoObjects, FAQPage, Reviews, 3 HowTos, Person, 12 Articles).</p>
+
+        <h5>Prompt for Lovable global head (Settings → SEO → Custom code)</h5>
+        <div class="prompt-box" id="prompt-1.2a">Paste this inside Lovable Settings → SEO → Custom &lt;head&gt; code. Replace [BHIFU-PHONE], [BHIFU-STREET], [BHIFU-SUBURB], [BHIFU-POSTCODE], [BHIFU-LAT], [BHIFU-LNG], [BHIFU-KIM-LINKEDIN] with real values BEFORE pasting.
+
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://brisbanehifu.com/#organization",
+      "name": "Brisbane HIFU",
+      "url": "https://brisbanehifu.com",
+      "logo": {"@type":"ImageObject","url":"https://brisbanehifu.com/logo.png","width":600,"height":200},
+      "sameAs": [
+        "https://www.facebook.com/brisbanehifu",
+        "https://www.instagram.com/brisbanehifu",
+        "https://www.youtube.com/@brisbanehifu",
+        "https://www.tiktok.com/@brisbanehifu"
+      ],
+      "founder": {"@id":"https://brisbanehifu.com/#kimklein"},
+      "contactPoint": {"@type":"ContactPoint","telephone":"+61-[BHIFU-PHONE]","contactType":"customer service","areaServed":"AU","availableLanguage":"English"}
+    },
+    {
+      "@type": ["LocalBusiness","HealthAndBeautyBusiness","BeautySalon"],
+      "@id": "https://brisbanehifu.com/#localbusiness",
+      "name": "Brisbane HIFU",
+      "image": "https://brisbanehifu.com/hero.jpg",
+      "url": "https://brisbanehifu.com",
+      "telephone": "+61-[BHIFU-PHONE]",
+      "priceRange": "$$",
+      "address": {"@type":"PostalAddress","streetAddress":"[BHIFU-STREET]","addressLocality":"[BHIFU-SUBURB]","addressRegion":"QLD","postalCode":"[BHIFU-POSTCODE]","addressCountry":"AU"},
+      "geo": {"@type":"GeoCoordinates","latitude":"[BHIFU-LAT]","longitude":"[BHIFU-LNG]"},
+      "areaServed": [{"@type":"City","name":"Brisbane"},{"@type":"City","name":"Brisbane CBD"},{"@type":"City","name":"South Brisbane"},{"@type":"City","name":"West End"},{"@type":"City","name":"New Farm"},{"@type":"City","name":"Fortitude Valley"},{"@type":"City","name":"Paddington"},{"@type":"City","name":"Toowong"},{"@type":"City","name":"Indooroopilly"},{"@type":"City","name":"Bulimba"},{"@type":"City","name":"Carindale"},{"@type":"City","name":"Chermside"},{"@type":"City","name":"Aspley"},{"@type":"City","name":"North Lakes"},{"@type":"City","name":"Sandgate"},{"@type":"City","name":"Wynnum"}],
+      "openingHoursSpecification": [
+        {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"},
+        {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"15:00"}
+      ],
+      "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"28","bestRating":"5"},
+      "founder": {"@id":"https://brisbanehifu.com/#kimklein"}
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://brisbanehifu.com/#website",
+      "url": "https://brisbanehifu.com",
+      "name": "Brisbane HIFU",
+      "publisher": {"@id":"https://brisbanehifu.com/#organization"},
+      "potentialAction": {"@type":"SearchAction","target":"https://brisbanehifu.com/?s={search_term_string}","query-input":"required name=search_term_string"}
+    },
+    {
+      "@type": "Person",
+      "@id": "https://brisbanehifu.com/#kimklein",
+      "name": "Kim Klein",
+      "jobTitle": "Founder &amp; Practitioner, Brisbane HIFU",
+      "knowsAbout": ["HIFU","High-Intensity Focused Ultrasound","Non-surgical face lifting","Body contouring","Aesthetic treatments"],
+      "sameAs": ["https://www.linkedin.com/in/[BHIFU-KIM-LINKEDIN]"]
+    }
+  ]
+}
+&lt;/script&gt;</div>
+        <h5>Prompt for reviews page (paste in Lovable page-specific code)</h5>
+        <div class="prompt-box" id="prompt-1.2b">Replace [client name 1..10], [YT-ID-1..10], [YYYY-MM-DD] with real values for each of your 10 YouTube reviews BEFORE pasting.
+
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {"@type":"VideoObject","position":1,"name":"Brisbane HIFU review — [client name 1]","description":"[client name] shares their results after Brisbane HIFU face + neck treatment.","thumbnailUrl":"https://i.ytimg.com/vi/[YT-ID-1]/maxresdefault.jpg","uploadDate":"[YYYY-MM-DD]","embedUrl":"https://www.youtube.com/embed/[YT-ID-1]","contentUrl":"https://www.youtube.com/watch?v=[YT-ID-1]","publisher":{"@id":"https://brisbanehifu.com/#organization"}}
+    /* repeat with position 2-10 */
+  ]
+}
+&lt;/script&gt;</div>
+        <h5>Quick links</h5>
+        <a class="btn purple" href="https://search.google.com/test/rich-results" target="_blank">Rich Results Test</a>
+        <a class="btn" href="https://validator.schema.org/" target="_blank">Schema validator</a>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll fetch <code>https://brisbanehifu.com</code>, extract the @graph block, run it through Schema.org validator + Rich Results Test, confirm 12 distinct schema types detected.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('1.2a')">📋 Copy global head prompt</button>
+          <button class="copy-btn" onclick="peCopy('1.2b')">📋 Copy VideoObject prompt</button>
+          <button class="done-btn" onclick="peDone('1.2')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="1.3">
+      <div class="step-head" onclick="peToggle('1.3')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">1.3 Internal linking — hub-and-spoke architecture</span>
+        <span class="step-time">3 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Define hub-and-spoke topology so PageRank flows deliberately. L0 root hub (home) → L1 treatment hubs (×8) + pillar hubs (×10) → L2 suburb hubs (×20) + cluster posts (30+). Conversion pages (/contact /book /reviews /faq) receive links from every L1+L2 via sticky CTA.</p>
+        <h5>What to do</h5>
+        <ol style="font-size:13.5px;color:var(--ink-soft);padding-left:20px">
+          <li>Document topology in a Looker Studio / Google Sheet — one row per page, columns: URL, level (L0/L1/L2), inbound links, outbound links to each level.</li>
+          <li>In Lovable, add a "Related treatments" footer block to each treatment hub linking to its 3 nearest sibling treatments.</li>
+          <li>In each cluster post, add 1 link to its parent pillar + 1-2 sibling cluster links + 1-2 treatment page links.</li>
+          <li>Audit anchor text — descriptive 4-7 words including target keyword + intent. Avoid exact-match-only (spam signal).</li>
+        </ol>
+        <h5>Anchor text discipline</h5>
+        <p style="font-size:13.5px;color:var(--ink-soft)">❌ "HIFU New Farm" (exact-match, spammy)<br>✅ "non-surgical HIFU face lifting in New Farm" (descriptive, intent-bearing)</p>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll fetch a sample of pages, extract every internal &lt;a href&gt; on each, build an actual topology map, compare against your documented intent, flag any orphan pages or anchor-text violations.</div>
+        <div class="step-actions"><button class="done-btn" onclick="peDone('1.3')">✓ Mark done</button></div>
+      </div>
+    </div>
+
+    <div class="step" data-step="1.4">
+      <div class="step-head" onclick="peToggle('1.4')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">1.4 Sitemap segmentation — index + 4 child sitemaps</span>
+        <span class="step-time">1 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Replace Lovable's single sitemap.xml with a sitemap index pointing at 4 child sitemaps (core, treatments, suburbs, blog) so Google indexes in priority order.</p>
+        <h5>Prompt for Lovable (paste as /sitemap.xml override)</h5>
+        <div class="prompt-box" id="prompt-1.4">In Lovable, set the project's sitemap.xml to this index. Then publish each child sitemap at its own URL (core, treatments, suburbs, blog) with the appropriate URLs inside each.
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+  &lt;sitemap&gt;&lt;loc&gt;https://brisbanehifu.com/sitemap-core.xml&lt;/loc&gt;&lt;/sitemap&gt;
+  &lt;sitemap&gt;&lt;loc&gt;https://brisbanehifu.com/sitemap-treatments.xml&lt;/loc&gt;&lt;/sitemap&gt;
+  &lt;sitemap&gt;&lt;loc&gt;https://brisbanehifu.com/sitemap-suburbs.xml&lt;/loc&gt;&lt;/sitemap&gt;
+  &lt;sitemap&gt;&lt;loc&gt;https://brisbanehifu.com/sitemap-blog.xml&lt;/loc&gt;&lt;/sitemap&gt;
+&lt;/sitemapindex&gt;
+
+Each child sitemap contains entries with &lt;lastmod&gt;, &lt;changefreq&gt;, &lt;priority&gt; (1.0 for home, 0.9 for treatments, 0.8 for suburbs, 0.7 for blog).
+Core: home, about, contact, deals, reviews, faq.
+Treatments: 8 treatment hubs.
+Suburbs: 20 suburb pages (Phase 4 — start empty, add as published).
+Blog: 12 existing posts + 30 new (Phase 3).</div>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll curl <code>https://brisbanehifu.com/sitemap.xml</code> + each child, confirm valid XML, count URLs per child, check &lt;priority&gt; values.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('1.4')">📋 Copy sitemap prompt</button>
+          <button class="done-btn" onclick="peDone('1.4')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="1.5">
+      <div class="step-head" onclick="peToggle('1.5')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">1.5 robots.txt + canonical audit</span>
+        <span class="step-time">30 min</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>Prompt for Lovable robots.txt</h5>
+        <div class="prompt-box" id="prompt-1.5">In Lovable, set /robots.txt to this exactly:
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /*?gclid=*
+Disallow: /*?utm_*
+
+Sitemap: https://brisbanehifu.com/sitemap.xml</div>
+        <h5>Canonical check</h5>
+        <p style="font-size:13.5px">View-source on 5 random pages. Each must have <code>&lt;link rel="canonical" href="https://brisbanehifu.com/[path]"&gt;</code>. For suburb variants the canonical points to itself (NOT the treatment hub) — the suburb page IS the canonical for "[treatment] [suburb]" intent.</p>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll curl /robots.txt + view-source on 5 pages, extract canonical links, confirm all match the page's own URL.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('1.5')">📋 Copy robots prompt</button>
+          <button class="done-btn" onclick="peDone('1.5')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="1.6">
+      <div class="step-head" onclick="peToggle('1.6')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">1.6 Search Console deep coverage check</span>
+        <span class="step-time">2 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>6 sub-actions in Google Search Console</h5>
+        <ol style="font-size:13.5px;color:var(--ink-soft);padding-left:20px">
+          <li><b>Coverage report</b> — Pages tab. Confirm Valid count ≈ 9 today, ramping to 80+ by end of Phase 4. Investigate every Excluded URL.</li>
+          <li><b>URL Inspection</b> on all 9 current pages — Request indexing one-by-one (~20 sec each).</li>
+          <li><b>Mobile usability</b> — Experience → Mobile Usability. Target: 0 errors.</li>
+          <li><b>Core Web Vitals</b> report — populates after 28 days of CrUX data. Until then PSI is the proxy.</li>
+          <li><b>Link associations</b> — Settings → Associations. Link GSC ↔ GA4 ↔ Google Ads. Unlocks organic-query-level reporting in GA4.</li>
+          <li><b>Submit segmented sitemaps</b> — all 4 child sitemaps individually + the index.</li>
+        </ol>
+        <a class="btn" href="https://search.google.com/search-console" target="_blank">Open Search Console</a>
+        <div class="verify-box"><b>How Nova verifies:</b> Kim reports back from GSC (I can't see GSC directly without your account). Paste any screenshots or numbers and I'll grade against targets.</div>
+        <div class="step-actions"><button class="done-btn" onclick="peDone('1.6')">✓ Mark done</button></div>
+      </div>
+    </div>
+
+    <div class="step" data-step="1.7">
+      <div class="step-head" onclick="peToggle('1.7')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">1.7 hreflang for AU specificity</span>
+        <span class="step-time">15 min</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Single-language site, but declaring <code>en-AU</code> hreflang tells Google explicitly to favour AU SERPs over generic en results.</p>
+        <h5>Prompt for Lovable (paste in each page's &lt;head&gt; via Settings → SEO)</h5>
+        <div class="prompt-box" id="prompt-1.7">Add to every page's &lt;head&gt; section (replace [path] with the specific page path — for home it's empty):
+
+&lt;link rel="alternate" hreflang="en-au" href="https://brisbanehifu.com/[path]"&gt;
+&lt;link rel="alternate" hreflang="x-default" href="https://brisbanehifu.com/[path]"&gt;</div>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll curl 5 sample pages, extract hreflang links, confirm both en-au and x-default present and point to the page itself.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('1.7')">📋 Copy hreflang prompt</button>
+          <button class="done-btn" onclick="peDone('1.7')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PHASE 2 ════ -->
+  <div class="pe-panel" data-phase="p2">
+    <div class="pe-phase-head">
+      <h3>Phase 2 — Local SEO domination (Greater Brisbane)</h3>
+      <p>Week 2–3 · ~16 hr · 5 steps · Maps 3-pack CTR is 4-6× organic position 1. GBP + citations + review velocity unlocks this.</p>
+    </div>
+
+    <div class="step" data-step="2.1">
+      <div class="step-head" onclick="peToggle('2.1')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">2.1 GBP full optimisation — Brisbane scale</span>
+        <span class="step-time">5 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Set 5 GBP categories (primary + 4 additional), add all 8 services with photos + descriptions + price ranges, populate attributes (parking, wheelchair, languages), add weekly Posts, populate Q&amp;A pre-emptively, upload 30+ photos across all categories.</p>
+        <h5>Category slots (paste into GBP)</h5>
+        <div class="prompt-box" id="prompt-2.1">Primary: Skin Care Clinic (NOT Medical Spa — Medical Spa triggers YMYL)
+Additional 1: Beauty Salon
+Additional 2: Anti-Aging Clinic
+Additional 3: Day Spa
+Additional 4: Cosmetic Surgeon (only if not flagged — Google may require credentials)
+
+Services (add all 8 with description + price-range):
+- HIFU Face Lifting (from $X)
+- HIFU Neck + Jawline Sculpting (from $X)
+- HIFU Body Contouring (from $X)
+- HIFU Eye + Brow Lift (from $X)
+- HIFU Men's Treatment (from $X)
+- HIFU Post-Pregnancy (from $X)
+- HIFU Hand + Décolletage (from $X)
+- HIFU Combination Packages (from $X)
+
+Attributes to enable: appointment required, accepts new patients, women-led business, by-appointment, wheelchair accessible (if true), free wifi, English-speaking staff.
+
+Service area: all 16 Brisbane suburbs listed in the Phase 1 schema (CBD, South Brisbane, West End, New Farm, Fortitude Valley, Paddington, Toowong, Indooroopilly, Bulimba, Carindale, Chermside, Aspley, North Lakes, Sandgate, Wynnum, Brisbane).
+
+Photos: upload 30+ — clinic exterior, interior, treatment rooms, before/after (with consent), team, equipment, certificates. Geo-tag each photo to clinic address.</div>
+        <a class="btn green" href="https://business.google.com" target="_blank">Open GBP</a>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll search "hifu brisbane" + adjacent queries from a Brisbane proxy, screenshot the 3-pack, confirm Brisbane HIFU appears.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('2.1')">📋 Copy GBP setup</button>
+          <button class="done-btn" onclick="peDone('2.1')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="2.2">
+      <div class="step-head" onclick="peToggle('2.2')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">2.2 40+ AU citations — superior tier</span>
+        <span class="step-time">5 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Submit consistent NAP (Name, Address, Phone) to 40+ AU directories. Tier-1 first (TrueLocal, Yellow Pages, Hotfrog, Brownbook, Yelp AU), then niche beauty (BeautyHeaven, BeautyDirectory, AestheticDirectory).</p>
+        <h5>Tier-1 list (8 directories — start here)</h5>
+        <div class="prompt-box" id="prompt-2.2">For each directory, submit IDENTICAL business info (NAP MUST match GBP exactly):
+
+Name: Brisbane HIFU
+Phone: [exact GBP phone]
+Address: [exact GBP address]
+Website: https://brisbanehifu.com
+Categories: Skin Care Clinic, Beauty Salon
+Description: "Brisbane HIFU is the leading non-surgical face lifting and body contouring clinic in Brisbane, using high-intensity focused ultrasound (HIFU) technology. Founded by Kim Klein. 5.0★ rated with 132+ Google reviews."
+
+Tier-1 directories (submit all):
+1. TrueLocal — truelocal.com.au
+2. Yellow Pages AU — yellowpages.com.au
+3. Hotfrog AU — hotfrog.com.au
+4. Brownbook — brownbook.net
+5. Yelp AU — yelp.com.au
+6. dLook — dlook.com.au
+7. Aussie Web Listings — aussieweblistings.com.au
+8. Cylex AU — cylex.com.au
+
+Tier-2 (beauty/aesthetics niche) — submit next:
+- BeautyHeaven (beautyheaven.com.au)
+- BeautyDirectory (beautydirectory.com.au)
+- BodyAndSoul Salon Finder
+- Hellopeter AU
+- Fresha business directory (separate from booking listing)</div>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll search "Brisbane HIFU" across each directory, confirm listing exists + NAP matches exactly. Inconsistent NAP across citations is a top-3 ranking-factor leak.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('2.2')">📋 Copy citation pack</button>
+          <button class="done-btn" onclick="peDone('2.2')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="2.3">
+      <div class="step-head" onclick="peToggle('2.3')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">2.3 Review velocity engine — 8-10/month sustained</span>
+        <span class="step-time">3 hr setup</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Automate the post-treatment review request via BAT booking workflow. Target: 8-10 new Google reviews per month sustained (current 132 reviews at 5.0★ — protecting that baseline is critical).</p>
+        <h5>Prompt to wire in BAT (post-treatment workflow)</h5>
+        <div class="prompt-box" id="prompt-2.3">In BAT admin → Workflows → New workflow:
+
+Trigger: booking_completed (fires 24h after appointment end_time)
+Service filter: all (no service_name_match filter)
+
+Step 1 — SMS at +24h:
+"Hi [client first name], hope you loved your visit with Brisbane HIFU. If you have 30 sec, a Google review means the world to us — [GBP review short link]. Kim 💕"
+
+Step 2 — Email at +72h (only if no Google review left):
+Subject: "How did your Brisbane HIFU visit go?"
+Body: [warm 3-paragraph email asking for Google review + offering an alternative if anything was off — keep service recovery path open]
+
+Step 3 — Manual flag at +14d if still no review:
+Add to a "review-followup" admin task list — Kim can decide whether to ask in person at the next visit.
+
+Standing rule: NEVER offer discount or free service in exchange for a review (Google policy violation + ACL).</div>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll check the workflow row in BAT admin (when PROD is back), confirm trigger + service filter + steps. Then 30 days later count net new Google reviews against the 8-10 target.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('2.3')">📋 Copy workflow spec</button>
+          <button class="done-btn" onclick="peDone('2.3')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="2.4">
+      <div class="step-head" onclick="peToggle('2.4')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">2.4 GBP Posts — weekly cadence</span>
+        <span class="step-time">30 min/week ongoing</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Google rewards active GBP profiles. Post weekly: offer, event, what's new, or "before &amp; after" feature.</p>
+        <h5>Prompt — first 4 weeks of GBP Posts</h5>
+        <div class="prompt-box" id="prompt-2.4">Week 1 — Offer:
+"$X off your first HIFU Face Lifting treatment with Kim. Book online → [booking URL]. Valid this month for new clients only."
+
+Week 2 — Before/after feature (with consent):
+"6 weeks after just 1 session of HIFU Face Lifting. See [client first name]'s journey → [reviews page URL]. Real results, real client, no filter."
+
+Week 3 — Educational:
+"What's the difference between HIFU and a thread lift? Quick 3-point breakdown on the blog → [pillar URL]"
+
+Week 4 — Event/availability:
+"Limited Saturday slots open this weekend for HIFU consultations. Book online → [booking URL]"
+
+Image: 1200×900px per post (Google's preferred ratio). Always include a CTA button on the post (Book / Learn more / Call).</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Monthly — I'll check GBP via web for at least 4 Posts in the past 30 days.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('2.4')">📋 Copy Post templates</button>
+          <button class="done-btn" onclick="peDone('2.4')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="2.5">
+      <div class="step-head" onclick="peToggle('2.5')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">2.5 GBP Q&amp;A monitoring</span>
+        <span class="step-time">5 min/week</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Anyone (including competitors) can ask a Q on your GBP listing. Anyone (including competitors) can answer. Monitor + answer first.</p>
+        <h5>Seed 10 questions yourself (verified-owner answers rank top)</h5>
+        <div class="prompt-box" id="prompt-2.5">Post these 10 questions to your own GBP listing using a non-business Google account (or ask a friend), then answer each as the verified owner:
+
+1. "How much does HIFU face lifting cost in Brisbane?"
+2. "Is HIFU safe?"
+3. "How long do HIFU results last?"
+4. "Does HIFU hurt?"
+5. "How many HIFU treatments do I need?"
+6. "Can I have HIFU if I'm pregnant or breastfeeding?"
+7. "What's the difference between HIFU and Ultherapy?"
+8. "Do you offer payment plans?"
+9. "What suburbs do you serve in Brisbane?"
+10. "Do you have parking at the clinic?"
+
+Each answer 2-4 sentences. Include CTA to book where appropriate. Verified-owner answers display first by default.</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Check GBP Q&amp;A count via web. Target: 10 owner-answered Qs visible.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('2.5')">📋 Copy Q&amp;A seed</button>
+          <button class="done-btn" onclick="peDone('2.5')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PHASE 3 ════ -->
+  <div class="pe-panel" data-phase="p3">
+    <div class="pe-phase-head">
+      <h3>Phase 3 — Pillar + cluster content engine</h3>
+      <p>Week 3–8 · ~50 hr · 5 steps · 10 pillar pages + 30 new cluster posts (on top of 12 existing). Authority compounds.</p>
+    </div>
+
+    <div class="step" data-step="3.1">
+      <div class="step-head" onclick="peToggle('3.1')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">3.1 Pillar architecture — 10 definitive guides</span>
+        <span class="step-time">~30 hr (3 hr each)</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>10 pillar pages, ~3000 words each, the definitive AU resource on each topic. Each pillar has 3-5 cluster posts feeding it.</p>
+        <h5>10 pillar topics</h5>
+        <div class="prompt-box" id="prompt-3.1">Pillar 1: The Complete Guide to HIFU in Brisbane — what it is, who it's for, cost, results, safety, vs alternatives
+Pillar 2: HIFU vs Threads vs Facelift vs Ultherapy — the AU comparison (most-converting commercial-intent topic)
+Pillar 3: Non-Surgical Face Lifting — the science + AU practitioner directory
+Pillar 4: HIFU Body Contouring — areas, results, sessions, realistic expectations
+Pillar 5: HIFU for Men — different priorities, different protocol, different results
+Pillar 6: Post-Pregnancy Skin Tightening — what's safe + when to start
+Pillar 7: HIFU Cost in Australia — transparent breakdown of why prices vary
+Pillar 8: HIFU Aftercare — the 30-day protocol that maximises results
+Pillar 9: HIFU Before-and-After Reality Check — managing expectations honestly
+Pillar 10: HIFU Safety — contraindications, side effects, who shouldn't get it
+
+Each pillar template:
+- H1: clear question or commercial-intent phrase
+- 2-3 paragraph intro answering the core question in plain English
+- Table of contents (anchor-linked)
+- 6-10 H2 sections, each 250-400 words
+- 2-3 expert pull quotes (Kim's voice)
+- 1-2 before/after images with consent
+- FAQ section (5-8 Q&amp;A using FAQPage schema)
+- Strong CTA every 1500 words ("Ready to see if HIFU is right for you?")
+- Author byline: Kim Klein, Founder &amp; Practitioner
+- Last reviewed date
+- 10+ internal links to related treatments, suburbs, clusters</div>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll fetch each published pillar URL, count words, validate FAQ schema, count internal links, confirm author byline + reviewed date present.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('3.1')">📋 Copy pillar template</button>
+          <button class="done-btn" onclick="peDone('3.1')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="3.2">
+      <div class="step-head" onclick="peToggle('3.2')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">3.2 Cluster posts (30 new + 12 existing = 42)</span>
+        <span class="step-time">~12 hr (24 min each)</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Each cluster post is 600-1000 words, answers ONE specific question, links UP to its parent pillar + 1-2 sibling clusters + 1-2 treatment pages.</p>
+        <h5>30 new cluster topics (3 per pillar)</h5>
+        <div class="prompt-box" id="prompt-3.2">For Pillar 1 (Complete Guide):
+- "Is HIFU worth it? An honest answer for Brisbane clients"
+- "How to choose a HIFU clinic in Brisbane"
+- "Free HIFU consultation Brisbane — what to ask"
+
+For Pillar 2 (HIFU vs alternatives):
+- "HIFU vs PDO threads — which lasts longer?"
+- "HIFU vs surgical facelift — the realistic comparison"
+- "HIFU vs Ultherapy — same machine, different name?"
+
+For Pillar 3 (Non-Surgical Face Lifting):
+- "Non-surgical facelift Brisbane — top 5 options ranked"
+- "Can you really lift your face without surgery?"
+- "Non-surgical facelift cost — what to expect"
+
+For Pillar 4 (Body Contouring):
+- "HIFU stomach treatment — does it work?"
+- "HIFU for arms — how many sessions?"
+- "Body HIFU before and after — realistic timelines"
+
+For Pillar 5 (Men's):
+- "HIFU for men's jawline — the masculine difference"
+- "Best men's anti-aging treatment Brisbane"
+- "How to look younger without surgery — men's guide"
+
+[continue same pattern for Pillars 6-10]
+
+Each cluster post template:
+- Title: include the question verbatim
+- 600-1000 words
+- 3-4 H2 sections
+- 1-2 internal images (alt text optimised)
+- "Read the full guide → [pillar URL]" prominent at top + bottom
+- 1-2 sibling cluster links
+- 1-2 treatment page links contextually
+- Author byline + reviewed date</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Per-post URL fetch — count words, validate parent-pillar link + sibling/treatment internal links present.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('3.2')">📋 Copy 30-cluster topics</button>
+          <button class="done-btn" onclick="peDone('3.2')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="3.3">
+      <div class="step-head" onclick="peToggle('3.3')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">3.3 Content production cadence (Weeks 3-8)</span>
+        <span class="step-time">~3 hr/week</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Lock a publishing cadence to make 42 pieces in 6 weeks feasible: 2 pillars + 5 clusters per week.</p>
+        <h5>Week-by-week production plan</h5>
+        <div class="prompt-box" id="prompt-3.3">Week 3: Pillars 1+2 + 5 clusters (1.a, 1.b, 1.c, 2.a, 2.b)
+Week 4: Pillars 3+4 + 5 clusters (2.c, 3.a, 3.b, 3.c, 4.a)
+Week 5: Pillars 5+6 + 5 clusters (4.b, 4.c, 5.a, 5.b, 5.c)
+Week 6: Pillars 7+8 + 5 clusters (6.a, 6.b, 6.c, 7.a, 7.b)
+Week 7: Pillars 9+10 + 5 clusters (7.c, 8.a, 8.b, 8.c, 9.a)
+Week 8: Final 5 clusters (9.b, 9.c, 10.a, 10.b, 10.c) + internal-linking sweep across all 42
+
+Standing rules per week:
+- All pieces drafted Mon-Wed
+- E-E-A-T review Thu (Kim's voice + signoff)
+- Publish + GSC submit Fri
+- Internal-link sweep across all published pieces every Sat (10 min)</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Friday-of-week check — count net new blog URLs in your sitemap-blog.xml. Should hit 7 net new per week (2 pillars + 5 clusters).</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('3.3')">📋 Copy cadence plan</button>
+          <button class="done-btn" onclick="peDone('3.3')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="3.4">
+      <div class="step-head" onclick="peToggle('3.4')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">3.4 E-E-A-T signals — non-negotiable per post</span>
+        <span class="step-time">10 min/post</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Every post needs Experience, Expertise, Authoritativeness, Trust signals visible to both readers + Google.</p>
+        <h5>Checklist per post (paste at top of each draft)</h5>
+        <div class="prompt-box" id="prompt-3.4">EEAT checklist — every post must have:
+
+[ ] Author byline above the fold: "By Kim Klein, Founder &amp; Practitioner, Brisbane HIFU" with link to /about
+[ ] Author photo (40px circular thumbnail)
+[ ] "Last reviewed: [date]" — refresh annually
+[ ] Credentials line: "5+ years of HIFU practice · 1000+ treatments · 132+ 5★ reviews"
+[ ] At least 1 first-person sentence ("In my clinic I see...", "What I tell clients is...")
+[ ] At least 1 cited source (research paper, brand/device manual, professional body)
+[ ] No invented regulatory claims (TGA-registered, FDA-cleared, medical-grade, clinically proven) unless verified for the SPECIFIC device
+[ ] No "results guaranteed" or anchor pricing ("normally $X")
+[ ] "Patient" replaced with "Client" everywhere
+[ ] At least 1 disclaimer for medical-adjacent claims ("Individual results vary. Book a consultation to discuss your specific case.")</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Per-post fetch — grep for byline, photo URL, reviewed date, regulatory keyword violations.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('3.4')">📋 Copy EEAT checklist</button>
+          <button class="done-btn" onclick="peDone('3.4')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="3.5">
+      <div class="step-head" onclick="peToggle('3.5')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">3.5 Content distribution loop — recycle each pillar</span>
+        <span class="step-time">2 hr/pillar</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Each pillar gets recycled into 4 secondary formats — 4× the discovery surface for the same content effort.</p>
+        <h5>Per-pillar distribution checklist</h5>
+        <div class="prompt-box" id="prompt-3.5">For EACH pillar published, generate within 48 hr:
+
+1. 60-second Instagram Reel script summarising the pillar's #1 insight → record with Kim, post on @brisbanehifu
+2. LinkedIn long-form post (~700 words) sharing the pillar's takeaway from Kim's first-person practitioner POV → cross-post to Kim's personal LinkedIn
+3. Pinterest pin (1000×1500px) — quote graphic from the pillar with link → post on Brisbane HIFU board
+4. Email newsletter blurb (~150 words) → next monthly newsletter
+
+Each format links BACK to the pillar URL (passes authority signal + drives traffic).</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Monthly — count IG Reels, LinkedIn posts, Pinterest pins linking back to pillar URLs. Target: 4 per published pillar.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('3.5')">📋 Copy distribution plan</button>
+          <button class="done-btn" onclick="peDone('3.5')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PHASE 4 ════ -->
+  <div class="pe-panel" data-phase="p4">
+    <div class="pe-phase-head">
+      <h3>Phase 4 — Suburb × treatment programmatic matrix</h3>
+      <p>Week 5–10 · ~24 hr · 5 steps · 20 suburbs × 8 treatments = 160 cells. Phase 1 publishes top 20 cells, scale up over time.</p>
+    </div>
+
+    <div class="step" data-step="4.1">
+      <div class="step-head" onclick="peToggle('4.1')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">4.1 Suburb selection (20 Brisbane LGA focus)</span>
+        <span class="step-time">30 min</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>20 suburbs ranked by search volume + clinic accessibility</h5>
+        <div class="prompt-box" id="prompt-4.1">Tier-1 (Week 5 launch — 8 highest-volume Brisbane suburbs):
+1. New Farm
+2. West End
+3. Toowong
+4. Indooroopilly
+5. Paddington
+6. Bulimba
+7. Fortitude Valley
+8. South Brisbane
+
+Tier-2 (Week 7 launch):
+9. Carindale
+10. Chermside
+11. Aspley
+12. Sandgate
+13. Wynnum
+14. Mt Gravatt
+15. Coorparoo
+16. Camp Hill
+
+Tier-3 (Week 9-10 launch):
+17. North Lakes
+18. Albany Creek
+19. Strathpine
+20. Springwood
+
+Validation: each suburb verified to have 100+ Google searches/month for "[treatment] [suburb]" via Google Ads Keyword Planner.</div>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll pull Google Ads Keyword Planner data for each suburb × treatment combo, validate search volume threshold.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('4.1')">📋 Copy suburb tiering</button>
+          <button class="done-btn" onclick="peDone('4.1')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="4.2">
+      <div class="step-head" onclick="peToggle('4.2')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">4.2 Page template — uniqueness budget per cell</span>
+        <span class="step-time">2 hr template lock</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Programmatic ≠ doorway. Each suburb × treatment cell needs ~60% unique content to avoid thin-content penalty.</p>
+        <h5>Cell template (paste into Lovable as reusable component)</h5>
+        <div class="prompt-box" id="prompt-4.2">Template: /hifu-[treatment]-[suburb]
+
+Above the fold (SHARED across cells):
+- H1: "HIFU [Treatment] in [Suburb], Brisbane"
+- Subtitle: "Non-surgical, no downtime, results in [N] sessions"
+- Hero CTA: "Book your [suburb] HIFU consultation"
+
+UNIQUE per cell (60% of page):
+- Opening paragraph (~150 words) — mention the specific suburb's character + 2-3 nearby suburbs + travel time to clinic
+- "Why [Suburb] clients choose Brisbane HIFU" (~200 words) — local testimonial if available, or describe a [suburb]-specific concern (e.g. West End = creative-industry-friendly hours, North Lakes = parking-easy)
+- "Getting to us from [Suburb]" — 2-3 sentences with parking + public transport detail + map embed
+- 1-2 reviews from clients in or near [suburb] (use real names + suburb tags if consent given)
+
+SHARED across cells (40% of page):
+- Treatment description (link to /hifu-[treatment])
+- Session count + recovery
+- Pricing
+- FAQ (4-5 Qs)
+- Sticky CTA bar
+
+Schema (per cell):
+- BeautySalon node already in site-wide @graph
+- Service node specifying areaServed: { @type: "City", name: "[Suburb]" }
+- LocalBusiness extension is acceptable but don't duplicate the full @id
+
+Word count target: 500-700 per cell.</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Sample 5 cells, diff-check content, confirm ≥60% unique vs template, validate Service schema includes areaServed City node.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('4.2')">📋 Copy cell template</button>
+          <button class="done-btn" onclick="peDone('4.2')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="4.3">
+      <div class="step-head" onclick="peToggle('4.3')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">4.3 Schema per cell</span>
+        <span class="step-time">included in 4.2</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>Per-cell Service schema</h5>
+        <div class="prompt-box" id="prompt-4.3">Add to each suburb × treatment page &lt;head&gt;:
+
+&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "HIFU [Treatment] in [Suburb]",
+  "provider": {"@id":"https://brisbanehifu.com/#localbusiness"},
+  "serviceType": "HIFU [Treatment]",
+  "areaServed": {"@type":"City","name":"[Suburb]","containedInPlace":{"@type":"City","name":"Brisbane"}},
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "AUD",
+    "price": "[PRICE]",
+    "availability": "https://schema.org/InStock",
+    "url": "https://brisbanehifu.com/hifu-[treatment]-[suburb]"
+  }
+}
+&lt;/script&gt;</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Sample 5 cells, run Rich Results Test, confirm Service schema parses without errors.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('4.3')">📋 Copy Service schema</button>
+          <button class="done-btn" onclick="peDone('4.3')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="4.4">
+      <div class="step-head" onclick="peToggle('4.4')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">4.4 Publishing wave plan</span>
+        <span class="step-time">~18 hr total publishing</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>3-wave rollout</h5>
+        <div class="prompt-box" id="prompt-4.4">Wave 1 (Week 5): 8 cells — Tier-1 suburbs × HIFU Face Lifting only (most-searched treatment)
+Wave 2 (Week 7): 16 cells — Tier-1 × (Neck/Jawline + Body) = 8+8
+Wave 3 (Week 9-10): remaining 24-50 cells based on Wave 1+2 performance signals
+
+Per-wave checklist (Friday of each wave week):
+- All cells published
+- Internal links from /hifu-[treatment] parent treatment hub to all suburb children
+- All cells submitted via GSC URL Inspection
+- All cells listed in sitemap-suburbs.xml with priority 0.8
+- 7-day check: any cell with 0 impressions in GSC → review + edit copy + resubmit</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Per wave — count published cells, check sitemap-suburbs.xml entries, sample-fetch a few cells for live render.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('4.4')">📋 Copy wave plan</button>
+          <button class="done-btn" onclick="peDone('4.4')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="4.5">
+      <div class="step-head" onclick="peToggle('4.5')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">4.5 Quality gate — pre-publish checklist per cell</span>
+        <span class="step-time">~5 min/cell</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>5-point pre-publish gate (block any cell that fails)</h5>
+        <div class="prompt-box" id="prompt-4.5">[ ] Word count ≥ 500 (programmatic ≠ thin)
+[ ] Unique content ≥ 60% (diff-check against template)
+[ ] All 3 internal links present: parent treatment hub + 2 sibling suburbs
+[ ] Service schema validates clean on Rich Results Test
+[ ] Canonical points to itself (NOT parent treatment hub)
+
+Any cell failing any gate goes back to draft. Better to publish 8 strong cells than 20 thin cells — thin cells trigger panda/site-quality demotion that drags the whole site.</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Per cell — automated 5-gate check, report PASS/FAIL per cell.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('4.5')">📋 Copy quality gate</button>
+          <button class="done-btn" onclick="peDone('4.5')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PHASE 5 ════ -->
+  <div class="pe-panel" data-phase="p5">
+    <div class="pe-phase-head">
+      <h3>Phase 5 — Authority backlinks + digital PR</h3>
+      <p>Week 6–12 · ~20 hr · 7 steps · Backlinks are the #1 off-site ranking factor still. Authority compounds the entire content engine.</p>
+    </div>
+
+    <div class="step" data-step="5.1">
+      <div class="step-head" onclick="peToggle('5.1')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">5.1 HARO + SourceBottle daily monitoring</span>
+        <span class="step-time">15 min/day × 12 weeks</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Journalists request expert quotes daily via HARO (helpareporter.com) + SourceBottle (sourcebottle.com.au — AU-focused). 5-10 replies/week → 1-2 published quotes/month → 1-2 high-DA backlinks.</p>
+        <h5>Workflow</h5>
+        <div class="prompt-box" id="prompt-5.1">Daily routine (15 min, ideally morning):
+
+1. Open HARO email digest (3 emails/day) + SourceBottle inbox
+2. Filter for: aesthetics, beauty, anti-aging, skincare, women's health, wellness, female business owner
+3. For matching opps, draft 200-word expert quote from Kim's voice (use a template prompt to Claude/ChatGPT to draft quickly)
+4. Submit before deadline (usually 24-48 hr)
+5. Include in signature: name, title (Founder &amp; Practitioner, Brisbane HIFU), website (https://brisbanehifu.com), high-res headshot
+
+Aim for 5 submissions/week. Target conversion: 1 published placement per 20-30 submissions = 1-2 per month.</div>
+        <a class="btn" href="https://www.helpareporter.com/" target="_blank">HARO</a>
+        <a class="btn" href="https://www.sourcebottle.com.au" target="_blank">SourceBottle</a>
+        <div class="verify-box"><b>How Nova verifies:</b> Monthly — backlink scan via Ahrefs/Moz, count new referring domains, identify which originated from HARO/SourceBottle placements.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('5.1')">📋 Copy HARO workflow</button>
+          <button class="done-btn" onclick="peDone('5.1')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="5.2">
+      <div class="step-head" onclick="peToggle('5.2')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">5.2 AU beauty press direct outreach</span>
+        <span class="step-time">~6 hr (Wks 7-10)</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>Target list — direct pitches</h5>
+        <div class="prompt-box" id="prompt-5.2">Tier-1 (high DA, AU beauty editorial):
+- BeautyHeaven
+- BodyAndSoul
+- Beauticate
+- BEAUTYcrew
+- Get The Gloss AU
+- Vogue AU (long shot but possible with strong angle)
+- Marie Claire AU
+- ELLE AU
+
+Tier-2 (lifestyle / women's health):
+- Mamamia (beauty/wellness vertical)
+- 9Honey (beauty vertical)
+- POPSUGAR Australia
+- ALLURE.com.au
+
+Tier-3 (local Brisbane lifestyle):
+- BrisbaneTimes lifestyle
+- Brisbane Magazine
+- Visit Brisbane lifestyle features
+
+Pitch template (200 words MAX):
+Subject: "Brisbane practitioner: the truth about HIFU vs Ultherapy"
+Body: 1 sentence intro · 1 sentence credentials · 1 sentence angle ("I see 30+ HIFU clients/week and the question I get most is...") · 1 sentence value to their reader · 1 line offer ("Happy to provide quotes, before/afters with consent, or expert commentary on industry developments") · sign-off with link to /about.
+
+Personalisation: reference a recent piece they wrote (signals you're a real reader, not a mass-mailer).</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Quarterly — backlink scan, identify published placements from this target list.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('5.2')">📋 Copy pitch + targets</button>
+          <button class="done-btn" onclick="peDone('5.2')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="5.3">
+      <div class="step-head" onclick="peToggle('5.3')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">5.3 Brisbane local press</span>
+        <span class="step-time">~4 hr (Wks 8-11)</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>Targets + angle</h5>
+        <div class="prompt-box" id="prompt-5.3">Targets:
+- Brisbane Times (lifestyle, women in business)
+- Style Magazines Queensland
+- Brisbane City Council "Open for Business" features
+- Westside News (local, low DA but high relevance)
+- City North News
+- Quest Newspapers (local Brisbane suburbs network)
+- Brisbane Magazine
+- The Weekend Edition (Brisbane lifestyle)
+
+Angles that work for local press:
+- Women-led Brisbane business milestone (1000 treatments, 132 reviews)
+- "Brisbane's only..." (something specific like single-practitioner ownership, specific equipment)
+- Local community involvement (charity, sponsorship, school events)
+- Free clinic days, mentorship, industry contribution
+
+NEVER pitch as "advertorial" — that's paid placement, not earned media. Earned media is free + carries more authority.</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Quarterly — backlink scan for local press placements.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('5.3')">📋 Copy local press plan</button>
+          <button class="done-btn" onclick="peDone('5.3')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="5.4">
+      <div class="step-head" onclick="peToggle('5.4')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">5.4 Local business partnerships — link reciprocity</span>
+        <span class="step-time">~3 hr (Wks 7-12)</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>Partner categories</h5>
+        <div class="prompt-box" id="prompt-5.4">Complementary local businesses (NOT direct competitors):
+- Hairdressers in Brisbane CBD / nearby suburbs (cross-refer clients, link exchange)
+- Personal trainers / Pilates studios (post-treatment recovery client overlap)
+- Wedding planners (pre-wedding skin prep client overlap)
+- Cosmetic dentists (full-face transformation angle)
+- Nail salons in same suburbs
+- Med-spa friendly chiropractors / massage therapists
+- Wellness coaches / nutritionists
+
+Pitch (DM or email):
+"Hi [Name], Kim Klein here from Brisbane HIFU. I love what you're doing with [specific thing about their business]. Wondering if you'd be open to a simple referral relationship? I have a number of clients asking for [their service] and I'd happily refer them your way. Would you be open to a coffee + chat?"
+
+Once warm, suggest: feature each other on /partners page, swap a single blog post mention, co-host an event.
+
+Link target: 10 local partner backlinks by Week 12.</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Quarterly backlink scan + check /partners page exists with 10+ links.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('5.4')">📋 Copy partnership plan</button>
+          <button class="done-btn" onclick="peDone('5.4')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="5.5">
+      <div class="step-head" onclick="peToggle('5.5')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">5.5 Linkable assets (Wks 6-10)</span>
+        <span class="step-time">~4 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>3 link-magnet assets to build</h5>
+        <div class="prompt-box" id="prompt-5.5">Asset 1: "Australian HIFU Cost Calculator" — interactive embed showing typical cost ranges by treatment area + AU state. Generates a link-bait headline + naturally attracts citations from cost-comparison articles.
+
+Asset 2: "Brisbane HIFU Patient Outcomes Report 2026" — anonymised data report from 1000+ treatments showing satisfaction scores, repeat-treatment rates, demographic breakdown. Publish as PDF + embedded HTML. Pitch to beauty press as "first Australian data of its kind."
+
+Asset 3: "HIFU Aftercare Protocol" — visual single-page infographic showing the 30-day post-treatment skincare protocol. Easy for other clinics + bloggers to link to + reference. Free + comprehensive.
+
+All 3 hosted at brisbanehifu.com (NOT third-party). All 3 require attribution + link-back if cited.
+
+Promotion: announce each in newsletter + social + 5 targeted outreach emails to relevant publications.</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Per asset — confirm published URL, backlink scan after 30 days to count earned links.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('5.5')">📋 Copy linkable assets spec</button>
+          <button class="done-btn" onclick="peDone('5.5')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="5.6">
+      <div class="step-head" onclick="peToggle('5.6')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">5.6 Broken-link reclamation</span>
+        <span class="step-time">~2 hr (Wks 9-12)</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>Workflow</h5>
+        <div class="prompt-box" id="prompt-5.6">1. Use Ahrefs / Moz Link Explorer to find AU beauty/aesthetic sites with broken outbound links
+2. Filter: sites linking to closed Brisbane competitors, defunct HIFU clinics, or outdated articles
+3. For each broken link, identify a Brisbane HIFU page that would be a natural replacement
+4. Email site owner: "Hi [name], I was reading [their article] and noticed [broken link] is no longer working. I have a similar resource at [your URL] that may be helpful for your readers. Happy to provide an updated quote if you'd like to refresh the section."
+
+Conversion: ~10-15% reply rate, ~5% actual link replacement. So 100 outreaches = ~5 new links. High-quality + ethical.</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Quarterly backlink scan, count new referring domains tagged as "reclamation" in your tracking sheet.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('5.6')">📋 Copy reclamation workflow</button>
+          <button class="done-btn" onclick="peDone('5.6')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="5.7">
+      <div class="step-head" onclick="peToggle('5.7')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">5.7 Niche guest posting (selective)</span>
+        <span class="step-time">~2 hr per post</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Guest posts are still valuable IF on relevant authoritative sites. Avoid generic "write for us" link-farms — those are now Google-penalised.</p>
+        <h5>Acceptable targets</h5>
+        <div class="prompt-box" id="prompt-5.7">Aim for: 1 guest post per quarter on high-authority AU beauty / wellness / business site
+
+Acceptable targets (must satisfy ALL):
+- DA 30+ (check via Moz)
+- Site has &lt; 50% guest content (signals quality control)
+- Topic genuinely relevant (beauty, anti-aging, women's business, wellness)
+- Allows do-follow author bio link (not nofollow-only)
+- Editorial review process exists (i.e. not auto-publish)
+
+UNACCEPTABLE: generic guest-post farms ("Write for HuffPost-style sites"), private blog networks, sites with thousands of unrelated guest posts.
+
+Pitch template:
+Subject: "Guest post pitch: [SPECIFIC TITLE] for [PUBLICATION]"
+Body: 1 sentence intro · 3 proposed titles (specific, not generic) · 1 sentence on credentials · sample writing sample link (your own pillar page) · "Happy to write 1000-1500 words within 2 weeks if any title interests you."</div>
+        <div class="verify-box"><b>How Nova verifies:</b> Per post — confirm published URL, do-follow link status via inspector.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('5.7')">📋 Copy guest post strategy</button>
+          <button class="done-btn" onclick="peDone('5.7')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PHASE 6 ════ -->
+  <div class="pe-panel" data-phase="p6">
+    <div class="pe-phase-head">
+      <h3>Phase 6 — CRO + conversion optimisation</h3>
+      <p>Week 8–12 · ~10 hr · 8 steps · Once traffic ramps from Phases 1-5, the next lever is converting more of it.</p>
+    </div>
+
+    <div class="step" data-step="6.1">
+      <div class="step-head" onclick="peToggle('6.1')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">6.1 Mobile sticky CTA bar</span>
+        <span class="step-time">1 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <h5>Prompt for Lovable (mobile-only sticky footer)</h5>
+        <div class="prompt-box" id="prompt-6.1">Add a sticky footer bar to ALL pages, mobile-only (display:none on desktop &gt; 768px):
+
+[ 📞 Call ]   [ 💬 WhatsApp ]   [ 📅 Book online ]
+
+3 buttons, equal width, 60px tall, semi-transparent dark background, white text. Tap actions:
+- Call → tel:+61[BHIFU-PHONE]
+- WhatsApp → https://wa.me/61[BHIFU-PHONE-DIGITS]?text=Hi%20Brisbane%20HIFU
+- Book online → https://app.bookatreatment.ai/book/brisbane-hifu-clinic
+
+Track each as separate GA4 events (sticky_cta_call, sticky_cta_whatsapp, sticky_cta_book).</div>
+        <div class="verify-box"><b>How Nova verifies:</b> I'll fetch a mobile-emulated view of 3 sample pages, confirm sticky bar present + 3 buttons clickable.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('6.1')">📋 Copy sticky CTA prompt</button>
+          <button class="done-btn" onclick="peDone('6.1')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="6.2">
+      <div class="step-head" onclick="peToggle('6.2')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">6.2 WhatsApp click-to-chat</span>
+        <span class="step-time">30 min</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Bottom-right floating WhatsApp button on all pages. Pre-filled message reduces friction.</p>
+        <div class="prompt-box" id="prompt-6.2">Add a floating WhatsApp button (bottom-right, 60×60px, brand green #25D366) on all pages.
+Tap → opens WhatsApp chat with pre-filled: "Hi Brisbane HIFU, I'd like to ask about [treatment]."
+
+Track as GA4 event whatsapp_click.
+
+Note: WhatsApp click-to-chat requires Kim's WhatsApp Business account configured at +61[BHIFU-PHONE]. Setup at business.whatsapp.com.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('6.2')">📋 Copy WhatsApp prompt</button>
+          <button class="done-btn" onclick="peDone('6.2')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="6.3">
+      <div class="step-head" onclick="peToggle('6.3')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">6.3 Exit-intent — deals page only</span>
+        <span class="step-time">1 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="prompt-box" id="prompt-6.3">Add exit-intent popup to /hifu-deals ONLY (don't use site-wide — feels spammy on info pages):
+
+Trigger: mouse leaves top of viewport (desktop) OR back-button intent detected (mobile)
+Heading: "Wait! 15% off your first treatment 🎁"
+Body: "Subscribe + get a one-time 15% off code for your first Brisbane HIFU treatment, plus our pre-treatment guide PDF."
+Field: Email (single field, no name needed)
+Button: "Send my code"
+Frequency cap: once per session per visitor (localStorage flag)
+
+On submit → fire GA4 event exit_intent_subscribe + add to Mailchimp/Resend list "deals-exit-intent" + email the 15% code + PDF.
+
+Note: 15% off must be honoured. Set discount code in BAT admin first.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('6.3')">📋 Copy exit-intent prompt</button>
+          <button class="done-btn" onclick="peDone('6.3')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="6.4">
+      <div class="step-head" onclick="peToggle('6.4')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">6.4 Social proof bar</span>
+        <span class="step-time">30 min</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="prompt-box" id="prompt-6.4">Add a thin bar (~30px) below the main nav, all pages:
+
+"⭐ 5.0/5 from 132+ Google reviews   |   ✓ 1000+ treatments delivered   |   🏆 Brisbane's HIFU specialists since 2020"
+
+Rotates 3 stats, scrolling horizontally on mobile. Background: brand teal-to-purple gradient. Text: white, 12.5px, font-weight 600.
+
+Link each stat to relevant page (review link → /reviews, treatments → /about, etc.).</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('6.4')">📋 Copy social proof prompt</button>
+          <button class="done-btn" onclick="peDone('6.4')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="6.5">
+      <div class="step-head" onclick="peToggle('6.5')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">6.5 Microsoft Clarity install</span>
+        <span class="step-time">30 min + ongoing</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Free heatmap + session replay tool. Better than Hotjar for the price (free). Add to Lovable head once → analyse weekly.</p>
+        <div class="prompt-box" id="prompt-6.5">1. Sign up at https://clarity.microsoft.com using brisbane.hifu.clinic@gmail.com
+2. Create project "Brisbane HIFU"
+3. Copy the tracking snippet (single script tag)
+4. Paste in Lovable Settings → SEO → Custom &lt;head&gt; code
+5. Verify install via Clarity dashboard (within 2-3 hr)
+
+Weekly analysis routine (15 min):
+- Filter sessions: deals page exits + booking-page abandonments
+- Watch 5 sessions each
+- Note: where users hesitate, where they click empty space (suggesting they EXPECTED something to be clickable), where they scroll fast (boring sections)
+- Convert insights into copy / layout changes</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('6.5')">📋 Copy Clarity setup</button>
+          <button class="done-btn" onclick="peDone('6.5')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="6.6">
+      <div class="step-head" onclick="peToggle('6.6')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">6.6 A/B testing roadmap (Wks 10-12)</span>
+        <span class="step-time">3 hr setup + ongoing</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="prompt-box" id="prompt-6.6">Set up GA4 + Google Optimize (or Lovable's native A/B if available) and run these 3 high-impact tests:
+
+Test 1: Homepage hero CTA wording
+A: "Book Your HIFU Consultation"
+B: "Get Your Free Skin Assessment"
+Success metric: clicks to /book per session
+
+Test 2: Deals page card layout
+A: Current grid layout
+B: Stacked single-column with prominent "MOST POPULAR" tag on Face+Neck deal
+Success metric: bookings per deals-page session
+
+Test 3: Treatment page CTA position
+A: Single sticky CTA at bottom
+B: 3 CTAs at intro + middle + end
+Success metric: scroll depth + booking conversion rate
+
+Run each test 14 days minimum, 95% confidence. Document winner. Lose hypotheses are still valuable — log them.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('6.6')">📋 Copy A/B test plan</button>
+          <button class="done-btn" onclick="peDone('6.6')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="6.7">
+      <div class="step-head" onclick="peToggle('6.7')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">6.7 BAT funnel attribution audit</span>
+        <span class="step-time">1 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p>Once Stripe Bug 14 is fixed and PROD is back, verify the GCLID-to-booking-to-payment chain end-to-end on Brisbane HIFU.</p>
+        <div class="prompt-box" id="prompt-6.7">End-to-end test (do this once Stripe Bug 14 is closed):
+
+1. Open https://brisbanehifu.com/?gclid=test-funnel-audit-$(date)
+2. Click any Book Now CTA
+3. Confirm BAT URL preserves the gclid (visible in browser URL bar)
+4. Complete a $1 test booking using a real card (Kim's own)
+5. Verify in Google Ads Conversions → BAT Booking Click "Recorded" within 1-2 hr
+6. Verify GA4 → Reports → Acquisition → User acquisition shows "google / cpc" channel with the booking event
+7. Verify Stripe Dashboard → Payments shows the $1 with metadata gclid attached
+8. Verify BAT admin → Bookings → the test booking has paid status
+
+If any step fails, the funnel attribution chain is broken at that step → file as a bug in the BAT booking-api repo.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('6.7')">📋 Copy funnel audit</button>
+          <button class="done-btn" onclick="peDone('6.7')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="6.8">
+      <div class="step-head" onclick="peToggle('6.8')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">6.8 Booking abandonment recovery</span>
+        <span class="step-time">1 hr</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="prompt-box" id="prompt-6.8">When a customer starts a BAT booking flow but doesn't complete in 15 min, fire a recovery email (provided they entered an email field).
+
+In BAT admin → Workflows → New:
+Trigger: booking_abandoned (event fires 15 min after step 1 + no completion)
+Channel: Email
+Subject: "Did your Brisbane HIFU booking get interrupted?"
+Body: 3-paragraph email — "I noticed you started booking earlier... here's a one-click link to resume → [BAT booking URL with prefilled fields if possible] · OR call us on [phone] · OR reply to this email and I'll book you in personally — Kim"
+
+Frequency cap: max 1 recovery email per email per 30 days (don't spam).
+
+Note: requires BAT booking-api to fire booking_abandoned event. May need a small PR if event doesn't exist yet. Verify before promising the workflow will fire.</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('6.8')">📋 Copy abandonment workflow</button>
+          <button class="done-btn" onclick="peDone('6.8')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PHASE 7 ════ -->
+  <div class="pe-panel" data-phase="p7">
+    <div class="pe-phase-head">
+      <h3>Phase 7 — Ongoing maintenance + reporting</h3>
+      <p>Week 12+ · ~4 hr/week sustained · 4 steps · The compounding system. Phases 1-6 build the engine; Phase 7 keeps it running.</p>
+    </div>
+
+    <div class="step" data-step="7.1">
+      <div class="step-head" onclick="peToggle('7.1')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">7.1 Weekly cadence (60 min)</span>
+        <span class="step-time">1 hr/week</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="prompt-box" id="prompt-7.1">Every Monday 60 min:
+
+[ ] GBP Post published (rotate offer / educational / event / before-after)
+[ ] GBP Q&amp;A monitored — answer any new questions within 24h
+[ ] Google review velocity check — target 2-3 new this week from BAT workflow
+[ ] HARO + SourceBottle daily filter (cumulative effort tracked)
+[ ] 1 new cluster post published (Phase 3 ongoing)
+[ ] GSC Performance report — note any new top-10 queries
+[ ] PageSpeed Insights spot-check on 1 random page
+[ ] Microsoft Clarity — watch 5 random sessions, note any new friction</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('7.1')">📋 Copy weekly checklist</button>
+          <button class="done-btn" onclick="peDone('7.1')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="7.2">
+      <div class="step-head" onclick="peToggle('7.2')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">7.2 Monthly cadence (3 hr)</span>
+        <span class="step-time">3 hr/month</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="prompt-box" id="prompt-7.2">First Monday of each month:
+
+[ ] GSC vs prior-month: organic clicks, impressions, avg position, indexed pages — log to dashboard
+[ ] GA4 vs prior-month: sessions, conversion rate, top landing pages, top exit pages
+[ ] Backlink count via Ahrefs/Moz: new referring domains, lost domains, DA-30+ acquisitions
+[ ] Google Ads vs prior-month: CTR, CPC, conversions, cost-per-conversion
+[ ] Net new Google reviews + average rating
+[ ] Phase status update: what % of each phase complete
+[ ] 1 internal-link sweep across all published pages (10 min)
+[ ] 1 stale-content refresh (oldest pillar or cluster)
+[ ] 1 competitor SERP check on top 5 commercial queries</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('7.2')">📋 Copy monthly checklist</button>
+          <button class="done-btn" onclick="peDone('7.2')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="7.3">
+      <div class="step-head" onclick="peToggle('7.3')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">7.3 Quarterly cadence (8 hr)</span>
+        <span class="step-time">8 hr/quarter</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="prompt-box" id="prompt-7.3">End of each quarter (every 3 months):
+
+[ ] Full SEO audit using Screaming Frog (free up to 500 URLs) — fix any new 404s, redirect chains, missing meta, large images
+[ ] Schema validator sweep on all 12 schema node types — fix any deprecation warnings
+[ ] Content refresh: pick 5 oldest pillars, update with new data + reviewed date
+[ ] Backlink prune: identify any new toxic backlinks via Moz Spam Score, disavow if needed
+[ ] Competitor gap analysis: identify 3 keywords competitors rank for that you don't, queue content to cover
+[ ] KPI review vs Phase 1 targets — what's tracking, what's lagging
+[ ] Quarterly business report for Kim (1-page) — organic clicks, conversions, leads, ROI vs other channels</div>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('7.3')">📋 Copy quarterly checklist</button>
+          <button class="done-btn" onclick="peDone('7.3')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" data-step="7.4">
+      <div class="step-head" onclick="peToggle('7.4')">
+        <span class="step-check">⬜</span>
+        <span class="step-title">7.4 KPI dashboard — Looker Studio</span>
+        <span class="step-time">2 hr one-time setup</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="prompt-box" id="prompt-7.4">Set up a Looker Studio dashboard wiring GSC + GA4 + Google Ads + Search Console into a single weekly-refresh view:
+
+Sources:
+- GSC: clicks, impressions, CTR, position by query + page
+- GA4: sessions, conversions, channels, top pages, conversion paths
+- Google Ads: impressions, clicks, CTR, CPC, conversion rate, cost-per-conversion, BAT Booking Click count
+- Optional: BAT admin → bookings count by source (would need a custom export)
+
+Visualisations:
+- Weekly trend lines for all top-level metrics
+- Top 20 queries by clicks (with movement vs prior period)
+- Top 20 pages by clicks (with movement)
+- Conversion funnel: impression → click → session → booking
+- Channel breakdown (organic / paid / direct / referral / social)
+
+Sharing: keep private (Kim only). No client / external sharing.
+
+Template: there are free Looker Studio templates for "SEO Dashboard" — pick one + customise rather than building from scratch.</div>
+        <a class="btn" href="https://lookerstudio.google.com" target="_blank">Open Looker Studio</a>
+        <div class="step-actions">
+          <button class="copy-btn" onclick="peCopy('7.4')">📋 Copy Looker spec</button>
+          <button class="done-btn" onclick="peDone('7.4')">✓ Mark done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+// ═══ Phase Execution — state + interactions ═══
+(function(){
+  const STORAGE_KEY = 'bhifu_pe_state';
+  const TOTAL_STEPS = 41;
+
+  // ── State management
+  function loadState(){ try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){ return {}; } }
+  function saveState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+
+  function applyState(){
+    const s = loadState();
+    document.querySelectorAll('.step').forEach(step => {
+      const id = step.dataset.step;
+      const done = s[id] === true;
+      step.classList.toggle('done', done);
+      step.querySelector('.step-check').textContent = done ? '✅' : '⬜';
+      const btn = step.querySelector('.done-btn');
+      if (btn) btn.textContent = done ? '↩ Unmark' : '✓ Mark done';
+    });
+    const doneCount = Object.values(s).filter(v => v === true).length;
+    document.getElementById('pe-count').textContent = doneCount + ' / ' + TOTAL_STEPS + ' done';
+    document.getElementById('pe-bar').style.width = (doneCount / TOTAL_STEPS * 100) + '%';
+  }
+
+  // ── Tab switching
+  document.querySelectorAll('.pe-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pe-tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.pe-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector('.pe-panel[data-phase="' + btn.dataset.phase + '"]').classList.add('active');
+    });
+  });
+
+  // ── Step toggle, done, copy — global functions on window
+  window.peToggle = function(id){
+    const step = document.querySelector('.step[data-step="' + id + '"]');
+    step.classList.toggle('open');
+  };
+
+  window.peDone = function(id){
+    const s = loadState();
+    s[id] = !s[id];
+    saveState(s);
+    applyState();
+  };
+
+  window.peCopy = function(promptId){
+    const el = document.getElementById('prompt-' + promptId);
+    if (!el) return;
+    const txt = el.innerText || el.textContent;
+    navigator.clipboard.writeText(txt).then(() => {
+      const btns = document.querySelectorAll('button[onclick*="peCopy(\'' + promptId + '\')"]');
+      btns.forEach(b => { const orig = b.textContent; b.textContent = '✓ Copied'; setTimeout(() => b.textContent = orig, 1500); });
+    }).catch(() => alert('Copy failed — select the prompt text and copy manually.'));
+  };
+
+  window.peSync = function(){
+    const s = loadState();
+    const phases = { p1:'Phase 1 · Technical', p2:'Phase 2 · Local', p3:'Phase 3 · Content', p4:'Phase 4 · Matrix', p5:'Phase 5 · Authority', p6:'Phase 6 · CRO', p7:'Phase 7 · Ongoing' };
+    const stepsByPhase = {};
+    document.querySelectorAll('.pe-panel').forEach(panel => {
+      const phase = panel.dataset.phase;
+      stepsByPhase[phase] = [];
+      panel.querySelectorAll('.step').forEach(step => {
+        const id = step.dataset.step;
+        const title = step.querySelector('.step-title').textContent.trim();
+        const done = s[id] === true;
+        stepsByPhase[phase].push({ id, title, done });
+      });
+    });
+
+    let out = '📋 Brisbane HIFU — Phase Execution status @ ' + new Date().toISOString().slice(0,16).replace('T',' ') + ' UTC\n\n';
+    let total = 0, doneTotal = 0;
+    Object.keys(phases).forEach(p => {
+      const items = stepsByPhase[p];
+      const d = items.filter(i => i.done).length;
+      total += items.length;
+      doneTotal += d;
+      out += '## ' + phases[p] + ' — ' + d + '/' + items.length + '\n';
+      items.forEach(i => { out += (i.done ? '✅ ' : '⬜ ') + i.title + '\n'; });
+      out += '\n';
+    });
+    out += '— Total: ' + doneTotal + '/' + total + ' done.\n\nNova: please verify each ✅ item against the live site and flag any gaps.';
+
+    const box = document.getElementById('pe-sync-output');
+    box.textContent = out;
+    box.classList.add('show');
+    navigator.clipboard.writeText(out).then(() => {
+      const btn = document.querySelector('button[onclick="peSync()"]');
+      if (btn) { const orig = btn.textContent; btn.textContent = '✓ Copied — paste to Nova'; setTimeout(() => btn.textContent = orig, 3000); }
+    }).catch(() => {});
+  };
+
+  window.peReset = function(){
+    if (confirm('Clear all Done marks on this device?')) {
+      localStorage.removeItem(STORAGE_KEY);
+      applyState();
+      document.getElementById('pe-sync-output').classList.remove('show');
+    }
+  };
+
+  // Initial render
+  applyState();
+})();
+</script>
+
+<div class="footer">
+  Brisbane HIFU Master Dashboard · Generated 20 May 2026 · Lovable + Hostinger DNS + BAT app tenant 1 · Last cutover 15 May 2026
+</div>
+
+</div>
+</body>
+</html>

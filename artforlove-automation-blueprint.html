@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art For Love — Fulfilment &amp; Automation Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--pink:#ff1493;--pink-deep:#c2005e;--ink:#141414;--bg:#fff;--line:#e6e6e6;--soft:#fafafa;
+    --grad:linear-gradient(135deg,#ff1493,#b3005e);--shadow:0 10px 28px rgba(20,20,20,.12)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;padding-bottom:70px}
+  h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  a{color:var(--pink-deep)}
+  header{background:radial-gradient(120% 140% at 80% -10%,#ff1493 0%,#141414 60%);color:#fff;padding:32px 0 28px;border-bottom:4px solid var(--pink)}
+  .kick{letter-spacing:.32em;text-transform:uppercase;font-size:11px;color:#ff9ed3;margin-bottom:9px;font-weight:600}
+  header h1{font-size:33px;font-weight:800}
+  header p{margin-top:10px;color:#f3d6e6;max-width:840px;font-size:14.5px}
+  h2.cat{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#9a9a9a;margin:34px 2px 14px;font-weight:700}
+  .big{background:var(--grad);color:#fff;border-radius:16px;padding:20px 24px;margin-top:22px;box-shadow:var(--shadow)}
+  .big b{font-size:18px;font-family:'Playfair Display'}
+  .big p{font-size:14px;opacity:.96;margin-top:4px}
+
+  .flow{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px;box-shadow:var(--shadow);margin-top:14px}
+  .flow .name{font-family:'Playfair Display';font-weight:700;font-size:17px;margin-bottom:4px}
+  .flow .tagline{font-size:12px;color:#888;margin-bottom:14px}
+  .pipe{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
+  .stp{flex:1;min-width:120px;border-radius:11px;padding:11px 12px;font-size:12.5px;position:relative;border:1.5px solid}
+  .stp.auto{background:#fff0f7;border-color:var(--pink)}
+  .stp.human{background:#1c1c1c;border-color:#1c1c1c;color:#fff}
+  .stp .tg{font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:3px}
+  .stp.auto .tg{color:var(--pink-deep)}.stp.human .tg{color:#ff9ed3}
+  .stp b{font-size:12.5px}
+  .arr{align-self:center;color:var(--pink);font-weight:800;font-size:18px}
+  .res{margin-top:12px;font-size:13px;font-weight:600;color:var(--pink-deep)}
+
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+  .card.dark{background:var(--ink);color:#f3f3f3}.card.dark h4{color:var(--pink)}
+  .card h4{font-size:15.5px;margin-bottom:8px}
+  .card li{font-size:13.5px;margin:6px 0 6px 18px}
+  .card.dark li{color:#dcdcdc}
+
+  table.stack{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  table.stack td{padding:11px 14px;border-top:1px solid var(--soft);vertical-align:top}
+  table.stack tr:first-child td{border-top:none}
+  table.stack td:first-child{font-weight:700;color:var(--pink-deep);white-space:nowrap}
+  table.stack td:last-child{font-size:11px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;text-align:right;white-space:nowrap}
+  .t-off{color:var(--pink-deep)}.t-make{color:#0a8a55}.t-once{color:#888}
+
+  .step{display:flex;gap:14px;padding:13px 0;border-top:1px solid var(--soft)}
+  .step:first-child{border-top:none}
+  .step .n{flex:0 0 30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display'}
+  .step .b .t{font-weight:700;font-size:14.5px;font-family:'Playfair Display'}
+  .step .b .d{font-size:13px;color:#666;margin-top:2px}
+  .legend{display:flex;gap:16px;font-size:12px;margin:10px 2px 0}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+  footer{text-align:center;margin-top:34px;color:#9a9a9a;font-size:12px;padding-top:18px;border-top:1px solid var(--line)}
+  @media(max-width:880px){.grid2{grid-template-columns:1fr}.pipe{flex-direction:column}.arr{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="kick">Nova · Back-end &amp; autopilot plan</div>
+  <h1>Art For Love — Fulfilment &amp; Automation Blueprint</h1>
+  <p>How orders turn into delivered art with (almost) no hands. The key thing: this is <b>off-the-shelf integrations, not custom code</b> — so it's configuration + automation wiring, not months of dev.</p>
+</div></header>
+<div class="wrap">
+
+  <div class="big">
+    <b>The headline: ~95% of this runs itself.</b>
+    <p>Digital downloads = 100% automatic, forever. Canvas = 100% automatic after a one-time setup (a print partner prints &amp; ships for you). The <b>only</b> human step is Georgie actually creating a personalised commission — and even that has automated intake, proofing and delivery around it.</p>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot" style="background:#ff1493"></span> Automatic (no human)</span>
+    <span><span class="dot" style="background:#1c1c1c"></span> Human step</span>
+  </div>
+
+  <h2 class="cat">The 3 order → delivery flows</h2>
+
+  <div class="flow">
+    <div class="name">⬇️ Digital download — 100% automatic</div>
+    <div class="tagline">Your volume product. Zero touch, ever.</div>
+    <div class="pipe">
+      <div class="stp auto"><span class="tg">Auto</span><b>Customer buys</b> on store/Etsy</div>
+      <div class="arr">→</div>
+      <div class="stp auto"><span class="tg">Auto</span><b>Payment</b> captured</div>
+      <div class="arr">→</div>
+      <div class="stp auto"><span class="tg">Auto</span><b>File delivered</b> instantly by email/link</div>
+      <div class="arr">→</div>
+      <div class="stp auto"><span class="tg">Auto</span><b>Review request</b> sent later</div>
+    </div>
+    <div class="res">→ You do nothing. Pure margin.</div>
+  </div>
+
+  <div class="flow">
+    <div class="name">🖼️ Made-to-order canvas — 100% automatic (after setup)</div>
+    <div class="tagline">Print partner (Gelato/Prodigi) prints at the lab nearest the customer &amp; ships direct. You never touch a print.</div>
+    <div class="pipe">
+      <div class="stp auto"><span class="tg">Auto</span><b>Customer orders</b> a size</div>
+      <div class="arr">→</div>
+      <div class="stp auto"><span class="tg">Auto</span><b>Order + print file</b> sent to Gelato</div>
+      <div class="arr">→</div>
+      <div class="stp auto"><span class="tg">Auto</span><b>Printed locally</b> + quality-checked</div>
+      <div class="arr">→</div>
+      <div class="stp auto"><span class="tg">Auto</span><b>Shipped to customer</b> + tracking emailed</div>
+    </div>
+    <div class="res">→ You do nothing per order. One-time setup: map each artwork → print file + sizes.</div>
+  </div>
+
+  <div class="flow">
+    <div class="name">✨ Personalised commission — automated around 1 human step</div>
+    <div class="tagline">The premium upsell. Only Georgie's art-making is manual; everything else is automated.</div>
+    <div class="pipe">
+      <div class="stp auto"><span class="tg">Auto</span><b>Buys + uploads photo</b> (intake form)</div>
+      <div class="arr">→</div>
+      <div class="stp human"><span class="tg">Human</span><b>Georgie creates</b> the artwork</div>
+      <div class="arr">→</div>
+      <div class="stp auto"><span class="tg">Auto</span><b>Proof sent</b> + customer approves</div>
+      <div class="arr">→</div>
+      <div class="stp auto"><span class="tg">Auto</span><b>Delivered</b> as download / canvas (flows above)</div>
+    </div>
+    <div class="res">→ Your only job = make the art. Intake, payment, proofing, fulfilment all auto.</div>
+  </div>
+
+  <h2 class="cat">The back-end pieces (what each does)</h2>
+  <table class="stack">
+    <tr><td>Storefront + checkout</td><td>Shopify (own brand) and/or Etsy — cart, payment, orders, tax</td><td class="t-off">Off-the-shelf</td></tr>
+    <tr><td>Payments</td><td>Shopify Payments / Etsy Payments — cards, Apple/Google Pay, Afterpay</td><td class="t-off">Off-the-shelf</td></tr>
+    <tr><td>Digital delivery</td><td>Shopify Digital Downloads app (free) / Etsy native — instant file send</td><td class="t-off">Off-the-shelf</td></tr>
+    <tr><td>Canvas fulfilment</td><td><b>Gelato</b> (or Prodigi) app — auto-prints at nearest lab + ships + tracking</td><td class="t-off">Off-the-shelf</td></tr>
+    <tr><td>Product ↔ file mapping</td><td>Each artwork linked to its high-res print file + sizes</td><td class="t-once">One-time setup</td></tr>
+    <tr><td>Commission intake</td><td>Personalisation field / upload form → notify Georgie</td><td class="t-make">Make.com</td></tr>
+    <tr><td>Proof + approval</td><td>Send proof, customer approves, release to fulfilment</td><td class="t-make">Make.com</td></tr>
+    <tr><td>Reviews + marketing</td><td>Post-sale review asks, social auto-poster, email flows</td><td class="t-make">Make.com</td></tr>
+  </table>
+
+  <h2 class="cat">Can Nova build this?</h2>
+  <div class="grid2">
+    <div class="card"><h4>✅ What I can do</h4><ul>
+      <li>Design the whole architecture (this page)</li>
+      <li>Set up / configure the Shopify store, products, sizes, digital delivery</li>
+      <li>Connect &amp; map the Gelato canvas app (the print automation)</li>
+      <li>Build the Make.com automations (intake, proofing, reviews, social) — reusing your HIFU pattern</li>
+      <li>Write all listing/product content + SEO</li>
+      <li>Guide you click-by-click where a dashboard blocks automation (Etsy)</li>
+    </ul></div>
+    <div class="card dark"><h4>🔑 What needs you / Georgie</h4><ul>
+      <li>Logging in &amp; connecting accounts (OAuth — your click; I can't enter passwords)</li>
+      <li>Entering payment/billing details (e.g. Shopify subscription)</li>
+      <li>Georgie creating the commission artwork (the craft)</li>
+      <li>Final approval on pricing, look &amp; go-live</li>
+    </ul></div>
+  </div>
+
+  <h2 class="cat">The autopilot build plan</h2>
+  <div class="card">
+    <div class="step"><div class="n">1</div><div class="b"><div class="t">Foundation</div><div class="d">Shopify store + Payments live. Install Digital Downloads app + Gelato app. (Etsy runs in parallel as channel 2.)</div></div></div>
+    <div class="step"><div class="n">2</div><div class="b"><div class="t">Product setup (the one-time graft)</div><div class="d">Curate the 479 → hero set; upload print files; create products with download + canvas sizes; map each to Gelato. After this, every order self-fulfils.</div></div></div>
+    <div class="step"><div class="n">3</div><div class="b"><div class="t">Automation glue (Make.com)</div><div class="d">Commission intake → notify Georgie; proof-approval flow; post-sale review requests; order log. Reuses your existing HIFU Make.com setup.</div></div></div>
+    <div class="step"><div class="n">4</div><div class="b"><div class="t">Marketing autopilot</div><div class="d">Social auto-poster (the HIFU scenario, retargeted), email re-engagement of the old list, Etsy ads. Content fed by the monthly ATP loop.</div></div></div>
+    <div class="step"><div class="n">5</div><div class="b"><div class="t">Go live</div><div class="d">Point artforlove.shop → store, kill the Zyro site before 2 Jul, test a real download + a real canvas order end-to-end.</div></div></div>
+  </div>
+
+  <div class="big" style="background:#141414">
+    <b>After it's built, your day looks like this:</b>
+    <p>Orders arrive → downloads auto-deliver, canvases auto-print &amp; ship. You only ever touch a <b>commission</b> (the part that's actually your art). Marketing posts itself. That's the autopilot.</p>
+  </div>
+
+  <footer>Art For Love — Fulfilment &amp; Automation Blueprint · 18 Jun 2026 · pairs with <a href="artforlove-rebuild-strategy.html">Strategy</a>, <a href="artforlove-website-mockup.html">Mockup</a>, <a href="artforlove-etsy-kit.html">Etsy Kit</a>. ← <a href="index.html">Back to Nova Command Center</a></footer>
+</div>
+</body>
+</html>

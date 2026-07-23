@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artefacts Library · Nova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6fb;
+  --panel:#ffffff;
+  --panel-2:#f1efff;
+  --panel-3:#e9e5fb;
+  --border:#e4e0f0;
+  --border-soft:#f0eef7;
+  --text:#1a1530;
+  --text-dim:#5d5780;
+  --text-faint:#8b86a3;
+  --accent:#7c5cff;
+  --accent-strong:#5a3dd6;
+  --accent-soft:rgba(124,92,255,0.10);
+  --red:#dc2626;
+  --amber:#d97706;
+  --green:#059669;
+  --teal:#00b896;
+  --pink:#ff4d8d;
+  --shadow-card:0 1px 2px rgba(20,16,50,0.04), 0 4px 12px rgba(20,16,50,0.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.55;
+  font-size:15px;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent-strong);text-decoration:underline}
+.shell{max-width:1280px;margin:0 auto;padding:32px 24px 80px}
+
+/* Header */
+.head{
+  background:linear-gradient(135deg,#1a1530 0%,#2d2456 50%,#7c5cff 100%);
+  color:#fff;border-radius:24px;padding:36px 32px;margin-bottom:24px;
+  box-shadow:0 8px 32px rgba(124,92,255,0.25);
+}
+.head .crumb{font-size:12px;font-weight:600;letter-spacing:0.6px;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:10px}
+.head .crumb a{color:rgba(255,255,255,0.95)}
+.head h1{font-size:34px;font-weight:800;letter-spacing:-0.5px;margin-bottom:8px}
+.head .sub{font-size:15px;color:rgba(255,255,255,0.85);max-width:780px}
+.head .stats{display:flex;flex-wrap:wrap;gap:24px;margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.18)}
+.head .stat .num{font-size:22px;font-weight:800;color:#fff}
+.head .stat .lab{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:rgba(255,255,255,0.7)}
+
+/* Quick nav */
+.quick{
+  background:var(--panel);border:1px solid var(--border);border-radius:16px;
+  padding:18px 22px;margin-bottom:24px;box-shadow:var(--shadow-card);
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.quick .ql{font-size:11px;font-weight:700;letter-spacing:0.7px;text-transform:uppercase;color:var(--text-dim);margin-right:6px}
+.quick a{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:10px;background:var(--panel-2);
+  color:var(--text);font-size:13px;font-weight:600;
+  border:1px solid var(--border);transition:all 0.15s;
+}
+.quick a:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-strong);text-decoration:none}
+
+/* Sections */
+.section{
+  background:var(--panel);border:1px solid var(--border);border-radius:18px;
+  margin-bottom:22px;overflow:hidden;box-shadow:var(--shadow-card);
+}
+.section-head{
+  padding:22px 26px 16px;border-bottom:1px solid var(--border-soft);
+  display:flex;align-items:center;gap:14px;
+}
+.section-head .ico{
+  width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+.section-head h2{font-size:20px;font-weight:800;color:var(--text);margin-bottom:2px;letter-spacing:-0.2px}
+.section-head .desc{font-size:13px;color:var(--text-dim)}
+
+.row{
+  display:grid;grid-template-columns:1fr 320px;gap:16px;
+  padding:16px 26px;border-bottom:1px solid var(--border-soft);
+  align-items:center;
+}
+.row:last-child{border-bottom:none}
+.row:hover{background:var(--panel-2)}
+.row .info .name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.row .info .name .badge-new{font-size:10px;font-weight:700;letter-spacing:0.4px;background:var(--green);color:#fff;padding:2px 7px;border-radius:6px;text-transform:uppercase}
+.row .info .name .badge-hot{font-size:10px;font-weight:700;letter-spacing:0.4px;background:var(--red);color:#fff;padding:2px 7px;border-radius:6px;text-transform:uppercase}
+.row .info .name .badge-pin{font-size:10px;font-weight:700;letter-spacing:0.4px;background:var(--accent);color:#fff;padding:2px 7px;border-radius:6px;text-transform:uppercase}
+.row .info .desc{font-size:13px;color:var(--text-dim);line-height:1.5}
+.row .info .path{font-size:11px;color:var(--text-faint);font-family:'SF Mono',Menlo,Consolas,monospace;margin-top:4px;word-break:break-all}
+.row .links{display:flex;flex-direction:column;gap:6px}
+.row .links a{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:8px 14px;background:var(--panel-2);border:1px solid var(--border);
+  border-radius:9px;font-size:13px;font-weight:600;color:var(--text);
+  transition:all 0.15s;
+}
+.row .links a:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-strong);text-decoration:none}
+.row .links a.primary{background:var(--accent);color:#fff;border-color:var(--accent-strong)}
+.row .links a.primary:hover{background:var(--accent-strong);color:#fff}
+.row .links a.gh{background:#1a1530;color:#fff;border-color:#000}
+.row .links a.gh:hover{background:#000;color:#fff}
+
+/* Section accents */
+.sec-sec{border-left:4px solid var(--red)}
+.sec-sec .ico{background:rgba(220,38,38,0.10);color:var(--red)}
+.sec-tech .ico{background:var(--accent-soft);color:var(--accent)}
+.sec-inv{border-left:4px solid var(--green)}
+.sec-inv .ico{background:rgba(5,150,105,0.10);color:var(--green)}
+.sec-spec .ico{background:rgba(0,184,150,0.10);color:var(--teal)}
+.sec-mkt .ico{background:rgba(255,77,141,0.10);color:var(--pink)}
+.sec-ops .ico{background:rgba(217,119,6,0.10);color:var(--amber)}
+.sec-org .ico{background:rgba(37,99,235,0.10);color:#2563eb}
+.sec-mem .ico{background:var(--accent-soft);color:var(--accent)}
+.sec-code .ico{background:#1a1530;color:#fff}
+.sec-tender .ico{background:rgba(217,119,6,0.10);color:var(--amber)}
+
+@media (max-width:780px){
+  .row{grid-template-columns:1fr;gap:12px}
+  .row .links{flex-direction:row;flex-wrap:wrap}
+  .row .links a{flex:1 1 auto}
+  .head h1{font-size:26px}
+}
+
+footer{margin-top:40px;padding:22px;text-align:center;font-size:12px;color:var(--text-faint)}
+footer a{color:var(--text-dim)}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Header -->
+  <div class="head">
+    <div class="crumb">
+      <a href="index.html">← Nova Dashboard</a>
+      &nbsp;/&nbsp; Artefacts Library
+    </div>
+    <h1>📚 Artefacts Library</h1>
+    <p class="sub">Every key artefact across Neo-Klien Pty Ltd — security audits, technical specs, investor materials, marketing assets, operational dashboards, memory references, and code repos. Click any link to open the file directly.</p>
+    <div class="stats">
+      <div class="stat"><div class="num">10</div><div class="lab">Categories</div></div>
+      <div class="stat"><div class="num">60+</div><div class="lab">Artefacts</div></div>
+      <div class="stat"><div class="num">5</div><div class="lab">Businesses</div></div>
+      <div class="stat"><div class="num">~133k</div><div class="lab">LOC of code</div></div>
+      <div class="stat"><div class="num">0/0</div><div class="lab">Critical/High security findings</div></div>
+    </div>
+  </div>
+
+  <!-- Quick jump nav -->
+  <div class="quick">
+    <span class="ql">Jump to:</span>
+    <a href="#security">🛡️ Security</a>
+    <a href="#technical">📘 Technical</a>
+    <a href="#investor">💰 Investor</a>
+    <a href="#specs">📐 Specs</a>
+    <a href="#marketing">📣 Marketing</a>
+    <a href="#operations">⚙️ Operations</a>
+    <a href="#org">👥 People & Org</a>
+    <a href="#tender">🎯 NT Tender</a>
+    <a href="#memory">🧠 Memory</a>
+    <a href="#code">💻 Code</a>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SECURITY -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-sec" id="security">
+    <div class="section-head">
+      <div class="ico">🛡️</div>
+      <div>
+        <h2>Security & Audit</h2>
+        <div class="desc">RED-teamed 4 May 2026 · 0 critical · 0 high · Sprint 1 PRs raised same day</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Security Overview <span class="badge-new">NEW</span> <span class="badge-pin">READ FIRST</span></div>
+        <div class="desc">Master security index. Current posture snapshot, defensive controls inventory, document set map, audit cadence, open-items roadmap. Start here.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/SECURITY_OVERVIEW.md</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/SECURITY_OVERVIEW.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">RED Team Report — 4 May 2026 <span class="badge-new">NEW</span> <span class="badge-hot">QUOTABLE</span></div>
+        <div class="desc">Full white-box code review of ~133k LOC. OWASP ASVS L2 + API Top 10. 0 critical · 0 high · 3 moderate · 4 low · 2 info. Phase 2 internal sweep included. Defensible "independently red-teamed" claim for buyers/investors.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/SECURITY_RED_TEAM_REPORT_2026-05-04.md</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/SECURITY_RED_TEAM_REPORT_2026-05-04.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Security Audit Log</div>
+        <div class="desc">Living per-audit log. Run #1 (13 Apr — pre-launch) + Run #2 (4 May — RED Team) appended. Monthly checklist template included. Every audit appends here.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/SECURITY_AUDIT_LOG.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/SECURITY_AUDIT_LOG.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Security Playbook</div>
+        <div class="desc">Day-to-day operational security guidance. Read when deploying or onboarding a new dev.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/SECURITY_PLAYBOOK.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/SECURITY_PLAYBOOK.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Cyber Security Incident Response Playbook</div>
+        <div class="desc">Step-by-step response when something is on fire. Containment, eradication, recovery, post-mortem.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/CYBER_SECURITY_INCIDENT_RESPONSE_PLAYBOOK.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CYBER_SECURITY_INCIDENT_RESPONSE_PLAYBOOK.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Data Breach Response Plan</div>
+        <div class="desc">Notifiable Data Breach (Australian Privacy Act) workflow. 72-hour notification timeline + OAIC reporting steps.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/DATA_BREACH_RESPONSE_PLAN.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/DATA_BREACH_RESPONSE_PLAN.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">AI Workforce Governance Playbook</div>
+        <div class="desc">Rules for how AI agents (Claude/José/Nova) are allowed to act on the codebase. Tier 1/2/3 autonomy model.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/AI_WORKFORCE_GOVERNANCE_PLAYBOOK.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/AI_WORKFORCE_GOVERNANCE_PLAYBOOK.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Bitwarden Setup Guide</div>
+        <div class="desc">Credential vault setup + complete inventory. Source of truth for all secrets (NEVER in markdown).</div>
+        <div class="path">BookATreatment-AI/Technical Documents/BITWARDEN_SETUP_GUIDE.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/BITWARDEN_SETUP_GUIDE.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Sprint 1 Security PRs (GitHub)</div>
+        <div class="desc">Three Sprint 1 remediation PRs raised same day as RED Team audit. M-1 npm audit · M-3 Host header · L-4 Cloudflare Turnstile.</div>
+        <div class="path">github.com/brisbanehifu/booking-api/pull/{253,254,255}</div>
+      </div>
+      <div class="links">
+        <a class="gh" href="https://github.com/brisbanehifu/booking-api/pull/253" target="_blank">PR #253</a>
+        <a class="gh" href="https://github.com/brisbanehifu/booking-api/pull/254" target="_blank">PR #254</a>
+        <a class="gh" href="https://github.com/brisbanehifu/booking-api/pull/255" target="_blank">PR #255</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- TECHNICAL -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-tech" id="technical">
+    <div class="section-head">
+      <div class="ico">📘</div>
+      <div>
+        <h2>Technical Documents</h2>
+        <div class="desc">Engineering source-of-truth · build, deploy, architecture, runbook, configuration</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">INDEX <span class="badge-pin">START HERE</span></div>
+        <div class="desc">Single entry point for every technical, security, and governance document. Read first in any new session.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/INDEX.md</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/INDEX.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Implementation Status</div>
+        <div class="desc">What is actually built right now — verified against code, not memory claims. The antidote to "did we ship X?" drift.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/IMPLEMENTATION_STATUS.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/IMPLEMENTATION_STATUS.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Configuration Guide (v6.41)</div>
+        <div class="desc">Every env var, deployment step, Railway service, DNS record. Sanitised — NO credentials. Bumped to v6.41 on 26 May 2026: 4 same-day strict-protocol PRs (R1 #484 date filter · R2 #485 favicon · R3 #486 reschedule_link variable · R9 #487 duplicate-booking dedup) plus full backfill of PRs #460–#483 (multi-tenant isolation hardening · Build 54 app store fix · UI polish · finance/calendar/workflows). Includes new autonomous Railway-API serialize-check standing rule.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/CONFIGURATION_GUIDE.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/CONFIGURATION_GUIDE.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Architecture</div>
+        <div class="desc">How the system is shaped, what talks to what. Schema-vs-data split, admin URL patterns, multi-tenancy.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/ARCHITECTURE.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/ARCHITECTURE.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Runbook</div>
+        <div class="desc">"Alarm fired — what do I do?" On-call playbook for production incidents.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/RUNBOOK.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/RUNBOOK.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">APP HQ — Engineering Pulse <span class="badge-hot">DASHBOARD</span></div>
+        <div class="desc">Visual command-center for the app. Open in browser. Now includes the new Security Status banner at the top.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/APP_HQ.html</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/APP_HQ.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Mobile Apps Guide</div>
+        <div class="desc">Single-source guide for the 3 iOS apps. v1 Admin (TestFlight) · v2 Staff (TestFlight) · v3 Customer (paused, marketplace pivot).</div>
+        <div class="path">BookATreatment-AI/Technical Documents/MOBILE_APPS_GUIDE.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/MOBILE_APPS_GUIDE.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Payment Bulletproof Spec</div>
+        <div class="desc">Payment safety spec (15 competitor failures + controls). Documents the zero-commission architectural rule.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/PAYMENT_BULLETPROOF_SPEC.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/PAYMENT_BULLETPROOF_SPEC.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Legal Compliance Checklist</div>
+        <div class="desc">AHPRA, AU Privacy Act, GDPR, payment compliance.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/LEGAL_COMPLIANCE_CHECKLIST.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/LEGAL_COMPLIANCE_CHECKLIST.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">MYOB Security Compliance</div>
+        <div class="desc">MYOB integration security requirements. Read when working on accounting integrations.</div>
+        <div class="path">BookATreatment-AI/Technical Documents/MYOB_SECURITY_COMPLIANCE.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Technical%20Documents/MYOB_SECURITY_COMPLIANCE.md">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- INVESTOR -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-inv" id="investor">
+    <div class="section-head">
+      <div class="ico">💰</div>
+      <div>
+        <h2>Investor & Strategy</h2>
+        <div class="desc">Investment Pack · CEO deck · Financial governance · Competitor intelligence</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Master Investment Pack <span class="badge-pin">FLAGSHIP</span></div>
+        <div class="desc">The canonical investor deck — 2,600+ lines. Now includes RED Team callout block + expanded Security Architecture table.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/BookATreatment_Master_Investment_Pack.html</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/BookATreatment_Master_Investment_Pack.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">CEO Investment Dashboard</div>
+        <div class="desc">CEO-level investment dashboard. Now includes new Section 12a "Security & Trust Posture" with the defensible marketing claim.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/INVESTMENT_DASHBOARD.md</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/INVESTMENT_DASHBOARD.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Investment One-Pager</div>
+        <div class="desc">Tight one-page pitch summary for first-touch investor outreach.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/INVESTMENT_ONE_PAGER.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/INVESTMENT_ONE_PAGER.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Competitor Intelligence Report</div>
+        <div class="desc">Full competitive landscape — Fresha, Mindbody, Booksy, Cliniko, Timely, Vagaro, etc. Pricing, features, gaps.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/Competitor_Intelligence_Report.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/Competitor_Intelligence_Report.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Go-To-Market Plan</div>
+        <div class="desc">Launch strategy, channel mix, AppSumo arc, pricing, customer acquisition.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/GoToMarket_Plan.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/GoToMarket_Plan.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Daily Operations Dashboard</div>
+        <div class="desc">Investor-facing operations snapshot — daily KPIs, ARR, customer health.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/Daily_Operations_Dashboard.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/Daily_Operations_Dashboard.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Features & Benefits</div>
+        <div class="desc">Sales-ready feature list mapped to clinic-owner benefits. Used for pitch decks + landing copy.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/FEATURES_AND_BENEFITS.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/FEATURES_AND_BENEFITS.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Cashflow Year 1 (Excel)</div>
+        <div class="desc">Year 1 cashflow projection spreadsheet.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/BookATreatment_Cashflow_Year1.xlsx</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/BookATreatment_Cashflow_Year1.xlsx">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Business Plan v6 (PDF)</div>
+        <div class="desc">Latest business plan PDF — for formal investor / bank submissions.</div>
+        <div class="path">BookATreatment-AI/Investment Pack/BookATreatment-BusinessPlan-v6.pdf</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Investment%20Pack/BookATreatment-BusinessPlan-v6.pdf">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- SPECS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-spec" id="specs">
+    <div class="section-head">
+      <div class="ico">📐</div>
+      <div>
+        <h2>BAT.AI Specs</h2>
+        <div class="desc">Active build specs · launch playbooks · UAT plans</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">AppSumo Pitch Deck</div>
+        <div class="desc">AppSumo-specific pitch + vendor application materials. Locked launch strategy.</div>
+        <div class="path">BookATreatment-AI/Specs/APPSUMO_PITCH_DECK.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/APPSUMO_PITCH_DECK.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">AppSumo Launch Strategy</div>
+        <div class="desc">Launch arc — pre-launch, launch week, post-launch. AppSumo-specific tactics.</div>
+        <div class="path">BookATreatment-AI/Specs/APPSUMO_LAUNCH_STRATEGY.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/APPSUMO_LAUNCH_STRATEGY.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">P0 Pre-launch Spec</div>
+        <div class="desc">CORS + UTC timezone + Supplier Intelligence — locked 12 Apr 2026. The pre-launch must-fix list.</div>
+        <div class="path">BookATreatment-AI/Specs/P0_PRELAUNCH_SPEC.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/P0_PRELAUNCH_SPEC.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Marketplace v3 Spec</div>
+        <div class="desc">Customer app pivot — Fresha-style two-sided marketplace. Schema, API surface, phased rollout. Decision locked 27 Apr 2026.</div>
+        <div class="path">BookATreatment-AI/Specs/MARKETPLACE_V3_SPEC.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/MARKETPLACE_V3_SPEC.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Brisbane HIFU Workflow SMS Spec</div>
+        <div class="desc">10 customer-facing SMS templates dictated by Kim. Day 0 / aftercare / booking confirm / cancellation / reconfirm / Google Review / waiver / no-show.</div>
+        <div class="path">BookATreatment-AI/Specs/BRISBANE_HIFU_WORKFLOW_SMS_SPEC.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/BRISBANE_HIFU_WORKFLOW_SMS_SPEC.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Pretty Client URLs Spec</div>
+        <div class="desc">UUID → name-slug-3hex pattern. Documents the polymorphic backend lookup + auto-redirect.</div>
+        <div class="path">BookATreatment-AI/Specs/PRETTY_CLIENT_URLS_SPEC.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/PRETTY_CLIENT_URLS_SPEC.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Specs Folder (full)</div>
+        <div class="desc">Complete specs library — Accounting integration, Barcode scanning, Capacitor scaffolding, Client record enhancements, Consent forms, Contacts redesign, and many more.</div>
+        <div class="path">BookATreatment-AI/Specs/</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Specs/">Browse</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- MARKETING -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-mkt" id="marketing">
+    <div class="section-head">
+      <div class="ico">📣</div>
+      <div>
+        <h2>Marketing & Brand</h2>
+        <div class="desc">Brand alignment · Logos · Marketing Hub · Launch assets</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">BAT.AI Brand Alignment Reference <span class="badge-pin">BRAND LOCK</span></div>
+        <div class="desc">Colours (Teal #00E8B4, Coral #FF7A6E, Purple #9B3DFF, Hot Pink #F040C8), font (Plus Jakarta Sans max 800), logo rules. Read BEFORE any design work.</div>
+        <div class="path">BookATreatment-AI/Logos and Branding/BRAND_ALIGNMENT_REFERENCE.md</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Logos%20and%20Branding/BRAND_ALIGNMENT_REFERENCE.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Logos & Branding folder</div>
+        <div class="desc">All logo files, brand assets, alignment refs. Single source of truth for design assets.</div>
+        <div class="path">BookATreatment-AI/Logos and Branding/</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Logos%20and%20Branding/">Browse</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Marketing Hub folder</div>
+        <div class="desc">Marketing Hub strategy, content calendar, ad templates, copy library.</div>
+        <div class="path">BookATreatment-AI/Marketing Hub/</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/BookATreatment-AI/Marketing%20Hub/">Browse</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Marketing Command Centre</div>
+        <div class="desc">Nova-side marketing dashboard — content queue, social, ad spend tracking.</div>
+        <div class="path">Nova/Dashboard/marketing-command-centre.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/marketing-command-centre.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">G2 + Capterra Strategy</div>
+        <div class="desc">Review-site listing strategy. Playbook for getting listed and accumulating reviews on G2 + Capterra.</div>
+        <div class="path">Nova/Dashboard/g2-capterra-strategy.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/g2-capterra-strategy.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">HMS Lead-Gen Strategy</div>
+        <div class="desc">HIFU Machine Sales lead generation strategy + email sequence + conversion snippets.</div>
+        <div class="path">HMS-LeadGen-Strategy.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/HMS-LeadGen-Strategy.html">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- OPERATIONS -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-ops" id="operations">
+    <div class="section-head">
+      <div class="ico">⚙️</div>
+      <div>
+        <h2>Operations & Day-to-Day</h2>
+        <div class="desc">Active action cards · session handovers · operational dashboards</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Nova Command Center <span class="badge-pin">HOME</span></div>
+        <div class="desc">The dashboard you came from. Triage queue, drafts, tier filter, business filter.</div>
+        <div class="path">Nova/Dashboard/index.html</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/index.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">FBT Audit — Edge Navigators <span class="badge-hot">DUE 21 MAY</span></div>
+        <div class="desc">FY26 FBT questionnaire from Jason at Edge Navigators. Operating Cost (Logbook) method for both vehicles. 3 critical Q's open.</div>
+        <div class="path">Nova/Dashboard/fbt-audit-edge-navigators.html</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/fbt-audit-edge-navigators.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Session Update — 6 May 2026 PM <span class="badge-pin">LATEST</span></div>
+        <div class="desc">Brisbane HIFU perf push. 3 PRs shipped: #303 mobile description overflow + Stripe lazy, #310 calendar-click-to-book + client picker, #320 code-split (2.7 MB → 444 KB main bundle, 6× reduction). Issue #304 queued.</div>
+        <div class="path">Nova/Dashboard/session-update-06may2026-pm.html</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/session-update-06may2026-pm.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Session Handover — 5–6 May 2026 overnight</div>
+        <div class="desc">Overnight marathon. 10 PRs merged, 28 Brisbane HIFU service prices restored via direct DB UPDATE, GH Actions deploy infra still fragile (RAILWAY_PROD_TOKEN issue handed to Nova).</div>
+        <div class="path">Nova/Dashboard/session-handover-06may2026.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/session-handover-06may2026.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Session Handover — 4 May 2026 AM</div>
+        <div class="desc">5 standing rules pinned, current state of play, resume sequence. Read at session start.</div>
+        <div class="path">Nova/Dashboard/session-handover-04may2026.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/session-handover-04may2026.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Sent Items Scan — 60 Days (4 May)</div>
+        <div class="desc">Recent outgoing email scan across 4 inboxes. Patterns, threads in flight, follow-ups owed.</div>
+        <div class="path">Nova/Dashboard/sent-items-scan-04may.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/sent-items-scan-04may.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Brisbane HIFU Migration Checklist v2</div>
+        <div class="desc">52 Calendly URL migration checklist for the Calendly→BAT cutover. Hostinger Website Builder edit guide for Luci.</div>
+        <div class="path">Nova/Dashboard/migration-checklist-v2.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/migration-checklist-v2.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Email Approval Workflow v3</div>
+        <div class="desc">Latest email-approval flow design. How drafts move from Nova → Kim review → send.</div>
+        <div class="path">Nova/Dashboard/email-approval-workflow-v3.html</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/email-approval-workflow-v3.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">AMEX Monthly Reconciliation</div>
+        <div class="desc">Monthly personal + business AMEX reconciliation folder. Statements, reconciled CSVs, monthly totals JSON.</div>
+        <div class="path">Amex Monthly reconciliation/</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Amex%20Monthly%20reconciliation/">Browse</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Daily Briefings folder</div>
+        <div class="desc">Historical daily briefings (legacy — Nova now writes briefings into the dashboard, not standalone .md files).</div>
+        <div class="path">Daily-Briefings/</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Daily-Briefings/">Browse</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- ORG -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-org" id="org">
+    <div class="section-head">
+      <div class="ico">👥</div>
+      <div>
+        <h2>People & Organisation</h2>
+        <div class="desc">Org chart · co-director profile · external finance team · daughter/EA</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Org Chart — Neo-Klien <span class="badge-pin">CANONICAL</span></div>
+        <div class="desc">Mermaid flowchart. 9 people: Kim/Jeremy/Luci + Sai Tata + Bill Mallett (VDZ) + Jason+Carolay (Edge Navigators) + Janice (bookkeeper) + Nova reporting to Kim AND Jeremy. Structure: Neo-Klien → BAT.AI Software → BAT.AI product (sibling to 5 ops businesses).</div>
+        <div class="path">Nova/Dashboard/org-chart.html</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Nova/Dashboard/org-chart.html">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Jeremy Small — Co-Director Profile</div>
+        <div class="desc">Sales Director HIFU Machine Sales + after-sales support (Brisbane HIFU + cartridge logistics from China via DHL). Lane-mapping rules for routing.</div>
+        <div class="path">memory/jeremy_small_codirector_profile.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/jeremy_small_codirector_profile.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Luci Marano — Profile</div>
+        <div class="desc">Kim's daughter + EA across all 5 businesses + Brisbane HIFU Wed/Sat. Protégée — bite-sized skills transfer P3 action.</div>
+        <div class="path">memory/luci_marano_profile.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/luci_marano_profile.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">External Finance Team Profile</div>
+        <div class="desc">Jason Propelier (Edge Navigators accountant), Carolay Cubides (offsider), Janice Mahon (bookkeeper). Lane mapping for finance email routing.</div>
+        <div class="path">memory/external_finance_team_profile.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/external_finance_team_profile.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Edge Navigators Routing Rule</div>
+        <div class="desc">All accountant correspondence (Jason / Caro / admin@edgenavigators) lives only on neoklien.consulting@gmail.com. Cc Jeremy on substantive matters.</div>
+        <div class="path">memory/edge_navigators_routing_neoklien.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/edge_navigators_routing_neoklien.md">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- TENDER -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-tender" id="tender">
+    <div class="section-head">
+      <div class="ico">🎯</div>
+      <div>
+        <h2>NT Tender / TeamNEO</h2>
+        <div class="desc">PwC RFT0577 (3 categories shortlisted) · VDZ partnership · recruitment · candidate support</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">NT Tender folder</div>
+        <div class="desc">PwC RFT0577 — Engineering, ICT, Project Mgmt all SHORTLISTED. Partner: VDZ (Bill Mallett). Source: Nova/Tenders/INDEX.md.</div>
+        <div class="path">NT Tender/</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/NT%20Tender/">Browse</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Recruitment folder</div>
+        <div class="desc">Candidate sorting, HR, capability statement templates, candidate support materials.</div>
+        <div class="path">Recruitment/</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/Recruitment/">Browse</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">APPENDIX J — Capacity Capability Statement Template</div>
+        <div class="desc">NEO Capacity Capability Statement Resume template — used per candidate per role.</div>
+        <div class="path">APPENDIX J – NEO – Capacity Capability Statement Resume … .docx</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/APPENDIX%20J%20%E2%80%93%20NEO%20-%20Capacity%20Capability%20Statement%20Resume%20-%20insert%20lvl%20-%20insert%20role%20name%20-%20insert%20candidate%20name.docx">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- MEMORY -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-mem" id="memory">
+    <div class="section-head">
+      <div class="ico">🧠</div>
+      <div>
+        <h2>Memory & Reference</h2>
+        <div class="desc">Persistent memory · feedback rules · cross-session reference docs</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">MEMORY.md (Index)</div>
+        <div class="desc">The persistent-memory index. Read first in any new session. Standing rules + reference docs + recent handovers.</div>
+        <div class="path">.claude/projects/.../memory/MEMORY.md</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/MEMORY.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">RED Team Code Audit (memory) <span class="badge-new">NEW</span></div>
+        <div class="desc">Persistent memory entry tracking the 4 May 2026 RED Team audit + Sprint 1/2/3 backlog. Links to the full report.</div>
+        <div class="path">memory/red_team_code_audit.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/red_team_code_audit.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Email Accounts Landscape</div>
+        <div class="desc">4 Titan + 8 Gmail + 1 Outlook. Custom titan-mcp at C:\titan-mcp\ (4 tags: support/hello/kimklein/md).</div>
+        <div class="path">memory/email_accounts_landscape.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/email_accounts_landscape.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Kim's Email Writing-Style Profile</div>
+        <div class="desc">Voice, sign-off, signature anatomy, drafting rules. Built from md@teamneo.tech sent items.</div>
+        <div class="path">memory/kim_writing_style_profile.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/kim_writing_style_profile.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Cloud + AI Infrastructure Landscape</div>
+        <div class="desc">Cloudflare DNS proxy state per record + Railway + Vercel + Hostinger Builder + Titan + Resend + ClickSend + Stripe + AWS S3 + MCPs + decision matrix.</div>
+        <div class="path">memory/cloud_infrastructure_landscape.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/cloud_infrastructure_landscape.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Dashboard-First Rule (no MD briefings)</div>
+        <div class="desc">Kim's standing rule — briefings, drafts, status, calendar, email triage all live in the Nova Dashboard, not .md files. Locked 4 May 2026 AM.</div>
+        <div class="path">memory/feedback_no_md_dashboard_first.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_no_md_dashboard_first.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">CLI Ownership Rule</div>
+        <div class="desc">Run everything from your side — Kim is juggling enough. If Claude can do it via Bash/gh/Railway, Claude does it. Locked 28 Apr 2026.</div>
+        <div class="path">memory/feedback_cli_ownership.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/feedback_cli_ownership.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">BAT.AI Brand Lock Rule</div>
+        <div class="desc">Brand-alignment standing rule. Read brand reference BEFORE any design/content/marketing work. Locked 4 May 2026.</div>
+        <div class="path">memory/bat_brand_alignment_lock.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/bat_brand_alignment_lock.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Memory folder (full)</div>
+        <div class="desc">All persistent memory files — feedback rules, profiles, session handovers, reference docs.</div>
+        <div class="path">.claude/projects/.../memory/</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/.claude/projects/C--Users-kimkl-OneDrive-Documents-Claude/memory/">Browse</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────── -->
+  <!-- CODE -->
+  <!-- ─────────────────────────────────────────────────────── -->
+  <div class="section sec-code" id="code">
+    <div class="section-head">
+      <div class="ico">💻</div>
+      <div>
+        <h2>Code Repos</h2>
+        <div class="desc">Live code (133k LOC) · GitHub · local working tree</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">booking-api (BAT.AI monorepo) <span class="badge-pin">PROD</span></div>
+        <div class="desc">~133k LOC. Backend (Node/Express + MySQL) + Frontend (React + Vite + TypeScript + Tailwind) + Capacitor mobile. Branch: main. CLAUDE.md at root for build context.</div>
+        <div class="path">booking-api/</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/booking-api/">Open local</a>
+        <a class="gh" href="https://github.com/brisbanehifu/booking-api" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">CLAUDE.md (booking-api build brief)</div>
+        <div class="desc">Coworker brief for Claude Code. Read at every session start. Repo structure, runbook, common issues, env-var table.</div>
+        <div class="path">booking-api/CLAUDE.md</div>
+      </div>
+      <div class="links">
+        <a href="file:///C:/Users/kimkl/OneDrive/Documents/Claude/booking-api/CLAUDE.md">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Open PRs (GitHub)</div>
+        <div class="desc">Live list of open pull requests on the booking-api repo. Sprint 1 security PRs #253/#254/#255 are at the top.</div>
+        <div class="path">github.com/brisbanehifu/booking-api/pulls</div>
+      </div>
+      <div class="links">
+        <a class="gh" href="https://github.com/brisbanehifu/booking-api/pulls" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Production app (live)</div>
+        <div class="desc">Brisbane HIFU production booking app. Hosted on Railway, fronted by Cloudflare/Fastly.</div>
+        <div class="path">app.bookatreatment.ai</div>
+      </div>
+      <div class="links">
+        <a class="primary" href="https://app.bookatreatment.ai" target="_blank">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Demo app</div>
+        <div class="desc">Demo tenant on the same Railway project (DEMO_MODE=true). Used for sales demos + UAT.</div>
+        <div class="path">demo.bookatreatment.ai</div>
+      </div>
+      <div class="links">
+        <a href="https://demo.bookatreatment.ai" target="_blank">Open</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info">
+        <div class="name">Marketing site (Lovable)</div>
+        <div class="desc">Public marketing site at bookatreatment.ai (apex). Hosted on Lovable.</div>
+        <div class="path">bookatreatment.ai</div>
+      </div>
+      <div class="links">
+        <a href="https://bookatreatment.ai" target="_blank">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Maintained by Kim Klein / Neo-Klien Pty Ltd. Last updated 4 May 2026 PM.<br>
+    <a href="index.html">← Back to Nova Dashboard</a>
+  </footer>
+
+</div>
+</body>
+</html>
